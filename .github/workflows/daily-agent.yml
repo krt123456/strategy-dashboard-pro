@@ -2,9 +2,8 @@ name: Daily Prediction Agent
 
 on:
   schedule:
-    # 08:00 UTC every day = 09:00 Algeria time
     - cron: '0 8 * * *'
-  workflow_dispatch: # Manual trigger
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -25,43 +24,41 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install lightgbm scikit-learn pandas numpy scipy requests
-          pip install flask beautifulsoup4 pyyaml
+          pip install lightgbm scikit-learn pandas numpy scipy requests beautifulsoup4 pyyaml
 
-      - name: Fetch fresh basketball data
-        run: |
-          python scripts/fresh_data.py || echo "data fetch partial"
+      - name: Create directories
+        run: mkdir -p reports data/raw
+
+      - name: Fetch fresh data
+        run: python scripts/fresh_data.py || echo "data fetch partial"
 
       - name: Run multi-strategy agent
-        run: |
-          python scripts/multi_strategy_agent.py
+        run: python scripts/multi_strategy_agent.py
 
-      - name: Run daily agent (1xBet linefeed + results)
+      - name: Run daily agent
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
-        run: |
-          python scripts/daily_agent.py
+        run: python scripts/daily_agent.py || echo "daily agent partial"
 
-      - name: Check yesterday results
+      - name: Check results
         run: |
           YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)
-          python scripts/check_results.py --date "$YESTERDAY" || echo "results check partial"
+          python scripts/check_results.py --date "$YESTERDAY" || echo "results partial"
 
-      - name: Generate daily report
-        run: |
-          python scripts/generate_report.py > reports/daily_report_$(date +%Y-%m-%d).md
+      - name: Generate report
+        run: python scripts/generate_report.py > reports/daily_report_$(date +%Y-%m-%d).md || echo "report partial"
 
       - name: Commit results
         run: |
           git config user.name "Strategy Bot"
           git config user.email "bot@strategy.local"
-          git add data/betting_journal.db reports/
-          git commit -m "Daily agent $(date +%Y-%m-%d)" || echo "nothing to commit"
-          git push
+          git add data/betting_journal.db reports/ 2>/dev/null || true
+          git commit -m "📊 Daily agent $(date +%Y-%m-%d)" || echo "nothing to commit"
+          git push || echo "push skipped"
 
-      - name: Upload journal artifact
+      - name: Upload journal
         uses: actions/upload-artifact@v4
         with:
-          name: betting-journal
+          name: betting-journal-$(date +%Y-%m-%d)
           path: data/betting_journal.db
           retention-days: 90
