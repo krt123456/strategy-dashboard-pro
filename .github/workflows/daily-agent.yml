@@ -1,0 +1,67 @@
+name: Daily Prediction Agent
+
+on:
+  schedule:
+    # 08:00 UTC every day = 09:00 Algeria time
+    - cron: '0 8 * * *'
+  workflow_dispatch: # Manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  run-agent:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install lightgbm scikit-learn pandas numpy scipy requests
+          pip install flask beautifulsoup4 pyyaml
+
+      - name: Fetch fresh basketball data
+        run: |
+          python scripts/fresh_data.py || echo "data fetch partial"
+
+      - name: Run multi-strategy agent
+        run: |
+          python scripts/multi_strategy_agent.py
+
+      - name: Run daily agent (1xBet linefeed + results)
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+        run: |
+          python scripts/daily_agent.py
+
+      - name: Check yesterday results
+        run: |
+          YESTERDAY=$(date -d "yesterday" +%Y-%m-%d)
+          python scripts/check_results.py --date "$YESTERDAY" || echo "results check partial"
+
+      - name: Generate daily report
+        run: |
+          python scripts/generate_report.py > reports/daily_report_$(date +%Y-%m-%d).md
+
+      - name: Commit results
+        run: |
+          git config user.name "Strategy Bot"
+          git config user.email "bot@strategy.local"
+          git add data/betting_journal.db reports/
+          git commit -m "Daily agent $(date +%Y-%m-%d)" || echo "nothing to commit"
+          git push
+
+      - name: Upload journal artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: betting-journal
+          path: data/betting_journal.db
+          retention-days: 90
