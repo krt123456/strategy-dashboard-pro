@@ -1,0 +1,15 @@
+Loaded 12942 matches from /home/runner/work/strategy-dashboard-pro/strategy-dashboard-pro/data/basketball_betexplorer_backtest.csv
+Backtesting 8 candidate strategies on a flat 1-unit stake at market-implied odds (min 50 bets to qualify):
+
+Strategy                     Bets   Wins    Win%    Profit     ROI%  Verdict
+----------------------------------------------------------------------------------
+contrarian_home_coinflip     1461    722   49.4%      74.3     5.1%  PROMOTE  *
+market_strong_plus           4643   4099   88.3%     189.4     4.1%  PROMOTE  *
+away_dominant                1856   1571   84.6%      69.1     3.7%  PROMOTE  *
+market_extreme               3394   3080   90.7%     121.5     3.6%  PROMOTE  *
+clear_favorite               8822   7024   79.6%     272.3     3.1%  PROMOTE  *
+home_market_favorite         6678   5231   78.3%     196.2     2.9%  PROMOTE  *
+moderate_home_favorite       2801   1891   67.5%      51.9     1.9%  PROMOTE  *
+value_away_underdog          2943   1157   39.3%    -176.6    -6.0%  cut
+
+7 strategy/strategies beat the market on this dataset.
