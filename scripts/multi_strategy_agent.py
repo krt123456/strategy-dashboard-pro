@@ -386,6 +386,61 @@ def fetch_espn_scores() -> list[dict]:
 # تشغيل كل الاستراتيجيات على مباريات كرة السلة
 # ═══════════════════════════════════════════════════════════════════════════
 
+def _load_winning_variants() -> list:
+    """حمّل النسخ الفائزة من strategy_variant_generator (محرّك التطوّر)."""
+    path = PROJECT_DIR / "data" / "winning_variants.json"
+    if not path.exists():
+        return []
+    try:
+        import json
+        return json.loads(path.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+
+WINNING_VARIANTS = _load_winning_variants()
+
+
+def _apply_variant(variant: dict, home: str, away: str, mph: float, mpa: float) -> Optional[dict]:
+    """طبّق قاعدة نسخة فائزة على مباراة وأرجع توقعاً أو None."""
+    p = variant.get("params", {})
+    side = None
+    if "threshold" in p:
+        t = p["threshold"]
+        if mph >= t:
+            side = "home"
+        elif mpa >= t:
+            side = "away"
+    elif "margin" in p:
+        mg = p["margin"]
+        if mph - mpa >= mg:
+            side = "home"
+        elif mpa - mph >= mg:
+            side = "away"
+    elif "lo" in p and "hi" in p:
+        lo, hi = p["lo"], p["hi"]
+        # home-band variants (base in home/contrarian/moderate families) vs away-band
+        if variant.get("base") == "away_dominant":
+            if lo <= mpa <= hi:
+                side = "away"
+        else:
+            if lo <= mph <= hi:
+                side = "home"
+    if side is None:
+        return None
+    prob = mph if side == "home" else mpa
+    market_odds = 1.0 / max(prob, 0.01)
+    return {
+        "pick": home if side == "home" else away,
+        "model_prob": round(prob, 4),
+        "odds_at_prediction": round(market_odds, 2),
+        "strategy": variant["name"],
+        "source": "variant_evolution",
+        "confidence": "B",
+        "notes": f"{variant['name']} ({variant.get('base')}) backtest ROI {variant.get('backtest_roi',0):+.1f}%",
+    }
+
+
 def run_all_strategies(target_date: date) -> int:
     """يشغّل كل الاستراتيجيات على مباريات اليوم ويسجّلها."""
     import pickle
@@ -452,8 +507,9 @@ def run_all_strategies(target_date: date) -> int:
         cal_prob = float(model.predict_proba(X)[0, 1])
 
         # Run ALL strategies
+        # ملاحظة خبير: aggressive/balanced/conservative أُسقطت (27% فوز < أساس 59% = anti-edge).
+        # lightgbm_calibrated معطّلة مؤقتاً (تُغذّى بميزات hardcoded → 25% دقة) حتى تُحسب ميزات حقيقية.
         strategies = [
-            ("lightgbm", lambda: strategy_lightgbm_calibrated(cal_prob, home, away, mph, mpa)),
             ("pure_elo", lambda: strategy_pure_elo(home, away, elo_snap)),
             ("market_strong", lambda: strategy_market_filter(home, away, mph, mpa)),
             ("elo_agree", lambda: strategy_elo_market_agreement(home, away, mph, mpa, elo_snap)),
@@ -479,6 +535,23 @@ def run_all_strategies(target_date: date) -> int:
                 result["home"] = home
                 result["away"] = away
                 all_picks.append(result)
+
+        # استراتيجيات النسخ المُطوّرة (من strategy_variant_generator) — محرّك التطوّر
+        # بُعد المصادر: كل نسخة تعمل على رأيين مستقلين (market + elo) = بطولة مصادر
+        elo_home = 1.0 / (1.0 + 10.0 ** ((ae - he - 65.0) / 400.0))
+        elo_away = 1.0 - elo_home
+        for variant in WINNING_VARIANTS:
+            for src_name, s_ph, s_pa in (("src_market", mph, mpa), ("src_elo", elo_home, elo_away)):
+                vpick = _apply_variant(variant, home, away, s_ph, s_pa)
+                if vpick:
+                    vpick["match_date"] = str(match_date)
+                    vpick["sport"] = "basketball"
+                    vpick["league"] = league
+                    vpick["home"] = home
+                    vpick["away"] = away
+                    vpick["source"] = src_name
+                    vpick["strategy"] = f"{variant['name']}__{src_name}"
+                    all_picks.append(vpick)
 
     # Record all picks
     db = PROJECT_DIR / "data" / "betting_journal.db"
@@ -516,7 +589,8 @@ def run_all_strategies(target_date: date) -> int:
     for p in all_picks:
         by_strat[p["strategy"]] += 1
 
-    print(f"\n  📊 {len(all_picks)} توقع من 14 استراتيجية (7 أصلية + 7 جديدة بالباك تاست):")
+    print(f"\n  📊 {len(all_picks)} توقع من {7 + 7 + len(WINNING_VARIANTS)} استراتيجية "
+          f"(7 أصلية + 7 باك تاست + {len(WINNING_VARIANTS)} نسخة مُطوّرة):")
     for strat, count in sorted(by_strat.items(), key=lambda x: -x[1]):
         print(f"    {strat}: {count}")
     print(f"  مسجّل جديد: {recorded}")

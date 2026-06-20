@@ -94,10 +94,21 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
     print(f"Running {len(variants)} variants x {len(fixtures)} fixtures "
           f"({len({f['source'] for f in fixtures})} sources)...")
 
+    # الاستراتيجيات الخبيرة الواعية بالـ vig (من expert_strategies.py + reports/strategy_intelligence.md)
+    try:
+        import expert_strategies as ex
+        expert_fns = {
+            "coinflip_home_premium": ex.coinflip_home_premium,
+            "thick_edge_favorite": ex.thick_edge_favorite,
+        }
+    except Exception:
+        expert_fns = {}
+
     picks: List[dict] = []
     seen = set()
     for f in fixtures:
         hp, ap = f["home_prob"], f["away_prob"]
+        # parameter-sweep variants (probability rules)
         for v in variants:
             side = apply_variant(v.get("params", {}), v.get("base", ""), hp, ap)
             if side is None:
@@ -120,10 +131,30 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
                 "notes": f"{v['name']} via {f['source']} (backtest ROI {v.get('backtest_roi',0):+.1f}%)",
             }
             k = dedupe_key(pick)
-            if k in seen:
+            if k not in seen:
+                seen.add(k)
+                picks.append(pick)
+
+        # expert vig-aware strategies (need raw bookmaker odds)
+        ho = 1.0 / max(hp, 0.01)
+        ao = 1.0 / max(ap, 0.01)
+        for ename, efn in expert_fns.items():
+            try:
+                r = efn(f["home"], f["away"], ho, ao)
+            except Exception:
+                r = None
+            if not r:
                 continue
-            seen.add(k)
-            picks.append(pick)
+            r["match_date"] = f.get("date") or target
+            r["sport"] = _normalize_sport(f.get("sport", ""))
+            r["league"] = f.get("league", "")
+            r["home"] = f["home"]
+            r["away"] = f["away"]
+            r["strategy"] = f"{ename}__{f['source']}"
+            k = dedupe_key(r)
+            if k not in seen:
+                seen.add(k)
+                picks.append(r)
 
     # persist to betting_journal.db
     conn = sqlite3.connect(DB_PATH)
