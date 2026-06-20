@@ -7,6 +7,8 @@ on:
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
   run-agent:
@@ -86,3 +88,30 @@ jobs:
           name: betting-journal-$(date +%Y-%m-%d)
           path: data/betting_journal.db
           retention-days: 90
+
+      - name: Build dashboard PWA
+        run: python scripts/build_dashboard.py || echo "dashboard build partial"
+
+      - name: Commit dashboard
+        run: |
+          git add dashboard/ 2>/dev/null || true
+          git commit -m "📱 Dashboard $(date +%Y-%m-%d)" || echo "no dashboard changes"
+          git push || echo "push skipped"
+
+  deploy-pages:
+    needs: run-agent
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+      - name: Upload dashboard artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dashboard/
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

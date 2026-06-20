@@ -1,0 +1,19 @@
+{
+  "name": "Strategy Pro — استراتيجي برو",
+  "short_name": "Strategy Pro",
+  "description": "Professional betting strategy prediction dashboard",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b1220",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
