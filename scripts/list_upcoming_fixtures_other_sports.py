@@ -1,0 +1,220 @@
+#!/usr/bin/env python3
+"""Fetch upcoming fixtures for non-football sports from BetExplorer (no API)."""
+from __future__ import annotations
+
+import argparse
+import csv
+import re
+import time
+from datetime import date, datetime, timedelta
+from html import unescape
+from pathlib import Path
+from typing import Dict, List, Optional
+
+try:
+    import requests  # type: ignore
+except Exception as exc:  # pragma: no cover
+    raise SystemExit("Missing dependency: requests. Install with: pip install requests") from exc
+
+
+UA = "Mozilla/5.0 (compatible; FixturesFetcher/1.0)"
+
+SPORT_URLS = {
+    "basketball": "https://www.betexplorer.com/basketball/fixtures/",
+    "hockey": "https://www.betexplorer.com/hockey/fixtures/",
+    "tennis": "https://www.betexplorer.com/tennis/fixtures/",
+}
+
+
+def _get(url: str, timeout_s: int = 45, retries: int = 2, sleep_s: float = 0.8) -> str | None:
+    for attempt in range(retries + 1):
+        try:
+            resp = requests.get(url, headers={"User-Agent": UA}, timeout=timeout_s)
+            if resp.status_code != 200:
+                return None
+            return resp.text
+        except requests.RequestException:
+            if attempt >= retries:
+                return None
+            time.sleep(sleep_s)
+    return None
+
+
+def _parse_date(text: str) -> str | None:
+    text = text.strip()
+    today = date.today()
+    if not text or text == "&nbsp;":
+        return None
+    lowered = text.lower()
+    if lowered.startswith("today"):
+        return today.isoformat()
+    if lowered.startswith("tomorrow"):
+        return (today + timedelta(days=1)).isoformat()
+    text = text.split(" ")[0]
+    m = re.match(r"(\d{2})\.(\d{2})\.(\d{4})", text)
+    if m:
+        d, mn, y = map(int, m.groups())
+        return date(y, mn, d).isoformat()
+    m = re.match(r"(\d{2})\.(\d{2})\.", text)
+    if m:
+        d, mn = map(int, m.groups())
+        return date(today.year, mn, d).isoformat()
+    return None
+
+
+def parse_fixtures(html: str) -> List[Dict[str, str]]:
+    rows = re.findall(r"<tr>(.*?)</tr>", html, re.DOTALL)
+    fixtures: List[Dict[str, str]] = []
+    last_date: Optional[str] = None
+    for row in rows:
+        if "in-match" not in row:
+            continue
+        date_match = re.search(r'table-main__datetime">([^<]+)<', row)
+        date_iso = None
+        if date_match:
+            date_iso = _parse_date(unescape(date_match.group(1)))
+        if not date_iso:
+            date_iso = last_date
+        if not date_iso:
+            continue
+        last_date = date_iso
+
+        link_match = re.search(r'class="in-match"[^>]*>(.*?)</a>', row, re.DOTALL)
+        if not link_match:
+            continue
+        link_html = link_match.group(1)
+        spans = re.findall(r"<span[^>]*>(.*?)</span>", link_html, re.DOTALL)
+        teams = [re.sub(r"<[^>]+>", "", s).strip() for s in spans]
+        teams = [t for t in teams if t]
+        if len(teams) < 2:
+            continue
+
+        odds = re.findall(r'data-odd="([0-9.]+)"', row)
+        odd1 = odds[0] if len(odds) >= 1 else ""
+        odd2 = odds[1] if len(odds) >= 2 else ""
+        odd3 = odds[2] if len(odds) >= 3 else ""
+
+        fixtures.append(
+            {
+                "Date": date_iso,
+                "HomeTeam": teams[0],
+                "AwayTeam": teams[1],
+                "Odd1": odd1,
+                "Odd2": odd2,
+                "Odd3": odd3,
+            }
+        )
+    if fixtures:
+        return fixtures
+
+    # Newer BetExplorer markup (li-based, data-dt + participant blocks).
+    starts = [m.start() for m in re.finditer(r'data-event-id=\"', html)]
+    if not starts:
+        return fixtures
+    starts.append(len(html))
+    for idx in range(len(starts) - 1):
+        block = html[starts[idx] : starts[idx + 1]]
+        dt = re.search(r'data-dt=\"(\d{1,2}),(\d{1,2}),(\d{4}),(\d{1,2}),(\d{2})\"', block)
+        if not dt:
+            continue
+        day, month, year, hour, minute = map(int, dt.groups())
+        date_iso = date(year, month, day).isoformat()
+
+        names = re.findall(r"<p[^>]*table-main__truncate[^>]*>(.*?)</p>", block, re.DOTALL)
+        teams = [re.sub(r"<[^>]+>", "", unescape(n)).strip() for n in names]
+        teams = [t for t in teams if t]
+        if len(teams) < 2:
+            continue
+
+        odds = re.findall(r'data-odd=\"([0-9.]+)\"', block)
+        odd1 = odds[0] if len(odds) >= 1 else ""
+        odd2 = odds[1] if len(odds) >= 2 else ""
+        odd3 = odds[2] if len(odds) >= 3 else ""
+
+        fixtures.append(
+            {
+                "Date": date_iso,
+                "HomeTeam": teams[0],
+                "AwayTeam": teams[1],
+                "Odd1": odd1,
+                "Odd2": odd2,
+                "Odd3": odd3,
+            }
+        )
+    return fixtures
+
+
+def within_range(date_iso: str, start: date, end: date) -> bool:
+    try:
+        d = datetime.fromisoformat(date_iso).date()
+    except Exception:
+        return False
+    return start <= d <= end
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--start", default="")
+    ap.add_argument("--end", default="")
+    ap.add_argument("--days-ahead", type=int, default=3)
+    ap.add_argument("--out-csv", default="")
+    ap.add_argument("--out-md", default="")
+    args = ap.parse_args()
+
+    if args.start and args.end:
+        start_date = datetime.strptime(args.start, "%Y-%m-%d").date()
+        end_date = datetime.strptime(args.end, "%Y-%m-%d").date()
+    else:
+        start_date = date.today()
+        end_date = start_date + timedelta(days=args.days_ahead)
+
+    rows: List[Dict[str, str]] = []
+    for sport, url in SPORT_URLS.items():
+        html = _get(url)
+        if not html:
+            continue
+        fixtures = parse_fixtures(html)
+        for fix in fixtures:
+            if not fix.get("Date") or not within_range(fix["Date"], start_date, end_date):
+                continue
+            rows.append(
+                {
+                    "Sport": sport,
+                    "Date": fix["Date"],
+                    "Home": fix["HomeTeam"],
+                    "Away": fix["AwayTeam"],
+                    "Odd1": fix.get("Odd1", ""),
+                    "Odd2": fix.get("Odd2", ""),
+                    "Odd3": fix.get("Odd3", ""),
+                    "Source": "betexplorer",
+                }
+            )
+
+    rows.sort(key=lambda r: (r["Sport"], r["Date"], r["Home"]))
+    out_csv = Path(args.out_csv) if args.out_csv else Path(f"reports/upcoming_fixtures_other_{start_date}_{end_date}.csv")
+    out_md = Path(args.out_md) if args.out_md else Path(f"reports/upcoming_fixtures_other_{start_date}_{end_date}.md")
+    out_csv.parent.mkdir(parents=True, exist_ok=True)
+
+    with out_csv.open("w", encoding="utf-8", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=["Sport", "Date", "Home", "Away", "Odd1", "Odd2", "Odd3", "Source"])
+        writer.writeheader()
+        writer.writerows(rows)
+
+    lines = [
+        "# Upcoming fixtures (other sports)",
+        f"- Range: {start_date.isoformat()} to {end_date.isoformat()}",
+        f"- Total fixtures: {len(rows)}",
+        "",
+        "| Sport | Date | Home | Away | Source |",
+        "| --- | --- | --- | --- | --- |",
+    ]
+    for row in rows:
+        lines.append(f"| {row['Sport']} | {row['Date']} | {row['Home']} | {row['Away']} | {row['Source']} |")
+
+    out_md.write_text("\n".join(lines), encoding="utf-8")
+    print(f"Wrote {out_md} and {out_csv}")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
