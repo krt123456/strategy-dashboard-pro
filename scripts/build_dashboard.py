@@ -145,7 +145,10 @@ def gather(today: str) -> dict:
             "disabled": strat in DISABLED_BASES or any(strat.startswith(b + "__") for b in DISABLED_BASES)
             or strat in DISABLED_BASES,
         })
-        strat_matches[strat] = items
+        strat_matches[strat] = [{"d": x["date"], "s": x["sport"], "h": x["home"],
+                                 "a": x["away"], "p": x["pick"], "o": x["odds"],
+                                 "w": x["won"], "hs": x["hs"], "as": x["as"], "f": x["fp"]}
+                                for x in items[-10:]]  # آخر 10 مباريات لكل استراتيجية (يكفي للعرض)
 
     # today's picks (actionable)
     today_picks = []
@@ -184,13 +187,24 @@ def gather(today: str) -> dict:
     tot_wins = sum(s["wins"] for s in strategies)
     tot_profit = round(sum(s["profit"] for s in strategies), 2)
 
-    # عدّاد رهانات اليوم الكلّي لكل استراتيجية (من كل today_picks قبل قص العرض)
+    # عدّاد رهانات اليوم + رهانات لكل أساس استراتيجية (مرة واحدة لتفادي التكرار)
     today_counts: dict = {}
+    today_by_base: dict = {}
     for p in today_picks:
         st = p["strategy"]
         today_counts[st] = today_counts.get(st, 0) + 1
+        base = st.split("__")[0]
+        today_by_base.setdefault(base, []).append({
+            "h": p["home"], "a": p["away"], "p": p["pick"], "o": p["odds"],
+            "s": p["sport"], "lg": (p["league"] or "")[:18], "pay": p["pay10"],
+        })
+    # لكل أساس: خزّن أفضل 8 رهانات مرّة واحدة
+    today_by_base_slim = {b: sorted(lst, key=lambda x: -x["o"])[:8]
+                          for b, lst in today_by_base.items()}
     for s in strategies:
-        s["today_bets"] = today_counts.get(s["name"], 0)
+        base = s["name"].split("__")[0]
+        s["today_bets"] = len(today_by_base.get(base, []))
+    today_by_base.clear()
 
     conn.close()
     return {
@@ -201,6 +215,7 @@ def gather(today: str) -> dict:
         "best": best,
         "strategies": sorted(strategies, key=lambda s: s["trust"], reverse=True),
         "strat_map": {s["name"]: s for s in strategies},
+        "today_by_base": today_by_base_slim,
         "matches": strat_matches,
         "picks": today_picks[:30],
     }
@@ -371,11 +386,11 @@ function stratCard(s){const up=s.bankroll>=100;const sk=s.streakKind==='w'?`<spa
  <div class="rec">${Math.round(s.wins/s.bets*100)}% ${t('winrate')}</div>
  ${s.today_bets?`<div class="rec" style="color:var(--gold)">🎯 ${s.today_bets} ${t('todayB')}</div>`:''}</div></div>
  ${sparkline(s.spark,200,26)}<div class="foot"><span>${t('tapHint')}</span><span>avg ${s.avg_odds}</span></div></div>`}
-function matchRow(m){const isHome=m.pick===m.home;const opp=isHome?m.away:m.home;
+function matchRow(m){const isHome=m.p===m.h;const opp=isHome?m.a:m.h;
  return`<div class="mrow"><div class="top"><div class="teams">
- <span class="${isHome?'mypick':'opp'}">${m.home}</span> <span class="opp">vs</span> <span class="${!isHome?'mypick':'opp'}">${m.away}</span></div>
- <div class="od">${m.odds}</div></div>
- <div class="meta"><span>${m.date} · ${m.sport}</span><span><span class="pill ${m.won?'w':'l'}">${m.won?t('won'):t('lost')}</span> <span class="score">${m.hs}-${m.as}</span> ${sign(m.fp)}</span></div></div>`}
+ <span class="${isHome?'mypick':'opp'}">${m.h}</span> <span class="opp">vs</span> <span class="${!isHome?'mypick':'opp'}">${m.a}</span></div>
+ <div class="od">${m.o}</div></div>
+ <div class="meta"><span>${m.d||''} · ${m.s||''}</span><span><span class="pill ${m.w?'w':'l'}">${m.w?t('won'):t('lost')}</span> <span class="score">${m.hs}-${m.as}</span> ${sign(m.f)}</span></div></div>`}
 function render(){
  const h=D.headline,a=$('#app');let x='';
  if(view==='home'){
@@ -415,7 +430,7 @@ function render(){
    <div style="font-size:11px;color:var(--acc);margin-top:5px">💡 ${lang=='ar'?p.rat_ar:p.rat_en}</div>
    ${p.real?`<div class="bg risk-safe" style="margin-top:5px;display:inline-block">✓ ${t('real')}</div>`:''}</div>`}).join(''):`<div class="empty">${t('noData')}</div>`;
  }else if(view==='history'){x+=`<div class="sec">📜 ${t('historyLog')}</div><div class="scard">`;
-  const all=Object.entries(D.matches).flatMap(([n,ms])=>ms.map(m=>({...m,s:n}))).sort((a,b)=>(b.date||'').localeCompare(a.date||''));
+ const all=Object.entries(D.matches).flatMap(([n,ms])=>ms.map(m=>({...m,s:n}))).sort((a,b)=>(b.d||'').localeCompare(a.d||''));
   x+=all.slice(0,80).map(matchRow).join('')||t('noData');x+='</div>';}
  a.innerHTML=x+`<div class="foot">${t('allRes')} · ${D.generated.slice(0,10)} · ⚡ Strategy Pro</div>`;
  document.querySelectorAll('.bb').forEach(b=>b.classList.toggle('active',b.dataset.v===view));}
@@ -437,12 +452,12 @@ window.showStrat=function(n){openName=n;const s=D.strategies.find(x=>x.name===n)
  <div class="mid"><div><div class="bank ${up?'up':'dn'}">${money(s.bankroll)}</div><div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%)</div></div>
  <div style="text-align:end"><div class="rec"><b>${s.wins}</b>${t('won')} · <b>${s.losses}</b>${t('lost')}</div><div class="rec">${s.bets} ${t('bets')} · ${Math.round(s.wins/s.bets*100)}%</div></div></div>
  ${sparkline(s.spark,200,30)}</div>
- <div class="sec">🎯 ${t('todayPicks')} ${t('next24')}</div><div class="scard" style="cursor:default">${(()=>{
-  const tp=D.picks.filter(p=>p.strategy===n||p.strategy.startsWith(n+'__')||n.startsWith(p.strategy.split('__')[0]));
+ <div class="sec">🎯 ${t('todayPicks')} ${t('next24')} (${s.today_bets})</div><div class="scard" style="cursor:default">${(()=>{
+  const tp=D.today_by_base[n.split('__')[0]]||[];
   if(!tp.length)return`<div class="empty">${t('noData')}</div>`;
-  return tp.slice(0,12).map(p=>{const isH=p.pick===p.home;return`<div class="mrow"><div class="top"><div class="teams">
-   <span class="${isH?'mypick':'opp'}" style="font-weight:${isH?'800':'400'}">${p.home}</span> <span class="opp">vs</span> <span class="${!isH?'mypick':'opp'}" style="font-weight:${!isH?'800':'400'}">${p.away}</span></div>
-   <div class="od">${p.odds}</div></div><div class="meta"><span>${p.sport}</span><span>${t('bet10')}→<b style="color:var(--green)">${money(p.pay10)}</b></span></div></div>`}).join('');
+  return tp.map(p=>{const isH=p.p===p.h;return`<div class="mrow"><div class="top"><div class="teams">
+   <span class="${isH?'mypick':'opp'}" style="font-weight:${isH?'800':'400'}">${p.h}</span> <span class="opp">vs</span> <span class="${!isH?'mypick':'opp'}" style="font-weight:${!isH?'800':'400'}">${p.a}</span></div>
+   <div class="od">${p.o}</div></div><div class="meta"><span>${p.s}${p.lg?' · '+p.lg:''}</span><span>${t('bet10')}→<b style="color:var(--green)">${money(p.pay)}</b></span></div></div>`}).join('');
  })()}</div>
  <div class="sec">📜 ${ms.length} ${t('bets')} (${t('history')})</div><div class="scard" style="cursor:default">${ms.slice().reverse().map(matchRow).join('')||t('noData')}</div>`;
  document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));}
