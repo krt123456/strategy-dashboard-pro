@@ -104,6 +104,15 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
     except Exception:
         expert_fns = {}
 
+    # مكتبة النسخ المُطوّرة يومياً (append-only) — كل نسخة خبيرة تتنافس حيّاً
+    try:
+        import daily_strategy_evolution as dse
+        import version_engine as ve
+        library = dse.get_active_versions()
+    except Exception:
+        library = []
+        ve = None
+
     picks: List[dict] = []
     seen = set()
     for f in fixtures:
@@ -155,6 +164,26 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             if k not in seen:
                 seen.add(k)
                 picks.append(r)
+
+        # مكتبة النسخ الخبيرة المُلحقة يومياً (لا تُحذف، تنمو فقط)
+        if ve is not None:
+            for ver in library:
+                try:
+                    r = ve.apply_version(ver, f["home"], f["away"], hp, ap, ho, ao)
+                except Exception:
+                    r = None
+                if not r:
+                    continue
+                r["match_date"] = f.get("date") or target
+                r["sport"] = _normalize_sport(f.get("sport", ""))
+                r["league"] = f.get("league", "")
+                r["home"] = f["home"]
+                r["away"] = f["away"]
+                r["strategy"] = f"{ver['name']}__{f['source']}"
+                k = dedupe_key(r)
+                if k not in seen:
+                    seen.add(k)
+                    picks.append(r)
 
     # persist to betting_journal.db
     conn = sqlite3.connect(DB_PATH)

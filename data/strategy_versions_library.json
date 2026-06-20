@@ -1,0 +1,63 @@
+[
+  {
+    "name": "coinflip_home_v1_20260620",
+    "base": "contrarian_home_coinflip",
+    "rule": "home_band",
+    "params": {
+      "lo": 0.5,
+      "hi": 0.6
+    },
+    "rationale": "v5 (0.48-0.58) confirmed +1.39 live; nudge upper edge toward slight-favourite",
+    "created": "20260620"
+  },
+  {
+    "name": "coinflip_home_v2_20260620",
+    "base": "contrarian_home_coinflip",
+    "rule": "home_band",
+    "params": {
+      "lo": 0.46,
+      "hi": 0.56
+    },
+    "rule_home": true,
+    "params2": {
+      "lo": 0.46,
+      "hi": 0.56
+    },
+    "rationale": "explore lower coinflip band (pure underdog-coinflip) for the durable edge",
+    "created": "20260620"
+  },
+  {
+    "name": "elo_coinflip_combo_v1_20260620",
+    "base": "pure_elo",
+    "rule": "elo_and_coinflip",
+    "params": {
+      "elo_min_home": 0.52,
+      "band_lo": 0.45,
+      "band_hi": 0.58
+    },
+    "rationale": "combine the two strongest live signals: ELO favours home AND market is a coinflip. Highest-conviction candidate.",
+    "created": "20260620"
+  },
+  {
+    "name": "trapfree_favorite_v1_20260620",
+    "base": "clear_favorite",
+    "rule": "favorite_exclude_trap",
+    "params": {
+      "margin": 0.25,
+      "trap_lo": 1.5,
+      "trap_hi": 1.8
+    },
+    "rationale": "vig analysis: odds 1.5-1.8 lost -82 live; bet clear favourites but EXCLUDE the trap zone",
+    "created": "20260620"
+  },
+  {
+    "name": "pure_elo_strict_v1_20260620",
+    "base": "pure_elo",
+    "rule": "elo_strong_margin",
+    "params": {
+      "elo_diff_min": 100
+    },
+    "rationale": "pure_elo is best (76%); restrict to large ELO gaps for high-conviction picks",
+    "created": "20260620"
+  }
+]
