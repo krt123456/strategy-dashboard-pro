@@ -421,7 +421,14 @@ document.querySelectorAll('.bb').forEach(b=>b.addEventListener('click',()=>{view
 $('#langBtn').addEventListener('click',()=>setLang(lang==='ar'?'en':'ar'));
 $('#menuBtn').addEventListener('click',openMenu);
 $('#menuModal').addEventListener('click',e=>{if(e.target.id==='menuModal')closeMenu()});
-if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+if('serviceWorker'in navigator){
+  navigator.serviceWorker.register('sw.js').then(reg=>{
+    reg.addEventListener('updatefound',()=>{const nw=reg.installing;if(!nw)return;
+      nw.addEventListener('statechange',()=>{if(nw.state==='activated'&&navigator.serviceWorker.controller)
+        location.reload();});
+    });
+  }).catch(()=>{});
+}
 const PIN='08031998';
 function checkPin(){const v=document.getElementById('pin').value;
  if(v===PIN){sessionStorage.setItem('sp_auth','1');document.getElementById('lock').classList.add('hide');
@@ -438,11 +445,25 @@ MANIFEST={"name":"استراتيجي برو · Strategy Pro","short_name":"Strat
 "display":"standalone","background_color":"#0a0f1c","theme_color":"#0b1220",
 "icons":[{"src":"icon.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}]}
 
-SW=r"""const C='sp-v2';self.addEventListener('install',e=>self.skipWaiting());
-self.addEventListener('activate',e=>e.waitUntil(self.clients.claim()));
-self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;
-e.respondWith(caches.open(C).then(c=>c.match(e.request).then(r=>r||fetch(e.request)
-.then(x=>{c.put(e.request,x.clone());return x}).catch(()=>r))))});"""
+SW=r"""const C='sp-v5';
+self.addEventListener('install',e=>self.skipWaiting());
+self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(ks=>
+  Promise.all(ks.filter(k=>k!==C).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));
+self.addEventListener('fetch',e=>{
+  if(e.request.method!=='GET')return;
+  const url=new URL(e.request.url);
+  // network-first للصفحة الرئيسية والـ JS/manifest حتى تظهر التحديثات فوراً
+  const netFirst=url.pathname.endsWith('/')||url.pathname.endsWith('.html')||
+    url.pathname.endsWith('sw.js')||url.pathname.endsWith('manifest.json');
+  if(netFirst){
+    e.respondWith(fetch(e.request).then(x=>{caches.open(C).then(c=>c.put(e.request,x.clone()));return x;})
+      .catch(()=>caches.match(e.request)));
+    return;
+  }
+  // cache-first للأصول الثابتة (أيقونة)
+  e.respondWith(caches.open(C).then(c=>c.match(e.request).then(r=>r||fetch(e.request)
+    .then(x=>{c.put(e.request,x.clone());return x}).catch(()=>r)))));
+});"""
 
 
 def build_icon(path: Path):
