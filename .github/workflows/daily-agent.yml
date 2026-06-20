@@ -38,7 +38,20 @@ jobs:
       - name: Run daily agent
         env:
           ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          API_SPORTS_KEY: ${{ secrets.API_SPORTS_KEY }}
         run: python scripts/daily_agent.py || echo "daily agent partial"
+
+      - name: Evolve strategy variants (backtest tournament)
+        run: python scripts/strategy_variant_generator.py --top-per-base 2 || echo "variant evolution partial"
+
+      - name: Gather + cache data sources
+        env:
+          ODDS_API_KEY: ${{ secrets.ODDS_API_KEY }}
+          API_SPORTS_KEY: ${{ secrets.API_SPORTS_KEY }}
+        run: python scripts/data_source_registry.py || echo "source cache partial"
+
+      - name: Run variants across all sources (x sport x source matrix)
+        run: python scripts/cross_source_strategy_runner.py || echo "cross-source runner partial"
 
       - name: Resolve results from betexplorer (multi-sport)
         run: |
