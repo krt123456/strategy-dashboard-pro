@@ -39,20 +39,22 @@ BASE_URL = "https://www.betexplorer.com"
 UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36"
 
 # 1xBet sport token -> betexplorer results URL slug.
-SPORT_SLUGS: Dict[str, str] = {
+# None = no betexplorer results page available (JS-rendered, per-league only, or not covered).
+SPORT_SLUGS: Dict[str, Optional[str]] = {
     "basketball": "basketball",
     "volleyball": "volleyball",
     "tennis": "tennis",
     "football": "football",
     "soccer": "football",
     "baseball": "baseball",
-    "handball": "handball",
-    "hockey": "ice-hockey",
-    "icehockey": "ice-hockey",
-    "tabletennis": "table_tennis",
-    "table_tennis": "table_tennis",
-    "table tennis": "table_tennis",
-    "darts": "darts",
+    "hockey": "hockey",
+    "icehockey": "hockey",
+    # --- no date-based results page (use per-league / alternative source) ---
+    "handball": None,       # JS-rendered skeleton — needs browser
+    "tabletennis": None,    # /table-tennis/results returns 404; use per-league scraper
+    "table_tennis": None,
+    "table tennis": None,
+    "darts": None,          # /darts/results returns empty page
 }
 
 # Sports where a draw is a legitimate final result.
