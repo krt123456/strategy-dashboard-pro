@@ -4,6 +4,24 @@
 > The mechanical variant generator sweeps parameters; THIS document holds the
 > reasoning behind fundamental strategy improvements. Updated each analysis pass.
 
+## Pass 2 — 2026-06-20 (after 278 graded results, football+volleyball resolver fix)
+
+### Diagnostic: why 64% of results were missing
+After the fix, we went from 234 → 278 graded results (+44 in one run). Root cause:
+- Football (693 matches visible) and volleyball (57) use `table-main__tt` format, not `teamLine--home/away`
+- Handball is JS-rendered (skeleton-only page) — needs browser
+- Darts and tabletennis result pages are empty (no date-based URL on betexplorer)
+
+### Fix applied (resolve_results_betexplorer.py)
+Added `_parse_tt_format()` fallback path that extracts:
+- Team names from "TeamA - TeamB" in `<td class="table-main__tt">`
+- Scores from `<td class="table-main__result">`
+- Applied to football, volleyball, and hockey hybrid rows
+
+Remaining gap: tabletennis (244 pending, 0 graded) — betexplorer has 856 matches parsed but name-matching fails (doubles, non-Latin scripts). Needs per-league approach.
+
+---
+
 ## Pass 1 — 2026-06-20 (after 188 graded results)
 
 ### Root cause #1: the favorite–longshot vig trap
