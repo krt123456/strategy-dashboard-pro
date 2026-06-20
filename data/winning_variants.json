@@ -1,0 +1,150 @@
+[
+  {
+    "name": "contrarian_home_coinflip_v5",
+    "base": "contrarian_home_coinflip",
+    "params": {
+      "lo": 0.48,
+      "hi": 0.58
+    },
+    "backtest_roi": 7.32,
+    "backtest_bets": 1698,
+    "backtest_win_rate": 57.3
+  },
+  {
+    "name": "contrarian_home_coinflip_v4",
+    "base": "contrarian_home_coinflip",
+    "params": {
+      "lo": 0.46,
+      "hi": 0.56
+    },
+    "backtest_roi": 6.17,
+    "backtest_bets": 1644,
+    "backtest_win_rate": 54.6
+  },
+  {
+    "name": "market_extreme_v8",
+    "base": "market_extreme",
+    "params": {
+      "threshold": 0.88
+    },
+    "backtest_roi": 4.7,
+    "backtest_bets": 1621,
+    "backtest_win_rate": 95.9
+  },
+  {
+    "name": "market_extreme_v7",
+    "base": "market_extreme",
+    "params": {
+      "threshold": 0.86
+    },
+    "backtest_roi": 4.55,
+    "backtest_bets": 2053,
+    "backtest_win_rate": 94.7
+  },
+  {
+    "name": "market_strong_plus_v3",
+    "base": "market_strong_plus",
+    "params": {
+      "threshold": 0.75
+    },
+    "backtest_roi": 4.08,
+    "backtest_bets": 4643,
+    "backtest_win_rate": 88.3
+  },
+  {
+    "name": "clear_favorite_v8",
+    "base": "clear_favorite",
+    "params": {
+      "margin": 0.4
+    },
+    "backtest_roi": 3.84,
+    "backtest_bets": 6246,
+    "backtest_win_rate": 84.8
+  },
+  {
+    "name": "market_strong_plus_v4",
+    "base": "market_strong_plus",
+    "params": {
+      "threshold": 0.77
+    },
+    "backtest_roi": 3.79,
+    "backtest_bets": 4112,
+    "backtest_win_rate": 89.3
+  },
+  {
+    "name": "away_dominant_v4",
+    "base": "away_dominant",
+    "params": {
+      "lo": 0.68,
+      "hi": 1.0
+    },
+    "backtest_roi": 3.78,
+    "backtest_bets": 2060,
+    "backtest_win_rate": 83.4
+  },
+  {
+    "name": "away_dominant_v5",
+    "base": "away_dominant",
+    "params": {
+      "lo": 0.7,
+      "hi": 1.0
+    },
+    "backtest_roi": 3.72,
+    "backtest_bets": 1856,
+    "backtest_win_rate": 84.6
+  },
+  {
+    "name": "home_market_favorite_v7",
+    "base": "home_market_favorite",
+    "params": {
+      "lo": 0.68,
+      "hi": 1.0
+    },
+    "backtest_roi": 3.64,
+    "backtest_bets": 4905,
+    "backtest_win_rate": 83.3
+  },
+  {
+    "name": "clear_favorite_v6",
+    "base": "clear_favorite",
+    "params": {
+      "margin": 0.3
+    },
+    "backtest_roi": 3.47,
+    "backtest_bets": 7977,
+    "backtest_win_rate": 81.3
+  },
+  {
+    "name": "home_market_favorite_v1",
+    "base": "home_market_favorite",
+    "params": {
+      "lo": 0.56,
+      "hi": 1.0
+    },
+    "backtest_roi": 3.35,
+    "backtest_bets": 7483,
+    "backtest_win_rate": 76.6
+  },
+  {
+    "name": "moderate_home_favorite_v7",
+    "base": "moderate_home_favorite",
+    "params": {
+      "lo": 0.56,
+      "hi": 0.72
+    },
+    "backtest_roi": 2.94,
+    "backtest_bets": 3606,
+    "backtest_win_rate": 66.3
+  },
+  {
+    "name": "moderate_home_favorite_v1",
+    "base": "moderate_home_favorite",
+    "params": {
+      "lo": 0.56,
+      "hi": 0.68
+    },
+    "backtest_roi": 2.74,
+    "backtest_bets": 2585,
+    "backtest_win_rate": 63.8
+  }
+]
