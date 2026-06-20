@@ -192,8 +192,9 @@ def gather(today: str) -> dict:
                      "profit": tot_profit, "winrate": round(tot_wins / tot_bets * 100, 1) if tot_bets else 0},
         "best": best,
         "strategies": sorted(strategies, key=lambda s: s["trust"], reverse=True),
+        "strat_map": {s["name"]: s for s in strategies},
         "matches": strat_matches,
-        "picks": today_picks[:150],
+        "picks": today_picks[:30],
     }
 
 
@@ -376,13 +377,15 @@ function render(){
   x+=heroCard();
   x+=`<div class="sec">🎯 ${t('todayPicks')} · ${t('next24')} (${D.picks.length})</div>`;
   x+=D.picks.slice(0,20).map(p=>{const isH=p.pick===p.home;
+   const sm=D.strat_map[p.strategy]||D.strat_map[p.strategy.split('__')[0]]||Object.values(D.strat_map).find(s=>p.strategy.startsWith(s.name));
+   const rec=sm?`<div class="bg ${sm.bankroll>=100?'risk-safe':'risk-bold'}" style="margin-top:5px;display:inline-block">📍 ${sm.name.split('__')[0].slice(0,16)} · ${sm.wins}✓${sm.losses}✗ ${sm.bets?Math.round(sm.wins/sm.bets*100):0}%</div>`:'';
    return`<div class="scard" ${p.real?'':'style="opacity:.7"'}><div class="top"><div class="teams" style="font-size:14px">
    <span class="${isH?'mypick':'opp'}" style="font-weight:${isH?'800':'400'};color:${isH?'var(--green)':'var(--mut)'}">${p.home}</span> <span class="opp">vs</span> <span class="${!isH?'mypick':'opp'}" style="font-weight:${!isH?'800':'400'};color:${!isH?'var(--green)':'var(--mut)'}">${p.away}</span></div>
    <div class="od">${p.odds}</div></div>
    <div class="meta" style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--mut)">
    <span>${p.sport}${p.league?' · '+p.league.slice(0,18):''}</span><span>${t('bet10')}→<b style="color:var(--green)">${money(p.pay10)}</b></span></div>
    ${p.rat_ar?`<div style="font-size:11px;color:var(--acc);margin-top:5px">💡 ${lang=='ar'?p.rat_ar:p.rat_en}</div>`:''}
-   ${p.real?`<div class="bg risk-safe" style="margin-top:5px;display:inline-block">✓ ${t('real')}</div>`:''}</div>`}).join('')||`<div class="empty">${t('noData')}</div>`;
+   ${rec}${p.real?`<div class="bg risk-safe" style="margin-top:5px;display:inline-block">✓ ${t('real')}</div>`:''}</div>`}).join('')||`<div class="empty">${t('noData')}</div>`;
   x+=`<div class="sec">📊 ${t('monitor')}</div>`;
   let strs=[...D.strategies];
   if(filterRisk)strs=strs.filter(s=>s.risk===filterRisk);
@@ -424,7 +427,15 @@ window.showStrat=function(n){openName=n;const s=D.strategies.find(x=>x.name===n)
  <div class="badges">${riskBadge(s.risk)}${s.streakKind==='w'?`<span class="bg streak-w">🔥 ${s.streak} ${t('streakW')}</span>`:''}<span class="bg src">${s.days}${t('days')}</span></div>
  <div class="mid"><div><div class="bank ${up?'up':'dn'}">${money(s.bankroll)}</div><div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%)</div></div>
  <div style="text-align:end"><div class="rec"><b>${s.wins}</b>${t('won')} · <b>${s.losses}</b>${t('lost')}</div><div class="rec">${s.bets} ${t('bets')} · ${Math.round(s.wins/s.bets*100)}%</div></div></div>
- ${sparkline(s.spark,200,30)}</div><div class="sec">🎾 ${ms.length} ${t('bets')}</div><div class="scard" style="cursor:default">${ms.slice().reverse().map(matchRow).join('')||t('noData')}</div>`;
+ ${sparkline(s.spark,200,30)}</div>
+ <div class="sec">🎯 ${t('todayPicks')} ${t('next24')}</div><div class="scard" style="cursor:default">${(()=>{
+  const tp=D.picks.filter(p=>p.strategy===n||p.strategy.startsWith(n+'__')||n.startsWith(p.strategy.split('__')[0]));
+  if(!tp.length)return`<div class="empty">${t('noData')}</div>`;
+  return tp.slice(0,12).map(p=>{const isH=p.pick===p.home;return`<div class="mrow"><div class="top"><div class="teams">
+   <span class="${isH?'mypick':'opp'}" style="font-weight:${isH?'800':'400'}">${p.home}</span> <span class="opp">vs</span> <span class="${!isH?'mypick':'opp'}" style="font-weight:${!isH?'800':'400'}">${p.away}</span></div>
+   <div class="od">${p.odds}</div></div><div class="meta"><span>${p.sport}</span><span>${t('bet10')}→<b style="color:var(--green)">${money(p.pay10)}</b></span></div></div>`}).join('');
+ })()}</div>
+ <div class="sec">📜 ${ms.length} ${t('bets')} (${t('history')})</div><div class="scard" style="cursor:default">${ms.slice().reverse().map(matchRow).join('')||t('noData')}</div>`;
  document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));}
 document.querySelectorAll('.bb').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;openName=null;render()}));
 $('#langBtn').addEventListener('click',()=>setLang(lang==='ar'?'en':'ar'));
