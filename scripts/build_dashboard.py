@@ -18,6 +18,9 @@ DB_PATH = PROJECT_DIR / "data" / "betting_journal.db"
 OUT_DIR = PROJECT_DIR / "dashboard"
 FLAT_STAKE = 4.0  # 4% of $100 bankroll per bet
 
+# استراتيجيات معطّلة (تشخيص خبير: anti-edges / نموذج بميزات وهمية) — تُعرض كـ"مُقصاة" للشفافية
+DISABLED_BASES = {"aggressive", "balanced", "conservative", "lightgbm_calibrated"}
+
 
 def _f(v):
     try:
@@ -126,6 +129,8 @@ def gather(today: str) -> dict:
             "trust": _trust(wins, bets, roi, days), "streak": streak,
             "streak_kind": streak_kind, "risk": _risk(avg_odds),
             "spark": spark[-20:],
+            "disabled": strat in DISABLED_BASES or any(strat.startswith(b + "__") for b in DISABLED_BASES)
+            or strat in DISABLED_BASES,
         })
         strat_matches[strat] = items
 
@@ -260,7 +265,23 @@ display:flex;z-index:40;max-width:680px;margin:0 auto}
 .bb svg{width:21px;height:21px;fill:currentColor;margin-bottom:2px}.bb.active{color:var(--acc)}
 .foot{text-align:center;font-size:10px;color:var(--mut);padding:16px}
 .hide{display:none!important}
+.lock{position:fixed;inset:0;background:linear-gradient(160deg,#0a0f1c,#15203f);z-index:100;display:flex;
+flex-direction:column;align-items:center;justify-content:center;padding:30px}
+.lock .logo{font-size:42px;margin-bottom:8px}.lock h2{font-size:20px;font-weight:800;margin-bottom:4px;
+background:linear-gradient(90deg,var(--acc),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.lock .sub{font-size:12px;color:var(--mut);margin-bottom:24px}
+.lock input{width:200px;text-align:center;background:var(--card);border:2px solid var(--bord);color:var(--txt);
+font-size:22px;letter-spacing:8px;padding:13px;border-radius:12px;outline:none;font-weight:800}
+.lock input:focus{border-color:var(--acc)}
+.lock button{margin-top:14px;background:linear-gradient(90deg,var(--acc),var(--gold));color:#001;border:none;
+padding:13px 36px;border-radius:25px;font-weight:800;font-size:15px;cursor:pointer}
+.lock .err{color:var(--red);font-size:12px;margin-top:10px;min-height:16px}
 </style></head><body>
+<div class="lock" id="lock"><div class="logo">⚡</div><h2 id="lkTitle">استراتيجي برو</h2>
+<div class="sub" id="lkSub">أدخل الرقم السري</div>
+<input type="password" id="pin" inputmode="numeric" maxlength="8" autofocus>
+<button id="pinBtn" onclick="checkPin()">دخول</button>
+<div class="err" id="pinErr"></div></div>
 <div class="hd"><h1 id="title">⚡ استراتيجي برو</h1>
 <div class="r"><div class="iconbtn" id="langBtn">EN</div><div class="iconbtn" id="menuBtn">⋮</div></div></div>
 <div class="wrap" id="app"></div>
@@ -282,7 +303,7 @@ const I={
    mProfit:"أعلى ربحاً",mWin:"أعلى نسبة فوز",mTrust:"الأكثر ثقة",mSafe:"الآمنة فقط",
    mProfitD:"رتّب الاستراتيجيات حسب صافي الربح",mWinD:"رتّب حسب نسبة الفوز",mTrustD:"رتّب حسب درجة الثقة",
    mSafeD:"أظهر الاستراتيجيات الآمنة فقط",sortMenu:"ترتيب وفلترة",streakW:"فوز متتالي",streakL:"خسارة متتالية",
-   tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج"},
+   tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج",cut:"مُقصاة"},
  en:{title:"⚡ Strategy Pro",home:"Home",picks:"Today",history:"History",
    bestBet:"⭐ Best Bet Today",monitor:"Strategy Monitor",todayPicks:"Today's Picks",
    historyLog:"Results Log",profit:"Profit",bankroll:"Bankroll",record:"Record",days:"days",
@@ -292,9 +313,9 @@ const I={
    mProfit:"Top Profit",mWin:"Top Win Rate",mTrust:"Most Trusted",mSafe:"Safe only",
    mProfitD:"Sort strategies by net profit",mWinD:"Sort by win rate",mTrustD:"Sort by trust score",
    mSafeD:"Show only safe strategies",sortMenu:"Sort & Filter",streakW:"win streak",streakL:"loss streak",
-   tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results"}
+   tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results",cut:"CUT"}
 };
-let lang='ar',view='home',sortKey='trust',filterRisk=null,openStrat=null;
+let lang='ar',view='home',sortKey='trust',filterRisk=null,openName=null;
 const $=s=>document.querySelector(s),t=k=>I[lang][k];
 function setLang(l){lang=l;document.documentElement.lang=l;document.documentElement.dir=l=='ar'?'rtl':'ltr';
  $('#langBtn').textContent=l=='ar'?'EN':'ع';$('#title').textContent=t('title');
@@ -317,8 +338,9 @@ function heroCard(){const b=D.best;if(!b)return'';const tr=b.trust||0;
  ${b.rat_ar?`<div class="why">💡 ${lang=='ar'?b.rat_ar:b.rat_en}</div>`:''}
  ${b.real?`<div class="pay" style="margin-top:5px">✓ ${t('real')}</div>`:''}</div>`}
 function stratCard(s){const up=s.bankroll>=100;const sk=s.streakKind==='w'?`<span class="bg streak-w">🔥 ${s.streak} ${t('streakW')}</span>`:(s.streak>1?`<span class="bg streak-l">❄️ ${s.streak} ${t('streakL')}</span>`:'');
- return`<div class="scard" onclick="openStrat('${s.name.replace(/'/g,"\\'")}')">
- <div class="top"><div class="nm">${s.name}</div>
+ const dis=s.disabled?`<span class="bg" style="background:rgba(239,68,68,.16);color:var(--red)">✂️ ${t('cut')}</span>`:'';
+ return`<div class="scard" ${s.disabled?'style="opacity:.6"':''} onclick="showStrat('${s.name.replace(/'/g,"\\'")}')">
+ <div class="top"><div class="nm">${s.name}${dis}</div>
  <div class="trust"><div class="tv" style="color:${trustColor(s.trust)};border-color:${trustColor(s.trust)}">${s.trust}</div><div class="tl">${t('trust')}</div></div></div>
  <div class="badges">${riskBadge(s.risk)}${sk}<span class="bg src">${s.days}${t('days')}</span></div>
  <div class="mid"><div><div class="bank ${up?'up':'dn'}">${money(s.bankroll)}</div>
@@ -342,9 +364,12 @@ function render(){
   x+=`<div class="sec">📊 ${t('monitor')}</div>`;
   let strs=[...D.strategies];
   if(filterRisk)strs=strs.filter(s=>s.risk===filterRisk);
-  if(sortKey==='profit')strs.sort((a,b)=>b.profit-a.profit);
-  else if(sortKey==='win')strs.sort((a,b)=>(b.wins/b.bets)-(a.wins/a.bets));
-  else strs.sort((a,b)=>b.trust-a.trust);
+  strs.sort((a,b)=>{
+   if(a.disabled!==b.disabled)return a.disabled?1:-1; // المعطّلة للأسفل دائماً
+   if(sortKey==='profit')return b.profit-a.profit;
+   if(sortKey==='win')return (b.wins/b.bets)-(a.wins/a.bets);
+   return b.trust-a.trust;
+  });
   x+=strs.length?strs.map(stratCard).join(''):`<div class="empty">${t('noData')}</div>`;
  }else if(view==='picks'){x+=`<div class="sec">🎯 ${t('todayPicks')} · ${D.today}</div>`;
   x+=D.picks.length?D.picks.map(p=>{const isH=p.pick===p.home;
@@ -369,9 +394,9 @@ function openMenu(){$('#menuPanel').innerHTML=`<h3>⚙️ ${t('sortMenu')}</h3>
 function setSort(k){sortKey=k;closeMenu();render()}
 function toggleSafe(){filterRisk=filterRisk?null:'safe';closeMenu();render()}
 function closeMenu(){$('#menuModal').classList.remove('open')}
-window.openStrat=function(n){openStrat=n;const s=D.strategies.find(x=>x.name===n);if(!s)return;
+window.showStrat=function(n){openName=n;const s=D.strategies.find(x=>x.name===n);if(!s)return;
  const ms=D.matches[n]||[];const up=s.bankroll>=100;
- $('#app').innerHTML=`<div class="back" onclick="openStrat=null;render()">← ${t('monitor')}</div>
+ $('#app').innerHTML=`<div class="back" onclick="openName=null;render()">← ${t('monitor')}</div>
  <div class="scard" style="cursor:default;border-color:var(--acc)"><div class="top"><div class="nm" style="font-size:16px">${s.name}</div>
  <div class="trust"><div class="tv" style="color:${trustColor(s.trust)};border-color:${trustColor(s.trust)}">${s.trust}</div><div class="tl">${t('trust')}</div></div></div>
  <div class="badges">${riskBadge(s.risk)}${s.streakKind==='w'?`<span class="bg streak-w">🔥 ${s.streak} ${t('streakW')}</span>`:''}<span class="bg src">${s.days}${t('days')}</span></div>
@@ -379,12 +404,20 @@ window.openStrat=function(n){openStrat=n;const s=D.strategies.find(x=>x.name===n
  <div style="text-align:end"><div class="rec"><b>${s.wins}</b>${t('won')} · <b>${s.losses}</b>${t('lost')}</div><div class="rec">${s.bets} ${t('bets')} · ${Math.round(s.wins/s.bets*100)}%</div></div></div>
  ${sparkline(s.spark,200,30)}</div><div class="sec">🎾 ${ms.length} ${t('bets')}</div><div class="scard" style="cursor:default">${ms.slice().reverse().map(matchRow).join('')||t('noData')}</div>`;
  document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));}
-document.querySelectorAll('.bb').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;openStrat=null;render()}));
+document.querySelectorAll('.bb').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;openName=null;render()}));
 $('#langBtn').addEventListener('click',()=>setLang(lang==='ar'?'en':'ar'));
 $('#menuBtn').addEventListener('click',openMenu);
 $('#menuModal').addEventListener('click',e=>{if(e.target.id==='menuModal')closeMenu()});
 if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
-setLang('ar');render();
+const PIN='08031998';
+function checkPin(){const v=document.getElementById('pin').value;
+ if(v===PIN){sessionStorage.setItem('sp_auth','1');document.getElementById('lock').classList.add('hide');
+  setLang('ar');render();}else{document.getElementById('pinErr').textContent=
+   lang=='ar'?'رقم سري خاطئ، حاول مجدداً':'Wrong PIN, try again';
+   document.getElementById('pin').value='';}}
+document.getElementById('pin').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin()});
+document.getElementById('pin').addEventListener('input',()=>document.getElementById('pinErr').textContent='');
+if(sessionStorage.getItem('sp_auth')==='1'){document.getElementById('lock').classList.add('hide');setLang('ar');render();}
 </script></body></html>"""
 
 MANIFEST={"name":"استراتيجي برو · Strategy Pro","short_name":"Strategy Pro",
