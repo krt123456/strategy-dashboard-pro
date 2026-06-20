@@ -316,7 +316,7 @@ const I={
    mProfit:"أعلى ربحاً",mWin:"أعلى نسبة فوز",mTrust:"الأكثر ثقة",mSafe:"الآمنة فقط",
    mProfitD:"رتّب الاستراتيجيات حسب صافي الربح",mWinD:"رتّب حسب نسبة الفوز",mTrustD:"رتّب حسب درجة الثقة",
    mSafeD:"أظهر الاستراتيجيات الآمنة فقط",sortMenu:"ترتيب وفلترة",streakW:"فوز متتالي",streakL:"خسارة متتالية",
-   tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج",cut:"مُقصاة"},
+   tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج",cut:"مُقصاة",next24:"24 ساعة القادمة"},
  en:{title:"⚡ Strategy Pro",home:"Home",picks:"Today",history:"History",
    bestBet:"⭐ Best Bet Today",monitor:"Strategy Monitor",todayPicks:"Today's Picks",
    historyLog:"Results Log",profit:"Profit",bankroll:"Bankroll",record:"Record",days:"days",
@@ -326,7 +326,7 @@ const I={
    mProfit:"Top Profit",mWin:"Top Win Rate",mTrust:"Most Trusted",mSafe:"Safe only",
    mProfitD:"Sort strategies by net profit",mWinD:"Sort by win rate",mTrustD:"Sort by trust score",
    mSafeD:"Show only safe strategies",sortMenu:"Sort & Filter",streakW:"win streak",streakL:"loss streak",
-   tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results",cut:"CUT"}
+   tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results",cut:"CUT",next24:"Next 24h"}
 };
 let lang='ar',view='home',sortKey='trust',filterRisk=null,openName=null;
 const $=s=>document.querySelector(s),t=k=>I[lang][k];
@@ -374,6 +374,15 @@ function render(){
   <div class="stat"><div class="v">${h.winrate}%</div><div class="l">${t('winrate')}</div></div>
   <div class="stat"><div class="v ${h.profit>=0?'up':'dn'}" style="color:${h.profit>=0?'var(--green)':'var(--red)'}">${sign(h.profit)}</div><div class="l">${t('netPro')}</div></div></div>`;
   x+=heroCard();
+  x+=`<div class="sec">🎯 ${t('todayPicks')} · ${t('next24')} (${D.picks.length})</div>`;
+  x+=D.picks.slice(0,20).map(p=>{const isH=p.pick===p.home;
+   return`<div class="scard" ${p.real?'':'style="opacity:.7"'}><div class="top"><div class="teams" style="font-size:14px">
+   <span class="${isH?'mypick':'opp'}" style="font-weight:${isH?'800':'400'};color:${isH?'var(--green)':'var(--mut)'}">${p.home}</span> <span class="opp">vs</span> <span class="${!isH?'mypick':'opp'}" style="font-weight:${!isH?'800':'400'};color:${!isH?'var(--green)':'var(--mut)'}">${p.away}</span></div>
+   <div class="od">${p.odds}</div></div>
+   <div class="meta" style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--mut)">
+   <span>${p.sport}${p.league?' · '+p.league.slice(0,18):''}</span><span>${t('bet10')}→<b style="color:var(--green)">${money(p.pay10)}</b></span></div>
+   ${p.rat_ar?`<div style="font-size:11px;color:var(--acc);margin-top:5px">💡 ${lang=='ar'?p.rat_ar:p.rat_en}</div>`:''}
+   ${p.real?`<div class="bg risk-safe" style="margin-top:5px;display:inline-block">✓ ${t('real')}</div>`:''}</div>`}).join('')||`<div class="empty">${t('noData')}</div>`;
   x+=`<div class="sec">📊 ${t('monitor')}</div>`;
   let strs=[...D.strategies];
   if(filterRisk)strs=strs.filter(s=>s.risk===filterRisk);
