@@ -138,13 +138,59 @@ def _parse_dt_attr(value: str) -> Optional[date]:
     return None
 
 
+def _parse_tt_format(tr: str, current_league: str, sport: str) -> Optional[Dict[str, Any]]:
+    """Parse a <tr> that uses the table-main__tt format (football, volleyball, etc.).
+
+    Format: <td class=\"table-main__tt\"><a>TeamA - <strong>TeamB</strong></a></td>
+            <td class=\"table-main__result\"><a> <strong>2:0</strong></a></td>
+    Returns a result dict or None if the row is not a valid finished match.
+    """
+    tt_cell = re.search(r'table-main__tt[^>]*>(.*?)</td>', tr, re.DOTALL)
+    if not tt_cell:
+        return None
+    tt_text = unescape(re.sub(r"<[^>]+>", "", tt_cell.group(1))).strip()
+    # Remove leading time (e.g. "20:00" or "FIN ") before the team names
+    tt_text = re.sub(r"^\d{1,2}:\d{2}\s*", "", tt_text).strip()
+    tt_text = re.sub(r"^FIN\s*", "", tt_text).strip()
+    # Split on " - " to get home and away
+    parts = tt_text.split(" - ", 1)
+    if len(parts) != 2:
+        return None
+    home = parts[0].strip()
+    away = parts[1].strip()
+    if not home or not away:
+        return None
+
+    score_cell = re.search(r'table-main__result[^>]*>(.*?)</td>', tr, re.DOTALL)
+    if not score_cell:
+        return None
+    score_text = unescape(re.sub(r"<[^>]+>", "", score_cell.group(1))).strip()
+    m_score = re.search(r"(\d+)\s*:\s*(\d+)", score_text)
+    if not m_score:
+        return None
+    home_pts, away_pts = int(m_score.group(1)), int(m_score.group(2))
+
+    return {
+        "sport": sport,
+        "date": None,  # filled by caller
+        "home": home,
+        "away": away,
+        "home_pts": home_pts,
+        "away_pts": away_pts,
+        "league": current_league,
+        "finished": True,
+    }
+
+
 def parse_sport_results(html: str, sport: str) -> List[Dict[str, Any]]:
-    """Extract finished matches from a betexplorer per-sport results page."""
+    """Extract finished matches from a betexplorer per-sport results page.
+
+    Handles two HTML layouts:
+      1. teamLine--home/--away  (tennis, basketball, baseball)
+      2. table-main__tt         (football, volleyball, hockey hybrid)
+    """
     rows: List[Dict[str, Any]] = []
     current_league = ""
-    # Walk tournament header rows and match rows in document order.
-    # Capture the FULL <tr ...>...</tr> (including the opening tag, which carries
-    # the data-dt date attribute) so the date search below can see it.
     for m_tr in re.finditer(r"<tr[^>]*>.*?</tr>", html, re.DOTALL):
         tr = m_tr.group(0)
         # tournament header: capture league name for context
@@ -160,34 +206,39 @@ def parse_sport_results(html: str, sport: str) -> List[Dict[str, Any]]:
 
         # finished indicator: a FIN time badge OR a real score in the result cell
         is_fin = "table-main__time--fin" in tr or ">FIN<" in tr
+
+        # --- Layout 1: teamLine--home/--away (basketball, tennis, baseball) ---
         home_raw = re.search(r'table-main__teamLine--home[^>]*>(.*?)</span>', tr, re.DOTALL)
         away_raw = re.search(r'table-main__teamLine--away[^>]*>(.*?)</span>', tr, re.DOTALL)
-        if not home_raw or not away_raw:
-            continue
-        home = unescape(re.sub(r"<[^>]+>", "", home_raw.group(1))).strip()
-        away = unescape(re.sub(r"<[^>]+>", "", away_raw.group(1))).strip()
-        if not home or not away:
-            continue
+        if home_raw and away_raw:
+            home = unescape(re.sub(r"<[^>]+>", "", home_raw.group(1))).strip()
+            away = unescape(re.sub(r"<[^>]+>", "", away_raw.group(1))).strip()
+            if home and away:
+                score_cell = re.search(r'table-main__result[^>]*>(.*?)</td>', tr, re.DOTALL)
+                score_text = ""
+                if score_cell:
+                    score_text = unescape(re.sub(r"<[^>]+>", "", score_cell.group(1))).strip()
+                m_score = re.search(r"(\d+)\s*:\s*(\d+)", score_text)
+                if m_score:
+                    home_pts, away_pts = int(m_score.group(1)), int(m_score.group(2))
+                    rows.append({
+                        "sport": sport,
+                        "date": mdate,
+                        "home": home,
+                        "away": away,
+                        "home_pts": home_pts,
+                        "away_pts": away_pts,
+                        "league": current_league,
+                        "finished": is_fin or bool(m_score),
+                    })
+                continue
 
-        score_cell = re.search(r'table-main__result[^>]*>(.*?)</td>', tr, re.DOTALL)
-        score_text = ""
-        if score_cell:
-            score_text = unescape(re.sub(r"<[^>]+>", "", score_cell.group(1))).strip()
-        m_score = re.search(r"(\d+)\s*:\s*(\d+)", score_text)
-        if not m_score:
-            continue  # upcoming or postponed; no final score
-        home_pts, away_pts = int(m_score.group(1)), int(m_score.group(2))
+        # --- Layout 2: table-main__tt (football, volleyball, hockey hybrid) ---
+        result = _parse_tt_format(tr, current_league, sport)
+        if result is not None:
+            result["date"] = mdate
+            rows.append(result)
 
-        rows.append({
-            "sport": sport,
-            "date": mdate,
-            "home": home,
-            "away": away,
-            "home_pts": home_pts,
-            "away_pts": away_pts,
-            "league": current_league,
-            "finished": is_fin or bool(m_score),
-        })
     return rows
 
 
