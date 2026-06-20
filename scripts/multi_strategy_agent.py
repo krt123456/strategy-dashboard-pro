@@ -559,6 +559,7 @@ def run_all_strategies(target_date: date) -> int:
     c = conn.cursor()
 
     recorded = 0
+    batch = datetime.now().strftime("%Y-%m-%d_%H")  # جولة التحديث (لتحليل توقيت التوقع + قفل التنبؤ)
     for p in all_picks:
         exists = c.execute("""
             SELECT 1 FROM predictions
@@ -570,14 +571,14 @@ def run_all_strategies(target_date: date) -> int:
             c.execute("""
                 INSERT INTO predictions (
                     created_at, match_date, sport, league, home, away, pick, source,
-                    model_prob, odds_at_prediction, kelly_stake, ev_pct, strategy, confidence, notes
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                    model_prob, odds_at_prediction, kelly_stake, ev_pct, strategy, confidence, notes, batch
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
             """, (
                 datetime.now().isoformat(), p["match_date"], p["sport"], p["league"],
                 p["home"], p["away"], p["pick"], p["source"],
                 p["model_prob"], p["odds_at_prediction"], ks,
                 ev_percent(p["model_prob"], p["odds_at_prediction"]),
-                p["strategy"], p.get("confidence"), p.get("notes"),
+                p["strategy"], p.get("confidence"), p.get("notes"), batch,
             ))
             recorded += 1
 

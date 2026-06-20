@@ -320,7 +320,7 @@ padding:13px 36px;border-radius:25px;font-weight:800;font-size:15px;cursor:point
 <button id="pinBtn" onclick="checkPin()">دخول</button>
 <div class="err" id="pinErr"></div></div>
 <div class="hd"><h1 id="title">⚡ استراتيجي برو</h1>
-<div class="r"><div class="iconbtn" id="langBtn">EN</div><div class="iconbtn" id="menuBtn">⋮</div></div></div>
+<div class="r"><div class="iconbtn" id="refreshBtn" title="تحديث">⟳</div><div class="iconbtn" id="langBtn">EN</div><div class="iconbtn" id="menuBtn">⋮</div></div></div>
 <div class="wrap" id="app"></div>
 <div class="bottombar">
 <div class="bb active" data-v="home"><svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v9h-4v-6H10v6H6v-9H3z"/></svg><span data-i="home"></span></div>
@@ -463,6 +463,9 @@ window.showStrat=function(n){openName=n;const s=D.strategies.find(x=>x.name===n)
  document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));}
 document.querySelectorAll('.bb').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;openName=null;render()}));
 $('#langBtn').addEventListener('click',()=>setLang(lang==='ar'?'en':'ar'));
+$('#refreshBtn').addEventListener('click',()=>{const b=document.getElementById('refreshBtn');b.textContent='⏳';
+  // أعد تحميل أحدث بيانات من الخادم (تتجدد كل ساعتين تلقائياً)
+  location.reload(true);});
 $('#menuBtn').addEventListener('click',openMenu);
 $('#menuModal').addEventListener('click',e=>{if(e.target.id==='menuModal')closeMenu()});
 // لا service worker — التطبيق يُحمّل نسخة طازجة دائماً (أبسط وأضمن، لا مشاكل cache)

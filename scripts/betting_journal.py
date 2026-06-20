@@ -25,6 +25,13 @@ def init_db():
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
 
+    # ترحيل: أضف عمود batch (جولة التحديث) إن لم يكن موجوداً — لتحليل توقيت التوقع
+    # وقفل التنبؤ: كل تنبؤ يُوسم بجولته، وأول توقع لمباراة يُقفل (لا يُعاد تقييمه)
+    try:
+        c.execute("ALTER TABLE predictions ADD COLUMN batch TEXT")
+    except Exception:
+        pass
+
     c.execute("""
         CREATE TABLE IF NOT EXISTS predictions (
             id INTEGER PRIMARY KEY AUTOINCREMENT,

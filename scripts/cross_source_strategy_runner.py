@@ -186,6 +186,7 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
                     picks.append(r)
 
     # persist to betting_journal.db
+    batch = datetime.utcnow().strftime("%Y-%m-%d_%H")  # جولة التحديث (لتحليل توقيت التوقع)
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     recorded = 0
@@ -200,10 +201,10 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
         c.execute(
             "INSERT INTO predictions (created_at, match_date, sport, league, home, away, "
             "pick, source, model_prob, odds_at_prediction, stake, kelly_stake, strategy, "
-            "confidence, notes) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "confidence, notes, batch) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (datetime.now().isoformat(), p["match_date"], p["sport"], p["league"], p["home"],
              p["away"], p["pick"], p["source"], p["model_prob"], p["odds_at_prediction"],
-             0.0, 0.0, p["strategy"], p["confidence"], p["notes"]),
+             0.0, 0.0, p["strategy"], p["confidence"], p["notes"], batch),
         )
         recorded += 1
     conn.commit()
