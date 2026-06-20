@@ -184,6 +184,14 @@ def gather(today: str) -> dict:
     tot_wins = sum(s["wins"] for s in strategies)
     tot_profit = round(sum(s["profit"] for s in strategies), 2)
 
+    # عدّاد رهانات اليوم الكلّي لكل استراتيجية (من كل today_picks قبل قص العرض)
+    today_counts: dict = {}
+    for p in today_picks:
+        st = p["strategy"]
+        today_counts[st] = today_counts.get(st, 0) + 1
+    for s in strategies:
+        s["today_bets"] = today_counts.get(s["name"], 0)
+
     conn.close()
     return {
         "today": today,
@@ -317,7 +325,7 @@ const I={
    mProfit:"أعلى ربحاً",mWin:"أعلى نسبة فوز",mTrust:"الأكثر ثقة",mSafe:"الآمنة فقط",
    mProfitD:"رتّب الاستراتيجيات حسب صافي الربح",mWinD:"رتّب حسب نسبة الفوز",mTrustD:"رتّب حسب درجة الثقة",
    mSafeD:"أظهر الاستراتيجيات الآمنة فقط",sortMenu:"ترتيب وفلترة",streakW:"فوز متتالي",streakL:"خسارة متتالية",
-   tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج",cut:"مُقصاة",next24:"24 ساعة القادمة"},
+   tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج",cut:"مُقصاة",next24:"24 ساعة القادمة",todayB:"رهان اليوم"},
  en:{title:"⚡ Strategy Pro",home:"Home",picks:"Today",history:"History",
    bestBet:"⭐ Best Bet Today",monitor:"Strategy Monitor",todayPicks:"Today's Picks",
    historyLog:"Results Log",profit:"Profit",bankroll:"Bankroll",record:"Record",days:"days",
@@ -327,7 +335,7 @@ const I={
    mProfit:"Top Profit",mWin:"Top Win Rate",mTrust:"Most Trusted",mSafe:"Safe only",
    mProfitD:"Sort strategies by net profit",mWinD:"Sort by win rate",mTrustD:"Sort by trust score",
    mSafeD:"Show only safe strategies",sortMenu:"Sort & Filter",streakW:"win streak",streakL:"loss streak",
-   tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results",cut:"CUT",next24:"Next 24h"}
+   tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results",cut:"CUT",next24:"Next 24h",todayB:"today"}
 };
 let lang='ar',view='home',sortKey='trust',filterRisk=null,openName=null;
 const $=s=>document.querySelector(s),t=k=>I[lang][k];
@@ -360,7 +368,8 @@ function stratCard(s){const up=s.bankroll>=100;const sk=s.streakKind==='w'?`<spa
  <div class="mid"><div><div class="bank ${up?'up':'dn'}">${money(s.bankroll)}</div>
  <div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%) · <b>${s.wins}</b>-${s.losses}</div></div>
  <div style="text-align:end"><div class="rec"><b>${s.bets}</b> ${t('bets')}</div>
- <div class="rec">${Math.round(s.wins/s.bets*100)}% ${t('winrate')}</div></div></div>
+ <div class="rec">${Math.round(s.wins/s.bets*100)}% ${t('winrate')}</div>
+ ${s.today_bets?`<div class="rec" style="color:var(--gold)">🎯 ${s.today_bets} ${t('todayB')}</div>`:''}</div></div>
  ${sparkline(s.spark,200,26)}<div class="foot"><span>${t('tapHint')}</span><span>avg ${s.avg_odds}</span></div></div>`}
 function matchRow(m){const isHome=m.pick===m.home;const opp=isHome?m.away:m.home;
  return`<div class="mrow"><div class="top"><div class="teams">
