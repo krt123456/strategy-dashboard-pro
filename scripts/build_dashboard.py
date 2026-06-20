@@ -421,14 +421,8 @@ document.querySelectorAll('.bb').forEach(b=>b.addEventListener('click',()=>{view
 $('#langBtn').addEventListener('click',()=>setLang(lang==='ar'?'en':'ar'));
 $('#menuBtn').addEventListener('click',openMenu);
 $('#menuModal').addEventListener('click',e=>{if(e.target.id==='menuModal')closeMenu()});
-if('serviceWorker'in navigator){
-  navigator.serviceWorker.register('sw.js').then(reg=>{
-    reg.addEventListener('updatefound',()=>{const nw=reg.installing;if(!nw)return;
-      nw.addEventListener('statechange',()=>{if(nw.state==='activated'&&navigator.serviceWorker.controller)
-        location.reload();});
-    });
-  }).catch(()=>{});
-}
+// لا service worker — التطبيق يُحمّل نسخة طازجة دائماً (أبسط وأضمن، لا مشاكل cache)
+// للتثبيت كأيقونة على الهاتف: Chrome ← قائمة ← "تثبيت التطبيق" / "Add to Home screen"
 const PIN='08031998';
 function checkPin(){const v=document.getElementById('pin').value;
  if(v===PIN){sessionStorage.setItem('sp_auth','1');document.getElementById('lock').classList.add('hide');
