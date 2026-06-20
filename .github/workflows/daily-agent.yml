@@ -53,6 +53,12 @@ jobs:
       - name: Generate report
         run: python scripts/generate_report.py > reports/daily_report_$(date +%Y-%m-%d).md || echo "report partial"
 
+      - name: Backtest strategies (12,942 matches)
+        run: python scripts/backtest_strategies.py > reports/backtest_$(date +%Y-%m-%d).txt 2>&1 || echo "backtest partial"
+
+      - name: Strategy evolution report
+        run: python scripts/strategy_evolution_report.py || echo "evolution report partial"
+
       - name: Commit results
         run: |
           git config user.name "Strategy Bot"

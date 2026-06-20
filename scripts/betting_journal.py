@@ -148,17 +148,24 @@ def add_result(
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
 
-    c.execute("SELECT pick, real_odds, stake, kelly_stake, home, away FROM predictions WHERE id=?", (prediction_id,))
+    c.execute("SELECT pick, real_odds, odds_at_prediction, stake, kelly_stake, home, away FROM predictions WHERE id=?", (prediction_id,))
     row = c.fetchone()
     if not row:
         conn.close()
         return
 
-    pick, real_odds, stake, kelly_stake, home, away = row
-    odds = real_odds or odds_at_prediction if 'odds_at_prediction' in dir() else real_odds or 1.0
-    actual_stake = kelly_stake if kelly_stake > 0 else stake
-    profit = actual_stake * (odds - 1) if pick_won else -actual_stake
-    roi = (profit / actual_stake * 100) if actual_stake > 0 else 0
+    pick, real_odds, odds_at_prediction, stake, kelly_stake, home, away = row
+    # Prefer the confirmed real odds, fall back to odds captured at prediction time.
+    odds = real_odds or odds_at_prediction or 1.0
+    actual_stake = kelly_stake if kelly_stake and kelly_stake > 0 else (stake or 0)
+    if actual_stake > 0:
+        profit = actual_stake * (odds - 1) if pick_won else -actual_stake
+        roi = profit / actual_stake * 100
+    else:
+        # No real money staked: still record a notional unit-stake P&L so the
+        # report can rank strategies by simulated return on a 1-unit flat bet.
+        profit = (odds - 1) if pick_won else -1.0
+        roi = profit * 100
 
     c.execute("""
         INSERT INTO results (prediction_id, checked_at, home_score, away_score,

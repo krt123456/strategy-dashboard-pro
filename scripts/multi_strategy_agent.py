@@ -210,6 +210,90 @@ def strategy_lightgbm_calibrated(cal_prob: float, home: str, away: str, market_p
 
 
 # ═══════════════════════════════════════════════════════════════════════════
+# استراتيجيات جديدة مُختارة بالباك تاست (12,942 مباراة) — الفائزة فقط
+# ═══════════════════════════════════════════════════════════════════════════
+
+def _market_pick(home: str, away: str, side: str, prob: float, strategy: str,
+                 confidence: str, note: str) -> dict:
+    """Helper to emit a market-edge pick with consistent bookkeeping."""
+    market_odds = 1.0 / max(prob, 0.01)
+    return {
+        "pick": home if side == "home" else away,
+        "model_prob": round(prob, 4),
+        "odds_at_prediction": round(market_odds, 2),
+        "strategy": strategy,
+        "source": "market_edge_v2",
+        "confidence": confidence,
+        "notes": note,
+    }
+
+
+def strategy_market_extreme(home: str, away: str, market_ph: float, market_pa: float) -> Optional[dict]:
+    """مرشح متطرف >= 80% — باك تاست: 90.7% فوز، ROI +3.6% (3394 رهان)."""
+    if market_ph >= 0.80:
+        return _market_pick(home, away, "home", market_ph, "market_extreme", "A",
+                            f"Extreme home favorite {market_ph:.0%}")
+    if market_pa >= 0.80:
+        return _market_pick(home, away, "away", market_pa, "market_extreme", "A",
+                            f"Extreme away favorite {market_pa:.0%}")
+    return None
+
+
+def strategy_market_strong_plus(home: str, away: str, market_ph: float, market_pa: float) -> Optional[dict]:
+    """مرشح قوي >= 75% — باك تاست: 88.3% فوز، ROI +4.1% (4643 رهان)."""
+    if market_ph >= 0.75:
+        return _market_pick(home, away, "home", market_ph, "market_strong_plus", "A",
+                            f"Strong+ home {market_ph:.0%}")
+    if market_pa >= 0.75:
+        return _market_pick(home, away, "away", market_pa, "market_strong_plus", "A",
+                            f"Strong+ away {market_pa:.0%}")
+    return None
+
+
+def strategy_clear_favorite(home: str, away: str, market_ph: float, market_pa: float) -> Optional[dict]:
+    """هامش احتمال >= 25% — باك تاست: 79.6% فوز، ROI +3.1% (أعلى حجم 8822)."""
+    if market_ph - market_pa >= 0.25:
+        return _market_pick(home, away, "home", market_ph, "clear_favorite", "B",
+                            f"Clear favorite margin {market_ph - market_pa:.0%}")
+    if market_pa - market_ph >= 0.25:
+        return _market_pick(home, away, "away", market_pa, "clear_favorite", "B",
+                            f"Clear favorite margin {market_pa - market_ph:.0%}")
+    return None
+
+
+def strategy_home_market_favorite(home: str, away: str, market_ph: float, market_pa: float) -> Optional[dict]:
+    """المضيف المرشح >= 60% — باك تاست: 78.3% فوز، ROI +2.9% (6678 رهان)."""
+    if market_ph >= 0.60:
+        return _market_pick(home, away, "home", market_ph, "home_market_favorite", "B",
+                            f"Home+market favorite {market_ph:.0%}")
+    return None
+
+
+def strategy_contrarian_home_coinflip(home: str, away: str, market_ph: float, market_pa: float) -> Optional[dict]:
+    """العملة المعدنية للمضيف 42-52% — باك تاست: +5.1% ROI (أعلى حافة حقيقية)."""
+    if 0.42 <= market_ph <= 0.52:
+        return _market_pick(home, away, "home", market_ph, "contrarian_home_coinflip", "C",
+                            f"Coinflip home edge {market_ph:.0%}")
+    return None
+
+
+def strategy_moderate_home_favorite(home: str, away: str, market_ph: float, market_pa: float) -> Optional[dict]:
+    """مضيف معتدل 60-72% — باك تاست: 67.5% فوز، ROI +1.9% (قيمة سعرية)."""
+    if 0.60 <= market_ph <= 0.72:
+        return _market_pick(home, away, "home", market_ph, "moderate_home_favorite", "C",
+                            f"Moderate home value {market_ph:.0%}")
+    return None
+
+
+def strategy_away_dominant(home: str, away: str, market_ph: float, market_pa: float) -> Optional[dict]:
+    """ضيف مهيمن >= 70% — باك تاست: 84.6% فوز، ROI +3.7% (1856 رهان)."""
+    if market_pa >= 0.70:
+        return _market_pick(home, away, "away", market_pa, "away_dominant", "B",
+                            f"Dominant away {market_pa:.0%}")
+    return None
+
+
+# ═══════════════════════════════════════════════════════════════════════════
 # مصادر بيانات إضافية
 # ═══════════════════════════════════════════════════════════════════════════
 
@@ -376,6 +460,14 @@ def run_all_strategies(target_date: date) -> int:
             ("contrarian", lambda: strategy_contrarian(home, away, mph, mpa, elo_snap)),
             ("underdog", lambda: strategy_underdog_value(home, away, mph, mpa, elo_snap)),
             ("home_court", lambda: strategy_home_court(home, away, mph, mpa, elo_snap)),
+            # استراتيجيات جديدة مُختارة بالباك تاست (12,942 مباراة)
+            ("market_extreme", lambda: strategy_market_extreme(home, away, mph, mpa)),
+            ("market_strong_plus", lambda: strategy_market_strong_plus(home, away, mph, mpa)),
+            ("clear_favorite", lambda: strategy_clear_favorite(home, away, mph, mpa)),
+            ("home_market_favorite", lambda: strategy_home_market_favorite(home, away, mph, mpa)),
+            ("contrarian_home_coinflip", lambda: strategy_contrarian_home_coinflip(home, away, mph, mpa)),
+            ("moderate_home_favorite", lambda: strategy_moderate_home_favorite(home, away, mph, mpa)),
+            ("away_dominant", lambda: strategy_away_dominant(home, away, mph, mpa)),
         ]
 
         for strat_name, strat_fn in strategies:
@@ -424,7 +516,7 @@ def run_all_strategies(target_date: date) -> int:
     for p in all_picks:
         by_strat[p["strategy"]] += 1
 
-    print(f"\n  📊 {len(all_picks)} توقع من 7 استراتيجيات:")
+    print(f"\n  📊 {len(all_picks)} توقع من 14 استراتيجية (7 أصلية + 7 جديدة بالباك تاست):")
     for strat, count in sorted(by_strat.items(), key=lambda x: -x[1]):
         print(f"    {strat}: {count}")
     print(f"  مسجّل جديد: {recorded}")
