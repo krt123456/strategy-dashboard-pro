@@ -91,27 +91,40 @@ def gather(today: str) -> dict:
     for row in res_rows:
         pid, strat, src, mdate, sport, home, away, pick, odds, hs, aso, won, chk = row
         odds = _f(odds)
-        fp = FLAT_STAKE * (odds - 1) if won else -FLAT_STAKE
         by_strat.setdefault(strat, []).append({
             "date": mdate, "sport": sport, "home": home, "away": away, "pick": pick,
             "odds": round(odds, 2), "won": bool(won), "hs": hs, "as": aso,
-            "fp": round(fp, 2),
+            "fp": 0.0,  # يُحسب أدناه حسب قاعدة 40% يومياً
         })
+
+    DAILY_RISK = 0.40  # كل استراتيجية تراهن 40% من رأس مالها موزّعة على صفقات اليوم
 
     strategies = []
     strat_matches = {}
     for strat, items in by_strat.items():
         bets = len(items)
         wins = sum(1 for x in items if x["won"])
-        # bankroll trajectory
+        # محاكاة رأس المال: 40% من الرصيد الحالي يومياً، موزّعة بالتساوي على صفقات اليوم
+        # مهما كان عددها (compounding ديناميكي). مثال: $100 × 40% ÷ 4 صفقات = $10 لكل صفقة.
         bal = 100.0
         spark = [100.0]
-        for x in items:
-            bal += x["fp"]
+        # رتّب حسب التاريخ ثم زمن التسجيل لمعالجة الأيام بالترتيب
+        ordered = sorted(items, key=lambda x: (x["date"] or "",))
+        i = 0
+        while i < len(ordered):
+            day = ordered[i]["date"]
+            day_bets = [ordered[j] for j in range(i, len(ordered)) if ordered[j]["date"] == day]
+            per_stake = (bal * DAILY_RISK) / len(day_bets)  # حصة كل صفقة من 40% اليومية
+            for x in day_bets:
+                fp = per_stake * (x["odds"] - 1) if x["won"] else -per_stake
+                x["fp"] = round(fp, 2)
+                bal += fp
             spark.append(round(bal, 1))
+            i += len(day_bets)
         bankroll = round(bal, 2)
         profit = round(bal - 100, 2)
-        roi = round(profit / (bets * FLAT_STAKE) * 100, 1)
+        total_staked = round(sum(abs(x["fp"]) for x in ordered), 2)
+        roi = round(profit / total_staked * 100, 1) if total_staked else 0
         days = len({x["date"] for x in items})
         avg_odds = round(sum(x["odds"] for x in items) / bets, 2) if bets else 0
         # streak (most recent consecutive same-outcome)
