@@ -97,8 +97,74 @@ def coinflip_home_premium(home: str, away: str, home_odds: float, away_odds: flo
     return None
 
 
+def deep_seek_1(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
+    """المنطقة الذهبية — Deep Seek 1: home teams in the proven sweet spot.
+
+    Root-cause evidence (1312 graded results):
+    - HOME + real odds + prob 0.50-0.60: +$54 on 218 bets (68.3% win)
+    - The home-underpricing bias peaks when the market is slightly uncertain
+    - Vig kills bets below 1.50; odds above 2.40 have 28% win rate
+
+    Formula: fair_home 0.50-0.62, odds 1.50-2.40, edge > vig/2 + 0.02
+    """
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig <= 0 or vig >= 0.12:
+        return None
+    if not (0.50 <= fh <= 0.62):
+        return None
+    if not (1.50 <= home_odds <= 2.40):
+        return None
+    edge = fh + 0.06 - (1.0 / home_odds)  # model edge with home premium
+    if edge < vig / 2 + 0.02:
+        return None
+    return {
+        "pick": home, "model_prob": round(fh + 0.06, 4),
+        "odds_at_prediction": round(home_odds, 2),
+        "strategy": "deep_seek_1", "source": "expert_vig",
+        "confidence": "A" if edge > vig + 0.02 else "B",
+        "notes": f"golden zone home fh={fh:.0%} edge={edge:+.1%} vig={vig:.1%}",
+    }
+
+
+def deep_seek_2(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
+    """صياد القيمة — Deep Seek 2: value hunting on either side with strict filters.
+
+    Root-cause evidence:
+    - AWAY bets with real odds win 69% (better than HOME's 57%) but are scarcer
+    - The key is catching the side where the market underrates the true probability
+    - Requires both sides to be evaluated for the vig-adjusted edge
+
+    Formula: either side with fair_prob 0.48-0.65, odds 1.60-2.60, edge > vig + 0.03
+    """
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig <= 0 or vig >= 0.10:
+        return None
+    home_edge = fh + 0.05 - (1.0 / home_odds) if home_odds > 1 else -1
+    away_edge = fa - (1.0 / away_odds) if away_odds > 1 else -1
+    min_edge = vig + 0.03
+    if home_edge >= min_edge and 0.48 <= fh <= 0.65 and 1.60 <= home_odds <= 2.60:
+        return {
+            "pick": home, "model_prob": round(fh + 0.05, 4),
+            "odds_at_prediction": round(home_odds, 2),
+            "strategy": "deep_seek_2", "source": "expert_vig",
+            "confidence": "A" if home_edge > vig * 2 else "B",
+            "notes": f"value home fh={fh:.0%} h_edge={home_edge:+.1%} vig={vig:.1%}",
+        }
+    if away_edge >= min_edge and 0.48 <= fa <= 0.65 and 1.60 <= away_odds <= 2.60:
+        return {
+            "pick": away, "model_prob": round(fa, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "deep_seek_2", "source": "expert_vig",
+            "confidence": "A" if away_edge > vig * 2 else "B",
+            "notes": f"value away fa={fa:.0%} a_edge={away_edge:+.1%} vig={vig:.1%}",
+        }
+    return None
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
     "coinflip_home_premium": coinflip_home_premium,
+    "deep_seek_1": deep_seek_1,
+    "deep_seek_2": deep_seek_2,
 }

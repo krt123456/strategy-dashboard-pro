@@ -100,6 +100,8 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
         expert_fns = {
             "coinflip_home_premium": ex.coinflip_home_premium,
             "thick_edge_favorite": ex.thick_edge_favorite,
+            "deep_seek_1": ex.deep_seek_1,
+            "deep_seek_2": ex.deep_seek_2,
         }
     except Exception:
         expert_fns = {}
