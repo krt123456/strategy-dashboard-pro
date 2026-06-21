@@ -1,5 +1,5 @@
 # Strategy Evolution Report — 2026-06-21
-_Generated 2026-06-21T17:28:51 | live window: last 30 days | backtest: 12,942 matches_
+_Generated 2026-06-21T20:00:20 | live window: last 30 days | backtest: 12,942 matches_
 
 | Strategy | Backtest ROI | Live bets | Live acc | Live ROI | Live profit | Verdict |
 |----------|-------------:|----------:|---------:|---------:|------------:|---------|
