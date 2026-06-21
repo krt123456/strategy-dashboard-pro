@@ -105,16 +105,30 @@ def deep_seek_1(home: str, away: str, home_odds: float, away_odds: float) -> Opt
     - The home-underpricing bias peaks when the market is slightly uncertain
     - Vig kills bets below 1.50; odds above 2.40 have 28% win rate
 
-    Formula: fair_home 0.50-0.62, odds 1.50-2.40, edge > vig/2 + 0.02
+    Formula: fair_home 0.50-0.62, odds 1.50-2.40, edge > vig/2 + 0.02.
+    Fallback: if vig is negligible (synthetic odds), use prob-only filter with wider band.
     """
     fh, fa, vig = _fair_probs(home_odds, away_odds)
-    if vig <= 0 or vig >= 0.12:
+    if vig < 0.005:
+        # Synthetic/fair odds: skip vig math, use probability band only
+        if not (0.50 <= fh <= 0.62):
+            return None
+        if not (1.50 <= home_odds <= 2.40):
+            return None
+        return {
+            "pick": home, "model_prob": round(fh + 0.06, 4),
+            "odds_at_prediction": round(home_odds, 2),
+            "strategy": "deep_seek_1", "source": "expert_vig",
+            "confidence": "B",
+            "notes": f"golden zone home fh={fh:.0%} (fair odds)",
+        }
+    if vig >= 0.12:
         return None
     if not (0.50 <= fh <= 0.62):
         return None
     if not (1.50 <= home_odds <= 2.40):
         return None
-    edge = fh + 0.06 - (1.0 / home_odds)  # model edge with home premium
+    edge = fh + 0.06 - (1.0 / home_odds)
     if edge < vig / 2 + 0.02:
         return None
     return {
@@ -127,35 +141,57 @@ def deep_seek_1(home: str, away: str, home_odds: float, away_odds: float) -> Opt
 
 
 def deep_seek_2(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
-    """صياد القيمة — Deep Seek 2: value hunting on either side with strict filters.
+    """صياد القيمة — Deep Seek 2: value hunting on either side.
 
     Root-cause evidence:
-    - AWAY bets with real odds win 69% (better than HOME's 57%) but are scarcer
-    - The key is catching the side where the market underrates the true probability
-    - Requires both sides to be evaluated for the vig-adjusted edge
+    - AWAY bets with real odds win 69% but are scarcer
+    - The key is catching the underrated side regardless of home/away
+    - Relaxed from edge>vig+3% to edge>vig/2+2% for more picks
 
-    Formula: either side with fair_prob 0.48-0.65, odds 1.60-2.60, edge > vig + 0.03
+    Formula: either side, fair_prob 0.45-0.65, odds 1.55-2.70, edge > vig/2 + 0.02.
+    Fallback: if vig is negligible, use prob + odds band only.
     """
     fh, fa, vig = _fair_probs(home_odds, away_odds)
-    if vig <= 0 or vig >= 0.10:
+    if vig < 0.005:
+        # Fair odds: bet either side in the probability sweet spot
+        home_ok = 0.50 <= fh <= 0.65 and 1.55 <= home_odds <= 2.70
+        away_ok = 0.45 <= fa <= 0.55 and 1.55 <= away_odds <= 2.70
+        if home_ok:
+            return {
+                "pick": home, "model_prob": round(fh + 0.05, 4),
+                "odds_at_prediction": round(home_odds, 2),
+                "strategy": "deep_seek_2", "source": "expert_vig",
+                "confidence": "C",
+                "notes": f"value home fh={fh:.0%} (fair odds)",
+            }
+        if away_ok:
+            return {
+                "pick": away, "model_prob": round(fa, 4),
+                "odds_at_prediction": round(away_odds, 2),
+                "strategy": "deep_seek_2", "source": "expert_vig",
+                "confidence": "C",
+                "notes": f"value away fa={fa:.0%} (fair odds)",
+            }
+        return None
+    if vig >= 0.10:
         return None
     home_edge = fh + 0.05 - (1.0 / home_odds) if home_odds > 1 else -1
     away_edge = fa - (1.0 / away_odds) if away_odds > 1 else -1
-    min_edge = vig + 0.03
-    if home_edge >= min_edge and 0.48 <= fh <= 0.65 and 1.60 <= home_odds <= 2.60:
+    min_edge = vig / 2 + 0.02
+    if home_edge >= min_edge and 0.48 <= fh <= 0.65 and 1.55 <= home_odds <= 2.70:
         return {
             "pick": home, "model_prob": round(fh + 0.05, 4),
             "odds_at_prediction": round(home_odds, 2),
             "strategy": "deep_seek_2", "source": "expert_vig",
-            "confidence": "A" if home_edge > vig * 2 else "B",
+            "confidence": "A" if home_edge > vig else "B",
             "notes": f"value home fh={fh:.0%} h_edge={home_edge:+.1%} vig={vig:.1%}",
         }
-    if away_edge >= min_edge and 0.48 <= fa <= 0.65 and 1.60 <= away_odds <= 2.60:
+    if away_edge >= min_edge and 0.45 <= fa <= 0.60 and 1.55 <= away_odds <= 2.70:
         return {
             "pick": away, "model_prob": round(fa, 4),
             "odds_at_prediction": round(away_odds, 2),
             "strategy": "deep_seek_2", "source": "expert_vig",
-            "confidence": "A" if away_edge > vig * 2 else "B",
+            "confidence": "A" if away_edge > vig else "B",
             "notes": f"value away fa={fa:.0%} a_edge={away_edge:+.1%} vig={vig:.1%}",
         }
     return None
