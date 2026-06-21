@@ -52,10 +52,11 @@ SPORT_SLUGS: Dict[str, Optional[str]] = {
     # --- no date-based betexplorer results page ---
     "handball": None,       # JS-rendered skeleton — needs browser
     "darts": None,          # /darts/results returns empty page
-    # --- alternative source (score-tennis.com) ---
+    # --- alternative sources ---
     "tabletennis": "scoretennis",
     "table_tennis": "scoretennis",
     "table tennis": "scoretennis",
+    "cricket": "cricapi",
 }
 
 # Sports where a draw is a legitimate final result.
@@ -245,6 +246,59 @@ def parse_sport_results(html: str, sport: str) -> List[Dict[str, Any]]:
     return rows
 
 
+CRICAPI_KEY = "51a6331b-724a-4ec1-931a-5789e786161a"
+
+
+def _fetch_cricapi_results(target: date) -> List[Dict[str, Any]]:
+    """Fetch cricket results from Cricket Data API (cricapi.com) — free tier.
+
+    Calls /v1/currentMatches, filters to matchEnded=true, returns results
+    in the format the name-matching pipeline expects.
+    """
+    try:
+        import requests as _r
+    except Exception:
+        return []
+    results: List[Dict[str, Any]] = []
+    seen: set = set()
+    url = f"https://api.cricapi.com/v1/currentMatches?apikey={CRICAPI_KEY}&offset=0"
+    try:
+        resp = _r.get(url, timeout=20)
+        if resp.status_code != 200:
+            return []
+        data = resp.json()
+    except Exception:
+        return []
+    for m in data.get("data", []) or []:
+        if not m.get("matchEnded"):
+            continue
+        mdate = m.get("date", "")
+        teams = m.get("teams") or []
+        if len(teams) < 2:
+            continue
+        home = teams[0].strip()
+        away = teams[1].strip()
+        scores = m.get("score") or []
+        home_score = away_score = 0
+        if len(scores) >= 2:
+            away_score = scores[0].get("r", 0)
+            home_score = scores[1].get("r", 0)
+        try:
+            dt = date.fromisoformat(mdate)
+        except Exception:
+            dt = target
+        key = (dt.isoformat(), _normalize(home), _normalize(away))
+        if key in seen:
+            continue
+        seen.add(key)
+        results.append({
+            "sport": "cricket", "date": dt, "home": home, "away": away,
+            "home_pts": home_score, "away_pts": away_score,
+            "league": m.get("series_id", ""), "finished": True,
+        })
+    return results
+
+
 def _fetch_scoretennis_tabletennis(target: date) -> List[Dict[str, Any]]:
     """Fetch table tennis results from score-tennis.com (server-rendered, no JS needed).
 
@@ -315,12 +369,19 @@ def fetch_sport_results(sport: str, target: date, *, days_back: int = 2,
         slug = SPORT_SLUGS.get(_norm_key(sport))
     if slug is None:
         return []
-    # Alternative data source: score-tennis.com for table tennis
+    # Alternative data source: score-tennis.com for table tennis / cricapi for cricket
     if slug == "scoretennis":
         cache_key = f"scoretennis:{target.isoformat()}"
         if cache_key in _RESULTS_CACHE:
             return _RESULTS_CACHE[cache_key]
         rows = _fetch_scoretennis_tabletennis(target)
+        _RESULTS_CACHE[cache_key] = rows
+        return rows
+    if slug == "cricapi":
+        cache_key = f"cricapi:{target.isoformat()}"
+        if cache_key in _RESULTS_CACHE:
+            return _RESULTS_CACHE[cache_key]
+        rows = _fetch_cricapi_results(target)
         _RESULTS_CACHE[cache_key] = rows
         return rows
 
