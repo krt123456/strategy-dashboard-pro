@@ -49,12 +49,13 @@ SPORT_SLUGS: Dict[str, Optional[str]] = {
     "baseball": "baseball",
     "hockey": "hockey",
     "icehockey": "hockey",
-    # --- no date-based results page (use per-league / alternative source) ---
+    # --- no date-based betexplorer results page ---
     "handball": None,       # JS-rendered skeleton — needs browser
-    "tabletennis": None,    # /table-tennis/results returns 404; use per-league scraper
-    "table_tennis": None,
-    "table tennis": None,
     "darts": None,          # /darts/results returns empty page
+    # --- alternative source (score-tennis.com) ---
+    "tabletennis": "scoretennis",
+    "table_tennis": "scoretennis",
+    "table tennis": "scoretennis",
 }
 
 # Sports where a draw is a legitimate final result.
@@ -244,6 +245,67 @@ def parse_sport_results(html: str, sport: str) -> List[Dict[str, Any]]:
     return rows
 
 
+def _fetch_scoretennis_tabletennis(target: date) -> List[Dict[str, Any]]:
+    """Fetch table tennis results from score-tennis.com (server-rendered, no JS needed).
+
+    Returns results in the same format as parse_sport_results so they flow
+    through the existing name-matching pipeline identically to betexplorer rows.
+    """
+    try:
+        from bs4 import BeautifulSoup
+    except Exception:
+        return []
+    results: List[Dict[str, Any]] = []
+    seen: set = set()
+    for d in range(0, 3):  # today and 2 days back
+        dt = target - timedelta(days=d)
+        url = f"https://score-tennis.com/games/?date={dt.isoformat()}"
+        html = _http_get(url, timeout_s=20)
+        if not html:
+            continue
+        soup = BeautifulSoup(html, "html.parser")
+        for block in soup.select("div.games-list"):
+            league_tag = block.find("h2")
+            league = unescape(league_tag.get_text(strip=True)) if league_tag else ""
+            tbody = block.find("tbody")
+            if not tbody:
+                continue
+            for tr_tag in tbody.find_all("tr"):
+                tds = tr_tag.find_all("td")
+                if len(tds) < 3:
+                    continue
+                # Player names from the <a> tag: "Player1 / Player2 – Player3 / Player4"
+                a_tag = tr_tag.find("a")
+                if not a_tag:
+                    continue
+                players_raw = unescape(a_tag.get_text(strip=True))
+                if "–" in players_raw:
+                    home_raw, away_raw = players_raw.split("–", 1)
+                elif " - " in players_raw:
+                    home_raw, away_raw = players_raw.split(" - ", 1)
+                else:
+                    continue
+                home = home_raw.strip()
+                away = away_raw.strip()
+                # Score from the 3rd td
+                score_text = unescape(tds[2].get_text(strip=True))
+                m = re.search(r"(\d+)\s*:\s*(\d+)", score_text)
+                if not m:
+                    continue
+                home_pts, away_pts = int(m.group(1)), int(m.group(2))
+                key = (dt.isoformat(), _normalize(home), _normalize(away), home_pts, away_pts)
+                if key in seen:
+                    continue
+                seen.add(key)
+                results.append({
+                    "sport": "tabletennis", "date": dt, "home": home, "away": away,
+                    "home_pts": home_pts, "away_pts": away_pts, "league": league,
+                    "finished": True,
+                })
+        time.sleep(0.3)
+    return results
+
+
 def fetch_sport_results(sport: str, target: date, *, days_back: int = 2,
                         timeout: int = 25) -> List[Dict[str, Any]]:
     """Fetch (with simple per-sport cache) finished results near the target date."""
@@ -253,6 +315,15 @@ def fetch_sport_results(sport: str, target: date, *, days_back: int = 2,
         slug = SPORT_SLUGS.get(_norm_key(sport))
     if slug is None:
         return []
+    # Alternative data source: score-tennis.com for table tennis
+    if slug == "scoretennis":
+        cache_key = f"scoretennis:{target.isoformat()}"
+        if cache_key in _RESULTS_CACHE:
+            return _RESULTS_CACHE[cache_key]
+        rows = _fetch_scoretennis_tabletennis(target)
+        _RESULTS_CACHE[cache_key] = rows
+        return rows
+
     cache_key = f"{slug}:{target.isoformat()}:{days_back}"
     if cache_key in _RESULTS_CACHE:
         return _RESULTS_CACHE[cache_key]
