@@ -3,9 +3,9 @@
 ## Sources Performance
 | Source | Bets | Wins | Accuracy | Profit | ROI |
 |--------|------|------|----------|--------|-----|
-| expert_vig | 4 | 4 | 100.0% | $3.65 | 91.2% |
-| xbet_linefeed | 3 | 3 | 100.0% | $2.80 | 93.3% |
-| version_library | 3 | 3 | 100.0% | $2.80 | 93.3% |
+| expert_vig | 10 | 7 | 70.0% | $3.24 | 32.4% |
+| version_library | 10 | 7 | 70.0% | $2.85 | 28.5% |
+| xbet_linefeed | 31 | 21 | 67.7% | $0.96 | 3.1% |
 | home_advantage | 9 | 7 | 77.8% | $0.67 | 2.9% |
 | elo_contrarian | 1 | 1 | 100.0% | $0.00 | 0.0% |
 | market_edge_v2 | 63 | 40 | 63.5% | $-0.21 | -10.4% |
@@ -20,17 +20,17 @@
 ## Strategies Performance
 | Strategy | Bets | Wins | Accuracy | Profit |
 |----------|------|------|----------|--------|
+| contrarian_home_coinflip_v4__xbet_linefeed | 5 | 4 | 80.0% | $2.95 |
+| coinflip_home_v2_20260620__xbet_linefeed | 5 | 4 | 80.0% | $2.95 |
+| deep_seek_2__xbet_linefeed | 2 | 2 | 100.0% | $2.39 |
 | moderate_home_favorite_v1__src_market | 9 | 8 | 88.9% | $2.16 |
-| contrarian_home_coinflip_v4__xbet_linefeed | 2 | 2 | 100.0% | $1.95 |
-| coinflip_home_v2_20260620__xbet_linefeed | 2 | 2 | 100.0% | $1.95 |
-| coinflip_home_premium__xbet_linefeed | 2 | 2 | 100.0% | $1.95 |
 | moderate_home_favorite | 7 | 5 | 71.4% | $1.27 |
 | moderate_home_favorite_v7__src_market | 11 | 8 | 72.7% | $1.08 |
-| deep_seek_2__xbet_linefeed | 1 | 1 | 100.0% | $0.85 |
 | deep_seek_1__xbet_linefeed | 1 | 1 | 100.0% | $0.85 |
-| contrarian_home_coinflip_v5__xbet_linefeed | 1 | 1 | 100.0% | $0.85 |
-| coinflip_home_v1_20260620__xbet_linefeed | 1 | 1 | 100.0% | $0.85 |
+| contrarian_home_coinflip_v5__xbet_linefeed | 5 | 3 | 60.0% | $0.85 |
 | home_court | 9 | 7 | 77.8% | $0.67 |
+| clear_favorite_v8__xbet_linefeed | 2 | 2 | 100.0% | $0.67 |
+| clear_favorite_v6__xbet_linefeed | 2 | 2 | 100.0% | $0.67 |
 | contrarian_home_coinflip_v5__src_elo | 7 | 5 | 71.4% | $0.65 |
 | home_market_favorite | 11 | 7 | 63.6% | $0.37 |
 | market_strong_plus_v4__src_market | 7 | 5 | 71.4% | $0.27 |
@@ -42,19 +42,32 @@
 | home_market_favorite_v1__src_market | 15 | 10 | 66.7% | $0.18 |
 | market_extreme_v8__src_market | 1 | 1 | 100.0% | $0.13 |
 | market_extreme_v8__src_elo | 1 | 1 | 100.0% | $0.08 |
+| trapfree_favorite_v1_20260620__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| thick_edge_favorite__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| market_strong_plus_v4__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| market_strong_plus_v3__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| market_extreme_v8__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| market_extreme_v7__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| home_market_favorite_v7__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
 | contrarian_elo | 1 | 1 | 100.0% | $0.00 |
+| coinflip_home_premium__xbet_linefeed | 6 | 3 | 50.0% | $-0.07 |
 | contrarian_home_coinflip_v5__src_market | 4 | 1 | 25.0% | $-0.07 |
 | contrarian_home_coinflip_v4__src_elo | 8 | 5 | 62.5% | $-0.10 |
 | clear_favorite | 19 | 13 | 68.4% | $-0.11 |
 | contrarian_home_coinflip_v4__src_market | 3 | 0 | 0.0% | $-0.13 |
+| coinflip_home_v1_20260620__xbet_linefeed | 4 | 2 | 50.0% | $-0.17 |
 | away_dominant_v5__src_elo | 5 | 4 | 80.0% | $-0.34 |
 | away_dominant_v4__src_elo | 5 | 4 | 80.0% | $-0.34 |
+| market_consensus | 2 | 1 | 50.0% | $-0.40 |
 | away_dominant_v5__src_market | 6 | 4 | 66.7% | $-0.76 |
 | away_dominant | 6 | 4 | 66.7% | $-0.76 |
 | market_extreme_v7__src_elo | 2 | 1 | 50.0% | $-0.92 |
 | clear_favorite_v6__src_market | 16 | 10 | 62.5% | $-1.27 |
 | elo_market_agree | 31 | 21 | 67.7% | $-1.28 |
+| home_market_favorite_v1__xbet_linefeed | 4 | 2 | 50.0% | $-1.33 |
 | market_strong_plus_v3__src_elo | 6 | 4 | 66.7% | $-1.36 |
+| moderate_home_favorite_v7__xbet_linefeed | 3 | 1 | 33.3% | $-1.40 |
+| moderate_home_favorite_v1__xbet_linefeed | 3 | 1 | 33.3% | $-1.40 |
 | contrarian_home_coinflip | 7 | 2 | 28.6% | $-1.47 |
 | moderate_home_favorite_v7__src_elo | 10 | 4 | 40.0% | $-1.53 |
 | moderate_home_favorite_v1__src_elo | 10 | 4 | 40.0% | $-1.53 |
@@ -77,4 +90,6 @@
 | Sport | Bets | Wins | Accuracy | Profit |
 |-------|------|------|----------|--------|
 | baseball | 10 | 10 | 100.0% | $9.25 |
+| football | 17 | 17 | 100.0% | $5.84 |
+| tabletennis | 24 | 8 | 33.3% | $-8.04 |
 | basketball | 485 | 289 | 59.6% | $-182.84 |
