@@ -1,8 +1,15 @@
 # Strategy Evolution Report — 2026-06-22
-_Generated 2026-06-22T21:03:23 | live window: last 30 days | backtest: 12,942 matches_
+_Generated 2026-06-22T21:33:17 | live window: last 30 days | backtest: 12,942 matches_
 
 | Strategy | Backtest ROI | Live bets | Live acc | Live ROI | Live profit | Verdict |
 |----------|-------------:|----------:|---------:|---------:|------------:|---------|
+| coinflip_home_premium__xbet_linefeed | — | 2 | 100.0% | +97.5% | +1.95 | NEW |
+| coinflip_home_v2_20260620__xbet_linefeed | — | 2 | 100.0% | +97.5% | +1.95 | NEW |
+| contrarian_home_coinflip_v4__xbet_linefeed | — | 2 | 100.0% | +97.5% | +1.95 | NEW |
+| coinflip_home_v1_20260620__xbet_linefeed | — | 1 | 100.0% | +85.0% | +0.85 | NEW |
+| contrarian_home_coinflip_v5__xbet_linefeed | — | 1 | 100.0% | +85.0% | +0.85 | NEW |
+| deep_seek_1__xbet_linefeed | — | 1 | 100.0% | +85.0% | +0.85 | NEW |
+| deep_seek_2__xbet_linefeed | — | 1 | 100.0% | +85.0% | +0.85 | NEW |
 | moderate_home_favorite_v1__src_market | — | 9 | 88.9% | +24.0% | +2.16 | NEW |
 | moderate_home_favorite | +1.9% | 7 | 71.4% | +18.1% | +1.27 | WATCH (live sample too small) |
 | market_extreme_v8__src_market | — | 1 | 100.0% | +13.0% | +0.13 | NEW |

@@ -3,6 +3,9 @@
 ## Sources Performance
 | Source | Bets | Wins | Accuracy | Profit | ROI |
 |--------|------|------|----------|--------|-----|
+| expert_vig | 4 | 4 | 100.0% | $3.65 | 91.2% |
+| xbet_linefeed | 3 | 3 | 100.0% | $2.80 | 93.3% |
+| version_library | 3 | 3 | 100.0% | $2.80 | 93.3% |
 | home_advantage | 9 | 7 | 77.8% | $0.67 | 2.9% |
 | elo_contrarian | 1 | 1 | 100.0% | $0.00 | 0.0% |
 | market_edge_v2 | 63 | 40 | 63.5% | $-0.21 | -10.4% |
@@ -18,8 +21,15 @@
 | Strategy | Bets | Wins | Accuracy | Profit |
 |----------|------|------|----------|--------|
 | moderate_home_favorite_v1__src_market | 9 | 8 | 88.9% | $2.16 |
+| contrarian_home_coinflip_v4__xbet_linefeed | 2 | 2 | 100.0% | $1.95 |
+| coinflip_home_v2_20260620__xbet_linefeed | 2 | 2 | 100.0% | $1.95 |
+| coinflip_home_premium__xbet_linefeed | 2 | 2 | 100.0% | $1.95 |
 | moderate_home_favorite | 7 | 5 | 71.4% | $1.27 |
 | moderate_home_favorite_v7__src_market | 11 | 8 | 72.7% | $1.08 |
+| deep_seek_2__xbet_linefeed | 1 | 1 | 100.0% | $0.85 |
+| deep_seek_1__xbet_linefeed | 1 | 1 | 100.0% | $0.85 |
+| contrarian_home_coinflip_v5__xbet_linefeed | 1 | 1 | 100.0% | $0.85 |
+| coinflip_home_v1_20260620__xbet_linefeed | 1 | 1 | 100.0% | $0.85 |
 | home_court | 9 | 7 | 77.8% | $0.67 |
 | contrarian_home_coinflip_v5__src_elo | 7 | 5 | 71.4% | $0.65 |
 | home_market_favorite | 11 | 7 | 63.6% | $0.37 |
@@ -66,4 +76,5 @@
 ## Sports Performance
 | Sport | Bets | Wins | Accuracy | Profit |
 |-------|------|------|----------|--------|
+| baseball | 10 | 10 | 100.0% | $9.25 |
 | basketball | 485 | 289 | 59.6% | $-182.84 |
