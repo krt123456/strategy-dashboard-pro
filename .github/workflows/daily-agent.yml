@@ -44,13 +44,13 @@ jobs:
         run: python scripts/cross_source_strategy_runner.py || echo "cross-source runner partial"
       - name: Resolve results from betexplorer (multi-sport)
         run: |
-          YESTERDAY=$(date -u -d "yesterday" +%Y-%m-%d)
-          python scripts/resolve_results_betexplorer.py --date "$YESTERDAY" --days-back 2 || echo "betexplorer resolve partial"
+          TODAY=$(date -u +%Y-%m-%d)
+          python scripts/resolve_results_betexplorer.py --date "$TODAY" --days-back 2 || echo "betexplorer resolve partial"
           
       - name: Check results (basketball ESPN fallback)
         run: |
-          YESTERDAY=$(date -u -d "yesterday" +%Y-%m-%d)
-          python scripts/check_results.py --date "$YESTERDAY" || echo "results partial"
+          TODAY=$(date -u +%Y-%m-%d)
+          python scripts/check_results.py --date "$TODAY" || echo "results partial"
           
       - name: Generate report
         run: python scripts/generate_report.py > reports/daily_report_$(date +%Y-%m-%d).md || echo "report partial"
