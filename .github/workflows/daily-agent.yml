@@ -78,7 +78,7 @@ jobs:
         run: |
           git config user.name "Strategy Bot"
           git config user.email "bot@strategy.local"
-          git add data/betting_journal.db data/strategy_versions_library.json data/winning_variants.json reports/ 2>/dev/null || true
+          git add data/betting_journal.db data/one_xbet_linefeed_snapshot.csv data/basketball_betexplorer_current.csv data/strategy_versions_library.json data/winning_variants.json reports/ 2>/dev/null || true
           git commit -m "📊 Daily agent $(date +%Y-%m-%d)" || echo "nothing to commit"
           git push || echo "push skipped"
 
@@ -86,7 +86,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: betting-journal-$(date +%Y-%m-%d)
-          path: data/betting_journal.db
+          path: data/betting_journal.db data/one_xbet_linefeed_snapshot.csv data/basketball_betexplorer_current.csv
           retention-days: 90
 
       - name: Build dashboard PWA
