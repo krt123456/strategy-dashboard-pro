@@ -432,6 +432,64 @@ def deep_seek_10_hybrid_auto(home: str, away: str, home_odds: float, away_odds: 
     return None
 
 
+def deep_seek_11_multifilter(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Deep Seek 11 — الفلتر النهائي (5 فلاتر متتالية).
+
+    ╔═══════════════════════════════════════════════════════════════╗
+    ║  الفلتر 1: الرياضة  →  مسموح فقط: TT, baseball, tennis, football
+    ║  الفلتر 2: الطرف    →  TT=away, baseball=home, tennis=أقوى, football=away
+    ║  الفلتر 3: odds     →  نطاق دقيق لكل رياضة (يتجنب الموت <1.5)
+    ║  الفلتر 4: vig      →  ≤10% فقط (يرفض الأسواق المُضخّمة)
+    ║  الفلتر 5: الحافة   →  edge > vig/2 + 3% (يجب أن تتجاوز العمولة)
+    ╚═══════════════════════════════════════════════════════════════╝
+
+    لو فشل أي فلتر → لا رهان. هذا يُنتج عدداً قليلاً من التنبؤات لكن بدقة عالية جداً.
+    """
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+
+    # ── الفلتر 4: vig معقول ──
+    if vig > 0.10 or vig <= 0:
+        return None
+
+    # ── الفلتر 1+2+3: لكل رياضة قواعدها ──
+    if sport in ("tabletennis", "table_tennis"):
+        if away_odds < 1.25 or away_odds > 2.50 or fa < 0.42:
+            return None
+        side, prob, odds, edge = "away", fa, away_odds, fa - (1.0 / away_odds if away_odds > 1 else 0)
+    elif sport == "baseball":
+        if home_odds < 1.35 or home_odds > 2.20 or fh < 0.45:
+            return None
+        side, prob, odds, edge = "home", fh, home_odds, fh - (1.0 / home_odds if home_odds > 1 else 0)
+    elif sport == "tennis":
+        if away_odds < home_odds and 1.25 <= away_odds <= 2.50 and fa >= 0.42:
+            side, prob, odds = "away", fa, away_odds
+        elif home_odds < away_odds and 1.35 <= home_odds <= 2.50 and fh >= 0.45:
+            side, prob, odds = "home", fh, home_odds
+        else:
+            return None
+        edge = prob - (1.0 / odds if odds > 1 else 0)
+    elif sport in ("football", "soccer"):
+        if away_odds < 1.35 or away_odds > 2.50 or fa < 0.44:
+            return None
+        side, prob, odds, edge = "away", fa, away_odds, fa - (1.0 / away_odds if away_odds > 1 else 0)
+    else:
+        return None  # الفلتر 1: رياضة غير مدعومة
+
+    # ── الفلتر 5: الحافة يجب أن تتجاوز الـ vig ──
+    if edge is None or edge < vig / 2 + 0.03:
+        return None
+
+    confidence = "A" if edge > vig + 0.03 else ("B" if edge > vig / 2 + 0.05 else "C")
+    pick_name = home if side == "home" else away
+    return {
+        "pick": pick_name, "model_prob": round(prob, 4),
+        "odds_at_prediction": round(odds, 2),
+        "strategy": "deep_seek_11", "source": "expert_vig",
+        "confidence": confidence,
+        "notes": f"deep_seek_11 5-filter {sport} {side} edge={edge:+.1%} vig={vig:.1%}",
+    }
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -446,4 +504,5 @@ EXPERT_STRATEGIES = {
     "deep_seek_8": deep_seek_8_tennis_hybrid,
     "deep_seek_9": deep_seek_9_football_away,
     "deep_seek_10": deep_seek_10_hybrid_auto,
+    "deep_seek_11": deep_seek_11_multifilter,
 }

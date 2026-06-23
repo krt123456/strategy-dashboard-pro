@@ -110,6 +110,7 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "deep_seek_8": ex.deep_seek_8_tennis_hybrid,
             "deep_seek_9": ex.deep_seek_9_football_away,
             "deep_seek_10": ex.deep_seek_10_hybrid_auto,
+            "deep_seek_11": ex.deep_seek_11_multifilter,
         }
     except Exception:
         expert_fns = {}
