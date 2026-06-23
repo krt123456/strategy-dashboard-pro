@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-06-23T00:00",
+  "fetched_at": "2026-06-23T02:00",
   "sources": {
     "betexplorer_basketball": [],
     "xbet_linefeed": [
@@ -2874,6 +2874,16 @@
         "date": "2026-09-20",
         "home": "Edmonton Oilers",
         "away": "Winnipeg Jets",
+        "home_prob": 0.0,
+        "away_prob": 0.0
+      },
+      {
+        "source": "espn",
+        "sport": "hockey",
+        "league": "NHL",
+        "date": "2026-09-20",
+        "home": "Los Angeles Kings",
+        "away": "Vegas Golden Knights",
         "home_prob": 0.0,
         "away_prob": 0.0
       },
