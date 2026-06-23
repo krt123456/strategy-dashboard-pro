@@ -1,36 +1,36 @@
 # Strategy Evolution Report — 2026-06-23
-_Generated 2026-06-23T17:56:24 | live window: last 30 days | backtest: 12,942 matches_
+_Generated 2026-06-23T20:00:13 | live window: last 30 days | backtest: 12,942 matches_
 
 | Strategy | Backtest ROI | Live bets | Live acc | Live ROI | Live profit | Verdict |
 |----------|-------------:|----------:|---------:|---------:|------------:|---------|
-| deep_seek_9__xbet_linefeed | — | 3 | 100.0% | +93.0% | +2.79 | NEW |
 | deep_seek_6__xbet_linefeed | — | 2 | 100.0% | +85.5% | +1.71 | NEW |
+| deep_seek_9__xbet_linefeed | — | 8 | 100.0% | +75.5% | +6.04 | NEW |
 | deep_seek_8__xbet_linefeed | — | 1 | 100.0% | +44.0% | +0.44 | NEW |
 | deep_seek_2__xbet_linefeed | — | 9 | 66.7% | +39.3% | +3.54 | NEW |
-| clear_favorite_v8__xbet_linefeed | — | 8 | 100.0% | +31.0% | +2.48 | NEW |
-| clear_favorite_v6__xbet_linefeed | — | 13 | 92.3% | +28.7% | +3.73 | KEEP ★ |
-| away_dominant_v4__xbet_linefeed | — | 2 | 100.0% | +26.5% | +0.53 | NEW |
+| away_dominant_v4__xbet_linefeed | — | 4 | 100.0% | +30.2% | +1.21 | NEW |
+| away_dominant_v5__xbet_linefeed | — | 3 | 100.0% | +25.7% | +0.77 | NEW |
+| trapfree_favorite_v1_20260620__xbet_linefeed | — | 10 | 100.0% | +24.4% | +2.44 | KEEP ★ |
 | moderate_home_favorite_v1__src_market | — | 9 | 88.9% | +24.0% | +2.16 | NEW |
-| trapfree_favorite_v1_20260620__xbet_linefeed | — | 7 | 100.0% | +22.4% | +1.57 | NEW |
-| home_market_favorite_v7__xbet_linefeed | — | 5 | 100.0% | +20.8% | +1.04 | NEW |
+| clear_favorite_v6__xbet_linefeed | — | 18 | 88.9% | +23.3% | +4.19 | KEEP ★ |
+| clear_favorite_v8__xbet_linefeed | — | 13 | 92.3% | +22.6% | +2.94 | KEEP ★ |
+| home_market_favorite_v7__xbet_linefeed | — | 6 | 100.0% | +20.5% | +1.23 | NEW |
 | moderate_home_favorite | +1.9% | 7 | 71.4% | +18.1% | +1.27 | WATCH (live sample too small) |
 | coinflip_home_v2_20260620__xbet_linefeed | — | 12 | 58.3% | +16.1% | +1.93 | KEEP ★ |
 | contrarian_home_coinflip_v4__xbet_linefeed | — | 12 | 58.3% | +16.1% | +1.93 | KEEP ★ |
-| market_strong_plus_v3__xbet_linefeed | — | 5 | 100.0% | +14.0% | +0.70 | NEW |
-| market_strong_plus_v4__xbet_linefeed | — | 5 | 100.0% | +14.0% | +0.70 | NEW |
-| thick_edge_favorite__xbet_linefeed | — | 5 | 100.0% | +14.0% | +0.70 | NEW |
+| market_strong_plus_v3__xbet_linefeed | — | 6 | 100.0% | +14.8% | +0.89 | NEW |
+| market_strong_plus_v4__xbet_linefeed | — | 6 | 100.0% | +14.8% | +0.89 | NEW |
+| thick_edge_favorite__xbet_linefeed | — | 6 | 100.0% | +14.8% | +0.89 | NEW |
 | market_extreme_v8__src_market | — | 1 | 100.0% | +13.0% | +0.13 | NEW |
+| deep_seek_10__xbet_linefeed | — | 32 | 62.5% | +12.1% | +3.86 | KEEP ★ |
 | market_extreme_v7__src_market | — | 2 | 100.0% | +12.0% | +0.24 | NEW |
 | deep_seek_1__xbet_linefeed | — | 5 | 60.0% | +11.0% | +0.55 | NEW |
 | moderate_home_favorite_v7__src_market | — | 11 | 72.7% | +9.8% | +1.08 | KEEP ★ |
 | contrarian_home_coinflip_v5__src_elo | — | 7 | 71.4% | +9.3% | +0.65 | NEW |
-| away_dominant_v5__xbet_linefeed | — | 1 | 100.0% | +9.0% | +0.09 | NEW |
 | market_extreme_v7__xbet_linefeed | — | 3 | 100.0% | +8.7% | +0.26 | NEW |
 | market_extreme_v8__xbet_linefeed | — | 3 | 100.0% | +8.7% | +0.26 | NEW |
 | market_extreme_v8__src_elo | — | 1 | 100.0% | +8.0% | +0.08 | NEW |
 | coinflip_home_premium__xbet_linefeed | — | 15 | 53.3% | +7.5% | +1.13 | KEEP ★ |
 | home_court | — | 9 | 77.8% | +7.4% | +0.67 | NEW |
-| deep_seek_10__xbet_linefeed | — | 26 | 57.7% | +6.2% | +1.61 | KEEP ★ |
 | market_strong_plus | +4.1% | 7 | 71.4% | +3.9% | +0.27 | WATCH (live sample too small) |
 | market_strong_plus_v3__src_market | — | 7 | 71.4% | +3.9% | +0.27 | NEW |
 | market_strong_plus_v4__src_market | — | 7 | 71.4% | +3.9% | +0.27 | NEW |
@@ -38,8 +38,6 @@ _Generated 2026-06-23T17:56:24 | live window: last 30 days | backtest: 12,942 ma
 | home_market_favorite | +2.9% | 11 | 63.6% | +3.4% | +0.37 | KEEP ★ |
 | away_dominant_v4__src_market | — | 9 | 77.8% | +2.0% | +0.18 | NEW |
 | home_market_favorite_v1__src_market | — | 15 | 66.7% | +1.2% | +0.18 | WATCH |
-| deep_seek_3__xbet_linefeed | — | 15 | 53.3% | +0.3% | +0.05 | WATCH |
-| deep_seek_5__xbet_linefeed | — | 13 | 53.8% | +0.0% | +0.00 | WATCH |
 | contrarian_elo | — | 1 | 100.0% | +0.0% | +0.00 | NEW |
 | clear_favorite | +3.1% | 19 | 68.4% | -0.6% | -0.11 | WATCH |
 | contrarian_home_coinflip_v4__src_elo | — | 8 | 62.5% | -1.2% | -0.10 | NEW |
@@ -48,25 +46,27 @@ _Generated 2026-06-23T17:56:24 | live window: last 30 days | backtest: 12,942 ma
 | deep_seek_7__xbet_linefeed | — | 8 | 50.0% | -3.1% | -0.25 | NEW |
 | elo_market_agree | — | 31 | 67.7% | -4.1% | -1.28 | WATCH |
 | contrarian_home_coinflip_v4__src_market | — | 3 | 0.0% | -4.3% | -0.13 | NEW |
-| home_market_favorite_v1__xbet_linefeed | — | 15 | 66.7% | -4.9% | -0.74 | WATCH |
-| deep_seek_4__xbet_linefeed | — | 15 | 53.3% | -6.5% | -0.97 | CUT |
+| deep_seek_3__xbet_linefeed | — | 16 | 50.0% | -5.9% | -0.95 | CUT |
 | away_dominant_v4__src_elo | — | 5 | 80.0% | -6.8% | -0.34 | NEW |
 | away_dominant_v5__src_elo | — | 5 | 80.0% | -6.8% | -0.34 | NEW |
+| deep_seek_5__xbet_linefeed | — | 14 | 50.0% | -7.1% | -1.00 | CUT |
 | clear_favorite_v6__src_market | — | 16 | 62.5% | -7.9% | -1.27 | CUT |
+| home_market_favorite_v1__xbet_linefeed | — | 17 | 64.7% | -9.1% | -1.55 | CUT |
 | pure_elo | — | 43 | 67.4% | -10.6% | -4.55 | CUT |
-| moderate_home_favorite_v7__xbet_linefeed | — | 11 | 54.5% | -12.3% | -1.35 | CUT |
+| deep_seek_4__xbet_linefeed | — | 16 | 50.0% | -12.3% | -1.97 | CUT |
 | market_strong | — | 23 | 73.9% | -12.4% | -2.85 | CUT |
 | away_dominant | +3.7% | 6 | 66.7% | -12.7% | -0.76 | WATCH (live sample too small) |
 | away_dominant_v5__src_market | — | 6 | 66.7% | -12.7% | -0.76 | NEW |
 | moderate_home_favorite_v1__src_elo | — | 10 | 40.0% | -15.3% | -1.53 | CUT |
 | moderate_home_favorite_v7__src_elo | — | 10 | 40.0% | -15.3% | -1.53 | CUT |
-| moderate_home_favorite_v1__xbet_linefeed | — | 10 | 50.0% | -17.8% | -1.78 | CUT |
-| market_consensus | — | 16 | 50.0% | -20.3% | -3.25 | CUT |
+| moderate_home_favorite_v7__xbet_linefeed | — | 12 | 50.0% | -19.6% | -2.35 | CUT |
+| market_consensus | — | 18 | 50.0% | -20.3% | -3.66 | CUT |
 | contrarian_home_coinflip | +5.1% | 7 | 28.6% | -21.0% | -1.47 | WATCH (live sample too small) |
 | clear_favorite_v6__src_elo | — | 16 | 62.5% | -22.4% | -3.59 | CUT |
 | market_strong_plus_v3__src_elo | — | 6 | 66.7% | -22.7% | -1.36 | NEW |
 | coinflip_home_v1_20260620__xbet_linefeed | — | 12 | 41.7% | -23.3% | -2.80 | CUT |
 | clear_favorite_v8__src_market | — | 11 | 54.5% | -24.2% | -2.66 | CUT |
+| moderate_home_favorite_v1__xbet_linefeed | — | 11 | 45.5% | -25.3% | -2.78 | CUT |
 | home_market_favorite_v1__src_elo | — | 18 | 44.4% | -26.2% | -4.71 | CUT |
 | clear_favorite_v8__src_elo | — | 13 | 61.5% | -27.1% | -3.52 | CUT |
 | home_market_favorite_v7__src_market | — | 6 | 33.3% | -33.0% | -1.98 | NEW |
@@ -80,8 +80,8 @@ _Generated 2026-06-23T17:56:24 | live window: last 30 days | backtest: 12,942 ma
 | conservative | — | 4 | 25.0% | -375.0% | -15.00 | NEW |
 
 ## Action
-- **Keep (7)**: clear_favorite_v6__xbet_linefeed, coinflip_home_v2_20260620__xbet_linefeed, contrarian_home_coinflip_v4__xbet_linefeed, moderate_home_favorite_v7__src_market, coinflip_home_premium__xbet_linefeed, deep_seek_10__xbet_linefeed, home_market_favorite
-- **Cut (18)**: deep_seek_4__xbet_linefeed, clear_favorite_v6__src_market, pure_elo, moderate_home_favorite_v7__xbet_linefeed, market_strong, moderate_home_favorite_v1__src_elo, moderate_home_favorite_v7__src_elo, moderate_home_favorite_v1__xbet_linefeed, market_consensus, clear_favorite_v6__src_elo, coinflip_home_v1_20260620__xbet_linefeed, clear_favorite_v8__src_market, home_market_favorite_v1__src_elo, clear_favorite_v8__src_elo, underdog_value, aggressive, balanced, lightgbm_calibrated
+- **Keep (9)**: trapfree_favorite_v1_20260620__xbet_linefeed, clear_favorite_v6__xbet_linefeed, clear_favorite_v8__xbet_linefeed, coinflip_home_v2_20260620__xbet_linefeed, contrarian_home_coinflip_v4__xbet_linefeed, deep_seek_10__xbet_linefeed, moderate_home_favorite_v7__src_market, coinflip_home_premium__xbet_linefeed, home_market_favorite
+- **Cut (21)**: deep_seek_3__xbet_linefeed, deep_seek_5__xbet_linefeed, clear_favorite_v6__src_market, home_market_favorite_v1__xbet_linefeed, pure_elo, deep_seek_4__xbet_linefeed, market_strong, moderate_home_favorite_v1__src_elo, moderate_home_favorite_v7__src_elo, moderate_home_favorite_v7__xbet_linefeed, market_consensus, clear_favorite_v6__src_elo, coinflip_home_v1_20260620__xbet_linefeed, clear_favorite_v8__src_market, moderate_home_favorite_v1__xbet_linefeed, home_market_favorite_v1__src_elo, clear_favorite_v8__src_elo, underdog_value, aggressive, balanced, lightgbm_calibrated
 
 ## How to read this
 - **Backtest ROI** = historical edge at fair odds. Anything below ~+5% likely breaks even or loses after the bookmaker margin.
