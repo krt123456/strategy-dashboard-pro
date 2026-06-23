@@ -197,10 +197,91 @@ def deep_seek_2(home: str, away: str, home_odds: float, away_odds: float) -> Opt
     return None
 
 
+def mid_odds_home(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
+    """Deep Seek 3 — المستفيد من الدروس: المنطقة الذهبية + تجنّب منطقة الموت.
+
+    التحليل العميق: <1.5 = منطقة موت (473 رهان، 64% فوز، −$112). 1.5-1.8 مع 68% فوز = ربح.
+    هذه الاستراتيجية تراهن على المضيف في النطاقين المربحين:
+      A) 1.5-1.8 مع إشارة سوق قوية (fh≥55%) — المنطقة الذهبية
+      B) 1.8-2.5 مع أفضلية المضيف (fh≥45%) — ميزة الأرض المتوسطة
+    وتتجنب تماماً <1.5 (منطقة الموت) وتتجنب <45% fh (ضعيف جداً).
+    """
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.10:
+        return None
+    if home_odds < 1.50:  # منطقة الموت — 473 رهان خسرت $112
+        return None
+    if fh < 0.45:  # أضعف من أن يراهن عليه
+        return None
+    if home_odds <= 1.80:
+        if fh < 0.55:  # المنطقة الذهبية تحتاج إشارة سوق قوية
+            return None
+        conf = "A"
+    elif home_odds <= 2.50:
+        conf = "B"
+    else:
+        return None
+    return {
+        "pick": home, "model_prob": round(fh, 4),
+        "odds_at_prediction": round(home_odds, 2),
+        "strategy": "deep_seek_3", "source": "expert_vig",
+        "confidence": conf,
+        "notes": f"deep_seek_3 home fh={fh:.0%} zone={'golden' if home_odds<=1.8 else 'mid'}",
+    }
+
+
+def baseball_home_specialist(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
+    """Deep Seek 4 — متخصص baseball: أفضل رياضة (+$33.90، 68% فوز).
+
+    baseball أثبت أنه الرياضة الأكثر ربحية. يستفيد من ميزة الأرض + السوق.
+    يراهن على المضيف فقط في نطاق odds 1.4-2.2 (يتجنب منطقة الموت <1.4).
+    """
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.10 or not (1.40 <= home_odds <= 2.20):
+        return None
+    if fh < 0.45:
+        return None
+    return {
+        "pick": home, "model_prob": round(fh, 4),
+        "odds_at_prediction": round(home_odds, 2),
+        "strategy": "deep_seek_4", "source": "expert_vig",
+        "confidence": "A" if fh >= 0.55 else "B",
+        "notes": f"deep_seek_4 baseball home fh={fh:.0%} (#1 sport +$33.90)",
+    }
+
+
+def safe_odds_floor(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
+    """Deep Seek 5 — طبقة أمان: يرفض منطقة الموت <1.50.
+
+    التحليل العميق: أي odds <1.50 تخسر رياضياً (319+473 رهان، −$172).
+    هذه طبقة أمان لكل الاستراتيجيات — لا تراهن أبداً تحت 1.50.
+    الفارق عن deep_seek_3: يقبل أي fh≥48% طالما odds في النطاق المربح.
+    """
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.12:
+        return None
+    if home_odds < 1.50:  # منطقة الموت المؤكدة
+        return None
+    if not (1.50 <= home_odds <= 2.50):
+        return None
+    if fh < 0.48:
+        return None
+    return {
+        "pick": home, "model_prob": round(fh, 4),
+        "odds_at_prediction": round(home_odds, 2),
+        "strategy": "deep_seek_5", "source": "expert_vig",
+        "confidence": "A" if fh >= 0.55 else "B",
+        "notes": f"deep_seek_5 safe floor odds>1.5 fh={fh:.0%}",
+    }
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
     "coinflip_home_premium": coinflip_home_premium,
     "deep_seek_1": deep_seek_1,
     "deep_seek_2": deep_seek_2,
+    "mid_odds_home": mid_odds_home,
+    "baseball_home_specialist": baseball_home_specialist,
+    "safe_odds_floor": safe_odds_floor,
 }
