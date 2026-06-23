@@ -102,6 +102,9 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "thick_edge_favorite": ex.thick_edge_favorite,
             "deep_seek_1": ex.deep_seek_1,
             "deep_seek_2": ex.deep_seek_2,
+            "deep_seek_3": ex.mid_odds_home,
+            "deep_seek_4": ex.baseball_home_specialist,
+            "deep_seek_5": ex.safe_odds_floor,
         }
     except Exception:
         expert_fns = {}
