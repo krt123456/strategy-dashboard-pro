@@ -1,0 +1,95 @@
+# Daily Report — 2026-06-23
+
+## Sources Performance
+| Source | Bets | Wins | Accuracy | Profit | ROI |
+|--------|------|------|----------|--------|-----|
+| expert_vig | 10 | 7 | 70.0% | $3.24 | 32.4% |
+| version_library | 10 | 7 | 70.0% | $2.85 | 28.5% |
+| xbet_linefeed | 31 | 21 | 67.7% | $0.96 | 3.1% |
+| home_advantage | 9 | 7 | 77.8% | $0.67 | 2.9% |
+| elo_contrarian | 1 | 1 | 100.0% | $0.00 | 0.0% |
+| market_edge_v2 | 63 | 40 | 63.5% | $-0.21 | -10.4% |
+| elo_plus_market | 31 | 21 | 67.7% | $-1.28 | -16.4% |
+| src_market | 107 | 69 | 64.5% | $-2.36 | -10.2% |
+| market_consensus | 23 | 17 | 73.9% | $-2.85 | -20.1% |
+| elo_engine | 43 | 29 | 67.4% | $-4.55 | -20.0% |
+| elo_underdog | 19 | 7 | 36.8% | $-13.10 | -33.5% |
+| src_elo | 114 | 65 | 57.0% | $-22.08 | -18.5% |
+| our_lightgbm | 75 | 33 | 44.0% | $-137.08 | -34.3% |
+
+## Strategies Performance
+| Strategy | Bets | Wins | Accuracy | Profit |
+|----------|------|------|----------|--------|
+| contrarian_home_coinflip_v4__xbet_linefeed | 5 | 4 | 80.0% | $2.95 |
+| coinflip_home_v2_20260620__xbet_linefeed | 5 | 4 | 80.0% | $2.95 |
+| deep_seek_2__xbet_linefeed | 2 | 2 | 100.0% | $2.39 |
+| moderate_home_favorite_v1__src_market | 9 | 8 | 88.9% | $2.16 |
+| moderate_home_favorite | 7 | 5 | 71.4% | $1.27 |
+| moderate_home_favorite_v7__src_market | 11 | 8 | 72.7% | $1.08 |
+| deep_seek_1__xbet_linefeed | 1 | 1 | 100.0% | $0.85 |
+| contrarian_home_coinflip_v5__xbet_linefeed | 5 | 3 | 60.0% | $0.85 |
+| home_court | 9 | 7 | 77.8% | $0.67 |
+| clear_favorite_v8__xbet_linefeed | 2 | 2 | 100.0% | $0.67 |
+| clear_favorite_v6__xbet_linefeed | 2 | 2 | 100.0% | $0.67 |
+| contrarian_home_coinflip_v5__src_elo | 7 | 5 | 71.4% | $0.65 |
+| home_market_favorite | 11 | 7 | 63.6% | $0.37 |
+| market_strong_plus_v4__src_market | 7 | 5 | 71.4% | $0.27 |
+| market_strong_plus_v3__src_market | 7 | 5 | 71.4% | $0.27 |
+| market_strong_plus | 7 | 5 | 71.4% | $0.27 |
+| market_extreme_v7__src_market | 2 | 2 | 100.0% | $0.24 |
+| market_extreme | 6 | 4 | 66.7% | $0.22 |
+| away_dominant_v4__src_market | 9 | 7 | 77.8% | $0.18 |
+| home_market_favorite_v1__src_market | 15 | 10 | 66.7% | $0.18 |
+| market_extreme_v8__src_market | 1 | 1 | 100.0% | $0.13 |
+| market_extreme_v8__src_elo | 1 | 1 | 100.0% | $0.08 |
+| trapfree_favorite_v1_20260620__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| thick_edge_favorite__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| market_strong_plus_v4__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| market_strong_plus_v3__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| market_extreme_v8__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| market_extreme_v7__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| home_market_favorite_v7__xbet_linefeed | 1 | 1 | 100.0% | $0.07 |
+| contrarian_elo | 1 | 1 | 100.0% | $0.00 |
+| coinflip_home_premium__xbet_linefeed | 6 | 3 | 50.0% | $-0.07 |
+| contrarian_home_coinflip_v5__src_market | 4 | 1 | 25.0% | $-0.07 |
+| contrarian_home_coinflip_v4__src_elo | 8 | 5 | 62.5% | $-0.10 |
+| clear_favorite | 19 | 13 | 68.4% | $-0.11 |
+| contrarian_home_coinflip_v4__src_market | 3 | 0 | 0.0% | $-0.13 |
+| coinflip_home_v1_20260620__xbet_linefeed | 4 | 2 | 50.0% | $-0.17 |
+| away_dominant_v5__src_elo | 5 | 4 | 80.0% | $-0.34 |
+| away_dominant_v4__src_elo | 5 | 4 | 80.0% | $-0.34 |
+| market_consensus | 2 | 1 | 50.0% | $-0.40 |
+| away_dominant_v5__src_market | 6 | 4 | 66.7% | $-0.76 |
+| away_dominant | 6 | 4 | 66.7% | $-0.76 |
+| market_extreme_v7__src_elo | 2 | 1 | 50.0% | $-0.92 |
+| clear_favorite_v6__src_market | 16 | 10 | 62.5% | $-1.27 |
+| elo_market_agree | 31 | 21 | 67.7% | $-1.28 |
+| home_market_favorite_v1__xbet_linefeed | 4 | 2 | 50.0% | $-1.33 |
+| market_strong_plus_v3__src_elo | 6 | 4 | 66.7% | $-1.36 |
+| moderate_home_favorite_v7__xbet_linefeed | 3 | 1 | 33.3% | $-1.40 |
+| moderate_home_favorite_v1__xbet_linefeed | 3 | 1 | 33.3% | $-1.40 |
+| contrarian_home_coinflip | 7 | 2 | 28.6% | $-1.47 |
+| moderate_home_favorite_v7__src_elo | 10 | 4 | 40.0% | $-1.53 |
+| moderate_home_favorite_v1__src_elo | 10 | 4 | 40.0% | $-1.53 |
+| market_strong_plus_v4__src_elo | 5 | 3 | 60.0% | $-1.69 |
+| home_market_favorite_v7__src_market | 6 | 2 | 33.3% | $-1.98 |
+| clear_favorite_v8__src_market | 11 | 6 | 54.5% | $-2.66 |
+| market_strong | 23 | 17 | 73.9% | $-2.85 |
+| home_market_favorite_v7__src_elo | 8 | 4 | 50.0% | $-3.18 |
+| clear_favorite_v8__src_elo | 13 | 8 | 61.5% | $-3.52 |
+| clear_favorite_v6__src_elo | 16 | 10 | 62.5% | $-3.59 |
+| pure_elo | 43 | 29 | 67.4% | $-4.55 |
+| home_market_favorite_v1__src_elo | 18 | 8 | 44.4% | $-4.71 |
+| underdog_value | 19 | 7 | 36.8% | $-13.10 |
+| conservative | 4 | 1 | 25.0% | $-15.00 |
+| aggressive | 26 | 13 | 50.0% | $-34.42 |
+| balanced | 24 | 11 | 45.8% | $-41.05 |
+| lightgbm_calibrated | 21 | 8 | 38.1% | $-46.61 |
+
+## Sports Performance
+| Sport | Bets | Wins | Accuracy | Profit |
+|-------|------|------|----------|--------|
+| baseball | 10 | 10 | 100.0% | $9.25 |
+| football | 17 | 17 | 100.0% | $5.84 |
+| tabletennis | 24 | 8 | 33.3% | $-8.04 |
+| basketball | 485 | 289 | 59.6% | $-182.84 |
