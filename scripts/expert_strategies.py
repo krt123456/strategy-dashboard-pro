@@ -60,7 +60,7 @@ def vig_aware_value(home: str, away: str, home_odds: float, away_odds: float,
     }
 
 
-def thick_edge_favorite(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
+def thick_edge_favorite(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
     """Restrict to extreme favorites: bet only when a side's FAIR probability is
     >= 0.80 AND its bookmaker odds are < 1.30. This is the thickest, most
     vig-resistant edge zone (backtest +3.9% even at fair odds)."""
@@ -82,7 +82,7 @@ def thick_edge_favorite(home: str, away: str, home_odds: float, away_odds: float
     return None
 
 
-def coinflip_home_premium(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
+def coinflip_home_premium(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
     """The durable home-advantage mispricing edge: when the market sees a genuine
     coin-flip (fair home prob 0.46–0.58), back the home side. Confined to odds
     where the vig-adjusted payout is still positive."""
@@ -97,7 +97,7 @@ def coinflip_home_premium(home: str, away: str, home_odds: float, away_odds: flo
     return None
 
 
-def deep_seek_1(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
+def deep_seek_1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
     """المنطقة الذهبية — Deep Seek 1: home teams in the proven sweet spot.
 
     Root-cause evidence (1312 graded results):
@@ -140,7 +140,7 @@ def deep_seek_1(home: str, away: str, home_odds: float, away_odds: float) -> Opt
     }
 
 
-def deep_seek_2(home: str, away: str, home_odds: float, away_odds: float) -> Optional[dict]:
+def deep_seek_2(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
     """صياد القيمة — Deep Seek 2: value hunting on either side.
 
     Root-cause evidence:
@@ -275,13 +275,175 @@ def safe_odds_floor(home: str, away: str, home_odds: float, away_odds: float) ->
     }
 
 
+def deep_seek_6_tt_away(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Deep Seek 6 — table tennis AWAY specialist (86% away win rate, +$3.74).
+
+    TT data: HOME loses 41%, AWAY wins 86%! The better player is listed second.
+    Activates only on tabletennis, bets the AWAY side in the profitable odds zone.
+    Strictly avoids home bets (they lose in TT).
+    """
+    if sport not in ("tabletennis", "table_tennis", ""):
+        return None
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.10 or away_odds < 1.20:
+        return None  # avoid extreme TT away favorites
+    if not (1.20 <= away_odds <= 2.50):
+        return None
+    if fa < 0.40:  # away side must have at least 40% fair chance
+        return None
+    conf = "A" if fa >= 0.55 else "B"
+    return {
+        "pick": away, "model_prob": round(fa, 4),
+        "odds_at_prediction": round(away_odds, 2),
+        "strategy": "deep_seek_6", "source": "expert_vig",
+        "confidence": conf,
+        "notes": f"deep_seek_6 TT away fa={fa:.0%} (TT away 86% win)",
+    }
+
+
+def deep_seek_7_baseball_compound(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Deep Seek 7 — baseball multi-factor HOME specialist.
+
+    Baseball: best sport (+$36.83, 69% home win). Uses multiple factors:
+    - Sport must be baseball
+    - HOME side only (69% win on home)
+    - Odds 1.3-2.2 zone (avoids death zone <1.3, avoids weak favorites >2.2)
+    - Strict home probability requirement (fh >= 0.42)
+    - Confidence: A if strong favorite (fh>=0.55), B otherwise
+    """
+    if sport not in ("baseball", ""):
+        return None
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.10:
+        return None
+    if not (1.30 <= home_odds <= 2.20):
+        return None
+    if fh < 0.42:  # baseball home teams win more, lower threshold acceptable
+        return None
+    conf = "A" if fh >= 0.55 else "B"
+    return {
+        "pick": home, "model_prob": round(fh, 4),
+        "odds_at_prediction": round(home_odds, 2),
+        "strategy": "deep_seek_7", "source": "expert_vig",
+        "confidence": conf,
+        "notes": f"deep_seek_7 baseball home fh={fh:.0%} (69% win rate)",
+    }
+
+
+def deep_seek_8_tennis_hybrid(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Deep Seek 8 — tennis adaptive hybrid (side-aware).
+
+    Tennis: AWAY wins 72% (+$1.35), HOME wins 61% (+$0.43). Both are decent
+    but away has the edge. This strategy picks the BETTER side based on odds:
+    - If away is the stronger player (away_odds < home_odds), bet away
+    - If home is the stronger player AND odds are in golden zone, bet home
+    - Avoids extreme favorites (<1.25) and the vig trap
+    """
+    if sport not in ("tennis", ""):
+        return None
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.10:
+        return None
+    if away_odds < home_odds and 1.25 <= away_odds <= 2.50:
+        # away is stronger — bet away (tennis away bias)
+        if fa < 0.40: return None
+        return {
+            "pick": away, "model_prob": round(fa, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "deep_seek_8", "source": "expert_vig",
+            "confidence": "A" if fa >= 0.55 else "B",
+            "notes": f"deep_seek_8 tennis away fav fa={fa:.0%}",
+        }
+    if home_odds < away_odds and 1.35 <= home_odds <= 2.50:
+        # home is stronger — bet home (tennis home works too, just less profit)
+        if fh < 0.45: return None
+        return {
+            "pick": home, "model_prob": round(fh, 4),
+            "odds_at_prediction": round(home_odds, 2),
+            "strategy": "deep_seek_8", "source": "expert_vig",
+            "confidence": "B",
+            "notes": f"deep_seek_8 tennis home fav fh={fh:.0%}",
+        }
+    return None
+
+
+def deep_seek_9_football_away(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Deep Seek 9 — football AWAY premium (80% away win rate, +$3.70).
+
+    Football data: AWAY wins 80% with +$3.70 profit! The strategies are picking
+    strong away favorites correctly. HOME only 58%, loses $-11.67. This strategy
+    bets the AWAY side exclusively in football, with strict odds control.
+    """
+    if sport not in ("football", "soccer", ""):
+        return None
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.12:  # football margins can be wider, allow up to 12%
+        return None
+    if not (1.30 <= away_odds <= 2.50):
+        return None
+    if fa < 0.42:  # away side must have a real chance
+        return None
+    return {
+        "pick": away, "model_prob": round(fa, 4),
+        "odds_at_prediction": round(away_odds, 2),
+        "strategy": "deep_seek_9", "source": "expert_vig",
+        "confidence": "A" if fa >= 0.55 else "B",
+        "notes": f"deep_seek_9 football away fa={fa:.0%} (80% away win)",
+    }
+
+
+def deep_seek_10_hybrid_auto(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Deep Seek 10 — auto-detecting multi-sport hybrid.
+
+    Chooses the best strategy automatically based on sport:
+    - tabletennis → deep_seek_6 logic (bet away)
+    - baseball → deep_seek_7 logic (bet home)
+    - tennis → deep_seek_8 logic (side-aware)
+    - football → deep_seek_9 logic (bet away)
+    - other sports → best-guess (prefer higher fair prob side, odds > 1.5)
+    The most complex strategy — routes to per-sport specialists automatically.
+    """
+    # route to per-sport specialists
+    if sport in ("tabletennis", "table_tennis"):
+        r = deep_seek_6_tt_away(home, away, home_odds, away_odds, sport)
+    elif sport == "baseball":
+        r = deep_seek_7_baseball_compound(home, away, home_odds, away_odds, sport)
+    elif sport == "tennis":
+        r = deep_seek_8_tennis_hybrid(home, away, home_odds, away_odds, sport)
+    elif sport in ("football", "soccer"):
+        r = deep_seek_9_football_away(home, away, home_odds, away_odds, sport)
+    else:
+        r = None
+    if r:
+        r["strategy"] = "deep_seek_10"
+        r["notes"] = r["notes"].replace("deep_seek_", "deep_seek_10 via ")
+        return r
+    # fallback for sports without a specialist: bet the side with higher fair prob AT odds >1.5
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.10: return None
+    if fh >= fa and fh >= 0.50 and home_odds >= 1.50 and home_odds <= 2.50:
+        return {"pick": home, "model_prob": round(fh, 4), "odds_at_prediction": round(home_odds, 2),
+                "strategy": "deep_seek_10", "source": "expert_vig", "confidence": "B",
+                "notes": f"deep_seek_10 generic home {sport} fh={fh:.0%}"}
+    if fa > fh and fa >= 0.45 and away_odds >= 1.50 and away_odds <= 2.50:
+        return {"pick": away, "model_prob": round(fa, 4), "odds_at_prediction": round(away_odds, 2),
+                "strategy": "deep_seek_10", "source": "expert_vig", "confidence": "B",
+                "notes": f"deep_seek_10 generic away {sport} fa={fa:.0%}"}
+    return None
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
     "coinflip_home_premium": coinflip_home_premium,
     "deep_seek_1": deep_seek_1,
     "deep_seek_2": deep_seek_2,
-    "mid_odds_home": mid_odds_home,
-    "baseball_home_specialist": baseball_home_specialist,
-    "safe_odds_floor": safe_odds_floor,
+    "deep_seek_3": mid_odds_home,
+    "deep_seek_4": baseball_home_specialist,
+    "deep_seek_5": safe_odds_floor,
+    "deep_seek_6": deep_seek_6_tt_away,
+    "deep_seek_7": deep_seek_7_baseball_compound,
+    "deep_seek_8": deep_seek_8_tennis_hybrid,
+    "deep_seek_9": deep_seek_9_football_away,
+    "deep_seek_10": deep_seek_10_hybrid_auto,
 }

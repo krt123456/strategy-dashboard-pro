@@ -105,6 +105,11 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "deep_seek_3": ex.mid_odds_home,
             "deep_seek_4": ex.baseball_home_specialist,
             "deep_seek_5": ex.safe_odds_floor,
+            "deep_seek_6": ex.deep_seek_6_tt_away,
+            "deep_seek_7": ex.deep_seek_7_baseball_compound,
+            "deep_seek_8": ex.deep_seek_8_tennis_hybrid,
+            "deep_seek_9": ex.deep_seek_9_football_away,
+            "deep_seek_10": ex.deep_seek_10_hybrid_auto,
         }
     except Exception:
         expert_fns = {}
@@ -154,7 +159,7 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
         ao = 1.0 / max(ap, 0.01)
         for ename, efn in expert_fns.items():
             try:
-                r = efn(f["home"], f["away"], ho, ao)
+                r = efn(f["home"], f["away"], ho, ao, f.get("sport", ""))
             except Exception:
                 r = None
             if not r:
