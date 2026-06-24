@@ -13,8 +13,8 @@
 | elo_engine | 43 | 29 | 67.4% | $-4.55 | -20.0% |
 | elo_underdog | 19 | 7 | 36.8% | $-13.10 | -33.5% |
 | src_elo | 114 | 65 | 57.0% | $-22.08 | -18.5% |
-| version_library | 210 | 119 | 56.7% | $-27.27 | -13.0% |
-| xbet_linefeed | 869 | 544 | 62.6% | $-112.76 | -13.0% |
+| version_library | 211 | 120 | 56.9% | $-27.01 | -12.8% |
+| xbet_linefeed | 875 | 550 | 62.9% | $-111.20 | -12.7% |
 | our_lightgbm | 75 | 33 | 44.0% | $-137.08 | -34.3% |
 
 ## Strategies Performance
@@ -79,19 +79,19 @@
 | deep_seek_7__xbet_linefeed | 29 | 13 | 44.8% | $-4.53 |
 | pure_elo | 43 | 29 | 67.4% | $-4.55 |
 | home_market_favorite_v1__src_elo | 18 | 8 | 44.4% | $-4.71 |
-| clear_favorite_v6__xbet_linefeed | 112 | 80 | 71.4% | $-5.68 |
-| market_strong_plus_v4__xbet_linefeed | 45 | 32 | 71.1% | $-7.90 |
-| market_strong_plus_v3__xbet_linefeed | 57 | 40 | 70.2% | $-9.40 |
-| home_market_favorite_v7__xbet_linefeed | 48 | 30 | 62.5% | $-9.84 |
+| clear_favorite_v6__xbet_linefeed | 113 | 81 | 71.7% | $-5.42 |
+| market_strong_plus_v4__xbet_linefeed | 46 | 33 | 71.7% | $-7.64 |
+| market_strong_plus_v3__xbet_linefeed | 58 | 41 | 70.7% | $-9.14 |
+| home_market_favorite_v7__xbet_linefeed | 49 | 31 | 63.3% | $-9.58 |
 | moderate_home_favorite_v7__xbet_linefeed | 54 | 28 | 51.9% | $-10.49 |
-| trapfree_favorite_v1_20260620__xbet_linefeed | 104 | 72 | 69.2% | $-10.84 |
-| clear_favorite_v8__xbet_linefeed | 82 | 56 | 68.3% | $-10.88 |
+| trapfree_favorite_v1_20260620__xbet_linefeed | 105 | 73 | 69.5% | $-10.58 |
+| clear_favorite_v8__xbet_linefeed | 83 | 57 | 68.7% | $-10.62 |
 | contrarian_home_coinflip_v5__xbet_linefeed | 57 | 24 | 42.1% | $-10.98 |
 | moderate_home_favorite_v1__xbet_linefeed | 44 | 20 | 45.5% | $-11.98 |
 | coinflip_home_v1_20260620__xbet_linefeed | 51 | 21 | 41.2% | $-12.37 |
 | underdog_value | 19 | 7 | 36.8% | $-13.10 |
 | conservative | 4 | 1 | 25.0% | $-15.00 |
-| home_market_favorite_v1__xbet_linefeed | 92 | 50 | 54.3% | $-21.82 |
+| home_market_favorite_v1__xbet_linefeed | 93 | 51 | 54.8% | $-21.56 |
 | aggressive | 26 | 13 | 50.0% | $-34.42 |
 | balanced | 24 | 11 | 45.8% | $-41.05 |
 | lightgbm_calibrated | 21 | 8 | 38.1% | $-46.61 |
@@ -102,7 +102,7 @@
 | futsal | 1 | 0 | 0.0% | $-1.00 |
 | football | 386 | 265 | 68.7% | $-1.83 |
 | cricket | 30 | 16 | 53.3% | $-2.98 |
-| volleyball | 77 | 50 | 64.9% | $-11.94 |
+| volleyball | 84 | 57 | 67.9% | $-10.12 |
 | baseball | 283 | 146 | 51.6% | $-15.66 |
 | tabletennis | 161 | 77 | 47.8% | $-45.48 |
 | tennis | 695 | 436 | 62.7% | $-59.11 |
