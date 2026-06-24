@@ -83,7 +83,11 @@ def _tokens(text: Any) -> List[str]:
 
 
 def _name_similarity(a: Any, b: Any) -> int:
-    """Return 0-4 similarity score between two team/player names."""
+    """Return 0-4 similarity score between two team/player names.
+
+    Handles betexplorer abbreviated format (e.g. 'Altmaier D.' vs 'Daniel Altmaier')
+    by detecting single-letter initial tokens and boosting the shared-significant-token score.
+    """
     ka, kb = _normalize(a), _normalize(b)
     if not ka or not kb:
         return 0
@@ -93,14 +97,22 @@ def _name_similarity(a: Any, b: Any) -> int:
         return 3
     ta, tb = set(_tokens(a)), set(_tokens(b))
     if ta and tb:
-        overlap = len(ta & tb)
-        if overlap == 0:
-            return 0
-        ratio = overlap / max(1, min(len(ta), len(tb)))
-        if ratio >= 0.67:
-            return 2
-        if ratio >= 0.5:
-            return 1
+        overlap = ta & tb
+        has_init = any(len(t) == 1 for t in ta | tb)
+        if overlap:
+            # إذا أحد الاسمين فيه حرف أول (initial) والآخر لا، احذف الأحرف المنفردة من الحساب
+            if has_init:
+                sig_a = {t for t in ta if len(t) > 1}
+                sig_b = {t for t in tb if len(t) > 1}
+                sig_overlap = sig_a & sig_b
+                if sig_overlap:
+                    return 4  # تطابق قوي في الاسم الأساسي (Altmaier = Altmaier) مع initial
+            # الحساب العادي
+            ratio = len(overlap) / max(1, min(len(ta), len(tb)))
+            if ratio >= 0.67:
+                return 2
+            if ratio >= 0.5:
+                return 1
     return 0
 
 
