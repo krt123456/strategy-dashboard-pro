@@ -7,28 +7,27 @@
 | elo_contrarian | 1 | 1 | 100.0% | $0.00 | 0.0% |
 | market_edge_v2 | 63 | 40 | 63.5% | $-0.21 | -10.4% |
 | elo_plus_market | 31 | 21 | 67.7% | $-1.28 | -16.4% |
-| expert_vig | 491 | 287 | 58.5% | $-1.42 | -0.3% |
 | src_market | 107 | 69 | 64.5% | $-2.36 | -10.2% |
 | market_consensus | 23 | 17 | 73.9% | $-2.85 | -20.1% |
 | elo_engine | 43 | 29 | 67.4% | $-4.55 | -20.0% |
+| expert_vig | 538 | 314 | 58.4% | $-6.15 | -1.1% |
 | elo_underdog | 19 | 7 | 36.8% | $-13.10 | -33.5% |
 | src_elo | 114 | 65 | 57.0% | $-22.08 | -18.5% |
-| version_library | 170 | 93 | 54.7% | $-26.94 | -15.8% |
-| xbet_linefeed | 702 | 445 | 63.4% | $-81.56 | -11.6% |
+| version_library | 202 | 113 | 55.9% | $-28.10 | -13.9% |
+| xbet_linefeed | 833 | 519 | 62.3% | $-110.25 | -13.2% |
 | our_lightgbm | 75 | 33 | 44.0% | $-137.08 | -34.3% |
 
 ## Strategies Performance
 | Strategy | Bets | Wins | Accuracy | Profit |
 |----------|------|------|----------|--------|
 | deep_seek_9__xbet_linefeed | 16 | 14 | 87.5% | $7.61 |
-| deep_seek_6__xbet_linefeed | 9 | 9 | 100.0% | $6.67 |
-| deep_seek_10__xbet_linefeed | 144 | 89 | 61.8% | $4.45 |
-| away_dominant_v4__xbet_linefeed | 34 | 29 | 85.3% | $2.88 |
+| deep_seek_6__xbet_linefeed | 13 | 11 | 84.6% | $5.89 |
+| deep_seek_10__xbet_linefeed | 163 | 100 | 61.3% | $2.66 |
 | moderate_home_favorite_v1__src_market | 9 | 8 | 88.9% | $2.16 |
+| away_dominant_v4__xbet_linefeed | 44 | 36 | 81.8% | $2.09 |
 | deep_seek_3__xbet_linefeed | 35 | 20 | 57.1% | $1.66 |
 | moderate_home_favorite | 7 | 5 | 71.4% | $1.27 |
 | moderate_home_favorite_v7__src_market | 11 | 8 | 72.7% | $1.08 |
-| away_dominant_v5__xbet_linefeed | 29 | 24 | 82.8% | $0.69 |
 | home_court | 9 | 7 | 77.8% | $0.67 |
 | contrarian_home_coinflip_v5__src_elo | 7 | 5 | 71.4% | $0.65 |
 | home_market_favorite | 11 | 7 | 63.6% | $0.37 |
@@ -46,16 +45,14 @@
 | contrarian_home_coinflip_v4__src_elo | 8 | 5 | 62.5% | $-0.10 |
 | clear_favorite | 19 | 13 | 68.4% | $-0.11 |
 | contrarian_home_coinflip_v4__src_market | 3 | 0 | 0.0% | $-0.13 |
-| market_extreme_v8__xbet_linefeed | 12 | 11 | 91.7% | $-0.20 |
 | away_dominant_v5__src_elo | 5 | 4 | 80.0% | $-0.34 |
 | away_dominant_v4__src_elo | 5 | 4 | 80.0% | $-0.34 |
-| deep_seek_8__xbet_linefeed | 61 | 39 | 63.9% | $-0.59 |
+| away_dominant_v5__xbet_linefeed | 38 | 30 | 78.9% | $-0.53 |
 | away_dominant_v5__src_market | 6 | 4 | 66.7% | $-0.76 |
 | away_dominant | 6 | 4 | 66.7% | $-0.76 |
-| clear_favorite_v6__xbet_linefeed | 86 | 64 | 74.4% | $-0.89 |
 | market_extreme_v7__src_elo | 2 | 1 | 50.0% | $-0.92 |
 | deep_seek_2__xbet_linefeed | 26 | 12 | 46.2% | $-1.00 |
-| market_extreme_v7__xbet_linefeed | 14 | 12 | 85.7% | $-1.05 |
+| market_extreme_v8__xbet_linefeed | 14 | 12 | 85.7% | $-1.10 |
 | deep_seek_4__xbet_linefeed | 39 | 22 | 56.4% | $-1.17 |
 | clear_favorite_v6__src_market | 16 | 10 | 62.5% | $-1.27 |
 | elo_market_agree | 31 | 21 | 67.7% | $-1.28 |
@@ -65,33 +62,36 @@
 | moderate_home_favorite_v7__src_elo | 10 | 4 | 40.0% | $-1.53 |
 | moderate_home_favorite_v1__src_elo | 10 | 4 | 40.0% | $-1.53 |
 | market_strong_plus_v4__src_elo | 5 | 3 | 60.0% | $-1.69 |
-| thick_edge_favorite__xbet_linefeed | 22 | 18 | 81.8% | $-1.74 |
-| market_consensus | 86 | 54 | 62.8% | $-1.83 |
 | home_market_favorite_v7__src_market | 6 | 2 | 33.3% | $-1.98 |
+| deep_seek_8__xbet_linefeed | 75 | 47 | 62.7% | $-2.49 |
 | clear_favorite_v8__src_market | 11 | 6 | 54.5% | $-2.66 |
+| market_extreme_v7__xbet_linefeed | 18 | 14 | 77.8% | $-2.81 |
 | market_strong | 23 | 17 | 73.9% | $-2.85 |
 | home_market_favorite_v7__src_elo | 8 | 4 | 50.0% | $-3.18 |
+| thick_edge_favorite__xbet_linefeed | 26 | 20 | 76.9% | $-3.50 |
 | clear_favorite_v8__src_elo | 13 | 8 | 61.5% | $-3.52 |
 | clear_favorite_v6__src_elo | 16 | 10 | 62.5% | $-3.59 |
-| market_strong_plus_v3__xbet_linefeed | 45 | 34 | 75.6% | $-4.52 |
+| deep_seek_1__xbet_linefeed | 21 | 9 | 42.9% | $-3.83 |
+| market_consensus | 103 | 64 | 62.1% | $-4.22 |
 | deep_seek_7__xbet_linefeed | 29 | 13 | 44.8% | $-4.53 |
 | pure_elo | 43 | 29 | 67.4% | $-4.55 |
 | home_market_favorite_v1__src_elo | 18 | 8 | 44.4% | $-4.71 |
-| market_strong_plus_v4__xbet_linefeed | 36 | 27 | 75.0% | $-4.72 |
-| deep_seek_1__xbet_linefeed | 20 | 8 | 40.0% | $-4.72 |
-| clear_favorite_v8__xbet_linefeed | 64 | 46 | 71.9% | $-5.57 |
-| coinflip_home_premium__xbet_linefeed | 58 | 26 | 44.8% | $-6.53 |
-| trapfree_favorite_v1_20260620__xbet_linefeed | 77 | 55 | 71.4% | $-6.53 |
-| contrarian_home_coinflip_v4__xbet_linefeed | 48 | 21 | 43.8% | $-6.62 |
-| coinflip_home_v2_20260620__xbet_linefeed | 48 | 21 | 43.8% | $-6.62 |
-| home_market_favorite_v7__xbet_linefeed | 33 | 21 | 63.6% | $-6.84 |
-| moderate_home_favorite_v7__xbet_linefeed | 47 | 23 | 48.9% | $-10.73 |
-| moderate_home_favorite_v1__xbet_linefeed | 42 | 19 | 45.2% | $-11.46 |
-| contrarian_home_coinflip_v5__xbet_linefeed | 51 | 20 | 39.2% | $-12.40 |
+| contrarian_home_coinflip_v4__xbet_linefeed | 54 | 25 | 46.3% | $-4.87 |
+| coinflip_home_v2_20260620__xbet_linefeed | 54 | 25 | 46.3% | $-4.87 |
+| clear_favorite_v6__xbet_linefeed | 106 | 76 | 71.7% | $-4.89 |
+| coinflip_home_premium__xbet_linefeed | 63 | 29 | 46.0% | $-5.92 |
+| market_strong_plus_v4__xbet_linefeed | 42 | 30 | 71.4% | $-7.27 |
+| market_strong_plus_v3__xbet_linefeed | 54 | 38 | 70.4% | $-8.77 |
+| trapfree_favorite_v1_20260620__xbet_linefeed | 98 | 68 | 69.4% | $-10.05 |
+| home_market_favorite_v7__xbet_linefeed | 43 | 26 | 60.5% | $-10.05 |
+| clear_favorite_v8__xbet_linefeed | 78 | 53 | 67.9% | $-10.70 |
+| moderate_home_favorite_v7__xbet_linefeed | 52 | 26 | 50.0% | $-11.33 |
+| contrarian_home_coinflip_v5__xbet_linefeed | 56 | 23 | 41.1% | $-11.79 |
+| moderate_home_favorite_v1__xbet_linefeed | 44 | 20 | 45.5% | $-11.98 |
 | underdog_value | 19 | 7 | 36.8% | $-13.10 |
-| coinflip_home_v1_20260620__xbet_linefeed | 45 | 17 | 37.8% | $-13.79 |
+| coinflip_home_v1_20260620__xbet_linefeed | 50 | 20 | 40.0% | $-13.18 |
 | conservative | 4 | 1 | 25.0% | $-15.00 |
-| home_market_favorite_v1__xbet_linefeed | 75 | 40 | 53.3% | $-18.30 |
+| home_market_favorite_v1__xbet_linefeed | 87 | 46 | 52.9% | $-22.03 |
 | aggressive | 26 | 13 | 50.0% | $-34.42 |
 | balanced | 24 | 11 | 45.8% | $-41.05 |
 | lightgbm_calibrated | 21 | 8 | 38.1% | $-46.61 |
@@ -101,9 +101,9 @@
 |-------|------|------|----------|--------|
 | cricket | 21 | 16 | 76.2% | $6.02 |
 | futsal | 1 | 0 | 0.0% | $-1.00 |
-| football | 363 | 252 | 69.4% | $-2.58 |
+| football | 373 | 252 | 67.6% | $-12.58 |
+| volleyball | 61 | 34 | 55.7% | $-14.90 |
 | baseball | 283 | 146 | 51.6% | $-15.66 |
-| volleyball | 41 | 21 | 51.2% | $-16.53 |
-| tennis | 549 | 352 | 64.1% | $-38.13 |
-| tabletennis | 105 | 38 | 36.2% | $-42.04 |
+| tabletennis | 161 | 77 | 47.8% | $-45.48 |
+| tennis | 673 | 421 | 62.6% | $-60.90 |
 | basketball | 485 | 289 | 59.6% | $-182.84 |
