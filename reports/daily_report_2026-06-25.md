@@ -12,17 +12,17 @@
 | elo_engine | 43 | 29 | 67.4% | $-4.55 | -20.0% |
 | elo_underdog | 19 | 7 | 36.8% | $-13.10 | -33.5% |
 | src_elo | 114 | 65 | 57.0% | $-22.08 | -18.5% |
-| expert_vig | 1718 | 959 | 55.8% | $-81.29 | -4.7% |
-| version_library | 739 | 417 | 56.4% | $-103.75 | -14.0% |
+| expert_vig | 1726 | 965 | 55.9% | $-79.65 | -4.6% |
+| version_library | 744 | 421 | 56.6% | $-102.71 | -13.8% |
 | our_lightgbm | 75 | 33 | 44.0% | $-137.08 | -34.3% |
-| xbet_linefeed | 2969 | 1876 | 63.2% | $-410.70 | -13.8% |
+| xbet_linefeed | 2992 | 1894 | 63.3% | $-409.70 | -13.7% |
 
 ## Strategies Performance
 | Strategy | Bets | Wins | Accuracy | Profit |
 |----------|------|------|----------|--------|
 | nova_baseball_away__xbet_linefeed | 23 | 21 | 91.3% | $18.01 |
-| deep_seek_9__xbet_linefeed | 42 | 32 | 76.2% | $13.85 |
-| nova_fade_favorite__xbet_linefeed | 27 | 12 | 44.4% | $12.25 |
+| deep_seek_9__xbet_linefeed | 43 | 33 | 76.7% | $14.46 |
+| nova_fade_favorite__xbet_linefeed | 29 | 12 | 41.4% | $10.25 |
 | nova_underdog__xbet_linefeed | 15 | 7 | 46.7% | $5.26 |
 | moderate_home_favorite_v1__src_market | 9 | 8 | 88.9% | $2.16 |
 | moderate_home_favorite | 7 | 5 | 71.4% | $1.27 |
@@ -82,38 +82,38 @@
 | deep_seek_6__xbet_linefeed | 117 | 57 | 48.7% | $-16.42 |
 | moderate_home_favorite_v7__xbet_linefeed | 210 | 121 | 57.6% | $-16.46 |
 | away_dominant_v5__xbet_linefeed | 122 | 85 | 69.7% | $-16.49 |
-| thick_edge_favorite__xbet_linefeed | 117 | 90 | 76.9% | $-17.28 |
+| thick_edge_favorite__xbet_linefeed | 118 | 91 | 77.1% | $-17.12 |
 | moderate_home_favorite_v1__xbet_linefeed | 178 | 98 | 55.1% | $-17.39 |
-| market_extreme_v7__xbet_linefeed | 96 | 72 | 75.0% | $-18.35 |
-| home_market_favorite_v7__xbet_linefeed | 178 | 127 | 71.3% | $-21.20 |
-| coinflip_home_premium__xbet_linefeed | 241 | 117 | 48.5% | $-23.81 |
-| contrarian_home_coinflip_v4__xbet_linefeed | 180 | 80 | 44.4% | $-24.03 |
-| coinflip_home_v2_20260620__xbet_linefeed | 180 | 80 | 44.4% | $-24.03 |
-| market_consensus | 194 | 105 | 54.1% | $-31.13 |
-| deep_seek_10__xbet_linefeed | 546 | 306 | 56.0% | $-33.68 |
-| coinflip_home_v1_20260620__xbet_linefeed | 202 | 93 | 46.0% | $-33.81 |
-| contrarian_home_coinflip_v5__xbet_linefeed | 196 | 86 | 43.9% | $-34.02 |
-| market_strong_plus_v4__xbet_linefeed | 191 | 136 | 71.2% | $-34.10 |
+| market_extreme_v7__xbet_linefeed | 97 | 73 | 75.3% | $-18.19 |
+| home_market_favorite_v7__xbet_linefeed | 181 | 129 | 71.3% | $-21.80 |
+| coinflip_home_premium__xbet_linefeed | 242 | 118 | 48.8% | $-22.99 |
+| contrarian_home_coinflip_v4__xbet_linefeed | 181 | 81 | 44.8% | $-23.21 |
+| coinflip_home_v2_20260620__xbet_linefeed | 181 | 81 | 44.8% | $-23.21 |
+| market_consensus | 195 | 106 | 54.4% | $-30.51 |
+| deep_seek_10__xbet_linefeed | 549 | 309 | 56.3% | $-31.63 |
+| coinflip_home_v1_20260620__xbet_linefeed | 203 | 94 | 46.3% | $-32.99 |
+| contrarian_home_coinflip_v5__xbet_linefeed | 197 | 87 | 44.2% | $-33.20 |
+| market_strong_plus_v4__xbet_linefeed | 193 | 138 | 71.5% | $-33.70 |
 | aggressive | 26 | 13 | 50.0% | $-34.42 |
-| home_market_favorite_v1__xbet_linefeed | 349 | 220 | 63.0% | $-38.96 |
-| clear_favorite_v6__xbet_linefeed | 353 | 244 | 69.1% | $-41.04 |
+| home_market_favorite_v1__xbet_linefeed | 352 | 222 | 63.1% | $-39.56 |
+| clear_favorite_v6__xbet_linefeed | 357 | 247 | 69.2% | $-41.03 |
 | balanced | 24 | 11 | 45.8% | $-41.05 |
-| market_strong_plus_v3__xbet_linefeed | 218 | 151 | 69.3% | $-41.37 |
-| clear_favorite_v8__xbet_linefeed | 267 | 183 | 68.5% | $-43.47 |
-| trapfree_favorite_v1_20260620__xbet_linefeed | 357 | 244 | 68.3% | $-45.91 |
+| market_strong_plus_v3__xbet_linefeed | 221 | 153 | 69.2% | $-41.97 |
+| clear_favorite_v8__xbet_linefeed | 271 | 186 | 68.6% | $-43.50 |
+| trapfree_favorite_v1_20260620__xbet_linefeed | 360 | 246 | 68.3% | $-46.51 |
 | lightgbm_calibrated | 21 | 8 | 38.1% | $-46.61 |
 
 ## Sports Performance
 | Sport | Bets | Wins | Accuracy | Profit |
 |-------|------|------|----------|--------|
-| volleyball | 202 | 164 | 81.2% | $20.35 |
+| volleyball | 220 | 180 | 81.8% | $21.47 |
 | handball | 98 | 92 | 93.9% | $2.96 |
 | futsal | 1 | 0 | 0.0% | $-1.00 |
 | snooker | 48 | 30 | 62.5% | $-2.56 |
-| cricket | 97 | 52 | 53.6% | $-12.45 |
+| cricket | 111 | 60 | 54.1% | $-12.29 |
 | darts | 208 | 124 | 59.6% | $-23.71 |
 | baseball | 610 | 300 | 49.2% | $-57.97 |
-| football | 801 | 511 | 63.8% | $-60.95 |
+| football | 805 | 515 | 64.0% | $-58.55 |
 | basketball | 485 | 289 | 59.6% | $-182.84 |
 | tabletennis | 1146 | 570 | 49.7% | $-229.77 |
 | tennis | 2215 | 1409 | 63.6% | $-230.64 |
