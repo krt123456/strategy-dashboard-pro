@@ -85,10 +85,43 @@ def source_betexplorer_basketball() -> List[dict]:
     return out
 
 
+def _load_linefeed_movement() -> dict:
+    """Read the linefeed history; return per-match OPENING odds (earliest snapshot) +
+    snapshot count, keyed by (date, lower(home), lower(away)). Used to compute odds
+    movement (steam moves) — a genuine independent sharp-money signal."""
+    hist = PROJECT_DIR / "data" / "one_xbet_linefeed_history.csv"
+    snaps: Dict[tuple, list] = {}
+    if not hist.exists():
+        return snaps
+    with hist.open(encoding="utf-8") as f:
+        for r in csv.DictReader(f):
+            try:
+                ho, ao = float(r["HomeOdds"]), float(r["AwayOdds"])
+            except Exception:
+                continue
+            k = ((r.get("Date") or "")[:10],
+                 (r.get("Home") or "").strip().lower(),
+                 (r.get("Away") or "").strip().lower())
+            snaps.setdefault(k, []).append(((r.get("SnapshotAt") or ""), ho, ao))
+    move = {}
+    for k, lst in snaps.items():
+        if len(lst) < 2:
+            continue
+        lst.sort()  # chronological by SnapshotAt (ISO string)
+        move[k] = (lst[0][1], lst[0][2], len(lst))  # open_home, open_away, n_snapshots
+    return move
+
+
 def source_xbet_linefeed() -> List[dict]:
-    """1xBet linefeed fixtures (niche markets) with raw odds -> probs."""
+    """1xBet linefeed fixtures (niche markets) with raw odds -> probs.
+
+    Additive enrichment (existing home_prob/away_prob keys unchanged, so no strategy
+    breaks): home_odds/away_odds/draw_odds/draw_prob (real 1xBet 3-way odds) and
+    home_move/away_move (odds movement vs opening snapshot; negative = shortened =
+    steam move / sharp money), computed from one_xbet_linefeed_history.csv."""
     if not LINEFEED_CSV.exists():
         return []
+    movement = _load_linefeed_movement()
     out = []
     with LINEFEED_CSV.open(encoding="utf-8") as f:
         for r in csv.DictReader(f):
@@ -96,12 +129,13 @@ def source_xbet_linefeed() -> List[dict]:
             if not ho or not ao:
                 continue
             try:
-                ph, pa = _odds_to_prob(float(ho)), _odds_to_prob(float(ao))
+                ho_f, ao_f = float(ho), float(ao)
             except Exception:
                 continue
+            ph, pa = _odds_to_prob(ho_f), _odds_to_prob(ao_f)
             if not (0 < ph < 1 and 0 < pa < 1):
                 continue
-            out.append({
+            rec = {
                 "source": "xbet_linefeed",
                 "sport": (r.get("Sport") or "").lower(),
                 "league": r.get("League", ""),
@@ -110,7 +144,25 @@ def source_xbet_linefeed() -> List[dict]:
                 "away": r.get("Away", ""),
                 "home_prob": round(ph, 4),
                 "away_prob": round(pa, 4),
-            })
+                "home_odds": round(ho_f, 3),
+                "away_odds": round(ao_f, 3),
+            }
+            do = r.get("DrawOdds")
+            if do:
+                try:
+                    rec["draw_odds"] = round(float(do), 3)
+                    rec["draw_prob"] = round(_odds_to_prob(float(do)), 4)
+                except Exception:
+                    pass
+            k = (rec["date"], rec["home"].strip().lower(), rec["away"].strip().lower())
+            mv = movement.get(k)
+            if mv:
+                open_h, open_a, nsnap = mv
+                if open_h > 1 and open_a > 1:
+                    rec["home_move"] = round((ho_f - open_h) / open_h, 4)
+                    rec["away_move"] = round((ao_f - open_a) / open_a, 4)
+                    rec["odds_snaps"] = nsnap
+            out.append(rec)
     return out
 
 

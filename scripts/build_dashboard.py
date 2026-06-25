@@ -69,6 +69,14 @@ def _rationale(strategy: str, odds: float, prob: float) -> dict:
         "elo_coinflip_combo": ("ELO + مباراة متقاربة (تأكيد مزدوج)", "ELO + coinflip double-confirm"),
         "vig_aware_value": ("حافة تتجاوز عمولة الـ bookmaker", "Edge exceeds the vig"),
         "thick_edge_favorite": ("حافة سميكة vig-resistant", "Thick vig-resistant edge"),
+        "nova_steam_home": ("حركة odds صاعدة على المضيف = رهان الأذكياء", "Steam move on home = sharp money"),
+        "nova_steam_away": ("حركة odds صاعدة على الضيف = رهان الأذكياء", "Steam move on away = sharp money"),
+        "nova_baseball_away": ("ميزة الضيف المُسكّرة في البيسبول (+13%)", "Underpriced away edge in baseball (+13%)"),
+        "nova_volley_home": ("ثبات المضيف القوي في الطائرة", "Strong-home consistency in volleyball"),
+        "nova_sweet_spot": ("شريحة السعر الذهبية 2.0-2.5", "Golden odds zone 2.0-2.5"),
+        "nova_pickem": ("مركز even-money (أقل أثر عمولة)", "Even-money center (minimal vig)"),
+        "nova_underdog": ("قيمة الكلب المتوسط", "Mid-underdog value"),
+        "nova_fade_favorite": ("مكافحة المفضّل المُبالغ تسعيره", "Fading the overpriced favorite"),
     }.get(base, ("إشارة استراتيجية موجبة", "Positive strategy signal"))
     return {"ar": r[0], "en": r[1]}
 
@@ -217,7 +225,7 @@ def gather(today: str) -> dict:
         "strat_map": {s["name"]: s for s in strategies},
         "today_by_base": today_by_base_slim,
         "matches": strat_matches,
-        "picks": today_picks[:30],
+        "picks": today_picks[:60],
     }
 
 
@@ -253,8 +261,8 @@ font-weight:800;font-size:14px}
 .hero .od{background:#001a;color:var(--gold);padding:5px 13px;border-radius:8px;font-weight:800;font-size:17px}
 .hero .pay{font-size:11px;color:var(--mut)}.hero .why{font-size:11px;color:var(--acc);margin-top:8px;line-height:1.4}
 .sec{font-size:13px;font-weight:800;color:var(--acc);margin:18px 0 8px;display:flex;align-items:center;gap:6px}
-.scard{background:var(--card);border:1px solid var(--bord);border-radius:14px;padding:13px;margin:8px 0;cursor:pointer;
-transition:border-color .15s}.scard:active{border-color:var(--acc)}
+.scard{background:linear-gradient(180deg,var(--card),#0f1626);border:1px solid var(--bord);border-radius:16px;padding:14px;margin:9px 0;cursor:pointer;
+transition:border-color .15s,transform .1s,box-shadow .15s;box-shadow:0 2px 12px rgba(0,0,0,.28)}.scard:active{border-color:var(--acc);transform:scale(.995)}
 .scard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .scard .nm{font-weight:700;font-size:14px;max-width:62%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}

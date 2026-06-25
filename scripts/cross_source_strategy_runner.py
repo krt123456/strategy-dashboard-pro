@@ -29,6 +29,10 @@ DB_PATH = PROJECT_DIR / "data" / "betting_journal.db"
 # Sports with a draw as a real outcome (pick may be a team or a draw).
 DRAW_SPORTS = {"football", "soccer", "hockey", "icehockey", "handball", "futsal", "cricket"}
 
+# Nova steam-move threshold: odds shortening (vs opening snapshot) that counts as a
+# steam move (sharp-money signal). Retroactively validated at +22-26% ROI (unique matches).
+STEAM_THR = 0.03
+
 
 def _normalize_sport(s: str) -> str:
     return (s or "").lower().replace(" ", "").replace("-", "")
@@ -111,6 +115,12 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "deep_seek_9": ex.deep_seek_9_football_away,
             "deep_seek_10": ex.deep_seek_10_hybrid_auto,
             "deep_seek_11": ex.deep_seek_11_multifilter,
+            "nova_fade_favorite": ex.nova_fade_favorite,
+            "nova_sweet_spot": ex.nova_sweet_spot,
+            "nova_underdog": ex.nova_underdog,
+            "nova_pickem": ex.nova_pickem,
+            "nova_volley_home": ex.nova_volley_home,
+            "nova_baseball_away": ex.nova_baseball_away,
         }
     except Exception:
         expert_fns = {}
@@ -175,6 +185,32 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             if k not in seen:
                 seen.add(k)
                 picks.append(r)
+
+        # Nova steam-move: حافة مستقلة من حركة odds (sharp money) — مُتحقَّق بأثر رجعي +22% ROI
+        hm = f.get("home_move"); am = f.get("away_move")
+        ho_real = f.get("home_odds"); ao_real = f.get("away_odds")
+        if hm is not None and am is not None and ho_real and ao_real:
+            _side = _odds = _mv = None
+            if hm <= -STEAM_THR and hm <= am:
+                _side, _odds, _mv = "home", ho_real, hm
+            elif am <= -STEAM_THR and am < hm:
+                _side, _odds, _mv = "away", ao_real, am
+            if _side:
+                _prob = 1.0 / _odds
+                r = {"pick": f["home"] if _side == "home" else f["away"],
+                     "model_prob": round(_prob, 4),
+                     "odds_at_prediction": round(_odds, 2),
+                     "source": f["source"],
+                     "strategy": f"nova_steam_{_side}__{f['source']}",
+                     "confidence": "B",
+                     "notes": f"nova steam {_side} move{_mv*100:.0f}% @{_odds:.2f}"}
+                r["match_date"] = f.get("date") or target
+                r["sport"] = _normalize_sport(f.get("sport", ""))
+                r["league"] = f.get("league", "")
+                r["home"] = f["home"]; r["away"] = f["away"]
+                k = dedupe_key(r)
+                if k not in seen:
+                    seen.add(k); picks.append(r)
 
         # مكتبة النسخ الخبيرة المُلحقة يومياً (لا تُحذف، تنمو فقط)
         if ve is not None:

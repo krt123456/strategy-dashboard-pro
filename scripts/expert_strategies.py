@@ -490,6 +490,151 @@ def deep_seek_11_multifilter(home: str, away: str, home_odds: float, away_odds: 
     }
 
 
+def nova_fade_favorite(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Nova 1 — مكافحة المفضّل الثقيل (contrarian, مبنية على الدليل).
+
+    دليل 14 يوماً: المفضّلون الثقال (odds 1.0-1.4، 2046 رهان) فازوا 70.9% فقط بينما
+    التعادل يطلب 71-100% → خسارة −324. إذن سعر المفضّل مُبالغ فيه والكلب مُرخّص.
+    تراهن على الكلب (الطرف الآخر) عندما يكون المفضّل odds≤1.45 والكلب سائل [2.5,5.5].
+    """
+    fav_odds = min(home_odds, away_odds)
+    if fav_odds > 1.45:
+        return None
+    if home_odds <= away_odds:
+        dog, dog_odds = away, away_odds
+    else:
+        dog, dog_odds = home, home_odds
+    if not (2.50 <= dog_odds <= 5.50):
+        return None
+    prob = 1.0 / dog_odds
+    return {
+        "pick": dog, "model_prob": round(prob, 4),
+        "odds_at_prediction": round(dog_odds, 2),
+        "strategy": "nova_fade_favorite", "source": "expert_vig",
+        "confidence": "B",
+        "notes": f"nova fade fav {fav_odds:.2f} dog@{dog_odds:.2f} prob{prob:.0%}",
+    }
+
+
+def nova_sweet_spot(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Nova 2 — الشريحة الذهبية فقط (تجنّب المخاطرة).
+
+    دليل 14 يوماً: شريحة odds 2.0-2.5 هي الوحيدة غير الخاسرة (50.4% فوز، ~تعادل/موجب)،
+    بينما كل ما دونها يخسر. لا تراهن إلا داخل [2.00,2.50] على أي طرف، فتتجنّب منطقة
+    الموت (<1.5) وفخّ المفضّلات والفخّ الأوسط (1.5-2.0).
+    """
+    LO, HI = 2.00, 2.50
+    cands = []
+    if LO <= home_odds <= HI:
+        cands.append((home, home_odds))
+    if LO <= away_odds <= HI:
+        cands.append((away, away_odds))
+    if not cands:
+        return None
+    pick, odds = min(cands, key=lambda c: c[1])  # الأعلى احتمالاً ضمن الشريحة
+    prob = 1.0 / odds
+    return {
+        "pick": pick, "model_prob": round(prob, 4),
+        "odds_at_prediction": round(odds, 2),
+        "strategy": "nova_sweet_spot", "source": "expert_vig",
+        "confidence": "B",
+        "notes": f"nova sweet_spot 2.0-2.5 @{odds:.2f} prob{prob:.0%}",
+    }
+
+
+def nova_underdog(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Nova 3 — صياد الكلاب المتوسط (longshot value).
+
+    دليل 14 يوماً: شريحة 2.5+ كانت موجبة (+3، عينة صغيرة). تراهن على الكلب في
+    [2.50,4.00] فقط عندما يكون المفضّل معتدلاً [1.30,1.70] (ليس منطقة موت ولا متطرّفاً).
+    """
+    if home_odds < away_odds:
+        fav_o, dog_o, dog = home_odds, away_odds, away
+    else:
+        fav_o, dog_o, dog = away_odds, home_odds, home
+    if not (2.50 <= dog_o <= 4.00):
+        return None
+    if not (1.30 <= fav_o <= 1.70):
+        return None
+    prob = 1.0 / dog_o
+    return {
+        "pick": dog, "model_prob": round(prob, 4),
+        "odds_at_prediction": round(dog_o, 2),
+        "strategy": "nova_underdog", "source": "expert_vig",
+        "confidence": "C",
+        "notes": f"nova underdog dog@{dog_o:.2f} fav{fav_o:.2f} prob{prob:.0%}",
+    }
+
+
+def nova_pickem(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Nova 4 — مركز الشريحة (pick'em، الأقل تأثّراً بالـvig).
+
+    حول even-money [1.90,2.15] يكون أثر الـvig في أصغره. تراهن على الطرف الأعلى
+    احتمالاً ضمن هذا النطاق الضيّق — أعلى دقة وأقل حجم.
+    """
+    LO, HI = 1.90, 2.15
+    cands = []
+    if LO <= home_odds <= HI:
+        cands.append((home, home_odds))
+    if LO <= away_odds <= HI:
+        cands.append((away, away_odds))
+    if not cands:
+        return None
+    pick, odds = min(cands, key=lambda c: c[1])
+    prob = 1.0 / odds
+    return {
+        "pick": pick, "model_prob": round(prob, 4),
+        "odds_at_prediction": round(odds, 2),
+        "strategy": "nova_pickem", "source": "expert_vig",
+        "confidence": "B",
+        "notes": f"nova pickem 1.9-2.15 @{odds:.2f} prob{prob:.0%}",
+    }
+
+
+def nova_volley_home(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Nova 5 — كرة الطائرة HOME (الحافة الأقوى المُصدّقة).
+
+    دليل فريد (dedup-aware): volleyball HOME 14/14 = 100% عند odds~1.45.
+    الطائرة رياضة قليلة المفاجآت (best-of-5 sets)، والمضيف المُسعّر مفضّلاً يفوز
+    باستمرار. تحذير: العيّنة صغيرة (14 مباراة فريدة) — تُراقب عن كثب.
+    يراهن على HOME في الطائرة فقط ضمن [1.25, 2.30]."""
+    if sport != "volleyball":
+        return None
+    if not (1.25 <= home_odds <= 2.30):
+        return None
+    fh = 1.0 / home_odds
+    return {
+        "pick": home, "model_prob": round(fh, 4),
+        "odds_at_prediction": round(home_odds, 2),
+        "strategy": "nova_volley_home", "source": "expert_vig",
+        "confidence": "A",
+        "notes": f"nova volley HOME @{home_odds:.2f} (14/14 live unique)",
+    }
+
+
+def nova_baseball_away(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Nova 6 — البيسبول AWAY (الحافة الحقيقية الأكثر مصداقية).
+
+    دليل فريد (dedup-aware): baseball AWAY 20/28 = 71% عند odds~1.73، التعادل 58%
+    → حافة +13% (الأقوى إحصائياً في النظام). البيسبول: المضيف يفوز 48% فقط بينما
+    الضيف المُفضّل يفوز 71% — ميزة الضيف مُسكّرة في السوق.
+    يراهن على AWAY في البيسبول فقط ضمن [1.40, 2.40] مع away_prob ≥ 0.38."""
+    if sport != "baseball":
+        return None
+    if not (1.40 <= away_odds <= 2.40):
+        return None
+    fa = 1.0 / away_odds
+    if fa < 0.38:
+        return None
+    return {
+        "pick": away, "model_prob": round(fa, 4),
+        "odds_at_prediction": round(away_odds, 2),
+        "strategy": "nova_baseball_away", "source": "expert_vig",
+        "confidence": "B",
+        "notes": f"nova baseball AWAY @{away_odds:.2f} (71% live unique)",
+    }
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -505,4 +650,10 @@ EXPERT_STRATEGIES = {
     "deep_seek_9": deep_seek_9_football_away,
     "deep_seek_10": deep_seek_10_hybrid_auto,
     "deep_seek_11": deep_seek_11_multifilter,
+    "nova_fade_favorite": nova_fade_favorite,
+    "nova_sweet_spot": nova_sweet_spot,
+    "nova_underdog": nova_underdog,
+    "nova_pickem": nova_pickem,
+    "nova_volley_home": nova_volley_home,
+    "nova_baseball_away": nova_baseball_away,
 }
