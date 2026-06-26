@@ -173,6 +173,7 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             strategy = f"{v['name']}__{f['source']}"
             pick = {
                 "match_date": f.get("date") or target,
+                "start_utc": f.get("start_utc", ""),
                 "sport": _normalize_sport(f.get("sport", "")),
                 "league": f.get("league", ""),
                 "home": f["home"],
@@ -201,6 +202,7 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             if not r:
                 continue
             r["match_date"] = f.get("date") or target
+            r["start_utc"] = f.get("start_utc", "")
             r["sport"] = _normalize_sport(f.get("sport", ""))
             r["league"] = f.get("league", "")
             r["home"] = f["home"]
@@ -230,6 +232,7 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
                      "confidence": "B",
                      "notes": f"nova steam {_side} move{_mv*100:.0f}% @{_odds:.2f}"}
                 r["match_date"] = f.get("date") or target
+                r["start_utc"] = f.get("start_utc", "")
                 r["sport"] = _normalize_sport(f.get("sport", ""))
                 r["league"] = f.get("league", "")
                 r["home"] = f["home"]; r["away"] = f["away"]
@@ -247,6 +250,7 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
                 if not r:
                     continue
                 r["match_date"] = f.get("date") or target
+                r["start_utc"] = f.get("start_utc", "")
                 r["sport"] = _normalize_sport(f.get("sport", ""))
                 r["league"] = f.get("league", "")
                 r["home"] = f["home"]
@@ -273,10 +277,10 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
         c.execute(
             "INSERT INTO predictions (created_at, match_date, sport, league, home, away, "
             "pick, source, model_prob, odds_at_prediction, stake, kelly_stake, strategy, "
-            "confidence, notes, batch) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            "confidence, notes, batch, start_utc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
             (datetime.now().isoformat(), p["match_date"], p["sport"], p["league"], p["home"],
              p["away"], p["pick"], p["source"], p["model_prob"], p["odds_at_prediction"],
-             0.0, 0.0, p["strategy"], p["confidence"], p["notes"], batch),
+             0.0, 0.0, p["strategy"], p["confidence"], p["notes"], batch, p.get("start_utc", "")),
         )
         recorded += 1
     conn.commit()

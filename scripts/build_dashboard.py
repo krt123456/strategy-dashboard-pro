@@ -158,10 +158,14 @@ def gather(today: str) -> dict:
                                  "w": x["won"], "hs": x["hs"], "as": x["as"], "f": x["fp"]}
                                 for x in items[-10:]]  # آخر 10 مباريات لكل استراتيجية (يكفي للعرض)
 
-    # today's picks (actionable)
+    # today's picks (actionable). Only UPCOMING matches are truly bettable; matches whose
+    # start time already passed but have no result yet are "awaiting result" (shown muted,
+    # not as actionable bets) — this is what looked like "stuck pending from yesterday".
+    now_utc = datetime.utcnow()
     today_picks = []
+    awaiting = 0
     for r in c.execute(
-        """SELECT sport, league, home, away, pick, odds_at_prediction, strategy, source, model_prob
+        """SELECT sport, league, home, away, pick, odds_at_prediction, strategy, source, model_prob, start_utc
            FROM predictions WHERE match_date=? ORDER BY
            CASE source WHEN 'expert_vig' THEN 0 WHEN 'version_library' THEN 1
                        WHEN 'xbet_linefeed' THEN 2 ELSE 3 END, odds_at_prediction DESC""",
@@ -170,11 +174,22 @@ def gather(today: str) -> dict:
         odds = _f(r[5])
         prob = _f(r[8])
         rat = _rationale(r[6], odds, prob)
+        su = (r[9] or "").strip()
+        status = "upcoming"
+        if su:
+            try:
+                st = datetime.fromisoformat(su.replace("Z", "+00:00")).replace(tzinfo=None)
+                if st <= now_utc:
+                    status = "awaiting"  # started/finished, result not in yet
+                    awaiting += 1
+            except Exception:
+                pass
         today_picks.append({
             "sport": r[0], "league": r[1] or "", "home": r[2], "away": r[3],
             "pick": r[4], "odds": round(odds, 2), "strategy": r[6], "source": r[7],
             "real": r[7] in ("expert_vig", "xbet_linefeed", "version_library"),
             "pay10": round(10 * odds, 2), "rat_ar": rat["ar"], "rat_en": rat["en"],
+            "status": status, "start_utc": su,
         })
 
     # best bet today = a confirmed-edge strategy pick with odds in the profitable zone (1.6-2.8)
@@ -196,9 +211,12 @@ def gather(today: str) -> dict:
     tot_profit = round(sum(s["profit"] for s in strategies), 2)
 
     # عدّاد رهانات اليوم + رهانات لكل أساس استراتيجية (مرة واحدة لتفادي التكرار)
+    # رهانات قابلة للمراهنة = القادمة فقط (لم تبدأ بعد). المباريات التي بدأت بانتظار النتيجة
+    # لا تُعرض كرهانات نشطة (هذا هو سبب ظهور "مباريات معلّقة من الأمس").
+    upcoming_picks = [p for p in today_picks if p.get("status") != "awaiting"]
     today_counts: dict = {}
     today_by_base: dict = {}
-    for p in today_picks:
+    for p in upcoming_picks:
         st = p["strategy"]
         today_counts[st] = today_counts.get(st, 0) + 1
         base = st.split("__")[0]
@@ -225,7 +243,8 @@ def gather(today: str) -> dict:
         "strat_map": {s["name"]: s for s in strategies},
         "today_by_base": today_by_base_slim,
         "matches": strat_matches,
-        "picks": today_picks[:60],
+        "picks": upcoming_picks[:60],
+        "awaiting_result": awaiting,
     }
 
 

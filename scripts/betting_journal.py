@@ -31,6 +31,11 @@ def init_db():
         c.execute("ALTER TABLE predictions ADD COLUMN batch TEXT")
     except Exception:
         pass
+    # ترحيل: وقت بدء المباراة (ISO UTC) لتمييز الحالة في التطبيق (لم تبدأ/جارية/انتهت)
+    try:
+        c.execute("ALTER TABLE predictions ADD COLUMN start_utc TEXT")
+    except Exception:
+        pass
 
     c.execute("""
         CREATE TABLE IF NOT EXISTS predictions (

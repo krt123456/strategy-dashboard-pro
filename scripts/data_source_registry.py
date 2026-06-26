@@ -140,6 +140,7 @@ def source_xbet_linefeed() -> List[dict]:
                 "sport": (r.get("Sport") or "").lower(),
                 "league": r.get("League", ""),
                 "date": (r.get("Date") or "")[:10],
+                "start_utc": (r.get("StartUtc") or "").strip(),  # ISO ts → match status (live/upcoming/ended)
                 "home": r.get("Home", ""),
                 "away": r.get("Away", ""),
                 "home_prob": round(ph, 4),
