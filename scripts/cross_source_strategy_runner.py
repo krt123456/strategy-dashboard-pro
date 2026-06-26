@@ -140,6 +140,8 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "nova_pickem": ex.nova_pickem,
             "nova_volley_home": ex.nova_volley_home,
             "nova_baseball_away": ex.nova_baseball_away,
+            "nova_fade_fav_v2": ex.nova_fade_fav_v2,
+            "nova_baseball_away_v2": ex.nova_baseball_away_v2,
         }
     except Exception:
         expert_fns = {}

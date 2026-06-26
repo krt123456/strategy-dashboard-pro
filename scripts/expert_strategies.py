@@ -635,6 +635,58 @@ def nova_baseball_away(home: str, away: str, home_odds: float, away_odds: float,
     }
 
 
+def nova_fade_fav_v2(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Nova fade favorite v2 — مُحسّنة بالدليل الحيّ (2026-06-26).
+
+    الأصل nova_fade_favorite حقّق +30% ROI على 132 مباراة فريدة، لكن التحليل كشف:
+      - الحافة في tennis (+37.9) وtabletennis (+6.7) فقط؛ volleyball خسر.
+      - شريحة odds 4.5+ خسرت (longshots حقيقية، 18% فوز).
+    v2 تقصُر على tennis/tabletennis + سقف odds 4.5 (تستبعد الذيل الخاسر) + المفضّل ≤1.50.
+    """
+    if sport not in ("tennis", "tabletennis", "table_tennis"):
+        return None
+    fav_odds = min(home_odds, away_odds)
+    if fav_odds > 1.50:
+        return None
+    if home_odds <= away_odds:
+        dog, dog_odds = away, away_odds
+    else:
+        dog, dog_odds = home, home_odds
+    if not (2.50 <= dog_odds <= 4.50):
+        return None
+    prob = 1.0 / dog_odds
+    return {
+        "pick": dog, "model_prob": round(prob, 4),
+        "odds_at_prediction": round(dog_odds, 2),
+        "strategy": "nova_fade_fav_v2", "source": "expert_vig",
+        "confidence": "B",
+        "notes": f"nova fade v2 {sport} fav{fav_odds:.2f} dog@{dog_odds:.2f}",
+    }
+
+
+def nova_baseball_away_v2(home: str, away: str, home_odds: float, away_odds: float, sport: str = "") -> Optional[dict]:
+    """Nova baseball away v2 — مُحسّنة بالدليل الحيّ (2026-06-26).
+
+    الأصل nova_baseball_away حقّق +31% ROI (67% فوز على 39 مباراة) — أقوى حافة مؤكَّدة.
+    v2 توسّع النطاق قليلاً (away_odds حتى 2.60) وتشدّد الحدّ الأدنى للاحتمال (≥0.40)
+    لالتقاط مزيد من الضيوف الأقوياء المُسكّرين مع الحفاظ على الجودة.
+    """
+    if sport != "baseball":
+        return None
+    if not (1.45 <= away_odds <= 2.60):
+        return None
+    fa = 1.0 / away_odds
+    if fa < 0.40:
+        return None
+    return {
+        "pick": away, "model_prob": round(fa, 4),
+        "odds_at_prediction": round(away_odds, 2),
+        "strategy": "nova_baseball_away_v2", "source": "expert_vig",
+        "confidence": "B",
+        "notes": f"nova baseball away v2 @{away_odds:.2f} (proven +31% edge)",
+    }
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -656,4 +708,6 @@ EXPERT_STRATEGIES = {
     "nova_pickem": nova_pickem,
     "nova_volley_home": nova_volley_home,
     "nova_baseball_away": nova_baseball_away,
+    "nova_fade_fav_v2": nova_fade_fav_v2,
+    "nova_baseball_away_v2": nova_baseball_away_v2,
 }
