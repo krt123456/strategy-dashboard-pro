@@ -33,6 +33,25 @@ DRAW_SPORTS = {"football", "soccer", "hockey", "icehockey", "handball", "futsal"
 # steam move (sharp-money signal). Retroactively validated at +22-26% ROI (unique matches).
 STEAM_THR = 0.03
 
+# Result-source gate (2026-06-26): SKIP sports/leagues with no accessible result source.
+# Do not generate predictions that can never be graded. Evidence: futsal 1%, hockey-RHL 0%
+# resolution. Config: data/result_source_gate.json. Re-enable by editing the config once a
+# source is wired (API_SPORTS_KEY for hockey/futsal; scores24 resolver for table tennis).
+try:
+    _gate_cfg = json.loads((PROJECT_DIR / "data" / "result_source_gate.json").read_text("utf-8"))
+    UNSOURCED_SPORTS = set(s.lower().replace(" ", "") for s in _gate_cfg.get("unsourced_sports", []))
+    UNSOURCED_LEAGUE_SUBS = [s.lower() for s in _gate_cfg.get("unsourced_league_substrings", [])]
+except Exception:
+    UNSOURCED_SPORTS = set()
+    UNSOURCED_LEAGUE_SUBS = []
+
+
+def _is_unsourced(sport: str, league: str) -> bool:
+    if (sport or "").lower().replace(" ", "") in UNSOURCED_SPORTS:
+        return True
+    lg = (league or "").lower()
+    return any(sub in lg for sub in UNSOURCED_LEAGUE_SUBS)
+
 
 def _normalize_sport(s: str) -> str:
     return (s or "").lower().replace(" ", "").replace("-", "")
@@ -136,7 +155,11 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
 
     picks: List[dict] = []
     seen = set()
+    skipped_unsourced = 0
     for f in fixtures:
+        if _is_unsourced(f.get("sport", ""), f.get("league", "")):
+            skipped_unsourced += 1
+            continue
         hp, ap = f["home_prob"], f["away_prob"]
         # parameter-sweep variants (probability rules)
         for v in variants:
@@ -263,7 +286,7 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
     for p in picks:
         by_src[p["source"]] = by_src.get(p["source"], 0) + 1
         by_sport[p["sport"]] = by_sport.get(p["sport"], 0) + 1
-    print(f"\nGenerated {len(picks)} picks ({recorded} new).")
+    print(f"\nGenerated {len(picks)} picks ({recorded} new)." + (f" [skipped {skipped_unsourced} unsourced fixtures]" if skipped_unsourced else ""))
     print("By source: " + ", ".join(f"{k}={v}" for k, v in sorted(by_src.items(), key=lambda x: -x[1])))
     print("By sport:  " + ", ".join(f"{k}={v}" for k, v in sorted(by_sport.items(), key=lambda x: -x[1])))
     return {"picks": len(picks), "recorded": recorded, "by_source": by_src, "by_sport": by_sport}

@@ -1,0 +1,12 @@
+{
+  "_comment": "Result-source gate (2026-06-26). cross_source_strategy_runner SKIPS fixtures here — do not generate predictions that cannot be graded. Seeded from resolution-rate evidence (sports/leagues with ~0% resolution). Re-enable a sport/league by removing it once a result source is wired (e.g. API_SPORTS_KEY for hockey/futsal; scores24 resolver for table tennis).",
+  "unsourced_sports": ["futsal"],
+  "unsourced_league_substrings": [
+    "RHL",
+    "Magnitka",
+    "Nelonen",
+    "Division 4",
+    "4. divi",
+    "Second XI"
+  ]
+}
