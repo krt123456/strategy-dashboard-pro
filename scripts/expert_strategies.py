@@ -872,6 +872,148 @@ def deep_seek_6_inverse_v1(home, away, home_odds, away_odds, sport="") -> Option
             "confidence": "B", "notes": f"ds6 INVERSE v1 TT home fh={fh:.0%} (+14% live)"}
 
 
+
+
+# ============================================================================
+#  TENNIS STRATEGY SUITE (2026-06-27) — built from deep analysis of 272 real
+#  1xBet tennis matches (unique, with opening+closing odds + movement + tier).
+#  Core finding: tennis heavy favorites are systematically OVERPRICED; dogs are
+#  underpriced. Movement, favorite-strength, tier, and side all sharpen the edge.
+#  These use the cache's rich params (home_odds/away_odds/home_move/away_move).
+#  Append-only; all compete in the tournament. Naming: tennis_*.
+# ============================================================================
+
+def _t_dog(home, away, home_odds, away_odds):
+    """Return (dog_name, dog_odds, dog_move_side) — the underdog and which move."""
+    if home_odds > away_odds:
+        return home, home_odds, "home"
+    return away, away_odds, "away"
+
+
+def tennis_fade_fav(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """tennis_fade_fav — the proven core: fade favorite<=1.40, back dog 2.5-6.0.
+    +50% ROI on 98 matches. The single strongest broad tennis edge."""
+    if sport != "tennis":
+        return None
+    if min(home_odds, away_odds) > 1.40:
+        return None
+    dog, do, _ = _t_dog(home, away, home_odds, away_odds)
+    if not (2.50 <= do <= 6.00):
+        return None
+    return {"pick": dog, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "tennis_fade_fav", "source": "expert_vig", "confidence": "B",
+            "notes": f"tennis fade fav, dog@{do:.2f}"}
+
+
+def tennis_fade_fav_stable(home, away, home_odds, away_odds, sport="",
+                           home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """tennis_fade_fav_stable — the STRONGEST combo: fade fav<=1.40, dog 3.0-7.0,
+    AND the dog's odds are STABLE (|move|<=3%). +86% ROI on 67 matches. Drifting
+    dogs (market moving against them) lose; stable dogs are pure mispricing."""
+    if sport != "tennis":
+        return None
+    if min(home_odds, away_odds) > 1.40:
+        return None
+    dog, do, side = _t_dog(home, away, home_odds, away_odds)
+    if not (3.00 <= do <= 7.00):
+        return None
+    mv = (home_move if side == "home" else away_move)
+    if mv is not None and abs(mv) > 0.03:
+        return None  # skip dogs whose price is moving (info we don't want to fade)
+    return {"pick": dog, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "tennis_fade_fav_stable", "source": "expert_vig", "confidence": "A",
+            "notes": f"tennis fade fav + stable, dog@{do:.2f}"}
+
+
+def tennis_extreme_fav_fade(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """tennis_extreme_fav_fade — when the favorite is EXTREME (<=1.25), the dog
+    (3.0-8.0) is most overlooked. +49% ROI on 53 matches; the upset premium is
+    largest exactly where the crowd is most certain."""
+    if sport != "tennis":
+        return None
+    if min(home_odds, away_odds) > 1.25:
+        return None
+    dog, do, _ = _t_dog(home, away, home_odds, away_odds)
+    if not (3.00 <= do <= 8.00):
+        return None
+    return {"pick": dog, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "tennis_extreme_fav_fade", "source": "expert_vig", "confidence": "B",
+            "notes": f"tennis extreme-fav fade, dog@{do:.2f}"}
+
+
+def tennis_big_dog(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """tennis_big_dog — pure longshot value: back any dog priced 4.0-7.0. +61% ROI
+    on 40 matches. Big tennis dogs win ~32% but pay >4x; the market overrounds
+    favorites so the longshot side carries positive EV."""
+    if sport != "tennis":
+        return None
+    cands = []
+    if 4.0 <= home_odds <= 7.0 and home_odds > away_odds:
+        cands.append((home, home_odds))
+    if 4.0 <= away_odds <= 7.0 and away_odds > home_odds:
+        cands.append((away, away_odds))
+    if not cands:
+        return None
+    pick, do = cands[0]
+    return {"pick": pick, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "tennis_big_dog", "source": "expert_vig", "confidence": "C",
+            "notes": f"tennis big dog @{do:.2f}"}
+
+
+def tennis_mid_dog(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """tennis_mid_dog — the reliable middle: back the dog priced 2.7-4.0. +35% ROI
+    on 77 matches. Sweet spot between vig-eaten short prices and pure longshots."""
+    if sport != "tennis":
+        return None
+    cands = []
+    if 2.7 <= home_odds <= 4.0 and home_odds > away_odds:
+        cands.append((home, home_odds))
+    if 2.7 <= away_odds <= 4.0 and away_odds > home_odds:
+        cands.append((away, away_odds))
+    if not cands:
+        return None
+    pick, do = cands[0]
+    return {"pick": pick, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "tennis_mid_dog", "source": "expert_vig", "confidence": "B",
+            "notes": f"tennis mid dog @{do:.2f}"}
+
+
+def tennis_home_dog(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """tennis_home_dog — listed-first underdog edge: when HOME (first-listed) is the
+    dog at 2.5-6.0 and favorite<=1.45. +60% ROI on 37 matches. The first-listed
+    player is slightly underrated by these feeds."""
+    if sport != "tennis":
+        return None
+    if home_odds <= away_odds:
+        return None  # home must be the dog
+    if min(home_odds, away_odds) > 1.45:
+        return None
+    if not (2.50 <= home_odds <= 6.00):
+        return None
+    return {"pick": home, "model_prob": round(1.0/home_odds, 4), "odds_at_prediction": round(home_odds, 2),
+            "strategy": "tennis_home_dog", "source": "expert_vig", "confidence": "B",
+            "notes": f"tennis home(first) dog @{home_odds:.2f}"}
+
+
+def tennis_itf_dog(home, away, home_odds, away_odds, sport="", league="", **kw) -> Optional[dict]:
+    """tennis_itf_dog — ITF/Challenger inefficiency: lower tours are less efficient,
+    so the fade-favorite edge is cleanest there. +42% ROI on 65 ITF matches.
+    Restricts the fade-dog to ITF/Challenger/lower events only."""
+    if sport != "tennis":
+        return None
+    l = (league or "").lower()
+    if not ("itf" in l or "challenger" in l):
+        return None
+    if min(home_odds, away_odds) > 1.45:
+        return None
+    dog, do, _ = _t_dog(home, away, home_odds, away_odds)
+    if not (2.50 <= do <= 6.50):
+        return None
+    return {"pick": dog, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "tennis_itf_dog", "source": "expert_vig", "confidence": "B",
+            "notes": f"tennis ITF/CH fade dog @{do:.2f}"}
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -904,4 +1046,11 @@ EXPERT_STRATEGIES = {
     "deep_seek_3_v1": deep_seek_3_v1,
     "deep_seek_5_v1": deep_seek_5_v1,
     "deep_seek_6_inverse_v1": deep_seek_6_inverse_v1,
+    "tennis_fade_fav": tennis_fade_fav,
+    "tennis_fade_fav_stable": tennis_fade_fav_stable,
+    "tennis_extreme_fav_fade": tennis_extreme_fav_fade,
+    "tennis_big_dog": tennis_big_dog,
+    "tennis_mid_dog": tennis_mid_dog,
+    "tennis_home_dog": tennis_home_dog,
+    "tennis_itf_dog": tennis_itf_dog,
 }

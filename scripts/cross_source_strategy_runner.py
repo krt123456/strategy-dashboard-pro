@@ -151,6 +151,13 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "deep_seek_3_v1": ex.deep_seek_3_v1,
             "deep_seek_5_v1": ex.deep_seek_5_v1,
             "deep_seek_6_inverse_v1": ex.deep_seek_6_inverse_v1,
+            "tennis_fade_fav": ex.tennis_fade_fav,
+            "tennis_fade_fav_stable": ex.tennis_fade_fav_stable,
+            "tennis_extreme_fav_fade": ex.tennis_extreme_fav_fade,
+            "tennis_big_dog": ex.tennis_big_dog,
+            "tennis_mid_dog": ex.tennis_mid_dog,
+            "tennis_home_dog": ex.tennis_home_dog,
+            "tennis_itf_dog": ex.tennis_itf_dog,
         }
     except Exception:
         expert_fns = {}
@@ -201,11 +208,20 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
                 picks.append(pick)
 
         # expert vig-aware strategies (need raw bookmaker odds)
-        ho = 1.0 / max(hp, 0.01)
-        ao = 1.0 / max(ap, 0.01)
+        # prefer REAL bookmaker odds when present (tennis strategies need true odds +
+        # movement, not prob-derived). Fall back to prob-implied for sources w/o odds.
+        ho = f.get("home_odds") or 1.0 / max(hp, 0.01)
+        ao = f.get("away_odds") or 1.0 / max(ap, 0.01)
+        ekw = {"league": f.get("league", ""), "home_move": f.get("home_move"),
+               "away_move": f.get("away_move"), "start_utc": f.get("start_utc", "")}
         for ename, efn in expert_fns.items():
             try:
-                r = efn(f["home"], f["away"], ho, ao, f.get("sport", ""))
+                r = efn(f["home"], f["away"], ho, ao, f.get("sport", ""), **ekw)
+            except TypeError:
+                try:
+                    r = efn(f["home"], f["away"], ho, ao, f.get("sport", ""))
+                except Exception:
+                    r = None
             except Exception:
                 r = None
             if not r:
