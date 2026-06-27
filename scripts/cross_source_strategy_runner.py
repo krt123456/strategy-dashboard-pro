@@ -164,6 +164,11 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "bball_market_strong": ex.bball_market_strong,
             "bball_market_strong_men": ex.bball_market_strong_men,
             "bball_extreme_fav": ex.bball_extreme_fav,
+            "foot_home": ex.foot_home,
+            "foot_home_fav": ex.foot_home_fav,
+            "foot_big_dog": ex.foot_big_dog,
+            "foot_home_dog": ex.foot_home_dog,
+            "foot_fade_fav": ex.foot_fade_fav,
         }
     except Exception:
         expert_fns = {}

@@ -1128,6 +1128,99 @@ def bball_extreme_fav(home, away, home_odds, away_odds, sport="", **kw) -> Optio
             "notes": f"bball extreme fav {prob:.0%} (96% win)"}
 
 
+
+
+# ============================================================================
+#  FOOTBALL STRATEGY SUITE (2026-06-27) — from 183 unique 1xBet football matches
+#  (real 1x2 odds + movement). FINDINGS: football has the STRONGEST home advantage
+#  (home +28% ROI, away -19%); big underdogs are overlooked (dog 4-8 = +44%); the
+#  draw always loses (never back it). Combines home-edge + dog-value + fade.
+#  Naming: foot_*.  (sport key may be "football" or "soccer".)
+# ============================================================================
+_FOOT = ("football", "soccer")
+
+
+def foot_home(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """foot_home — pure home advantage: back HOME in any 1x2 football match.
+    +28% ROI on 183 matches. Football has the largest, most underpriced home-court
+    edge of any sport; the away side is a systematic loser (-19%)."""
+    if sport not in _FOOT:
+        return None
+    if home_odds <= 1:
+        return None
+    return {"pick": home, "model_prob": round(1.0/home_odds, 4), "odds_at_prediction": round(home_odds, 2),
+            "strategy": "foot_home", "source": "expert_vig", "confidence": "B",
+            "notes": f"foot home edge @{home_odds:.2f} (+28% backtest)"}
+
+
+def foot_home_fav(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """foot_home_fav — sharpest slice: back HOME when home is a moderate favorite
+    (1.5-2.2). +6% ROI on 75, 59% win — combines home-edge with reasonable price,
+    avoiding both vig-eaten short favorites and pure tosses."""
+    if sport not in _FOOT:
+        return None
+    if not (1.50 <= home_odds <= 2.20):
+        return None
+    if home_odds >= away_odds:
+        return None  # home must be the favorite
+    return {"pick": home, "model_prob": round(1.0/home_odds, 4), "odds_at_prediction": round(home_odds, 2),
+            "strategy": "foot_home_fav", "source": "expert_vig", "confidence": "A",
+            "notes": f"foot home fav @{home_odds:.2f}"}
+
+
+def foot_big_dog(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """foot_big_dog — longshot value: back any underdog priced 4.0-8.0. +44% ROI on
+    79 matches. Big football dogs win ~27% but pay 4-8x; the favorite overround
+    leaves the longshot side with positive EV (same effect as tennis)."""
+    if sport not in _FOOT:
+        return None
+    cands = []
+    if 4.0 <= home_odds <= 8.0 and home_odds > away_odds:
+        cands.append((home, home_odds))
+    if 4.0 <= away_odds <= 8.0 and away_odds > home_odds:
+        cands.append((away, away_odds))
+    if not cands:
+        return None
+    pick, do = cands[0]
+    return {"pick": pick, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "foot_big_dog", "source": "expert_vig", "confidence": "C",
+            "notes": f"foot big dog @{do:.2f}"}
+
+
+def foot_home_dog(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """foot_home_dog — home underdog premium: when HOME is the dog at 2.5-5.0, the
+    home-advantage + underdog-value effects STACK. +40% ROI on 32 matches. A home
+    side priced as an underdog is doubly underrated."""
+    if sport not in _FOOT:
+        return None
+    if home_odds <= away_odds:
+        return None  # home must be the dog
+    if not (2.50 <= home_odds <= 5.00):
+        return None
+    return {"pick": home, "model_prob": round(1.0/home_odds, 4), "odds_at_prediction": round(home_odds, 2),
+            "strategy": "foot_home_dog", "source": "expert_vig", "confidence": "B",
+            "notes": f"foot home-dog @{home_odds:.2f}"}
+
+
+def foot_fade_fav(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """foot_fade_fav — fade the heavy favorite (<=1.40) onto the underdog. +30% ROI
+    on 39 matches. Heavy football favorites are overbet; the dog (incl. draw risk)
+    still returns positive at these prices."""
+    if sport not in _FOOT:
+        return None
+    if min(home_odds, away_odds) > 1.40:
+        return None
+    if home_odds > away_odds:
+        dog, do = home, home_odds
+    else:
+        dog, do = away, away_odds
+    if do < 3.0:
+        return None
+    return {"pick": dog, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "foot_fade_fav", "source": "expert_vig", "confidence": "C",
+            "notes": f"foot fade fav, dog@{do:.2f}"}
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -1173,4 +1266,9 @@ EXPERT_STRATEGIES = {
     "bball_market_strong": bball_market_strong,
     "bball_market_strong_men": bball_market_strong_men,
     "bball_extreme_fav": bball_extreme_fav,
+    "foot_home": foot_home,
+    "foot_home_fav": foot_home_fav,
+    "foot_big_dog": foot_big_dog,
+    "foot_home_dog": foot_home_dog,
+    "foot_fade_fav": foot_fade_fav,
 }

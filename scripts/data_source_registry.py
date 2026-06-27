@@ -85,6 +85,48 @@ def source_betexplorer_basketball() -> List[dict]:
     return out
 
 
+def source_betexplorer_bball_fixtures() -> List[dict]:
+    """UPCOMING basketball fixtures from betexplorer per-league files, WITH REAL
+    1x2 odds (OddH/OddA). This is the live feed for the summer leagues (NBL1,
+    WNBA, BSN, CEBL, ...) that other sources lack odds for. Carries both
+    home_odds/away_odds (for the bball_* strategies) and prob (for variants)."""
+    fix_dir = PROJECT_DIR / "data" / "raw" / "betexplorer_basketball_fixtures"
+    if not fix_dir.exists():
+        return []
+    out = []
+    import glob as _glob
+    for fn in _glob.glob(str(fix_dir / "*.csv")):
+        league = fn.split("/")[-1].replace(".csv", "")
+        try:
+            with open(fn, encoding="utf-8") as f:
+                for r in csv.DictReader(f):
+                    try:
+                        ho = float(r.get("OddH") or 0)
+                        ao = float(r.get("OddA") or 0)
+                    except Exception:
+                        continue
+                    if ho <= 1 or ao <= 1:
+                        continue
+                    ph, pa = _odds_to_prob(ho), _odds_to_prob(ao)
+                    if not (0 < ph < 1 and 0 < pa < 1):
+                        continue
+                    out.append({
+                        "source": "betexplorer_bball_fixtures",
+                        "sport": "basketball",
+                        "league": league.replace("_", " ").title(),
+                        "date": (r.get("Date") or "")[:10],
+                        "home": r.get("HomeTeam", ""),
+                        "away": r.get("AwayTeam", ""),
+                        "home_prob": round(ph, 4),
+                        "away_prob": round(pa, 4),
+                        "home_odds": round(ho, 3),
+                        "away_odds": round(ao, 3),
+                    })
+        except Exception:
+            continue
+    return out
+
+
 def _load_linefeed_movement() -> dict:
     """Read the linefeed history; return per-match OPENING odds (earliest snapshot) +
     snapshot count, keyed by (date, lower(home), lower(away)). Used to compute odds
@@ -324,6 +366,7 @@ def source_the_odds_api_scaffold() -> List[dict]:
 
 SOURCES = {
     "betexplorer_basketball": source_betexplorer_basketball,
+    "betexplorer_bball_fixtures": source_betexplorer_bball_fixtures,
     "xbet_linefeed": source_xbet_linefeed,
     "betexplorer_multi": source_betexplorer_multi,
     "espn": source_espn,
