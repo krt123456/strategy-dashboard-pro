@@ -1290,6 +1290,62 @@ def bsb_underdog(home, away, home_odds, away_odds, sport="", **kw) -> Optional[d
             "notes": f"bsb underdog @{do:.2f}"}
 
 
+
+
+# ============================================================================
+#  VOLLEYBALL + HANDBALL (2026-06-27) — smaller samples, lower confidence.
+#  Volleyball: clear home advantage (home +39% on 32). Handball: away/underdog
+#  premium (away +89% on 31) but small sample + high odds inflate ROI, so it is
+#  marked confidence C and watched. Naming: vol_*, hand_*.
+# ============================================================================
+
+def vol_home(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """vol_home — volleyball home advantage. +39% ROI on 32 matches, 66% win.
+    Volleyball (like football) rewards the home side; away loses badly (-49%).
+    Restricted to sane prices to avoid extreme favorites/longshots."""
+    if sport != "volleyball":
+        return None
+    if not (1.20 <= home_odds <= 3.00):
+        return None
+    return {"pick": home, "model_prob": round(1.0/home_odds, 4), "odds_at_prediction": round(home_odds, 2),
+            "strategy": "vol_home", "source": "expert_vig", "confidence": "B",
+            "notes": f"vol home edge @{home_odds:.2f}"}
+
+
+def hand_away_dog(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """hand_away_dog — handball away/underdog premium. +89% ROI on 31 (away) but
+    SMALL sample with high-odds inflation — treat as a watch-list candidate, not a
+    proven edge. Backs the away side when it is a moderate dog (2.0-4.5)."""
+    if sport != "handball":
+        return None
+    if away_odds <= home_odds:
+        return None
+    if not (2.00 <= away_odds <= 4.50):
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4), "odds_at_prediction": round(away_odds, 2),
+            "strategy": "hand_away_dog", "source": "expert_vig", "confidence": "C",
+            "notes": f"hand away-dog @{away_odds:.2f} (small sample, watch)"}
+
+
+def hand_underdog(home, away, home_odds, away_odds, sport="", **kw) -> Optional[dict]:
+    """hand_underdog — handball underdog (either side) 2.5-5.0. Same small-sample
+    caveat. Handball appears to overprice favorites; the dog side carried +112% in
+    the sample. Confidence C until more data accrues."""
+    if sport != "handball":
+        return None
+    cands = []
+    if 2.5 <= home_odds <= 5.0 and home_odds > away_odds:
+        cands.append((home, home_odds))
+    if 2.5 <= away_odds <= 5.0 and away_odds > home_odds:
+        cands.append((away, away_odds))
+    if not cands:
+        return None
+    pick, do = cands[0]
+    return {"pick": pick, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "hand_underdog", "source": "expert_vig", "confidence": "C",
+            "notes": f"hand underdog @{do:.2f} (small sample, watch)"}
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -1344,4 +1400,7 @@ EXPERT_STRATEGIES = {
     "bsb_away_dog": bsb_away_dog,
     "bsb_away_mid": bsb_away_mid,
     "bsb_underdog": bsb_underdog,
+    "vol_home": vol_home,
+    "hand_away_dog": hand_away_dog,
+    "hand_underdog": hand_underdog,
 }
