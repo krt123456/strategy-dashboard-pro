@@ -142,6 +142,15 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "nova_baseball_away": ex.nova_baseball_away,
             "nova_fade_fav_v2": ex.nova_fade_fav_v2,
             "nova_baseball_away_v2": ex.nova_baseball_away_v2,
+            "nova_fade_favorite_v1": ex.nova_fade_favorite_v1,
+            "nova_fade_fav_v2_v1": ex.nova_fade_fav_v2_v1,
+            "nova_baseball_away_v1": ex.nova_baseball_away_v1,
+            "deep_seek_9_v1": ex.deep_seek_9_v1,
+            "nova_underdog_v1": ex.nova_underdog_v1,
+            "nova_sweet_spot_v1": ex.nova_sweet_spot_v1,
+            "deep_seek_3_v1": ex.deep_seek_3_v1,
+            "deep_seek_5_v1": ex.deep_seek_5_v1,
+            "deep_seek_6_inverse_v1": ex.deep_seek_6_inverse_v1,
         }
     except Exception:
         expert_fns = {}

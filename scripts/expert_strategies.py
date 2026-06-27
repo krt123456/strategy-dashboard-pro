@@ -687,6 +687,191 @@ def nova_baseball_away_v2(home: str, away: str, home_odds: float, away_odds: flo
     }
 
 
+
+
+# ============================================================================
+#  v1 strategies (2026-06-27) — evidence-based improvements of the 8 profitable
+#  strategies + 1 validated inverse. Append-only: originals stay live for monitoring.
+#  Each v1 is built from deep odds-bucket x sport anatomy of its parent (unique-match
+#  dedup-aware), NOT guesses. Naming: <parent>_v1.
+# ============================================================================
+
+def nova_fade_favorite_v1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
+    """fade_favorite v1 — parent +25% ROI (163 bets). Anatomy: edge in tabletennis
+    (+39.5) & tennis (+29.7) ONLY; volleyball/football/cricket/handball all negative;
+    odds 5.0+ nearly dead (3/14, +1.7). v1 = restrict to tt/tennis + cap odds at 5.0."""
+    if sport not in ("tennis", "tabletennis", "table_tennis"):
+        return None
+    fav_odds = min(home_odds, away_odds)
+    if fav_odds > 1.45:
+        return None
+    if home_odds <= away_odds:
+        dog, dog_odds = away, away_odds
+    else:
+        dog, dog_odds = home, home_odds
+    if not (2.50 <= dog_odds <= 5.00):
+        return None
+    prob = 1.0 / dog_odds
+    return {"pick": dog, "model_prob": round(prob, 4), "odds_at_prediction": round(dog_odds, 2),
+            "strategy": "nova_fade_favorite_v1", "source": "expert_vig", "confidence": "B",
+            "notes": f"fade_fav v1 {sport} dog@{dog_odds:.2f}"}
+
+
+def nova_fade_fav_v2_v1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
+    """fade_fav_v2 v1 — parent +33% ROI (28 bets), strongest ROI. Anatomy: odds
+    2.5-3.5 is the core (+17.9 on 39); 3.5-5.0 thinner. v1 = tighten to the 2.5-3.6
+    sweet spot where conviction is highest (sacrifices volume for ROI)."""
+    if sport not in ("tennis", "tabletennis", "table_tennis"):
+        return None
+    fav_odds = min(home_odds, away_odds)
+    if fav_odds > 1.50:
+        return None
+    if home_odds <= away_odds:
+        dog, dog_odds = away, away_odds
+    else:
+        dog, dog_odds = home, home_odds
+    if not (2.50 <= dog_odds <= 3.60):
+        return None
+    prob = 1.0 / dog_odds
+    return {"pick": dog, "model_prob": round(prob, 4), "odds_at_prediction": round(dog_odds, 2),
+            "strategy": "nova_fade_fav_v2_v1", "source": "expert_vig", "confidence": "A",
+            "notes": f"fade_fav_v2 v1 {sport} core@{dog_odds:.2f}"}
+
+
+def nova_baseball_away_v1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
+    """baseball_away v1 — parent +26% ROI (42 bets). Anatomy: 2.0-2.5 bucket (+8.9
+    on 17) outperforms 1.5-2.0 (+2.7 on 34) per-bet. v1 = shift the floor up to 1.70
+    and require fa>=0.40, concentrating on the stronger-priced away dogs."""
+    if sport != "baseball":
+        return None
+    if not (1.70 <= away_odds <= 2.50):
+        return None
+    fa = 1.0 / away_odds
+    if fa < 0.40:
+        return None
+    return {"pick": away, "model_prob": round(fa, 4), "odds_at_prediction": round(away_odds, 2),
+            "strategy": "nova_baseball_away_v1", "source": "expert_vig", "confidence": "B",
+            "notes": f"baseball_away v1 @{away_odds:.2f} (2.0-2.5 sweet)"}
+
+
+def deep_seek_9_v1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
+    """deep_seek_9 (football away) v1 — parent +10% ROI (79 bets). Anatomy: 2.0-2.5
+    bucket strongly positive (+9.6 on 24), but 1.5-2.0 LOSES (-3.5 on 38). v1 =
+    exclude the losing 1.5-2.0 band; bet football away at 1.30-1.50 OR 2.00-2.50."""
+    if sport not in ("football", "soccer", ""):
+        return None
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.12:
+        return None
+    if not ((1.30 <= away_odds <= 1.50) or (2.00 <= away_odds <= 2.50)):
+        return None
+    if fa < 0.42:
+        return None
+    return {"pick": away, "model_prob": round(fa, 4), "odds_at_prediction": round(away_odds, 2),
+            "strategy": "deep_seek_9_v1", "source": "expert_vig",
+            "confidence": "A" if fa >= 0.55 else "B",
+            "notes": f"ds9 v1 football away fa={fa:.0%} (skips dead 1.5-2.0)"}
+
+
+def nova_underdog_v1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
+    """underdog v1 — parent +8% ROI (110 bets). Anatomy: tabletennis (+16.8 on 48)
+    carries it; tennis is a net drag (-1.1 on 65). v1 = exclude tennis, keep the
+    moderate-favorite/mid-dog structure where the tt edge lives."""
+    if sport == "tennis":
+        return None
+    if home_odds < away_odds:
+        fav_o, dog_o, dog = home_odds, away_odds, away
+    else:
+        fav_o, dog_o, dog = away_odds, home_odds, home
+    if not (2.50 <= dog_o <= 4.00):
+        return None
+    if not (1.30 <= fav_o <= 1.70):
+        return None
+    prob = 1.0 / dog_o
+    return {"pick": dog, "model_prob": round(prob, 4), "odds_at_prediction": round(dog_o, 2),
+            "strategy": "nova_underdog_v1", "source": "expert_vig", "confidence": "C",
+            "notes": f"underdog v1 {sport} dog@{dog_o:.2f} (no tennis)"}
+
+
+def nova_sweet_spot_v1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
+    """sweet_spot v1 — parent +6% ROI (190 bets). Anatomy: the 2.0-2.5 band is the
+    whole edge (+19.6); per-sport tt/football/tennis/baseball all positive, only
+    handball negative (1 bet). v1 = same 2.0-2.5 band but skip the weak sports and
+    tighten to 2.00-2.40 where win-rate sits just above breakeven."""
+    if sport in ("handball", "futsal", "hockey"):
+        return None
+    LO, HI = 2.00, 2.40
+    cands = []
+    if LO <= home_odds <= HI:
+        cands.append((home, home_odds))
+    if LO <= away_odds <= HI:
+        cands.append((away, away_odds))
+    if not cands:
+        return None
+    pick, odds = min(cands, key=lambda c: c[1])
+    prob = 1.0 / odds
+    return {"pick": pick, "model_prob": round(prob, 4), "odds_at_prediction": round(odds, 2),
+            "strategy": "nova_sweet_spot_v1", "source": "expert_vig", "confidence": "B",
+            "notes": f"sweet_spot v1 {sport} @{odds:.2f}"}
+
+
+def deep_seek_3_v1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
+    """deep_seek_3 (mid-odds home) v1 — parent +2% ROI (51 bets, marginal). Anatomy:
+    1.5-2.0 band ~flat (-0.6 on 40); 2.0-2.5 positive (+1.9 on 11); tabletennis drags
+    (-3.5). v1 = home bets 1.80-2.50 only (skip the flat low band), exclude tt."""
+    if sport in ("tabletennis", "table_tennis"):
+        return None
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.10:
+        return None
+    if not (1.80 <= home_odds <= 2.50):
+        return None
+    if fh < 0.45:
+        return None
+    return {"pick": home, "model_prob": round(fh, 4), "odds_at_prediction": round(home_odds, 2),
+            "strategy": "deep_seek_3_v1", "source": "expert_vig",
+            "confidence": "B", "notes": f"ds3 v1 home fh={fh:.0%} (1.8-2.5, no tt)"}
+
+
+def deep_seek_5_v1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
+    """deep_seek_5 (safe floor) v1 — parent ~0% ROI (51 bets, breakeven). Anatomy:
+    1.5-2.0 net negative (-2.5 on 47); 2.0-2.5 positive (+2.7 on 4); tennis/tt drag.
+    v1 = raise the floor to 1.85 and exclude tennis/tt, keeping darts/cricket/football/
+    baseball where it was net-positive."""
+    if sport in ("tennis", "tabletennis", "table_tennis"):
+        return None
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.12:
+        return None
+    if not (1.85 <= home_odds <= 2.50):
+        return None
+    if fh < 0.42:
+        return None
+    return {"pick": home, "model_prob": round(fh, 4), "odds_at_prediction": round(home_odds, 2),
+            "strategy": "deep_seek_5_v1", "source": "expert_vig",
+            "confidence": "B", "notes": f"ds5 v1 home fh={fh:.0%} (1.85+, no tennis/tt)"}
+
+
+def deep_seek_6_inverse_v1(home, away, home_odds, away_odds, sport="") -> Optional[dict]:
+    """deep_seek_6 INVERSE v1 — the validated inversion. Parent deep_seek_6 bets TT
+    AWAY and loses (-15% ROI). Real-odds test of the OPPOSITE (bet HOME at home_odds)
+    = +14% ROI, 52% win on 193 matches. The directional bias was simply backwards:
+    in these tt feeds the listed-first (home) player is underrated. v1 bets TT HOME
+    in the same profitable odds zone the parent used for away."""
+    if sport not in ("tabletennis", "table_tennis"):
+        return None
+    fh, fa, vig = _fair_probs(home_odds, away_odds)
+    if vig > 0.10 or home_odds < 1.20:
+        return None
+    if not (1.20 <= home_odds <= 2.50):
+        return None
+    if fh < 0.40:
+        return None
+    return {"pick": home, "model_prob": round(fh, 4), "odds_at_prediction": round(home_odds, 2),
+            "strategy": "deep_seek_6_inverse_v1", "source": "expert_vig",
+            "confidence": "B", "notes": f"ds6 INVERSE v1 TT home fh={fh:.0%} (+14% live)"}
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -710,4 +895,13 @@ EXPERT_STRATEGIES = {
     "nova_baseball_away": nova_baseball_away,
     "nova_fade_fav_v2": nova_fade_fav_v2,
     "nova_baseball_away_v2": nova_baseball_away_v2,
+    "nova_fade_favorite_v1": nova_fade_favorite_v1,
+    "nova_fade_fav_v2_v1": nova_fade_fav_v2_v1,
+    "nova_baseball_away_v1": nova_baseball_away_v1,
+    "deep_seek_9_v1": deep_seek_9_v1,
+    "nova_underdog_v1": nova_underdog_v1,
+    "nova_sweet_spot_v1": nova_sweet_spot_v1,
+    "deep_seek_3_v1": deep_seek_3_v1,
+    "deep_seek_5_v1": deep_seek_5_v1,
+    "deep_seek_6_inverse_v1": deep_seek_6_inverse_v1,
 }
