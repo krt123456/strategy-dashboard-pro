@@ -143,12 +143,20 @@ def gather(today: str) -> dict:
                 streak += 1
             else:
                 break
+        # tier: proven winner (positive profit + enough sample) / neutral / loser.
+        # lets the UI surface what actually works instead of drowning it in 85 cards.
+        if bets >= 15 and profit > 1:
+            tier = "winner"
+        elif profit < -5:
+            tier = "loser"
+        else:
+            tier = "neutral"
         strategies.append({
             "name": strat, "source": items[0].get("source", src) if items else src,
             "bets": bets, "wins": wins, "losses": bets - wins, "bankroll": bankroll,
             "profit": profit, "roi": roi, "days": days, "avg_odds": avg_odds,
             "trust": _trust(wins, bets, roi, days), "streak": streak,
-            "streak_kind": streak_kind, "risk": _risk(avg_odds),
+            "streak_kind": streak_kind, "risk": _risk(avg_odds), "tier": tier,
             "spark": spark[-20:],
             "disabled": strat in DISABLED_BASES or any(strat.startswith(b + "__") for b in DISABLED_BASES)
             or strat in DISABLED_BASES,
@@ -255,98 +263,125 @@ HTML = r"""<!DOCTYPE html>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>استراتيجي برو</title><link rel="manifest" href="manifest.json">
 <style>
-:root{--bg:#0a0f1c;--card:#121a2e;--card2:#1a2540;--txt:#eaf0fb;--mut:#8696b8;--acc:#22d3ee;
---green:#22c55e;--red:#ef4444;--gold:#f59e0b;--bord:#22304d;--safe:#22c55e;--bal:#f59e0b;--bold:#f43f5e}
+/* ── Clean modern design system (2026-06-27): calmer palette, more whitespace,
+      simpler cards, clear hierarchy. Winners surfaced, losers tucked away. ── */
+:root{--bg:#0b1120;--surface:#151c2e;--surface2:#1c2640;--line:#243049;
+--txt:#f1f5fb;--mut:#94a3bd;--faint:#5e6b85;
+--green:#34d399;--green-dim:#10894f;--red:#f87171;--gold:#fbbf24;--accent:#60a5fa}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);
-line-height:1.5;padding-bottom:64px}
-.wrap{max-width:680px;margin:0 auto;padding:12px}
-.hd{display:flex;align-items:center;justify-content:space-between;padding:13px 15px;
-background:linear-gradient(135deg,#0a0f1c,#15203f);position:sticky;top:0;z-index:30;border-bottom:1px solid var(--bord)}
-.hd h1{font-size:17px;font-weight:800;background:linear-gradient(90deg,var(--acc),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hd .r{display:flex;gap:7px;align-items:center}
-.iconbtn{background:var(--card2);border:1px solid var(--bord);color:var(--acc);width:34px;height:34px;
-border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;font-weight:700}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin:12px 0}
-.stat{background:var(--card);border:1px solid var(--bord);border-radius:12px;padding:10px 6px;text-align:center}
-.stat .v{font-size:18px;font-weight:800}.stat .l{font-size:9px;color:var(--mut);margin-top:1px}
-.hero{background:linear-gradient(135deg,#0d2818,#143a23);border:1px solid var(--green);border-radius:16px;
-padding:15px;margin:10px 0}
-.hero .lbl{font-size:11px;color:var(--green);font-weight:800;letter-spacing:.5px}
-.hero .mtch{font-size:16px;font-weight:800;margin:7px 0 3px}
-.hero .pk{display:inline-block;background:var(--green);color:#001;padding:3px 10px;border-radius:7px;
-font-weight:800;font-size:14px}
-.hero .row{display:flex;justify-content:space-between;align-items:center;margin-top:9px}
-.hero .od{background:#001a;color:var(--gold);padding:5px 13px;border-radius:8px;font-weight:800;font-size:17px}
-.hero .pay{font-size:11px;color:var(--mut)}.hero .why{font-size:11px;color:var(--acc);margin-top:8px;line-height:1.4}
-.sec{font-size:13px;font-weight:800;color:var(--acc);margin:18px 0 8px;display:flex;align-items:center;gap:6px}
-.scard{background:linear-gradient(180deg,var(--card),#0f1626);border:1px solid var(--bord);border-radius:16px;padding:14px;margin:9px 0;cursor:pointer;
-transition:border-color .15s,transform .1s,box-shadow .15s;box-shadow:0 2px 12px rgba(0,0,0,.28)}.scard:active{border-color:var(--acc);transform:scale(.995)}
-.scard .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.scard .nm{font-weight:700;font-size:14px;max-width:62%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.badges{display:flex;gap:5px;flex-wrap:wrap;margin-top:6px}
-.bg{font-size:10px;padding:2px 7px;border-radius:6px;font-weight:700}
-.bg.risk-safe{background:rgba(34,197,94,.16);color:var(--safe)}
-.bg.risk-balanced{background:rgba(245,158,11,.16);color:var(--bal)}
-.bg.risk-bold{background:rgba(244,63,94,.16);color:var(--bold)}
-.bg.streak-w{background:rgba(245,158,11,.18);color:var(--gold)}
-.bg.streak-l{background:rgba(239,68,68,.16);color:var(--red)}
-.bg.src{background:var(--card2);color:var(--mut)}
-.scard .mid{display:flex;justify-content:space-between;align-items:center;margin-top:9px}
-.bank{font-size:22px;font-weight:800}
+line-height:1.55;padding-bottom:72px;font-size:15px}
+.wrap{max-width:640px;margin:0 auto;padding:14px 14px 0}
+/* header */
+.hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;
+background:rgba(11,17,32,.85);backdrop-filter:blur(10px);position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line)}
+.hd h1{font-size:18px;font-weight:800;letter-spacing:-.3px}
+.hd h1 b{color:var(--accent)}
+.hd .r{display:flex;gap:8px;align-items:center}
+.iconbtn{background:transparent;border:1px solid var(--line);color:var(--mut);width:36px;height:36px;
+border-radius:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;font-weight:700;transition:.15s}
+.iconbtn:active{background:var(--surface2);color:var(--txt)}
+/* summary strip */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 8px}
+.stat{background:var(--surface);border-radius:14px;padding:14px 8px;text-align:center}
+.stat .v{font-size:21px;font-weight:800;letter-spacing:-.5px}.stat .l{font-size:11px;color:var(--mut);margin-top:3px}
+/* section heading */
+.sec{font-size:13px;font-weight:700;color:var(--mut);margin:26px 4px 12px;text-transform:none;
+display:flex;align-items:center;justify-content:space-between;letter-spacing:.2px}
+.sec .cnt{font-size:12px;color:var(--faint);font-weight:600}
+/* hero best bet */
+.hero{background:linear-gradient(150deg,#10271d,#0f1a2c);border:1px solid var(--green-dim);border-radius:20px;
+padding:18px;margin:6px 0 4px;box-shadow:0 6px 24px rgba(16,137,79,.12)}
+.hero .lbl{font-size:12px;color:var(--green);font-weight:700;display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.hero .mtch{font-size:15px;font-weight:600;color:var(--mut);margin-bottom:14px;line-height:1.4}
+.hero .row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.hero .pk{font-size:18px;font-weight:800;color:var(--txt)}
+.hero .od{background:var(--green);color:#06281a;padding:8px 18px;border-radius:12px;font-weight:800;font-size:20px;min-width:74px;text-align:center}
+.hero .why{font-size:12px;color:var(--mut);margin-top:14px;padding-top:13px;border-top:1px solid rgba(255,255,255,.06);line-height:1.5}
+/* pick card — minimal */
+.pick{background:var(--surface);border-radius:16px;padding:15px 16px;margin:10px 0;transition:.15s}
+.pick:active{background:var(--surface2)}
+.pick .teams{display:flex;align-items:center;gap:8px;font-size:15px;flex-wrap:wrap}
+.pick .me{font-weight:800;color:var(--green)}
+.pick .vs{color:var(--faint);font-size:13px}.pick .ot{color:var(--mut);font-weight:500}
+.pick .od{margin-inline-start:auto;background:var(--surface2);color:var(--gold);padding:5px 12px;border-radius:10px;font-weight:800;font-size:15px}
+.pick .meta{display:flex;justify-content:space-between;align-items:center;margin-top:11px;font-size:12px;color:var(--mut)}
+.pick .tag{font-size:11px;color:var(--faint)}
+.pick .pay b{color:var(--green)}
+.pick .why{font-size:12px;color:var(--accent);margin-top:9px}
+/* strategy card — clean */
+.scard{background:var(--surface);border-radius:16px;padding:15px 16px;margin:10px 0;cursor:pointer;transition:.15s;border-inline-start:3px solid transparent}
+.scard:active{background:var(--surface2)}
+.scard.win{border-inline-start-color:var(--green)}
+.scard.lose{opacity:.62}
+.scard .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.scard .nm{font-weight:700;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scard .tier{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap}
+.tier.win{background:rgba(52,211,153,.14);color:var(--green)}
+.tier.lose{background:rgba(248,113,113,.12);color:var(--red)}
+.tier.cut{background:rgba(248,113,113,.12);color:var(--red)}
+.scard .mid{display:flex;align-items:baseline;gap:10px;margin-top:12px}
+.bank{font-size:24px;font-weight:800;letter-spacing:-.5px}
 .bank.up{color:var(--green)}.bank.dn{color:var(--red)}
-.rec{font-size:12px;color:var(--mut);font-weight:600}
-.rec b{color:var(--txt)}
-.trust{display:flex;flex-direction:column;align-items:center;min-width:42px}
-.trust .tv{font-size:17px;font-weight:800;width:38px;height:38px;border-radius:50%;display:flex;
-align-items:center;justify-content:center;border:3px solid}
-.tl{font-size:9px;color:var(--mut);margin-top:2px}
-.spark{height:26px;width:100%;margin-top:8px}
-.scard .foot{font-size:11px;color:var(--mut);margin-top:6px;display:flex;justify-content:space-between}
-.mrow{padding:11px 0;border-bottom:1px solid var(--bord)}.mrow:last-child{border:none}
-.mrow .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.mrow .teams{font-size:13px}.mrow .opp{color:var(--mut)}
-.mrow .mypick{font-weight:800;color:var(--green)}
-.mrow .od{background:var(--card2);border:1px solid var(--bord);padding:3px 9px;border-radius:7px;
-font-weight:800;font-size:13px;white-space:nowrap}
-.mrow .meta{display:flex;justify-content:space-between;margin-top:6px;font-size:11px;color:var(--mut)}
-.pill{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:700}
-.pill.w{background:rgba(34,197,94,.16);color:var(--green)}.pill.l{background:rgba(239,68,68,.16);color:var(--red)}
-.score{font-weight:800}
-.back{display:flex;align-items:center;gap:8px;cursor:pointer;color:var(--acc);font-weight:700;font-size:14px;
-padding:6px 0}
-.menu-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:50;display:none}
-.menu-modal.open{display:flex;justify-content:flex-end}
-.menu-panel{background:var(--card);width:78%;max-width:300px;padding:16px;border-left:1px solid var(--bord}
-.menu-panel h3{font-size:14px;margin-bottom:12px;color:var(--acc)}
-.menu-opt{padding:13px;border-radius:10px;cursor:pointer;margin-bottom:6px;background:var(--card2);
-border:1px solid var(--bord)}.menu-opt:active{border-color:var(--acc)}
-.menu-opt .t{font-weight:700;font-size:13px}.menu-opt .d{font-size:11px;color:var(--mut);margin-top:2px}
-.empty{text-align:center;color:var(--mut);padding:40px 20px;font-size:13px}
-.bottombar{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--bord);
-display:flex;z-index:40;max-width:680px;margin:0 auto}
-.bb{flex:1;text-align:center;padding:9px 0 11px;color:var(--mut);cursor:pointer;font-size:10px;font-weight:600}
-.bb svg{width:21px;height:21px;fill:currentColor;margin-bottom:2px}.bb.active{color:var(--acc)}
-.foot{text-align:center;font-size:10px;color:var(--mut);padding:16px}
+.scard .rec{font-size:13px;color:var(--mut)}.scard .rec b{color:var(--txt);font-weight:700}
+.spark{height:30px;width:100%;margin-top:12px;display:block}
+.scard .foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:11.5px;color:var(--faint)}
+.scard .today{color:var(--gold);font-weight:600}
+/* match history row */
+.mrow{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
+.mrow:last-child{border:none}
+.mrow .res{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.mrow .res.w{background:var(--green)}.mrow .res.l{background:var(--red)}
+.mrow .info{flex:1;min-width:0}
+.mrow .tm{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrow .me{font-weight:700;color:var(--txt)}.mrow .ot{color:var(--mut)}
+.mrow .sub{font-size:11px;color:var(--faint);margin-top:2px}
+.mrow .sc{font-weight:800;font-size:14px;white-space:nowrap}
+.mrow .od2{font-size:12px;color:var(--mut);min-width:38px;text-align:end}
+/* detail header */
+.back{display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;padding:10px 0}
+.dhead{background:var(--surface);border-radius:18px;padding:18px;margin-bottom:6px}
+.dhead .nm{font-size:18px;font-weight:800;margin-bottom:4px}
+.dhead .big{font-size:30px;font-weight:800;letter-spacing:-1px;margin:8px 0 2px}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.dgrid .c{background:var(--surface2);border-radius:11px;padding:10px 6px;text-align:center}
+.dgrid .c .v{font-size:16px;font-weight:800}.dgrid .c .l{font-size:10px;color:var(--mut);margin-top:2px}
+/* menu sheet */
+.menu-modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:none;align-items:flex-end}
+.menu-modal.open{display:flex}
+.menu-panel{background:var(--surface);width:100%;max-width:640px;margin:0 auto;padding:20px 18px calc(20px + env(safe-area-inset-bottom));
+border-radius:22px 22px 0 0}
+.menu-panel h3{font-size:15px;margin-bottom:14px;font-weight:700}
+.menu-opt{padding:14px 15px;border-radius:13px;cursor:pointer;margin-bottom:8px;background:var(--surface2);transition:.15s}
+.menu-opt:active{background:var(--line)}
+.menu-opt .t{font-weight:700;font-size:14px}.menu-opt .d{font-size:12px;color:var(--mut);margin-top:2px}
+.empty{text-align:center;color:var(--faint);padding:48px 20px;font-size:14px}
+/* bottom nav */
+.bottombar{position:fixed;bottom:0;left:0;right:0;background:rgba(21,28,46,.92);backdrop-filter:blur(12px);
+border-top:1px solid var(--line);display:flex;z-index:40;max-width:640px;margin:0 auto;padding-bottom:env(safe-area-inset-bottom)}
+.bb{flex:1;text-align:center;padding:11px 0 13px;color:var(--faint);cursor:pointer;font-size:11px;font-weight:600;transition:.15s}
+.bb svg{width:22px;height:22px;fill:currentColor;margin-bottom:3px;display:block;margin-inline:auto}.bb.active{color:var(--accent)}
+.foot{text-align:center;font-size:11px;color:var(--faint);padding:20px}
 .hide{display:none!important}
-.lock{position:fixed;inset:0;background:linear-gradient(160deg,#0a0f1c,#15203f);z-index:100;display:flex;
+/* lock */
+.lock{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;
 flex-direction:column;align-items:center;justify-content:center;padding:30px}
-.lock .logo{font-size:42px;margin-bottom:8px}.lock h2{font-size:20px;font-weight:800;margin-bottom:4px;
-background:linear-gradient(90deg,var(--acc),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.lock .sub{font-size:12px;color:var(--mut);margin-bottom:24px}
-.lock input{width:200px;text-align:center;background:var(--card);border:2px solid var(--bord);color:var(--txt);
-font-size:22px;letter-spacing:8px;padding:13px;border-radius:12px;outline:none;font-weight:800}
-.lock input:focus{border-color:var(--acc)}
-.lock button{margin-top:14px;background:linear-gradient(90deg,var(--acc),var(--gold));color:#001;border:none;
-padding:13px 36px;border-radius:25px;font-weight:800;font-size:15px;cursor:pointer}
-.lock .err{color:var(--red);font-size:12px;margin-top:10px;min-height:16px}
+.lock .logo{font-size:46px;margin-bottom:10px}.lock h2{font-size:22px;font-weight:800;margin-bottom:6px}
+.lock h2 b{color:var(--accent)}
+.lock .sub{font-size:13px;color:var(--mut);margin-bottom:26px}
+.lock input{width:210px;text-align:center;background:var(--surface);border:1px solid var(--line);color:var(--txt);
+font-size:24px;letter-spacing:10px;padding:15px;border-radius:14px;outline:none;font-weight:800;transition:.15s}
+.lock input:focus{border-color:var(--accent)}
+.lock button{margin-top:16px;background:var(--accent);color:#06203f;border:none;
+padding:14px 40px;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer}
+.lock .err{color:var(--red);font-size:13px;margin-top:12px;min-height:18px}
 </style></head><body>
-<div class="lock" id="lock"><div class="logo">⚡</div><h2 id="lkTitle">استراتيجي برو</h2>
+<div class="lock" id="lock"><div class="logo">⚡</div><h2>استراتيجي <b>برو</b></h2>
 <div class="sub" id="lkSub">أدخل الرقم السري</div>
 <input type="password" id="pin" inputmode="numeric" maxlength="8" autofocus>
 <button id="pinBtn" onclick="checkPin()">دخول</button>
 <div class="err" id="pinErr"></div></div>
-<div class="hd"><h1 id="title">⚡ استراتيجي برو</h1>
+<div class="hd"><h1 id="title">⚡ استراتيجي <b>برو</b></h1>
 <div class="r"><div class="iconbtn" id="refreshBtn" title="تحديث">⟳</div><div class="iconbtn" id="langBtn">EN</div><div class="iconbtn" id="menuBtn">⋮</div></div></div>
 <div class="wrap" id="app"></div>
 <div class="bottombar">
@@ -367,7 +402,8 @@ const I={
    mProfit:"أعلى ربحاً",mWin:"أعلى نسبة فوز",mTrust:"الأكثر ثقة",mSafe:"الآمنة فقط",
    mProfitD:"رتّب الاستراتيجيات حسب صافي الربح",mWinD:"رتّب حسب نسبة الفوز",mTrustD:"رتّب حسب درجة الثقة",
    mSafeD:"أظهر الاستراتيجيات الآمنة فقط",sortMenu:"ترتيب وفلترة",streakW:"فوز متتالي",streakL:"خسارة متتالية",
-   tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج",cut:"مُقصاة",next24:"24 ساعة القادمة",todayB:"رهان اليوم"},
+   tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج",cut:"مُقصاة",next24:"24 ساعة القادمة",todayB:"رهان اليوم",
+   winner:"رابح",loser:"خاسر",topStrats:"الاستراتيجيات الرابحة",otherStrats:"باقي الاستراتيجيات",matches:"مباراة"},
  en:{title:"⚡ Strategy Pro",home:"Home",picks:"Today",history:"History",
    bestBet:"⭐ Best Bet Today",monitor:"Strategy Monitor",todayPicks:"Today's Picks",
    historyLog:"Results Log",profit:"Profit",bankroll:"Bankroll",record:"Record",days:"days",
@@ -377,117 +413,102 @@ const I={
    mProfit:"Top Profit",mWin:"Top Win Rate",mTrust:"Most Trusted",mSafe:"Safe only",
    mProfitD:"Sort strategies by net profit",mWinD:"Sort by win rate",mTrustD:"Sort by trust score",
    mSafeD:"Show only safe strategies",sortMenu:"Sort & Filter",streakW:"win streak",streakL:"loss streak",
-   tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results",cut:"CUT",next24:"Next 24h",todayB:"today"}
+   tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results",cut:"CUT",next24:"Next 24h",todayB:"today",
+   winner:"WIN",loser:"LOSS",topStrats:"Winning Strategies",otherStrats:"Other Strategies",matches:"matches"}
 };
-let lang='ar',view='home',sortKey='trust',filterRisk=null,openName=null;
+let lang='ar',view='home',sortKey='profit',filterRisk=null,openName=null,showAll=false;
 const $=s=>document.querySelector(s),t=k=>I[lang][k];
 function setLang(l){lang=l;document.documentElement.lang=l;document.documentElement.dir=l=='ar'?'rtl':'ltr';
  $('#langBtn').textContent=l=='ar'?'EN':'ع';$('#title').textContent=t('title');
  document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));render()}
-function money(n){return(lang=='ar'?'$':'$')+Math.abs(n).toFixed(0)+(n>=0?'':'-')}
-function sign(n){return n>=0?'+':''+n.toFixed(0)}
-function riskBadge(r){const map={safe:t('safe'),balanced:t('balanced'),bold:t('bold')};return`<span class="bg risk-${r}">${map[r]||r}</span>`}
-function trustColor(v){return v>=70?'var(--green)':v>=45?'var(--gold)':'var(--red)'}
+function money(n){return'$'+Math.round(Math.abs(n))+(n<0?'-':'')}
+function sign(n){return(n>=0?'+':'')+Math.round(n)}
+function esc(s){return String(s).replace(/'/g,"\\'")}
+function tierBadge(s){if(s.disabled)return`<span class="tier cut">${t('cut')}</span>`;
+ if(s.tier==='winner')return`<span class="tier win">✓ ${t('winner')}</span>`;
+ if(s.tier==='loser')return`<span class="tier lose">${t('loser')}</span>`;return''}
 function sparkline(arr,w,h){if(!arr||arr.length<2)return'';const mn=Math.min(...arr),mx=Math.max(...arr),rg=(mx-mn)||1;
  const pts=arr.map((v,i)=>`${(i/(arr.length-1)*w).toFixed(1)},${(h-(v-mn)/rg*h).toFixed(1)}`).join(' ');
  const up=arr[arr.length-1]>=arr[0];return`<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
- <polyline points="${pts}" fill="none" stroke="${up?'var(--green)':'var(--red)'}" stroke-width="1.5"/></svg>`}
-function heroCard(){const b=D.best;if(!b)return'';const tr=b.trust||0;
- return`<div class="hero"><div class="lbl">★ ${t('bestBet')}</div>
- <div class="mtch">${b.home} <span style="color:var(--mut)">vs</span> ${b.away}</div>
- <div><span class="pk">${b.pick}</span> <span style="color:var(--mut);font-size:12px">· ${b.sport}</span></div>
- <div class="row"><div class="od">${b.odds}</div>
- <div style="text-align:end"><div style="font-weight:800;font-size:15px;color:var(--green)">${money(b.pay10)}</div>
- <div class="pay">${t('bet10')} → ${t('win10')}</div></div></div>
- ${b.rat_ar?`<div class="why">💡 ${lang=='ar'?b.rat_ar:b.rat_en}</div>`:''}
- ${b.real?`<div class="pay" style="margin-top:5px">✓ ${t('real')}</div>`:''}</div>`}
-function stratCard(s){const up=s.bankroll>=100;const sk=s.streakKind==='w'?`<span class="bg streak-w">🔥 ${s.streak} ${t('streakW')}</span>`:(s.streak>1?`<span class="bg streak-l">❄️ ${s.streak} ${t('streakL')}</span>`:'');
- const dis=s.disabled?`<span class="bg" style="background:rgba(239,68,68,.16);color:var(--red)">✂️ ${t('cut')}</span>`:'';
- return`<div class="scard" ${s.disabled?'style="opacity:.6"':''} onclick="showStrat('${s.name.replace(/'/g,"\\'")}')">
- <div class="top"><div class="nm">${s.name}${dis}</div>
- <div class="trust"><div class="tv" style="color:${trustColor(s.trust)};border-color:${trustColor(s.trust)}">${s.trust}</div><div class="tl">${t('trust')}</div></div></div>
- <div class="badges">${riskBadge(s.risk)}${sk}<span class="bg src">${s.days}${t('days')}</span></div>
- <div class="mid"><div><div class="bank ${up?'up':'dn'}">${money(s.bankroll)}</div>
- <div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%) · <b>${s.wins}</b>-${s.losses}</div></div>
- <div style="text-align:end"><div class="rec"><b>${s.bets}</b> ${t('bets')}</div>
- <div class="rec">${Math.round(s.wins/s.bets*100)}% ${t('winrate')}</div>
- ${s.today_bets?`<div class="rec" style="color:var(--gold)">🎯 ${s.today_bets} ${t('todayB')}</div>`:''}</div></div>
- ${sparkline(s.spark,200,26)}<div class="foot"><span>${t('tapHint')}</span><span>avg ${s.avg_odds}</span></div></div>`}
-function matchRow(m){const isHome=m.p===m.h;const opp=isHome?m.a:m.h;
- return`<div class="mrow"><div class="top"><div class="teams">
- <span class="${isHome?'mypick':'opp'}">${m.h}</span> <span class="opp">vs</span> <span class="${!isHome?'mypick':'opp'}">${m.a}</span></div>
- <div class="od">${m.o}</div></div>
- <div class="meta"><span>${m.d||''} · ${m.s||''}</span><span><span class="pill ${m.w?'w':'l'}">${m.w?t('won'):t('lost')}</span> <span class="score">${m.hs}-${m.as}</span> ${sign(m.f)}</span></div></div>`}
+ <polyline points="${pts}" fill="none" stroke="${up?'var(--green)':'var(--red)'}" stroke-width="2" stroke-linejoin="round"/></svg>`}
+function heroCard(){const b=D.best;if(!b)return'';
+ return`<div class="hero"><div class="lbl">⭐ ${t('bestBet')}</div>
+ <div class="mtch">${b.home} <span class="vs">—</span> ${b.away} · ${b.sport}</div>
+ <div class="row"><div class="pk">${b.pick}</div><div class="od">${b.odds}</div></div>
+ ${b.rat_ar?`<div class="why">${lang=='ar'?b.rat_ar:b.rat_en}</div>`:''}</div>`}
+function pickCard(p){const isH=p.pick===p.home;
+ return`<div class="pick"><div class="teams">
+ <span class="${isH?'me':'ot'}">${p.home}</span><span class="vs">vs</span><span class="${!isH?'me':'ot'}">${p.away}</span>
+ <span class="od">${p.odds}</span></div>
+ <div class="meta"><span class="tag">${p.sport}${p.league?' · '+p.league.slice(0,20):''}</span>
+ <span class="pay">${t('bet10')} → <b>${money(p.pay10)}</b></span></div>
+ ${p.rat_ar?`<div class="why">${lang=='ar'?p.rat_ar:p.rat_en}</div>`:''}</div>`}
+function stratCard(s){const up=s.bankroll>=100;const cls=s.disabled?'lose':(s.tier==='winner'?'win':(s.tier==='loser'?'lose':''));
+ const wr=s.bets?Math.round(s.wins/s.bets*100):0;
+ return`<div class="scard ${cls}" onclick="showStrat('${esc(s.name)}')">
+ <div class="top"><div class="nm">${s.name.split('__')[0]}</div>${tierBadge(s)}</div>
+ <div class="mid"><div class="bank ${up?'up':'dn'}">${money(s.bankroll)}</div>
+ <div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%) · <b>${s.wins}</b>–${s.losses} · ${wr}%</div></div>
+ ${sparkline(s.spark,240,30)}
+ <div class="foot"><span><b>${s.bets}</b> ${t('bets')} · avg ${s.avg_odds}</span>
+ ${s.today_bets?`<span class="today">🎯 ${s.today_bets} ${t('todayB')}</span>`:`<span>${s.days} ${t('days')}</span>`}</div></div>`}
+function matchRow(m){const isHome=m.p===m.h;
+ return`<div class="mrow"><div class="res ${m.w?'w':'l'}"></div>
+ <div class="info"><div class="tm"><span class="${isHome?'me':'ot'}">${m.h}</span> <span style="color:var(--faint)">vs</span> <span class="${!isHome?'me':'ot'}">${m.a}</span></div>
+ <div class="sub">${m.d||''} · ${m.s||''}</div></div>
+ <div class="sc">${m.hs}–${m.as}</div><div class="od2">${m.o}</div></div>`}
 function render(){
  const h=D.headline,a=$('#app');let x='';
  if(view==='home'){
-  x+=`<div class="stats"><div class="stat"><div class="v">${h.strategies}</div><div class="l">${t('strategies')}</div></div>
-  <div class="stat"><div class="v">${h.bets}</div><div class="l">${t('bets')}</div></div>
-  <div class="stat"><div class="v">${h.winrate}%</div><div class="l">${t('winrate')}</div></div>
-  <div class="stat"><div class="v ${h.profit>=0?'up':'dn'}" style="color:${h.profit>=0?'var(--green)':'var(--red)'}">${sign(h.profit)}</div><div class="l">${t('netPro')}</div></div></div>`;
+  x+=`<div class="stats"><div class="stat"><div class="v">${h.winrate}%</div><div class="l">${t('winrate')}</div></div>
+  <div class="stat"><div class="v ${h.profit>=0?'up':'dn'}" style="color:${h.profit>=0?'var(--green)':'var(--red)'}">${sign(h.profit)}</div><div class="l">${t('netPro')}</div></div>
+  <div class="stat"><div class="v">${h.bets}</div><div class="l">${t('bets')}</div></div></div>`;
   x+=heroCard();
-  x+=`<div class="sec">🎯 ${t('todayPicks')} · ${t('next24')} (${D.picks.length})</div>`;
-  x+=D.picks.slice(0,20).map(p=>{const isH=p.pick===p.home;
-   const sm=D.strat_map[p.strategy]||D.strat_map[p.strategy.split('__')[0]]||Object.values(D.strat_map).find(s=>p.strategy.startsWith(s.name));
-   const rec=sm?`<div class="bg ${sm.bankroll>=100?'risk-safe':'risk-bold'}" style="margin-top:5px;display:inline-block">📍 ${sm.name.split('__')[0].slice(0,16)} · ${sm.wins}✓${sm.losses}✗ ${sm.bets?Math.round(sm.wins/sm.bets*100):0}%</div>`:'';
-   return`<div class="scard" ${p.real?'':'style="opacity:.7"'}><div class="top"><div class="teams" style="font-size:14px">
-   <span class="${isH?'mypick':'opp'}" style="font-weight:${isH?'800':'400'};color:${isH?'var(--green)':'var(--mut)'}">${p.home}</span> <span class="opp">vs</span> <span class="${!isH?'mypick':'opp'}" style="font-weight:${!isH?'800':'400'};color:${!isH?'var(--green)':'var(--mut)'}">${p.away}</span></div>
-   <div class="od">${p.odds}</div></div>
-   <div class="meta" style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--mut)">
-   <span>${p.sport}${p.league?' · '+p.league.slice(0,18):''}</span><span>${t('bet10')}→<b style="color:var(--green)">${money(p.pay10)}</b></span></div>
-   ${p.rat_ar?`<div style="font-size:11px;color:var(--acc);margin-top:5px">💡 ${lang=='ar'?p.rat_ar:p.rat_en}</div>`:''}
-   ${rec}${p.real?`<div class="bg risk-safe" style="margin-top:5px;display:inline-block">✓ ${t('real')}</div>`:''}</div>`}).join('')||`<div class="empty">${t('noData')}</div>`;
-  x+=`<div class="sec">📊 ${t('monitor')}</div>`;
+  x+=`<div class="sec">${t('todayPicks')}<span class="cnt">${D.picks.length}</span></div>`;
+  x+=D.picks.length?D.picks.slice(0,18).map(pickCard).join(''):`<div class="empty">${t('noData')}</div>`;
+  // strategy monitor — winners first, losers collapsed
   let strs=[...D.strategies];
-  if(filterRisk)strs=strs.filter(s=>s.risk===filterRisk);
-  strs.sort((a,b)=>{
-   if(a.disabled!==b.disabled)return a.disabled?1:-1; // المعطّلة للأسفل دائماً
-   if(sortKey==='profit')return b.profit-a.profit;
-   if(sortKey==='win')return (b.wins/b.bets)-(a.wins/a.bets);
-   return b.trust-a.trust;
-  });
-  x+=strs.length?strs.map(stratCard).join(''):`<div class="empty">${t('noData')}</div>`;
- }else if(view==='picks'){x+=`<div class="sec">🎯 ${t('todayPicks')} · ${D.today}</div>`;
-  x+=D.picks.length?D.picks.map(p=>{const isH=p.pick===p.home;
-   return`<div class="scard"><div class="top"><div class="teams" style="font-size:14px">
-   <span class="${isH?'mypick':'opp'}" style="font-weight:800;color:var(--green)">${p.home}</span> <span class="opp">vs</span> <span class="${!isH?'mypick':'opp'}" style="font-weight:${!isH?'800':'400'};color:${!isH?'var(--green)':'var(--mut)'}">${p.away}</span></div>
-   <div class="od">${p.odds}</div></div>
-   <div class="meta" style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--mut)">
-   <span>${p.sport}${p.league?' · '+p.league:''}</span><span>${t('bet10')}→<b style="color:var(--green)">${money(p.pay10)}</b></span></div>
-   <div style="font-size:11px;color:var(--acc);margin-top:5px">💡 ${lang=='ar'?p.rat_ar:p.rat_en}</div>
-   ${p.real?`<div class="bg risk-safe" style="margin-top:5px;display:inline-block">✓ ${t('real')}</div>`:''}</div>`}).join(''):`<div class="empty">${t('noData')}</div>`;
- }else if(view==='history'){x+=`<div class="sec">📜 ${t('historyLog')}</div><div class="scard">`;
- const all=Object.entries(D.matches).flatMap(([n,ms])=>ms.map(m=>({...m,s:n}))).sort((a,b)=>(b.d||'').localeCompare(a.d||''));
-  x+=all.slice(0,80).map(matchRow).join('')||t('noData');x+='</div>';}
- a.innerHTML=x+`<div class="foot">${t('allRes')} · ${D.generated.slice(0,10)} · ⚡ Strategy Pro</div>`;
+  if(sortKey==='profit')strs.sort((a,b)=>b.profit-a.profit);
+  else if(sortKey==='win')strs.sort((a,b)=>(b.wins/b.bets)-(a.wins/a.bets));
+  else strs.sort((a,b)=>b.profit-a.profit);
+  const wins=strs.filter(s=>s.tier==='winner'&&!s.disabled);
+  const rest=strs.filter(s=>!(s.tier==='winner'&&!s.disabled));
+  x+=`<div class="sec">${t('topStrats')}<span class="cnt">${wins.length}</span></div>`;
+  x+=wins.length?wins.map(stratCard).join(''):`<div class="empty">${t('noData')}</div>`;
+  if(rest.length){x+=`<div class="sec" onclick="showAll=!showAll;render()" style="cursor:pointer">${t('otherStrats')}<span class="cnt">${rest.length} ${showAll?'▲':'▼'}</span></div>`;
+   if(showAll)x+=rest.map(stratCard).join('');}
+ }else if(view==='picks'){
+  x+=`<div class="sec">${t('todayPicks')}<span class="cnt">${D.today}</span></div>`;
+  x+=D.picks.length?D.picks.map(pickCard).join(''):`<div class="empty">${t('noData')}</div>`;
+ }else if(view==='history'){
+  x+=`<div class="sec">${t('historyLog')}</div>`;
+  const all=Object.entries(D.matches).flatMap(([n,ms])=>ms.map(m=>({...m,s:n}))).sort((a,b)=>(b.d||'').localeCompare(a.d||''));
+  x+=all.length?all.slice(0,80).map(matchRow).join(''):`<div class="empty">${t('noData')}</div>`;}
+ a.innerHTML=x+`<div class="foot">${t('allRes')} · ${D.generated.slice(0,10)}</div>`;
  document.querySelectorAll('.bb').forEach(b=>b.classList.toggle('active',b.dataset.v===view));}
-function openMenu(){$('#menuPanel').innerHTML=`<h3>⚙️ ${t('sortMenu')}</h3>
- <div class="menu-opt" onclick="setSort('profit')"><div class="t">💰 ${t('mProfit')}</div><div class="d">${t('mProfitD')}</div></div>
- <div class="menu-opt" onclick="setSort('win')"><div class="t">🎯 ${t('mWin')}</div><div class="d">${t('mWinD')}</div></div>
- <div class="menu-opt" onclick="setSort('trust')"><div class="t">⭐ ${t('mTrust')}</div><div class="d">${t('mTrustD')}</div></div>
- <div class="menu-opt" onclick="toggleSafe()"><div class="t">🟢 ${t('mSafe')}</div><div class="d">${t('mSafeD')}</div></div>`;
+function openMenu(){$('#menuPanel').innerHTML=`<h3>${t('sortMenu')}</h3>
+ <div class="menu-opt" onclick="setSort('profit')"><div class="t">💰 ${t('mProfit')}</div></div>
+ <div class="menu-opt" onclick="setSort('win')"><div class="t">🎯 ${t('mWin')}</div></div>`;
  $('#menuModal').classList.add('open');}
 function setSort(k){sortKey=k;closeMenu();render()}
-function toggleSafe(){filterRisk=filterRisk?null:'safe';closeMenu();render()}
 function closeMenu(){$('#menuModal').classList.remove('open')}
 window.showStrat=function(n){openName=n;const s=D.strategies.find(x=>x.name===n);if(!s)return;
- const ms=D.matches[n]||[];const up=s.bankroll>=100;
- $('#app').innerHTML=`<div class="back" onclick="openName=null;render()">← ${t('monitor')}</div>
- <div class="scard" style="cursor:default;border-color:var(--acc)"><div class="top"><div class="nm" style="font-size:16px">${s.name}</div>
- <div class="trust"><div class="tv" style="color:${trustColor(s.trust)};border-color:${trustColor(s.trust)}">${s.trust}</div><div class="tl">${t('trust')}</div></div></div>
- <div class="badges">${riskBadge(s.risk)}${s.streakKind==='w'?`<span class="bg streak-w">🔥 ${s.streak} ${t('streakW')}</span>`:''}<span class="bg src">${s.days}${t('days')}</span></div>
- <div class="mid"><div><div class="bank ${up?'up':'dn'}">${money(s.bankroll)}</div><div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%)</div></div>
- <div style="text-align:end"><div class="rec"><b>${s.wins}</b>${t('won')} · <b>${s.losses}</b>${t('lost')}</div><div class="rec">${s.bets} ${t('bets')} · ${Math.round(s.wins/s.bets*100)}%</div></div></div>
- ${sparkline(s.spark,200,30)}</div>
- <div class="sec">🎯 ${t('todayPicks')} ${t('next24')} (${s.today_bets})</div><div class="scard" style="cursor:default">${(()=>{
-  const tp=D.today_by_base[n.split('__')[0]]||[];
-  if(!tp.length)return`<div class="empty">${t('noData')}</div>`;
-  return tp.map(p=>{const isH=p.p===p.h;return`<div class="mrow"><div class="top"><div class="teams">
-   <span class="${isH?'mypick':'opp'}" style="font-weight:${isH?'800':'400'}">${p.h}</span> <span class="opp">vs</span> <span class="${!isH?'mypick':'opp'}" style="font-weight:${!isH?'800':'400'}">${p.a}</span></div>
-   <div class="od">${p.o}</div></div><div class="meta"><span>${p.s}${p.lg?' · '+p.lg:''}</span><span>${t('bet10')}→<b style="color:var(--green)">${money(p.pay)}</b></span></div></div>`}).join('');
- })()}</div>
- <div class="sec">📜 ${ms.length} ${t('bets')} (${t('history')})</div><div class="scard" style="cursor:default">${ms.slice().reverse().map(matchRow).join('')||t('noData')}</div>`;
- document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));}
+ const ms=D.matches[n]||[];const up=s.bankroll>=100;const wr=s.bets?Math.round(s.wins/s.bets*100):0;
+ const tp=D.today_by_base[n.split('__')[0]]||[];
+ $('#app').innerHTML=`<div class="back" onclick="openName=null;render()">← ${t('topStrats')}</div>
+ <div class="dhead"><div class="nm">${s.name.split('__')[0]} ${tierBadge(s)}</div>
+ <div class="big ${up?'bank up':'bank dn'}">${money(s.bankroll)}</div>
+ <div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%) · ${t('netPro')}</div>
+ ${sparkline(s.spark,280,36)}
+ <div class="dgrid"><div class="c"><div class="v">${wr}%</div><div class="l">${t('winrate')}</div></div>
+ <div class="c"><div class="v">${s.wins}–${s.losses}</div><div class="l">${t('record')}</div></div>
+ <div class="c"><div class="v">${s.avg_odds}</div><div class="l">${t('odds')}</div></div></div></div>
+ ${tp.length?`<div class="sec">${t('todayPicks')}<span class="cnt">${tp.length}</span></div>`+tp.map(p=>{const isH=p.p===p.h;
+  return`<div class="pick"><div class="teams"><span class="${isH?'me':'ot'}">${p.h}</span><span class="vs">vs</span><span class="${!isH?'me':'ot'}">${p.a}</span><span class="od">${p.o}</span></div>
+  <div class="meta"><span class="tag">${p.s}${p.lg?' · '+p.lg:''}</span><span class="pay">${t('bet10')} → <b>${money(p.pay)}</b></span></div></div>`}).join(''):''}
+ <div class="sec">${t('historyLog')}<span class="cnt">${ms.length}</span></div>
+ ${ms.length?ms.slice().reverse().map(matchRow).join(''):`<div class="empty">${t('noData')}</div>`}`;
+ document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));window.scrollTo(0,0);}
 document.querySelectorAll('.bb').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;openName=null;render()}));
 $('#langBtn').addEventListener('click',()=>setLang(lang==='ar'?'en':'ar'));
 $('#refreshBtn').addEventListener('click',()=>{const b=document.getElementById('refreshBtn');b.textContent='⏳';
