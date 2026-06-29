@@ -176,6 +176,9 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "vol_home": ex.vol_home,
             "hand_away_dog": ex.hand_away_dog,
             "hand_underdog": ex.hand_underdog,
+            "pro_calibrated": ex.pro_calibrated,
+            "pro_multi_signal": ex.pro_multi_signal,
+            "pro_sport_router": ex.pro_sport_router,
         }
     except Exception:
         expert_fns = {}
