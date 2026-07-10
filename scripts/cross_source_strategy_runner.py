@@ -179,6 +179,16 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "pro_calibrated": ex.pro_calibrated,
             "pro_multi_signal": ex.pro_multi_signal,
             "pro_sport_router": ex.pro_sport_router,
+            "apex_steam_foot": ex.apex_steam_foot,
+            "apex_drift_fade_foot": ex.apex_drift_fade_foot,
+            "apex_foot_away_value": ex.apex_foot_away_value,
+            "apex_tt_czech_home": ex.apex_tt_czech_home,
+            "apex_tennis_dog_away": ex.apex_tennis_dog_away,
+            "apex_cricket_away": ex.apex_cricket_away,
+            "apex_volley_home_dog": ex.apex_volley_home_dog,
+            "apex_away_convergence": ex.apex_away_convergence,
+            "apex_steam_dog": ex.apex_steam_dog,
+            "apex_multi_conviction": ex.apex_multi_conviction,
         }
     except Exception:
         expert_fns = {}

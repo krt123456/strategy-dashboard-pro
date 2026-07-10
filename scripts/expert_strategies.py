@@ -1492,6 +1492,224 @@ def pro_sport_router(home, away, home_odds, away_odds, sport="", league="", **kw
             "notes": f"pro router → {sport}/{best_side}/{best_band} (top ROI {best_edge['roi']:.0f}%)"}
 
 
+# ============================================================================
+#  APEX STRATEGY SUITE (2026-07-10) — Generation 3, mined from 94,088 resolved
+#  live bets (dedup-aware, unique matches) + independent replication on the raw
+#  linefeed history (17,558 matches, odds open→close vs actual results).
+#  KEY FINDINGS:
+#   1. Football linefeed is the softest market: away side systematically
+#      underpriced (dedup +27.8% real leagues / +34.6% friendlies @1.5-2.6),
+#      steam-to-away is the strongest combo in the system (+70.9% dedup live,
+#      +49.7% independent history replication), and NEW SIGNAL drift-fade
+#      (favorite lengthening ≥3% → back the dog) = +38.5% on 152 matches.
+#      Novelty markets (Team vs Player / 8x8 / FIFA cyber) are -24% → excluded.
+#   2. Table tennis home edge is CZECH-league specific (Pro League CZ +28.1%
+#      n=197, Setka CZ +27.9%, Setka Women +53.6%); plain Setka Cup is flat.
+#   3. Tennis away dogs 2.6-3.5 +17.7% (n=290 dedup); cricket away 1.8-2.6
+#      +52% (n=83, small sample → watch); volleyball home-dog band +45% (n=83).
+#  All apex_* fire on real-odds linefeed context only (require move fields) —
+#  the edges were mined from real 1xBet odds, not prob-derived pseudo-odds.
+#  Naming: apex_*. Append-only: nothing above is modified or removed.
+# ============================================================================
+
+_APEX_FOOT = ("football", "soccer")
+_APEX_NOVELTY = ("team vs player", "8x8", "4x4", "fifa", "cyber", "short football", "penalty")
+
+
+def _apex_novelty(league) -> bool:
+    lg = (league or "").lower()
+    return any(s in lg for s in _APEX_NOVELTY)
+
+
+def apex_steam_foot(home, away, home_odds, away_odds, sport="", league="",
+                    home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_steam_foot — football away-steam: sharp money shortening the away
+    price ≥3% (and more than home). Strongest verified combo in the system:
+    +70.9% ROI dedup-live (n=319) and +49.7% on independent open→close history
+    replication (n=162). Real football (incl. friendlies), novelty excluded."""
+    if sport not in _APEX_FOOT or _apex_novelty(league):
+        return None
+    if home_move is None or away_move is None:
+        return None
+    if not (away_move <= -0.03 and away_move < home_move):
+        return None
+    if not (1.50 <= away_odds <= 8.0):
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "apex_steam_foot", "source": "expert_vig", "confidence": "A",
+            "notes": f"apex foot steam-away mv{away_move*100:.0f}% @{away_odds:.2f} (+71% dedup n=319)"}
+
+
+def apex_drift_fade_foot(home, away, home_odds, away_odds, sport="", league="",
+                         home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_drift_fade_foot — NEW SIGNAL: when the football favorite's odds
+    LENGTHEN ≥3% (market abandoning the fav), back the dog at 1.5-6.0.
+    History-validated open→close vs results: +38.5% ROI, n=152 (football only —
+    negative in tennis/baseball/volleyball, so restricted here)."""
+    if sport not in _APEX_FOOT or _apex_novelty(league):
+        return None
+    if home_move is None or away_move is None:
+        return None
+    fav_is_home = home_odds < away_odds
+    fav_move = home_move if fav_is_home else away_move
+    if fav_move < 0.03:
+        return None
+    dog, do = (away, away_odds) if fav_is_home else (home, home_odds)
+    if not (1.50 <= do <= 6.0):
+        return None
+    return {"pick": dog, "model_prob": round(1.0/do, 4), "odds_at_prediction": round(do, 2),
+            "strategy": "apex_drift_fade_foot", "source": "expert_vig", "confidence": "B",
+            "notes": f"apex drift-fade fav+{fav_move*100:.0f}% dog@{do:.2f} (+39% hist n=152)"}
+
+
+def apex_foot_away_value(home, away, home_odds, away_odds, sport="", league="",
+                         home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_foot_away_value — football away band 1.5-2.6, novelty excluded.
+    The away side of the 1xBet football linefeed is systematically underpriced:
+    dedup-live +27.8% in real leagues (n=303) and +34.6% in friendlies (n=189).
+    Linefeed-only (requires move fields present as real-odds marker)."""
+    if sport not in _APEX_FOOT or _apex_novelty(league):
+        return None
+    if home_move is None:
+        return None
+    if not (1.50 <= away_odds < 2.60):
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "apex_foot_away_value", "source": "expert_vig", "confidence": "B",
+            "notes": f"apex foot away-value @{away_odds:.2f} (+28% dedup n=492)"}
+
+
+def apex_tt_czech_home(home, away, home_odds, away_odds, sport="", league="",
+                       home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_tt_czech_home — table-tennis HOME dog/mid 2.0-3.5, Czech circuits +
+    Setka Women only. The TT home edge is league-specific: Pro League CZ +28.1%
+    (n=197), Setka CZ +27.9% (n=73), Setka Women +53.6% (n=52); plain (UA) Setka
+    is flat 0.4% → excluded."""
+    if sport != "tabletennis" or home_move is None:
+        return None
+    lg = (league or "").lower()
+    if not ("czech" in lg or "pro league" in lg or "setka cup. women" in lg):
+        return None
+    if not (2.00 <= home_odds < 3.50):
+        return None
+    return {"pick": home, "model_prob": round(1.0/home_odds, 4),
+            "odds_at_prediction": round(home_odds, 2),
+            "strategy": "apex_tt_czech_home", "source": "expert_vig", "confidence": "B",
+            "notes": f"apex tt czech home @{home_odds:.2f} (+28% dedup n=479)"}
+
+
+def apex_tennis_dog_away(home, away, home_odds, away_odds, sport="", league="",
+                         home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_tennis_dog_away — tennis away dogs 2.6-3.5: +17.7% dedup-live
+    (n=290). The only consistently positive tennis odds band; kept narrow.
+    Confidence C — thinner edge than the football suite."""
+    if sport != "tennis" or home_move is None:
+        return None
+    if not (2.60 <= away_odds < 3.50):
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "apex_tennis_dog_away", "source": "expert_vig", "confidence": "C",
+            "notes": f"apex tennis dog-away @{away_odds:.2f} (+18% dedup n=290)"}
+
+
+def apex_cricket_away(home, away, home_odds, away_odds, sport="", league="",
+                      home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_cricket_away — cricket away 1.8-2.6: +52.3% (n=83). SMALL sample —
+    watch-list candidate; the tournament grades it live. Same away-bias family
+    as football/baseball (venue advantage overpriced in niche feeds)."""
+    if sport != "cricket" or home_move is None:
+        return None
+    if not (1.80 <= away_odds < 2.60):
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "apex_cricket_away", "source": "expert_vig", "confidence": "C",
+            "notes": f"apex cricket away @{away_odds:.2f} (+52% n=83 small, watch)"}
+
+
+def apex_volley_home_dog(home, away, home_odds, away_odds, sport="", league="",
+                         home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_volley_home_dog — volleyball HOME as dog/coinflip 2.0-3.5 (home
+    must not be the clear favorite): the 2.0-2.6 home band ran +45.5% (n=83).
+    Distinct from vol_home (broad 1.2-3.0 favorite-inclusive). Confidence C."""
+    if sport != "volleyball" or home_move is None:
+        return None
+    if home_odds <= away_odds:
+        return None
+    if not (2.00 <= home_odds <= 3.50):
+        return None
+    return {"pick": home, "model_prob": round(1.0/home_odds, 4),
+            "odds_at_prediction": round(home_odds, 2),
+            "strategy": "apex_volley_home_dog", "source": "expert_vig", "confidence": "C",
+            "notes": f"apex volley home-dog @{home_odds:.2f} (+45% n=83 small, watch)"}
+
+
+def apex_away_convergence(home, away, home_odds, away_odds, sport="", league="",
+                          home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_away_convergence — composite: football/baseball away 1.7-2.6
+    (both sports carry the away-underpricing bias) AND the line is NOT moving
+    against the away side (away_move ≤ 0). Pocket + line-confirmation filter."""
+    if sport not in _APEX_FOOT + ("baseball",) or _apex_novelty(league):
+        return None
+    if home_move is None or away_move is None:
+        return None
+    if away_move > 0:
+        return None
+    if not (1.70 <= away_odds < 2.60):
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "apex_away_convergence", "source": "expert_vig", "confidence": "B",
+            "notes": f"apex away-convergence {sport} @{away_odds:.2f} mv{away_move*100:.0f}%"}
+
+
+def apex_steam_dog(home, away, home_odds, away_odds, sport="", league="",
+                   home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_steam_dog — sharpened steam: away steam ≥3% while away is the DOG
+    (2.2-6.0), football/baseball only (the sports where steam replicates:
+    +49.7% / +8.8% history). Sharp money on a dog is the cleanest signal."""
+    if sport not in _APEX_FOOT + ("baseball",) or _apex_novelty(league):
+        return None
+    if home_move is None or away_move is None:
+        return None
+    if not (away_move <= -0.03 and away_odds > home_odds):
+        return None
+    if not (2.20 <= away_odds <= 6.0):
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "apex_steam_dog", "source": "expert_vig", "confidence": "B",
+            "notes": f"apex steam-dog {sport} mv{away_move*100:.0f}% @{away_odds:.2f}"}
+
+
+def apex_multi_conviction(home, away, home_odds, away_odds, sport="", league="",
+                          home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_multi_conviction — highest conviction: football away with 2+ of 3
+    independent signals agreeing: (1) value band 1.5-2.6, (2) away steam ≤-2%,
+    (3) home favorite drifting ≥+2%. Each signal is individually +EV (see
+    apex_foot_away_value / apex_steam_foot / apex_drift_fade_foot)."""
+    if sport not in _APEX_FOOT or _apex_novelty(league):
+        return None
+    if home_move is None or away_move is None:
+        return None
+    sig = 0
+    if 1.50 <= away_odds < 2.60:
+        sig += 1
+    if away_move <= -0.02:
+        sig += 1
+    if home_odds < away_odds and home_move >= 0.02:
+        sig += 1
+    if sig < 2:
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "apex_multi_conviction", "source": "expert_vig", "confidence": "A",
+            "notes": f"apex multi-conviction away ({sig} signals) @{away_odds:.2f}"}
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -1552,4 +1770,14 @@ EXPERT_STRATEGIES = {
     "pro_calibrated": pro_calibrated,
     "pro_multi_signal": pro_multi_signal,
     "pro_sport_router": pro_sport_router,
+    "apex_steam_foot": apex_steam_foot,
+    "apex_drift_fade_foot": apex_drift_fade_foot,
+    "apex_foot_away_value": apex_foot_away_value,
+    "apex_tt_czech_home": apex_tt_czech_home,
+    "apex_tennis_dog_away": apex_tennis_dog_away,
+    "apex_cricket_away": apex_cricket_away,
+    "apex_volley_home_dog": apex_volley_home_dog,
+    "apex_away_convergence": apex_away_convergence,
+    "apex_steam_dog": apex_steam_dog,
+    "apex_multi_conviction": apex_multi_conviction,
 }
