@@ -133,3 +133,38 @@ prob-derived pseudo-odds sources.
 that will grade them); the history-replication numbers are out-of-dataset. Treat live
 performance from 2026-07-10 onward as the real test. Nothing existing was modified:
 all 59 prior strategies keep running unchanged.
+
+### ADDENDUM (same day, deep multi-day lab) — draw-corrected verdicts + APEX ELITE
+
+A 16-day open→close lab (8,895 matches with final scores) re-tested everything with
+**draws counted as losses** (the football numbers above were draw-excluded and
+therefore inflated — 21% of football matches end drawn).
+
+**Draw-corrected football verdicts:** away band 1.5-2.6 = **-4%** (dead), drift-fade =
+0%, band+steam = -8%; only away-steam survives at +10-14% with weak day-stability
+(7-10/16 days). Conclusion: football odds-band rules do NOT survive the draw tax;
+the live tournament will pass final judgment on the football apex strategies.
+
+**What survives every filter (draw-safe sports, day-by-day stability over 16 days):**
+
+| edge | n | ROI | days positive |
+|---|---|---|---|
+| TT Czech home 2.0-3.5 | 509 | +28% | 15/16 |
+| · night slice 00-04 UTC | 98 | **+55%** | 13/15 |
+| Baseball away NON-minor 1.5-2.6 | 424 | +9% | 12/16 |
+| · (Minor League away = -6% → excluded) | 191 | -6% | 5/13 |
+| Tennis away 2.6-3.5 calm line (|mv|<5%) | 314 | +21% | 12/16 |
+| Cricket away 1.7-2.8 | 60 | +22% | 6/10 |
+| Volleyball home 1.5-3.0, line not against | 31 | +23% | 3/5 |
+
+**APEX ELITE (4 strategies, append-only):**
+- `apex_tt_night_cz` (A) — the crown jewel: Czech TT home, night window 00-04 UTC.
+- `apex_bsb_road_pro` (B) — baseball away with the Minor-League poison removed.
+- `apex_tennis_calm_dog` (B) — the calm-line filter that turns the tennis dog band
+  into a stable edge (confirms: stable dogs win, drifting dogs lose).
+- `apex_alpha_basket` (A) — one bankroll riding all five surviving legs across
+  uncorrelated draw-free sports; the smoothest expected equity curve in the system.
+
+Method note: every number here is unique-match, draw-as-loss, and day-stratified;
+in-sample vs the same 16 days the system lived through — live performance from
+2026-07-10 onward is the true out-of-sample test.

@@ -1710,6 +1710,124 @@ def apex_multi_conviction(home, away, home_odds, away_odds, sport="", league="",
             "notes": f"apex multi-conviction away ({sig} signals) @{away_odds:.2f}"}
 
 
+# ============================================================================
+#  APEX ELITE (2026-07-10, same-day deep multi-day lab) — 4 strategies distilled
+#  from a 16-day open→close lab (8,895 matches w/ results) with DRAWS COUNTED AS
+#  LOSSES (the earlier football numbers were draw-excluded and inflated; the
+#  draw-corrected lab kills football odds-band rules: away 1.5-2.6 = -4%).
+#  WHAT SURVIVES EVERY FILTER (draw-corrected, day-by-day stability):
+#   - TT Czech home 2.0-3.5:            +28% n=509, 15/16 days positive
+#     · NIGHT slice 00-04 UTC:          +55% n=98,  13/15 days, 64% wr  ← crown
+#   - Baseball away NON-Minor 1.5-2.6:  +9%  n=424, 12/16 days (Minor = -6%!)
+#   - Tennis away 2.6-3.5 CALM line:    +21% n=314, 12/16 days (|move|<5%)
+#   - Cricket away 1.7-2.8:             +22% n=60,  6/10 days
+#   - Volleyball home 1.5-3.0 no-steam-against: +23% n=31 (small)
+#  Football: only steam survives (+10-14%, weak day-stability) — no new football
+#  rules here; the existing apex football strategies stay under live tournament.
+# ============================================================================
+
+def _apex_hour(start_utc) -> Optional[int]:
+    """Extract UTC hour from an ISO start_utc string; None if unparseable."""
+    try:
+        s = str(start_utc or "")
+        return int(s[11:13]) if len(s) >= 13 and s[11:13].isdigit() else None
+    except Exception:
+        return None
+
+
+def apex_tt_night_cz(home, away, home_odds, away_odds, sport="", league="",
+                     home_move=None, away_move=None, start_utc="", **kw) -> Optional[dict]:
+    """apex_tt_night_cz — THE CROWN JEWEL: Czech-circuit table tennis HOME
+    2.0-3.5 in the NIGHT window 00:00-04:59 UTC. Lab (draw-free sport, 16 days):
+    +55% ROI, n=98, 64% win, 13/15 days positive — the deepest, most stable
+    slice in the entire system. Night Liga-Pro sessions have the softest lines."""
+    if sport != "tabletennis" or home_move is None:
+        return None
+    lg = (league or "").lower()
+    if not ("czech" in lg or "pro league" in lg or "setka cup. women" in lg):
+        return None
+    hr = _apex_hour(start_utc)
+    if hr is None or not (0 <= hr <= 4):
+        return None
+    if not (2.00 <= home_odds < 3.50):
+        return None
+    return {"pick": home, "model_prob": round(1.0/home_odds, 4),
+            "odds_at_prediction": round(home_odds, 2),
+            "strategy": "apex_tt_night_cz", "source": "expert_vig", "confidence": "A",
+            "notes": f"apex tt-cz NIGHT h{hr:02d} @{home_odds:.2f} (+55% n=98 13/15d)"}
+
+
+def apex_bsb_road_pro(home, away, home_odds, away_odds, sport="", league="",
+                      home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_bsb_road_pro — baseball away 1.5-2.6 EXCLUDING Minor League. The
+    away-underpricing edge is real only outside MiLB: non-minor +9% (n=424,
+    12/16 days) vs minor -6% (n=191). Existing bsb_*/nova_baseball_away don't
+    league-filter — this is the corrected version of the family."""
+    if sport != "baseball" or home_move is None:
+        return None
+    if "minor" in (league or "").lower():
+        return None
+    if not (1.50 <= away_odds < 2.60):
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "apex_bsb_road_pro", "source": "expert_vig", "confidence": "B",
+            "notes": f"apex bsb road non-minor @{away_odds:.2f} (+9% n=424 12/16d)"}
+
+
+def apex_tennis_calm_dog(home, away, home_odds, away_odds, sport="", league="",
+                         home_move=None, away_move=None, **kw) -> Optional[dict]:
+    """apex_tennis_calm_dog — tennis away dog 2.6-3.5 with a CALM line
+    (|away_move| < 5%): +21% (n=314, 12/16 days). Confirms the 06-27 finding:
+    stable dogs win, drifting dogs lose — the calm filter is what turns the
+    plain band (apex_tennis_dog_away) into a stable edge."""
+    if sport != "tennis" or away_move is None:
+        return None
+    if abs(away_move) >= 0.05:
+        return None
+    if not (2.60 <= away_odds < 3.50):
+        return None
+    return {"pick": away, "model_prob": round(1.0/away_odds, 4),
+            "odds_at_prediction": round(away_odds, 2),
+            "strategy": "apex_tennis_calm_dog", "source": "expert_vig", "confidence": "B",
+            "notes": f"apex tennis calm-dog @{away_odds:.2f} mv{away_move*100:+.0f}% (+21% n=314)"}
+
+
+def apex_alpha_basket(home, away, home_odds, away_odds, sport="", league="",
+                      home_move=None, away_move=None, start_utc="", **kw) -> Optional[dict]:
+    """apex_alpha_basket — the PORTFOLIO: one bankroll riding the five edges
+    that survived the draw-corrected 16-day lab, across uncorrelated draw-free
+    sports. Legs: TT-Czech home 2.0-3.5 · baseball non-minor away 1.5-2.6 ·
+    tennis calm away dog 2.6-3.5 · cricket away 1.7-2.8 · volleyball home
+    1.5-3.0 (line not moving against). Diversification smooths the 40%/day
+    compounding curve — the best single-strategy equity profile in the system."""
+    if home_move is None:
+        return None
+    lg = (league or "").lower()
+    pick = odds = leg = None
+    if sport == "tabletennis" and ("czech" in lg or "pro league" in lg or "setka cup. women" in lg):
+        if 2.00 <= home_odds < 3.50:
+            pick, odds, leg = home, home_odds, "tt-cz-home"
+    elif sport == "baseball" and "minor" not in lg:
+        if 1.50 <= away_odds < 2.60:
+            pick, odds, leg = away, away_odds, "bsb-road"
+    elif sport == "tennis" and away_move is not None and abs(away_move) < 0.05:
+        if 2.60 <= away_odds < 3.50:
+            pick, odds, leg = away, away_odds, "tennis-calm-dog"
+    elif sport == "cricket":
+        if 1.70 <= away_odds < 2.80:
+            pick, odds, leg = away, away_odds, "cricket-away"
+    elif sport == "volleyball" and (home_move or 0) < 0.03:
+        if 1.50 <= home_odds <= 3.00:
+            pick, odds, leg = home, home_odds, "volley-home"
+    if pick is None:
+        return None
+    return {"pick": pick, "model_prob": round(1.0/odds, 4),
+            "odds_at_prediction": round(odds, 2),
+            "strategy": "apex_alpha_basket", "source": "expert_vig", "confidence": "A",
+            "notes": f"apex alpha-basket [{leg}] @{odds:.2f}"}
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -1780,4 +1898,8 @@ EXPERT_STRATEGIES = {
     "apex_away_convergence": apex_away_convergence,
     "apex_steam_dog": apex_steam_dog,
     "apex_multi_conviction": apex_multi_conviction,
+    "apex_tt_night_cz": apex_tt_night_cz,
+    "apex_bsb_road_pro": apex_bsb_road_pro,
+    "apex_tennis_calm_dog": apex_tennis_calm_dog,
+    "apex_alpha_basket": apex_alpha_basket,
 }

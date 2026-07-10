@@ -189,6 +189,10 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "apex_away_convergence": ex.apex_away_convergence,
             "apex_steam_dog": ex.apex_steam_dog,
             "apex_multi_conviction": ex.apex_multi_conviction,
+            "apex_tt_night_cz": ex.apex_tt_night_cz,
+            "apex_bsb_road_pro": ex.apex_bsb_road_pro,
+            "apex_tennis_calm_dog": ex.apex_tennis_calm_dog,
+            "apex_alpha_basket": ex.apex_alpha_basket,
         }
     except Exception:
         expert_fns = {}
