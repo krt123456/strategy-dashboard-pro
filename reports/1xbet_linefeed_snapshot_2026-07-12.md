@@ -1,141 +1,130 @@
 # 1xBet linefeed snapshot
 - Date: 2026-07-12
-- Rows: 235
+- Rows: 237
 
 ## Sports
 - football: 50
 - tabletennis: 50
-- tennis: 48
-- baseball: 31
+- baseball: 48
+- tennis: 38
 - futsal: 16
-- volleyball: 13
+- volleyball: 12
 - hockey: 9
-- cricket: 9
 - handball: 6
-- darts: 3
+- cricket: 4
+- darts: 4
 
 ## Fetch Notes
 - football: fetched=50 target_rows=50.
 - basketball: fetched=49 target_rows=0.
-- tennis: fetched=50 target_rows=48.
+- tennis: fetched=50 target_rows=38.
 - handball: fetched=21 target_rows=6.
 - hockey: fetched=50 target_rows=9.
 - tabletennis: fetched=50 target_rows=50.
-- volleyball: fetched=38 target_rows=13.
-- baseball: fetched=32 target_rows=31.
-- cricket: fetched=30 target_rows=9.
+- volleyball: fetched=37 target_rows=12.
+- baseball: fetched=50 target_rows=48.
+- cricket: fetched=28 target_rows=4.
 - americanfootball: fetched=50 target_rows=0.
 - futsal: fetched=22 target_rows=16.
-- darts: fetched=38 target_rows=3.
+- darts: fetched=39 target_rows=4.
 - snooker: fetched=12 target_rows=0.
 
 | Sport | League | Match | Start UTC | Home | Draw | Away | EventId |
 | --- | --- | --- | --- | ---: | ---: | ---: | --- |
-| football | Copa Argentina | Independiente Rivadavia vs Club Atletico Tigre | 2026-07-12T19:15:00+00:00 | 2.423 | 2.727 | 3.585 | 731969377 |
-| football | Romanian Super Cup | CS Universitatea Craiova vs Universitatea Cluj | 2026-07-12T17:30:00+00:00 | 1.77 | 3.48 | 4.66 | 734439226 |
-| football | Kazakhstan. Premier League | Tobol Kostanay vs Okzhetpes | 2026-07-12T15:00:00+00:00 | 2.065 | 3.545 | 3.355 | 735346520 |
-| football | Norway. Eliteserien | Brann vs IK Start | 2026-07-12T15:00:00+00:00 | 1.454 | 4.915 | 6.4 | 730949466 |
-| football | Norway. Eliteserien | Rosenborg vs Kristiansund BK | 2026-07-12T15:00:00+00:00 | 1.629 | 4.2 | 5.12 | 730923889 |
-| football | Norway. Eliteserien | Sandefjord vs HamKam | 2026-07-12T15:00:00+00:00 | 1.916 | 3.705 | 3.91 | 730923883 |
-| football | Norway. Eliteserien | Sarpsborg 08 vs Viking | 2026-07-12T17:15:00+00:00 | 4.55 | 4.395 | 1.667 | 730926163 |
-| football | Sweden. Allsvenskan | Brommapojkarna vs Sirius | 2026-07-12T14:30:00+00:00 | 4.545 | 4.15 | 1.65 | 734241034 |
-| football | Sweden. Allsvenskan | GAIS vs Elfsborg | 2026-07-12T14:30:00+00:00 | 1.78 | 3.64 | 4.32 | 734232892 |
-| football | Club Friendlies | Jagiellonia Bialystok vs Pafos | 2026-07-12T15:00:00+00:00 | 2.34 | 3.38 | 2.909 | 735798421 |
-| football | Club Friendlies | Slavia Prague vs Ruzomberok | 2026-07-12T15:00:00+00:00 | 1.48 | 4.5 | 5.9 | 735802864 |
-| football | Club Friendlies | Zenit Saint Petersburg vs Crvena Zvezda | 2026-07-12T16:00:00+00:00 | 1.54 | 3.78 | 6.49 | 730181647 |
+| football | Copa Argentina | Independiente Rivadavia vs Club Atletico Tigre | 2026-07-12T19:15:00+00:00 | 2.467 | 2.719 | 3.505 | 731969377 |
+| football | Romanian Super Cup | CS Universitatea Craiova vs Universitatea Cluj | 2026-07-12T17:30:00+00:00 | 1.71 | 3.56 | 4.95 | 734439226 |
+| football | Norway. Eliteserien | Sarpsborg 08 vs Viking | 2026-07-12T17:15:00+00:00 | 5.11 | 4.655 | 1.569 | 730926163 |
+| football | Club Friendlies | Zenit Saint Petersburg vs Crvena Zvezda | 2026-07-12T16:00:00+00:00 | 1.57 | 4.2 | 5.2 | 730181647 |
 | football | Club Friendlies | Botev Plovdiv vs Beroe Stara Zagora | 2026-07-12T17:30:00+00:00 | 1.67 | 3.68 | 4.15 | 735694193 |
-| football | Club Friendlies | Pumas UNAM vs America de Cali | 2026-07-12T18:00:00+00:00 | 1.92 | 3.35 | 4.035 | 735867053 |
-| football | Club Friendlies | Cascavel vs Corinthians Paulista | 2026-07-12T19:00:00+00:00 | 11.0 | 5.1 | 1.28 | 735816658 |
-| football | Club Friendlies | Fluminense vs Bahia | 2026-07-12T19:00:00+00:00 | 1.83 | 3.4 | 4.425 | 735867056 |
+| football | Club Friendlies | Pumas UNAM vs America de Cali | 2026-07-12T18:00:00+00:00 | 1.91 | 3.35 | 4.085 | 735867053 |
+| football | Club Friendlies | Cascavel vs Corinthians Paulista | 2026-07-12T19:00:00+00:00 | 12.0 | 5.25 | 1.26 | 735816658 |
+| football | Club Friendlies | Fluminense vs Bahia | 2026-07-12T19:00:00+00:00 | 1.87 | 3.4 | 4.185 | 735867056 |
 | football | Club Friendlies | Columbus Crew vs Burnley | 2026-07-12T20:00:00+00:00 | 3.675 | 4.32 | 1.65 | 735741648 |
 | football | Club Friendlies | Gremio Porto Alegrense vs Cruzeiro Esporte Clube | 2026-07-12T20:00:00+00:00 | 3.225 | 3.66 | 1.9 | 735895921 |
-| football | Club Friendlies | Alianza Lima vs Deportivo Cali | 2026-07-12T20:30:00+00:00 | 1.69 | 3.64 | 4.27 | 735877853 |
-| football | Russian Championship. League 1 | Spartak Kostroma vs KAMAZ | 2026-07-12T16:00:00+00:00 | 2.103 | 3.36 | 3.645 | 733790281 |
+| football | Club Friendlies | Alianza Lima vs Deportivo Cali | 2026-07-12T20:30:00+00:00 | 1.71 | 3.64 | 4.125 | 735877853 |
+| football | Russian Championship. League 1 | Spartak Kostroma vs KAMAZ | 2026-07-12T16:00:00+00:00 | 2.016 | 3.29 | 3.71 | 733790281 |
 | football | Costa Rica Super Cup | Alajuelense vs Herediano | 2026-07-12T23:00:00+00:00 | 2.04 | 3.14 | 3.445 | 735669708 |
-| football | Brazil. Campeonato Brasileiro. Serie B | Avai vs Clube Nautico Capibaribe | 2026-07-12T19:00:00+00:00 | 2.74 | 3.02 | 2.61 | 734542637 |
-| football | Brazil. Campeonato Brasileiro. Serie B | Sao Bernardo vs Cuiaba | 2026-07-12T19:00:00+00:00 | 2.61 | 2.85 | 2.9 | 734542640 |
-| football | Brazil. Campeonato Brasileiro. Serie B | Atletico Clube Goianiense vs Fortaleza EC | 2026-07-12T21:00:00+00:00 | 2.395 | 2.95 | 3.16 | 734324552 |
-| football | Brazil. Campeonato Brasileiro. Serie B | CRB Maceio vs Goias Esporte Clube | 2026-07-12T22:00:00+00:00 | 1.91 | 3.34 | 3.985 | 734338267 |
-| football | Iceland. Urvalsdeild | Knattspyrnufelag Akureyrar vs IA Akranes | 2026-07-12T18:00:00+00:00 | 2.55 | 3.82 | 2.35 | 734294607 |
-| football | Iceland. Urvalsdeild | Knattspyrnufelag Reykjavíkur vs Íþrottabandalag Vestmannaeyja | 2026-07-12T18:00:00+00:00 | 1.45 | 5.2 | 5.22 | 734285267 |
-| football | Iceland. Urvalsdeild | Knattspyrnufelagid Fram vs Tor Akureyri | 2026-07-12T18:00:00+00:00 | 1.23 | 6.8 | 8.8 | 734523098 |
+| football | Brazil. Campeonato Brasileiro. Serie B | Avai vs Clube Nautico Capibaribe | 2026-07-12T19:00:00+00:00 | 2.73 | 3.04 | 2.61 | 734542637 |
+| football | Brazil. Campeonato Brasileiro. Serie B | Sao Bernardo vs Cuiaba | 2026-07-12T19:00:00+00:00 | 2.66 | 2.82 | 2.875 | 734542640 |
+| football | Brazil. Campeonato Brasileiro. Serie B | Atletico Clube Goianiense vs Fortaleza EC | 2026-07-12T21:00:00+00:00 | 2.44 | 2.95 | 3.08 | 734324552 |
+| football | Brazil. Campeonato Brasileiro. Serie B | CRB Maceio vs Goias Esporte Clube | 2026-07-12T22:00:00+00:00 | 1.91 | 3.3 | 4.05 | 734338267 |
+| football | Iceland. Urvalsdeild | Knattspyrnufelag Akureyrar vs IA Akranes | 2026-07-12T18:00:00+00:00 | 2.57 | 3.8 | 2.34 | 734294607 |
+| football | Iceland. Urvalsdeild | Knattspyrnufelag Reykjavíkur vs Íþrottabandalag Vestmannaeyja | 2026-07-12T18:00:00+00:00 | 1.44 | 5.3 | 5.27 | 734285267 |
+| football | Iceland. Urvalsdeild | Knattspyrnufelagid Fram vs Tor Akureyri | 2026-07-12T18:00:00+00:00 | 1.198 | 7.3 | 9.75 | 734523098 |
 | football | Iceland. Urvalsdeild | Hafnarfjordur vs Valur | 2026-07-12T20:05:00+00:00 | 2.27 | 3.84 | 2.684 | 734306194 |
-| football | Iceland. Urvalsdeild | Home vs Away | 2026-07-12T18:00:00+00:00 | 1.279 | 11.6 | 5.3 | 734730885 |
-| football | Friendlies U20. National Teams | Oman U20 vs Tajikistan U20 | 2026-07-12T15:15:00+00:00 | 1.88 | 3.49 | 3.42 | 735755669 |
+| football | Iceland. Urvalsdeild | Home vs Away | 2026-07-12T18:00:00+00:00 | 1.266 | 11.9 | 5.55 | 734730885 |
 | football | Friendlies U20. National Teams | Bahrain U20 vs Palestine U20 | 2026-07-12T16:15:00+00:00 | 1.64 | 3.62 | 4.48 | 735754484 |
-| football | Brazil. Campeonato Brasileiro Série C | Home vs Away | 2026-07-12T14:00:00+00:00 | 1.446 | 10.0 | 3.685 | 734996409 |
-| football | Argentina. Torneo Argentino A | Fundacion Amigos vs San Martin de Mendoza | 2026-07-12T14:30:00+00:00 | 1.6 | 3.22 | 6.02 | 735685040 |
-| football | Lebanon. Premier League | Al-Ansar Beirut vs Al Ahed | 2026-07-12T14:30:00+00:00 | 1.58 | 3.7 | 5.03 | 735810420 |
-| football | Belarus. 1st League | Volna Pinsk vs Soligorsk | 2026-07-12T15:00:00+00:00 | 2.2 | 3.85 | 2.45 | 734929045 |
-| football | Bolivia Championship. Women | Real Oruro (Women) vs Basco La Paz (Women) | 2026-07-12T15:00:00+00:00 | 1.56 | 4.3 | 4.39 | 735695954 |
-| football | Chile Championship. Women | Universidad de Concepcion (Women) vs Deportes Magallanes (Women) | 2026-07-12T15:00:00+00:00 | 1.8 | 3.5 | 3.835 | 735743723 |
-| football | Ecuador. Serie A. Women | Macara (Women) vs Quito (Women) | 2026-07-12T15:00:00+00:00 | 1.57 | 4.6 | 4.215 | 735880803 |
-| football | Finland. Kansallinen League. Women | Aland United (Women) vs PK-35 Vantaa (Women) | 2026-07-12T15:00:00+00:00 | 1.093 | 8.0 | 13.7 | 735539973 |
-| football | Ireland. Premier Division. Women | Galway (Women) vs Shamrock Rovers (Women) | 2026-07-12T15:00:00+00:00 | 1.86 | 3.5 | 3.59 | 735816662 |
-| football | Latvian Cup | Valmieras vs Ogre United | 2026-07-12T15:00:00+00:00 | 2.04 | 3.72 | 2.933 | 735871038 |
-| football | Russian Championship. League 2. Division B. Group 4 | Khimik Dzerzhinsk vs Akron Tolyatti II | 2026-07-12T15:00:00+00:00 | 1.25 | 5.4 | 8.6 | 735429903 |
-| football | Uruguay. Primera Division | Liverpool Montevideo vs C.A. Cerro | 2026-07-12T15:00:00+00:00 | 1.641 | 3.59 | 5.5 | 733566875 |
-| football | Uruguay. Primera Division | Home vs Away | 2026-07-12T15:00:00+00:00 | 1.712 | 5.84 | 3.12 | 733570280 |
-| football | Uruguay. Segunda Division | Club Atletico Atenas vs Rentistas | 2026-07-12T15:00:00+00:00 | 2.58 | 2.85 | 2.67 | 735152938 |
-| football | Finland. Kakkonen. Division 2 | Narpes Kraft vs VPS Akatemia | 2026-07-12T15:30:00+00:00 | 2.41 | 3.95 | 2.26 | 735625673 |
-| football | Finland. Kolmonen. Division 3 | JS Hercules II vs Haukiputaan Pallo | 2026-07-12T15:30:00+00:00 | 5.22 | 4.55 | 1.45 | 735871065 |
-| football | Lithuania. A Liga | Transinvest vs Banga Gargzdai | 2026-07-12T15:45:00+00:00 | 2.01 | 3.18 | 3.455 | 735113565 |
-| football | Latvian Cup | Rigas Futbola skola vs Jelgava | 2026-07-12T16:00:00+00:00 | 1.12 | 7.0 | 13.5 | 735867059 |
-| tennis | Wimbledon | Jannik Sinner vs Alexander Zverev | 2026-07-12T15:00:00+00:00 | 1.232 |  | 4.795 | 735467489 |
-| tennis | WTA. Newport | Katie Volynets vs Tatjana Maria | 2026-07-12T16:30:00+00:00 | 2.127 |  | 1.686 | 735752506 |
-| tennis | Challenger. Bunschoten. Qualification | Alex Marti Pujolras vs Abel Forger | 2026-07-12T14:00:00+00:00 | 1.68 |  | 2.03 | 735792683 |
-| tennis | WTA. Athens. Qualification | Aoi Ito vs Yasmin Mansouri | 2026-07-12T14:00:00+00:00 | 1.215 |  | 4.38 | 735709244 |
-| tennis | WTA. Athens. Qualification | Lilli Tagger vs Madison Sieg | 2026-07-12T14:00:00+00:00 | 1.13 |  | 6.02 | 735709245 |
-| tennis | WTA. Athens. Qualification | Nao Hibino vs Miriana Tona | 2026-07-12T14:00:00+00:00 | 1.17 |  | 5.02 | 735722968 |
-| tennis | World Tennis. Granby. Women. Qualification | Scarlett Nicholson vs Avery Alexander | 2026-07-12T14:00:00+00:00 | 2.05 |  | 1.67 | 735846215 |
-| tennis | World Tennis. San Salvador de Jujuy | Juan Estevez vs Carlos Maria Zarate | 2026-07-12T14:00:00+00:00 | 1.33 |  | 3.05 | 735804583 |
-| tennis | Challenger. Cordenons. Qualification | Daniel Salazar vs Federico Arnaboldi | 2026-07-12T14:05:00+00:00 | 5.0 |  | 1.128 | 735791726 |
-| tennis | Challenger. Bunschoten. Qualification | Rudolf Molleker vs Dax Donders | 2026-07-12T14:10:00+00:00 | 1.077 |  | 6.3 | 735792252 |
-| tennis | World Tennis. Vitoria-Gasteiz. Women. Qualification | Georgina Hays vs Anastasiya Kuparev | 2026-07-12T14:11:00+00:00 | 1.37 |  | 2.853 | 735807434 |
-| tennis | ATP. Bastad. Qualification | Nikola Slavic vs Miguel Damas | 2026-07-12T14:25:00+00:00 | 4.435 |  | 1.171 | 735732539 |
-| tennis | World Tennis. Vitoria-Gasteiz. Women. Qualification | Olivia Gram vs Sevil Yuldasheva | 2026-07-12T14:26:00+00:00 | 5.95 |  | 1.087 | 735809492 |
-| tennis | ATP. Umag. Qualification | Andrea Guerrieri vs Federico Agustin Gomez | 2026-07-12T15:00:00+00:00 | 1.5 |  | 2.415 | 735743278 |
-| tennis | ATP. Umag. Qualification | Juan Carlos Prado Angelo vs Nikolas Sanchez Izquierdo | 2026-07-12T15:00:00+00:00 | 2.137 |  | 1.635 | 735743277 |
-| tennis | ATP. Umag. Qualification | Lukas Neumayer vs Marko Topo | 2026-07-12T15:00:00+00:00 | 1.31 |  | 3.15 | 735743279 |
-| tennis | ATP. Umag. Qualification | Marco Cecchinato vs Genaro Alberto Olivieri | 2026-07-12T15:00:00+00:00 | 1.24 |  | 3.645 | 735731425 |
-| tennis | Challenger. Bunschoten. Qualification | Louis Wessels vs Stijn Paardekooper | 2026-07-12T15:00:00+00:00 | 1.61 |  | 2.176 | 735890684 |
-| tennis | Challenger. Lincoln. Qualification | Aniss Rafiq vs Enzo Aguiard | 2026-07-12T15:00:00+00:00 | 8.9 |  | 1.025 | 735841518 |
-| tennis | Challenger. Lincoln. Qualification | Hiroki Moriya vs Andreja Petrovic | 2026-07-12T15:00:00+00:00 | 1.4 |  | 2.734 | 735827850 |
-| tennis | Challenger. Lincoln. Qualification | Thomas Fancutt vs Kaylan Bigun | 2026-07-12T15:00:00+00:00 | 2.474 |  | 1.48 | 735827836 |
-| tennis | Challenger. Newport. Doubles | Romboli/Smith vs Watt/Reynolds | 2026-07-12T15:00:00+00:00 | 1.76 |  | 1.93 | 735887059 |
-| tennis | World Tennis. Bastia-Lucciana | Laurent Lokoli vs Yanis Ghazouani Durand | 2026-07-12T15:00:00+00:00 | 1.23 |  | 3.74 | 735814114 |
-| tennis | World Tennis. Nottingham. Women. Qualification | Summer Yardley vs Georgiana Mititelu | 2026-07-12T15:17:00+00:00 | 2.39 |  | 1.51 | 735783471 |
-| tennis | WTA. Iasi. Qualification | Varvara Lepchenko vs Maia Ilinca Burcescu | 2026-07-12T15:20:00+00:00 | 1.196 |  | 4.095 | 735765791 |
-| tennis | World Tennis. Nottingham. Women. Qualification | Francesca Dell'Edera vs Millie Skelton | 2026-07-12T15:23:00+00:00 | 1.32 |  | 3.09 | 735783472 |
-| tennis | World Tennis. Vitoria-Gasteiz. Women. Qualification | Maddalena Giordano vs Maria Torre Moral | 2026-07-12T15:26:00+00:00 | 1.119 |  | 5.15 | 735844837 |
-| tennis | World Tennis. Nottingham. Women. Qualification | Leticia Romanova vs Lois Newberry | 2026-07-12T15:28:00+00:00 | 2.274 |  | 1.56 | 735783469 |
-| tennis | WTA. Athens. Qualification | Elena Micic vs Anastasia Kulikova | 2026-07-12T15:30:00+00:00 | 2.179 |  | 1.686 | 735765798 |
-| tennis | WTA. Athens. Qualification | Mina Hodzic vs Ekaterina Yashina | 2026-07-12T15:30:00+00:00 | 1.136 |  | 5.75 | 735765796 |
-| tennis | WTA. Athens. Qualification | Viktoria Morvayova vs Elina Nepliy | 2026-07-12T15:30:00+00:00 | 1.34 |  | 3.28 | 735765797 |
-| tennis | WTA. Rome. Qualification | Elena Malygina vs Viola Turini | 2026-07-12T15:30:00+00:00 | 1.69 |  | 2.02 | 735715425 |
-| tennis | WTA. Rome. Qualification | Noemi Basiletti vs Anastasia Abbagnato | 2026-07-12T15:30:00+00:00 | 1.207 |  | 3.96 | 735715422 |
-| tennis | Challenger. Granby. Qualification | Dan Martin vs Mikael Arseneault | 2026-07-12T15:35:00+00:00 | 1.59 |  | 2.215 | 735810217 |
-| tennis | Challenger. Granby. Qualification | Hunter Heck vs Kokoro Isomura | 2026-07-12T15:35:00+00:00 | 1.62 |  | 2.157 | 735810221 |
-| tennis | World Tennis. Granby. Women. Qualification | Clemence Mercier vs Mia Kupres | 2026-07-12T15:35:00+00:00 | 4.245 |  | 1.184 | 735850180 |
-| tennis | World Tennis. Granby. Women. Qualification | Maya Iacoban vs Rachael Smith | 2026-07-12T15:35:00+00:00 | 6.55 |  | 1.07 | 735850182 |
-| tennis | World Tennis. Laval | Keegan Rice vs Kenta Miyoshi | 2026-07-12T15:40:00+00:00 | 1.9 |  | 1.78 | 735816430 |
-| tennis | Challenger. Bogota | Nicolas Mejia vs Matias Soto | 2026-07-12T16:00:00+00:00 | 1.42 |  | 2.655 | 735777037 |
-| tennis | Challenger. Iasi | Titouan Droguet vs Zsombor Piros | 2026-07-12T16:00:00+00:00 | 1.635 |  | 2.137 | 735746086 |
-| tennis | World Tennis. Dallas | Aidan Kim vs Trevor Svajda | 2026-07-12T16:00:00+00:00 | 2.146 |  | 1.63 | 735816429 |
-| tennis | Challenger. Pozoblanco. Qualification | Massimo Giunta vs Alberto Barroso Campos | 2026-07-12T16:30:00+00:00 | 1.34 |  | 2.993 | 735783476 |
-| tennis | Challenger. Pozoblanco. Qualification | Samuel Alejandro Linde Palacios vs Mae Malige | 2026-07-12T16:30:00+00:00 | 7.7 |  | 1.045 | 735783483 |
-| tennis | Challenger. Pozoblanco. Qualification | Samuel Heredia vs Izan Almazan Valiente | 2026-07-12T16:30:00+00:00 | 2.813 |  | 1.38 | 735783484 |
-| tennis | Challenger. Lincoln. Qualification | Alafia Ayeni vs Matthew Forbes | 2026-07-12T16:35:00+00:00 | 1.85 |  | 1.83 | 735827832 |
-| tennis | Challenger. Lincoln. Qualification | Kelly Giese vs Joshua Sheehy | 2026-07-12T16:35:00+00:00 | 5.55 |  | 1.102 | 735827846 |
+| football | Argentina. Primera C Metropolitana | Central Ballester vs Club Atletico General Lamadrid | 2026-07-12T16:00:00+00:00 | 3.6 | 2.78 | 2.315 | 735621498 |
+| football | Chile Championship. Ascenso. Women | Audax Italiano (Women) vs Cobresal (Women) | 2026-07-12T16:00:00+00:00 | 16.9 | 9.43 | 1.09 | 735841822 |
+| football | Chile Championship. Ascenso. Women | Curico Unido (Women) vs Puerto Montt (Women) | 2026-07-12T16:00:00+00:00 | 11.1 | 7.06 | 1.175 | 735841825 |
+| football | Estonia. Esiliiga | Nomme United U21 vs Flora Tallinn U21 | 2026-07-12T16:00:00+00:00 | 2.175 | 4.48 | 2.59 | 735769551 |
+| football | Estonia. Esiliiga B | Tallinna Kalev U21 vs Levadia U19 | 2026-07-12T16:00:00+00:00 | 3.53 | 4.67 | 1.712 | 735769244 |
+| football | Iceland. 2 Delid | Kormakur Hvot vs Vikingur Olafsvik | 2026-07-12T16:00:00+00:00 | 1.74 | 4.38 | 3.76 | 735734221 |
+| football | Iceland. 2 Delid | Throttur Vogar vs KFG Gardabaer | 2026-07-12T16:00:00+00:00 | 1.595 | 4.68 | 4.37 | 735734856 |
+| football | Iceland. 3 Deild | UMF Sindri vs Hlíðarendi | 2026-07-12T16:00:00+00:00 | 4.01 | 4.5 | 1.62 | 735935372 |
+| football | Iceland. 3 Deild | Ymir Kopavogur vs UMF Tindastoll | 2026-07-12T16:00:00+00:00 | 3.18 | 4.44 | 1.848 | 735646266 |
+| football | Latvian Cup | Rigas Futbola skola vs Jelgava | 2026-07-12T16:00:00+00:00 | 1.15 | 8.05 | 13.1 | 735867059 |
+| football | Peru. Liga 3 | Sporting Cristal II vs Sport Boys II | 2026-07-12T16:00:00+00:00 | 1.275 | 6.74 | 6.74 | 735863701 |
+| football | Chile Cup | Cobreloa vs Deportes La Serena | 2026-07-12T16:30:00+00:00 | 2.15 | 3.2 | 3.11 | 735734212 |
+| football | Chile Cup | Deportes Antofagasta vs Cobresal | 2026-07-12T16:30:00+00:00 | 1.76 | 3.64 | 3.905 | 735771500 |
+| football | Argentina. Primera C Metropolitana | Justo Jose de Urquiza vs CSR Espanol | 2026-07-12T17:00:00+00:00 | 3.995 | 2.91 | 1.97 | 735620505 |
+| football | Argentina. Primera C Metropolitana | Juventud Unida de San Miguel vs CA Lugano | 2026-07-12T17:00:00+00:00 | 2.34 | 2.8 | 3.155 | 735620502 |
+| football | Colombia. Regional League | CFD La Nororiental vs Molino Viejo | 2026-07-12T17:00:00+00:00 | 2.48 | 3.32 | 2.45 | 735797982 |
+| football | Ecuador. Serie A | Liga Deportiva Universitaria de Quito vs Libertad Loja | 2026-07-12T17:00:00+00:00 | 1.194 | 6.49 | 12.8 | 734285264 |
+| football | Ecuador. Serie A | Home vs Away | 2026-07-12T17:00:00+00:00 | 1.47 | 6.91 | 4.15 | 735592246 |
+| football | Ecuador. Serie A. Women | Deportivo Ibarra (Women) vs Emelec (Women) | 2026-07-12T17:00:00+00:00 | 1.105 | 8.1 | 11.7 | 735891755 |
+| football | Moldova. Super Liga | Milsami vs Dacia Buiucani | 2026-07-12T17:00:00+00:00 | 1.82 | 3.52 | 3.73 | 735653656 |
+| football | Moldova. Super Liga | Sheriff Tiraspol vs Zimbru Chisinau | 2026-07-12T17:00:00+00:00 | 2.28 | 3.14 | 2.903 | 735653653 |
+| football | Brazil. Campeonato Carioca C | Barra Mansa vs Uni Souza | 2026-07-12T17:45:00+00:00 | 2.23 | 3.2 | 2.937 | 735740280 |
+| football | Brazil. Campeonato Carioca C | Buzios vs Rio Barra | 2026-07-12T17:45:00+00:00 | 2.06 | 3.1 | 3.415 | 735740286 |
+| football | Brazil. Campeonato Carioca C | Cardoso Moreira RJ vs Grande Rio Brescia | 2026-07-12T17:45:00+00:00 | 1.373 | 3.8 | 9.05 | 735750919 |
+| football | Brazil. Campeonato Carioca C | Tigres Brasil vs Campos AA | 2026-07-12T17:45:00+00:00 | 2.7 | 2.99 | 2.45 | 735740283 |
+| football | Brazil. Campeonato Paulista. U20 | EC Agua Santa U20 vs Porto Futebol Clube U20 | 2026-07-12T18:00:00+00:00 | 1.38 | 4.45 | 6.55 | 735764658 |
+| football | Brazil. Gaucho Cup | Gramadense vs Gremio Esportivo Brasil | 2026-07-12T18:00:00+00:00 | 3.935 | 2.875 | 2.0 | 735714051 |
+| tennis | WTA. Newport | Katie Volynets vs Tatjana Maria | 2026-07-12T16:30:00+00:00 | 2.137 |  | 1.68 | 735752506 |
+| tennis | Challenger. Bogota | Nicolas Mejia vs Matias Soto | 2026-07-12T16:00:00+00:00 | 1.36 |  | 2.894 | 735777037 |
+| tennis | WTA. Athens. Qualification | Mina Hodzic vs Ekaterina Yashina | 2026-07-12T16:00:00+00:00 | 1.131 |  | 5.85 | 735765796 |
+| tennis | WTA. Rome. Qualification | Elena Malygina vs Viola Turini | 2026-07-12T16:00:00+00:00 | 1.69 |  | 2.02 | 735715425 |
+| tennis | World Tennis. Dallas | Aidan Kim vs Trevor Svajda | 2026-07-12T16:00:00+00:00 | 2.137 |  | 1.635 | 735816429 |
+| tennis | Challenger. Lincoln. Qualification | Alafia Ayeni vs Matthew Forbes | 2026-07-12T16:30:00+00:00 | 1.85 |  | 1.83 | 735827832 |
+| tennis | Challenger. Pozoblanco. Qualification | Aziz Ouakaa vs Carlos Ferre | 2026-07-12T16:30:00+00:00 | 1.003 |  | 11.0 | 735792257 |
+| tennis | Challenger. Pozoblanco. Qualification | Massimo Giunta vs Alberto Barroso Campos | 2026-07-12T16:30:00+00:00 | 1.41 |  | 2.694 | 735783476 |
+| tennis | Challenger. Pozoblanco. Qualification | Samuel Alejandro Linde Palacios vs Mae Malige | 2026-07-12T16:30:00+00:00 | 7.6 |  | 1.046 | 735783483 |
+| tennis | Challenger. Pozoblanco. Qualification | Samuel Heredia vs Izan Almazan Valiente | 2026-07-12T16:30:00+00:00 | 2.853 |  | 1.37 | 735783484 |
+| tennis | Challenger. Lincoln. Qualification | Kelly Giese vs Joshua Sheehy | 2026-07-12T16:35:00+00:00 | 5.75 |  | 1.095 | 735827846 |
 | tennis | Challenger. Lincoln. Qualification | Quinn Vandecasteele vs Keshav Chopra | 2026-07-12T16:35:00+00:00 | 1.26 |  | 3.485 | 735827848 |
-| tennis | World Tennis. Vitoria-Gasteiz. Women. Qualification | Iveta Dapkute vs Celia Anson Sanchez | 2026-07-12T16:51:00+00:00 | 1.184 |  | 4.245 | 735807435 |
-| handball | European Handball Championship U20. 1st Division | Netherlands U20 vs Kosovo U20 | 2026-07-12T16:15:00+00:00 | 1.22 | 11.7 | 5.53 | 735908131 |
-| handball | Championship Brazil. Women | Pinheiros (Women) vs Cascavel (Women) | 2026-07-12T17:00:00+00:00 | 1.214 | 10.9 | 5.62 | 735838543 |
-| handball | European Handball Championship U20. 1st Division | Montenegro U20 vs Georgia U20 | 2026-07-12T18:30:00+00:00 | 1.002 | 35.0 | 35.0 | 735908710 |
-| handball | Championship Brazil | EC Pinheiros vs Pato | 2026-07-12T19:00:00+00:00 | 1.02 | 26.0 | 12.0 | 735838541 |
-| handball | Argentina. Liga de Honor Plata | Ferro Carril Oeste II vs San Telmo | 2026-07-12T21:00:00+00:00 | 1.41 | 7.9 | 3.825 | 735897734 |
-| handball | Argentina. Liga de Honor Plata | Dorrego II vs Comunicaciones | 2026-07-12T21:30:00+00:00 | 4.935 | 8.0 | 1.29 | 735826620 |
-| hockey | RHL | Gasovik Surgut vs Krylya Samara | 2026-07-12T14:40:00+00:00 | 2.09 | 6.06 | 2.09 | 735690511 |
+| tennis | World Tennis. Rancho Santa Fe. Women | Veronica Miroshnichenko vs Alina Shcherbinina | 2026-07-12T17:00:00+00:00 | 2.137 |  | 1.635 | 735823223 |
+| tennis | Challenger. Granby. Qualification | Benjamin Thomas George vs Alan Magadan | 2026-07-12T17:05:00+00:00 | 5.05 |  | 1.125 | 735810225 |
+| tennis | Challenger. Granby. Qualification | Edward Winter vs Justin Roberts | 2026-07-12T17:05:00+00:00 | 1.028 |  | 8.7 | 735810227 |
+| tennis | Challenger. Granby. Qualification | Karl Poling vs Matt Kuhar | 2026-07-12T17:05:00+00:00 | 1.176 |  | 4.345 | 735810223 |
+| tennis | World Tennis. Granby. Women. Qualification | Raphaelle Leroux vs Naomi Xu | 2026-07-12T17:19:00+00:00 | 2.415 |  | 1.5 | 735850183 |
+| tennis | World Tennis. Granby. Women. Qualification | Anissa Saada vs Anna Tabunshchyk | 2026-07-12T17:20:00+00:00 | 6.6 |  | 1.068 | 735846217 |
+| tennis | Challenger. Newport | Jacob Fearnley vs Adam Walton | 2026-07-12T18:00:00+00:00 | 1.83 |  | 1.85 | 735792259 |
+| tennis | Challenger. Pozoblanco. Qualification | Dominik Palan vs Adam Martin Espinar | 2026-07-12T18:00:00+00:00 | 1.083 |  | 6.1 | 735783478 |
+| tennis | Challenger. Pozoblanco. Qualification | Pavel Lagutin vs Nicolas Tepmahc | 2026-07-12T18:00:00+00:00 | 1.346 |  | 2.855 | 735787775 |
+| tennis | Challenger. Pozoblanco. Qualification | S D Prajwal Dev vs Mario Gonzalez Fernandez | 2026-07-12T18:00:00+00:00 | 2.813 |  | 1.38 | 735783482 |
+| tennis | Challenger. Pozoblanco. Qualification | Takuya Kumasaka vs Alejandro Turriziani Alvarez | 2026-07-12T18:00:00+00:00 | 1.37 |  | 2.853 | 735783481 |
+| tennis | Challenger. Lincoln. Qualification | Christian Langmo vs Alex Kobelt | 2026-07-12T18:05:00+00:00 | 1.021 |  | 9.3 | 735827852 |
+| tennis | Challenger. Lincoln. Qualification | Ronit Karki vs Pavle Marinkov | 2026-07-12T18:05:00+00:00 | 2.274 |  | 1.56 | 735827844 |
+| tennis | World Tennis. Rancho Santa Fe | Spencer Johnson vs Noah Zamora | 2026-07-12T18:30:00+00:00 | 1.193 |  | 4.145 | 735823214 |
+| tennis | Challenger. Granby. Qualification | Kody Pearson vs Strong Kirchheimer | 2026-07-12T18:35:00+00:00 | 3.09 |  | 1.32 | 735810213 |
+| tennis | Challenger. Granby. Qualification | Renta Tokuda vs Alexander Rozin | 2026-07-12T18:35:00+00:00 | 1.99 |  | 1.71 | 735810215 |
+| tennis | World Tennis. Granby. Women. Qualification | Josie Usereau vs Isabella Marton | 2026-07-12T18:49:00+00:00 | 2.773 |  | 1.39 | 735851325 |
+| tennis | World Tennis. Granby. Women. Qualification | Emma Si Yu Dong vs Mariya Dobreva | 2026-07-12T18:50:00+00:00 | 1.115 |  | 5.25 | 735850181 |
+| tennis | Challenger. Lincoln. Qualification | Ronald Hohmann vs Dhakshineswar Suresh | 2026-07-12T19:30:00+00:00 | 5.1 |  | 1.122 | 735827840 |
+| tennis | Challenger. Pozoblanco. Qualification | John Echeverria vs Bernardo Munk Mesa | 2026-07-12T19:30:00+00:00 | 1.18 |  | 4.295 | 735783485 |
+| tennis | Challenger. Pozoblanco. Qualification | Arda Azkara vs Mitsuki Wei Kang Leong | 2026-07-12T19:30:00+00:00 | 1.77 |  | 1.92 | 735783480 |
+| tennis | WTA. Newport. Doubles | Volynets/Shymanovich vs Broadus/Collins | 2026-07-12T19:30:00+00:00 | 1.727 |  | 2.0 | 735768003 |
+| tennis | Challenger. Lincoln. Qualification | Yibing Wu vs Patrick Maloney | 2026-07-12T19:35:00+00:00 | 1.147 |  | 4.65 | 735827842 |
+| tennis | Challenger. Pozoblanco. Qualification | Sergio Callejon Hernando vs Iliyan Radulov | 2026-07-12T20:00:00+00:00 | 1.61 |  | 2.176 | 735783477 |
+| tennis | Challenger. Granby. Qualification | Kenta Miyoshi vs Bruno Kuzuhara | 2026-07-12T21:00:00+00:00 | 1.41 |  | 2.694 | 735810219 |
+| tennis | Challenger. Lincoln. Qualification | Gavin Young vs Yassine Dlimi | 2026-07-12T21:05:00+00:00 | 1.61 |  | 2.176 | 735827834 |
+| handball | European Handball Championship U20. 1st Division | Netherlands U20 vs Kosovo U20 | 2026-07-12T16:15:00+00:00 | 1.24 | 11.2 | 5.28 | 735908131 |
+| handball | Championship Brazil. Women | Pinheiros (Women) vs Cascavel (Women) | 2026-07-12T17:00:00+00:00 | 1.107 | 14.0 | 8.4 | 735931625 |
+| handball | European Handball Championship U20. 1st Division | Montenegro U20 vs Georgia U20 | 2026-07-12T18:30:00+00:00 | 1.01 | 20.0 | 15.0 | 735908710 |
+| handball | Championship Brazil | EC Pinheiros vs Pato | 2026-07-12T19:00:00+00:00 | 1.001 | 45.0 | 55.0 | 735838541 |
+| handball | Argentina. Liga de Honor Plata | Ferro Carril Oeste II vs San Telmo | 2026-07-12T21:00:00+00:00 | 1.29 | 8.0 | 4.935 | 735897734 |
+| handball | Argentina. Liga de Honor Plata | Dorrego II vs Comunicaciones | 2026-07-12T21:30:00+00:00 | 5.12 | 9.0 | 1.26 | 735826620 |
 | hockey | RHL | Vityaz Tomsk vs Legion Barnaul | 2026-07-12T16:10:00+00:00 | 2.02 | 6.02 | 2.16 | 735501075 |
 | hockey | RHL | Medvedi Moscow vs Zvezda Samara | 2026-07-12T16:20:00+00:00 | 2.15 | 6.17 | 2.02 | 735500155 |
 | hockey | RHL | Zvezda Samara vs Akuly Kaliningrad | 2026-07-12T17:00:00+00:00 | 2.15 | 6.17 | 2.02 | 735500156 |
@@ -144,10 +133,21 @@
 | hockey | RHL | Gasovik Surgut vs Mamonty Nizhnevartovsk | 2026-07-12T19:10:00+00:00 | 2.16 | 6.02 | 2.02 | 735501328 |
 | hockey | RHL | Vityaz Tomsk vs Locomotive Orenburg | 2026-07-12T20:40:00+00:00 | 2.02 | 6.02 | 2.16 | 735501329 |
 | hockey | RHL | Medvedi Moscow vs Rysi Kazan | 2026-07-12T20:50:00+00:00 | 2.02 | 6.17 | 2.15 | 735500491 |
-| tabletennis | Setka Cup | Dmytro Shchegelskyi vs Yaroslav Vorsulyak | 2026-07-12T14:05:00+00:00 | 1.79 |  | 1.92 | 735748565 |
-| tabletennis | Setka Cup | Ivan Elfemov vs Vitaliy Sydorenko | 2026-07-12T14:05:00+00:00 | 1.67 |  | 2.104 | 735747388 |
-| tabletennis | Masters. Russia | Andrei Yakushev vs Tagir Batandaev | 2026-07-12T14:10:00+00:00 | 2.202 |  | 1.65 | 735711451 |
-| tabletennis | Masters. Spain | Jose Miguel Galindo Doblas vs Diego Baro Losilla | 2026-07-12T14:10:00+00:00 | 1.93 |  | 1.83 | 735610406 |
-| tabletennis | Setka Cup | Volodymyr Mykhalchenko vs Dmitry Kunchurov | 2026-07-12T14:10:00+00:00 | 1.23 |  | 3.81 | 735747945 |
-| tabletennis | Pro League | Roman Bortnikov vs Mikhail Cheklin | 2026-07-12T14:15:00+00:00 | 2.085 |  | 1.68 | 735739128 |
-| tabletennis | Pro League | Vladislav Chahur vs Oleg Zyuganov | 2026-07-12T14:15:00+00:00 | 1.9 |  | 1.75 | 735728432 |
+| hockey | RHL | Rysi Kazan vs Neftyanik Veliky Novgorod | 2026-07-12T21:30:00+00:00 | 2.15 | 6.17 | 2.02 | 735500492 |
+| tabletennis | Setka Cup | Evgeniy Bielokon vs Vitaliy Sydorenko | 2026-07-12T16:05:00+00:00 | 1.59 |  | 2.24 | 735749259 |
+| tabletennis | Setka Cup | Maksym Khomenko vs Yaroslav Vorsulyak | 2026-07-12T16:05:00+00:00 | 2.26 |  | 1.58 | 735778572 |
+| tabletennis | Masters. Russia | Vladimir Mikhalin vs Bogdan Shishkanov | 2026-07-12T16:10:00+00:00 | 1.66 |  | 2.175 | 735642145 |
+| tabletennis | Setka Cup | Dmitry Kunchurov vs Maxim Tkalich | 2026-07-12T16:10:00+00:00 | 2.182 |  | 1.62 | 735749175 |
+| tabletennis | TT-Cup. Czech Republic | Erik Precek vs Frantisek Chaloupka | 2026-07-12T16:10:00+00:00 | 2.104 |  | 1.67 | 735920172 |
+| tabletennis | Setka Cup. Moldova | Yuri Yurchenko vs Vitaly Pleskach | 2026-07-12T16:13:00+00:00 | 1.64 |  | 2.153 | 735872127 |
+| tabletennis | TT-Cup. Czech Republic | Petr Vodal vs Bohuslav Budik | 2026-07-12T16:20:00+00:00 | 1.63 |  | 2.163 | 735856042 |
+| tabletennis | Setka Cup | Aleksandr Maslovskiy vs Vasiliy Salivonchik | 2026-07-12T16:25:00+00:00 | 2.202 |  | 1.61 | 735749184 |
+| tabletennis | Setka Cup | Evgeniy Pismenny vs Alexandr Tuzhilin | 2026-07-12T16:25:00+00:00 | 5.6 |  | 1.107 | 735749271 |
+| tabletennis | TT-Cup. Czech Republic | Ondrej Kadavy vs Martin Cerny | 2026-07-12T16:25:00+00:00 | 1.19 |  | 4.275 | 735856045 |
+| tabletennis | Masters. Belarus | Andrey Grits vs Matvey Kuryanovich | 2026-07-12T16:30:00+00:00 | 2.241 |  | 1.63 | 735613247 |
+| tabletennis | Masters. Russia | Nabijon Gafurov vs Vladimir Mikhalin | 2026-07-12T16:30:00+00:00 | 1.69 |  | 2.135 | 735642147 |
+| tabletennis | Pro League | Artem Denisov vs Fedor Ambrosimov | 2026-07-12T16:30:00+00:00 | 1.58 |  | 2.26 | 735735038 |
+| tabletennis | Pro League. Czech Republic | David Heczko vs Adrian Walek | 2026-07-12T16:30:00+00:00 | 1.73 |  | 1.99 | 735650008 |
+| tabletennis | Pro League. Czech Republic | Jiri Louda vs Vlastimil Kolar | 2026-07-12T16:30:00+00:00 | 1.93 |  | 1.78 | 735647571 |
+| tabletennis | Pro League. Czech Republic | Miloslav Lubas vs Jiri Grohsgott | 2026-07-12T16:30:00+00:00 | 1.71 |  | 2.02 | 735650786 |
+| tabletennis | Pro League. Czech Republic | Ondrej Paril vs Michal Vavrecka | 2026-07-12T16:30:00+00:00 | 1.83 |  | 1.87 | 735650759 |
