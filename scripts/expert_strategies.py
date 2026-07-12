@@ -1828,6 +1828,104 @@ def apex_alpha_basket(home, away, home_odds, away_odds, sport="", league="",
             "notes": f"apex alpha-basket [{leg}] @{odds:.2f}"}
 
 
+
+# ============================================================================
+#  OMEGA STRATEGY SUITE (2026-07-12) — Generation 4. Mined AFTER the draw-
+#  scoring fix (1,367 phantom "away wins on draws" re-scored to losses, all
+#  aggregates rebuilt). Every number below is draw-correct, dedup-by-match,
+#  novelty-excluded, real-odds. Append-only: nothing above was touched.
+#  Key clean findings vs the pre-fix picture:
+#    - football away "value" bands are DEAD (they were draw-bug artifacts)
+#    - draw-betting itself validated on 2,105 independent matches: NO edge
+#    - the strongest true edge in the DB is TT home dogs late at night
+# ============================================================================
+
+def omega_tt_cz_night(home, away, home_odds, away_odds, sport="", league="",
+                      home_move=None, away_move=None, start_utc="", **kw) -> Optional[dict]:
+    """omega_tt_cz_night — Czech Liga Pro TT HOME, night 00:00-04:59 UTC,
+    odds 1.70-3.20, NO movement requirement. Differs from apex_tt_night_cz in
+    two deliberate ways: (1) fires on every linefeed row (apex needs move-data
+    => ~40% coverage), (2) includes the FAT 1.70-2.00 band the apex floor cuts
+    off. Clean mining: night home 1.7-2.0 = +26.2% (n=114), 2.0+ = +38.7%
+    (n=27), while daytime same league = -13.6% (n=574)."""
+    if sport != "tabletennis" or not start_utc:
+        return None
+    if "pro league. czech" not in (league or "").lower():
+        return None
+    hr = _apex_hour(start_utc)
+    if hr is None or not (0 <= hr <= 4):
+        return None
+    if not (1.70 <= home_odds < 3.20):
+        return None
+    return {"pick": home, "model_prob": round(1.0 / home_odds, 4),
+            "odds_at_prediction": round(home_odds, 2),
+            "strategy": "omega_tt_cz_night", "source": "expert_vig", "confidence": "A",
+            "notes": f"omega cz-night h{hr:02d} @{home_odds:.2f} (+28.6% n=141 clean)"}
+
+
+def omega_tt_dog_late(home, away, home_odds, away_odds, sport="", league="",
+                      home_move=None, away_move=None, start_utc="", **kw) -> Optional[dict]:
+    """omega_tt_dog_late — table tennis HOME dog 2.00-2.60, late-night window
+    20:00-04:59 UTC, ALL leagues. Generalizes the night edge beyond the Czech
+    circuit. Clean mining of the 2.0-2.6 home band by slot: night 00-04 =
+    +33.8% (n=89), late 20-23 = +21.0% (n=38), all daytime slots ≈ 0 or
+    negative (morn -10.9%). Mechanism: thin overnight liquidity + bettor bias
+    to the "in-form" listed favorite leaves the home dog underpriced."""
+    if sport != "tabletennis" or not start_utc:
+        return None
+    hr = _apex_hour(start_utc)
+    if hr is None or not (hr >= 20 or hr <= 4):
+        return None
+    if not (2.00 <= home_odds < 2.60):
+        return None
+    return {"pick": home, "model_prob": round(1.0 / home_odds, 4),
+            "odds_at_prediction": round(home_odds, 2),
+            "strategy": "omega_tt_dog_late", "source": "expert_vig", "confidence": "B",
+            "notes": f"omega tt-dog-late h{hr:02d} @{home_odds:.2f} (+30% n=127 clean)"}
+
+
+def omega_kbo_dawn(home, away, home_odds, away_odds, sport="", league="",
+                   home_move=None, away_move=None, start_utc="", **kw) -> Optional[dict]:
+    """omega_kbo_dawn — KBO (Korean baseball) HOME ≤2.05 in the 05:00-09:59 UTC
+    window (Korean evening prime time). Clean mining: +10.7% (n=46); the same
+    slot for NPB is flat (-0.8%), so KBO-only. Small-n WATCH tier — the
+    KEEP/CUT tournament is the judge."""
+    if sport != "baseball" or not start_utc:
+        return None
+    if "kbo" not in (league or "").lower():
+        return None
+    hr = _apex_hour(start_utc)
+    if hr is None or not (5 <= hr <= 9):
+        return None
+    if not (1.30 <= home_odds <= 2.05):
+        return None
+    return {"pick": home, "model_prob": round(1.0 / home_odds, 4),
+            "odds_at_prediction": round(home_odds, 2),
+            "strategy": "omega_kbo_dawn", "source": "expert_vig", "confidence": "C",
+            "notes": f"omega kbo-dawn h{hr:02d} @{home_odds:.2f} (+10.7% n=46 clean)"}
+
+
+def omega_clean_basket(home, away, home_odds, away_odds, sport="", league="",
+                       home_move=None, away_move=None, start_utc="", **kw) -> Optional[dict]:
+    """omega_clean_basket — portfolio: the three post-drawfix legs under one
+    bankroll (tt_cz_night > tt_dog_late > kbo_dawn, first match wins). This is
+    the corrected successor THESIS to apex_alpha_basket, whose football-away /
+    tennis legs turned out to be draw-bug artifacts (alpha_basket itself stays
+    running untouched — append-only)."""
+    for leg_name, leg_fn in (("cz-night", omega_tt_cz_night),
+                             ("tt-late", omega_tt_dog_late),
+                             ("kbo", omega_kbo_dawn)):
+        r = leg_fn(home, away, home_odds, away_odds, sport=sport, league=league,
+                   home_move=home_move, away_move=away_move, start_utc=start_utc)
+        if r:
+            return {"pick": r["pick"], "model_prob": r["model_prob"],
+                    "odds_at_prediction": r["odds_at_prediction"],
+                    "strategy": "omega_clean_basket", "source": "expert_vig",
+                    "confidence": "A",
+                    "notes": f"omega basket [{leg_name}] @{r['odds_at_prediction']:.2f}"}
+    return None
+
+
 EXPERT_STRATEGIES = {
     "vig_aware_value": vig_aware_value,
     "thick_edge_favorite": thick_edge_favorite,
@@ -1902,4 +2000,8 @@ EXPERT_STRATEGIES = {
     "apex_bsb_road_pro": apex_bsb_road_pro,
     "apex_tennis_calm_dog": apex_tennis_calm_dog,
     "apex_alpha_basket": apex_alpha_basket,
+    "omega_tt_cz_night": omega_tt_cz_night,
+    "omega_tt_dog_late": omega_tt_dog_late,
+    "omega_kbo_dawn": omega_kbo_dawn,
+    "omega_clean_basket": omega_clean_basket,
 }

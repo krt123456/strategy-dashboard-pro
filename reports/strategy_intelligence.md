@@ -168,3 +168,48 @@ the live tournament will pass final judgment on the football apex strategies.
 Method note: every number here is unique-match, draw-as-loss, and day-stratified;
 in-sample vs the same 16 days the system lived through — live performance from
 2026-07-10 onward is the true out-of-sample test.
+
+
+---
+
+## 🔴 2026-07-12 — تصحيح جوهري: خطأ تسجيل التعادل (Draw-Scoring Bug) + دفعة OMEGA (الجيل الرابع)
+
+### 1) الخطأ المكتشف (الأخطر في تاريخ النظام)
+- **العطب**: في `resolve_results_betexplorer.py` كان `won = (side=="away" and not home_won)` — أي **كل تعادل يُسجَّل فوزًا لرهان الضيف** بكامل الـ odds (حتى 17x). نفس النمط كان في `check_results.py` (_grade).
+- **السليم أصلًا**: `resolve_results_api_sports.py` (يشترط تفوّق الضيف الصريح)، `flashscore_resolver.py`، و`resolve_results_scores24.py` (يتخطى التساوي).
+- **الحجم**: 1,367 نتيجة وهمية (football 1,343 + cricket 24، كلها betexplorer) بربح زائف **+2,671 وحدة**.
+- **الإصلاح** (append-only على الكود، جراحي على البيانات):
+  1. رقعة المحلّلَين → `away_pts > home_pts` صراحة.
+  2. قلب الصفوف الملوثة: `pick_won=0, outcome=LOST, profit=-1.0, roi_pct=-100`.
+  3. إعادة بناء مجاميع جدول `strategies` من الحقيقة الأرضية.
+  4. نسخ احتياطية: `/root/backups_strategy/20260712_drawfix/`.
+
+### 2) ما الذي تغيّر في الحقيقة بعد التنظيف؟ (dedup-by-match، دوريات حقيقية فقط)
+| الادعاء القديم (الملوث) | الحقيقة النظيفة |
+|---|---|
+| football away band +27.8-65.9% | **ميت**: 1.5-2 = -7.3% (n=199)، 3.5-6 = -7.3% (n=88)، <1.5 = -12.5% |
+| steam football +49-70% | **هامشي**: +0.2% (n=121) و drift-fade +2.5% (n=171) على التكرار المستقل draw-correct |
+| رهان التعادل الضيّق (gap<0.4 → 41.7%) | **مرفوض**: على 2,105 مباراة مستقلة بأودز تعادل حقيقية: gap<0.30 = -22.2%، والقاعدة gap<0.45 & DO≥3 = **-15.1%** (n=213) — الإشارة كانت ضجيج n=12 |
+| TT تشيكي ليلي | **صامد ويتضخم**: Pro League CZ home ليلًا 00-04 UTC = **+19.8% (n=213)** مقابل نهارًا **-13.6% (n=574)** |
+
+### 3) الحواف النظيفة المؤكدة (أساس OMEGA)
+1. **CZ ليلي بالنطاق**: home 1.7-2.0 = **+26.2% (n=114)**، 2.0+ = **+38.7% (n=27)** — والجزء 1.7-2.0 كانت `apex_tt_night_cz` تقصّه (أرضيتها 2.00 + تشترط بيانات حركة = تغطية ~40% فقط).
+2. **تعميم الليل عبر الدوريات**: TT home 2.0-2.6 — ليل 00-04 = **+33.8% (n=89)**، متأخر 20-23 = **+21.0% (n=38)**، النهار ≈ 0/سالب.
+3. **KBO فجرًا (مساء كوريا)**: baseball home ≤2.05 في 05-09 UTC = **+10.7% (n=46)** (NPB نفس الشريحة -0.8% → كوري فقط).
+4. مرفوضات بعد التفكيك: foot away 6+ (+33% لكن LEAGUE-only n=20 والباقي وديات)؛ Wimbledon away +30% (تنتهي البطولة)؛ volleyball/handball/cricket لا شيء موجب.
+
+### 4) العشرة OMEGA — لا، أربعة فقط (جودة لا كمّ، كلها بلا شرط حركة → تغطية كاملة)
+| الاستراتيجية | القاعدة | الدليل النظيف | الفئة |
+|---|---|---|---|
+| `omega_tt_cz_night` | TT Pro League CZ، home، 00-04 UTC، odds 1.70-3.20 | +28.6% (n=141) | A |
+| `omega_tt_dog_late` | TT أي دوري، home، 20:00-04:59 UTC، odds 2.00-2.60 | ~+30% (n=127) | B |
+| `omega_kbo_dawn` | KBO home ≤2.05، 05-09 UTC | +10.7% (n=46) | C-راقب |
+| `omega_clean_basket` | محفظة الأرجل الثلاث برأس مال واحد (بديل أطروحة alpha_basket بعد موت أرجلها) | مركّب | A |
+- التنفيذ: قسم OMEGA في `expert_strategies.py` + تسجيل في `EXPERT_STRATEGIES` و`expert_fns`. smoke tests اجتازت. البوابات لا تشترط `home_move` → تشتعل على كل صف linefeed (بخلاف apex).
+- ملاحظة توقيت: TT تُدرج قبل انطلاقها بقليل؛ أول اشتعال متوقع في دورات الليل (00/02/04 UTC).
+
+### 5) القراءة الحية المصححة منذ 2026-07-10 (للسجل)
+- apex_steam_foot +46.6% (n=21) و apex_multi_conviction +27.6% (n=22) — عينات صغيرة، البطولة تحكم.
+- apex_foot_away_value انهارت من +27.9% الملوثة إلى **-17.7%** — تطابق تام مع تنبؤ تحليل ELITE (الحافة كانت أثر الخطأ).
+- alpha_basket **-12.2% (n=71)** — أرجلها (bsb road -14.1، tennis calm -16.7، tennis dog -13.5) سالبة نظيفةً؛ خليفتها المفاهيمي omega_clean_basket.
+- ⚠️ درس منهجي دائم: **أي تعدين مستقبلي يجب أن يحسب التعادل خسارة لرهانات الجانبين** — وأي رقم football تاريخي قبل 2026-07-12 مشكوك فيه ما لم يُعد حسابه من scores الخام.

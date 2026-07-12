@@ -159,7 +159,7 @@ def _grade(side: str, home_pts: float, away_pts: float, sport: str) -> Optional[
     if home_pts == away_pts and sport not in DRAW_SPORTS:
         # ambiguous equal score for a non-draw sport -> do not guess
         return None
-    return (side == "home" and home_won) or (side == "away" and not home_won)
+    return (side == "home" and home_won) or (side == "away" and away_pts > home_pts)
 
 
 def _load_snapshot(path: Path) -> List[Dict[str, Any]]:

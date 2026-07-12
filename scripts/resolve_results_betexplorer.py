@@ -522,7 +522,7 @@ def resolve(target_date: str, *, days_back: int = 2, limit: int = 0,
                     stats["no_score"] += 1
                     continue
                 home_won = home_pts > away_pts
-                won = (side == "home" and home_won) or (side == "away" and not home_won)
+                won = (side == "home" and home_won) or (side == "away" and away_pts > home_pts)
             add_result(pred["id"], home_pts, away_pts, bool(won),
                        result_source="betexplorer")
             stats["resolved"] += 1
