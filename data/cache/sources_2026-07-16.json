@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-07-16T02:00",
+  "fetched_at": "2026-07-16T04:00",
   "sources": {
     "betexplorer_basketball": [],
     "betexplorer_bball_fixtures": [
@@ -573,7 +573,7 @@
         "draw_prob": 0.2646,
         "home_move": -0.0423,
         "away_move": 0.0163,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -591,7 +591,7 @@
         "draw_prob": 0.2538,
         "home_move": 0.0473,
         "away_move": -0.0214,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -609,7 +609,7 @@
         "draw_prob": 0.32,
         "home_move": 0.0,
         "away_move": -0.0049,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -627,7 +627,7 @@
         "draw_prob": 0.2105,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -637,15 +637,15 @@
         "start_utc": "2026-07-16T18:30:00+00:00",
         "home": "MSK Zilina",
         "away": "Hajduk Split",
-        "home_prob": 0.316,
+        "home_prob": 0.314,
         "away_prob": 0.463,
-        "home_odds": 3.165,
+        "home_odds": 3.185,
         "away_odds": 2.16,
-        "draw_odds": 3.46,
-        "draw_prob": 0.289,
-        "home_move": -0.0063,
+        "draw_odds": 3.44,
+        "draw_prob": 0.2907,
+        "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -655,15 +655,15 @@
         "start_utc": "2026-07-16T20:00:00+00:00",
         "home": "Vestri",
         "away": "Qarabag",
-        "home_prob": 0.0645,
-        "away_prob": 0.8803,
-        "home_odds": 15.5,
-        "away_odds": 1.136,
-        "draw_odds": 8.7,
-        "draw_prob": 0.1149,
-        "home_move": -0.0606,
-        "away_move": 0.0089,
-        "odds_snaps": 3
+        "home_prob": 0.0667,
+        "away_prob": 0.8818,
+        "home_odds": 15.0,
+        "away_odds": 1.134,
+        "draw_odds": 8.95,
+        "draw_prob": 0.1117,
+        "home_move": -0.0909,
+        "away_move": 0.0071,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -674,14 +674,14 @@
         "home": "Home",
         "away": "Away",
         "home_prob": 0.1923,
-        "away_prob": 0.7806,
+        "away_prob": 0.78,
         "home_odds": 5.2,
-        "away_odds": 1.281,
+        "away_odds": 1.282,
         "draw_odds": 12.2,
         "draw_prob": 0.082,
         "home_move": 0.0196,
-        "away_move": -0.0023,
-        "odds_snaps": 3
+        "away_move": -0.0016,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -691,15 +691,15 @@
         "start_utc": "2026-07-16T15:00:00+00:00",
         "home": "Astana",
         "away": "Dinamo City",
-        "home_prob": 0.6711,
-        "away_prob": 0.1745,
-        "home_odds": 1.49,
-        "away_odds": 5.73,
-        "draw_odds": 4.4,
-        "draw_prob": 0.2273,
-        "home_move": 0.042,
-        "away_move": -0.2193,
-        "odds_snaps": 3
+        "home_prob": 0.6803,
+        "away_prob": 0.173,
+        "home_odds": 1.47,
+        "away_odds": 5.78,
+        "draw_odds": 4.55,
+        "draw_prob": 0.2198,
+        "home_move": 0.028,
+        "away_move": -0.2125,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -709,15 +709,15 @@
         "start_utc": "2026-07-16T15:00:00+00:00",
         "home": "Elimai",
         "away": "Alashkert",
-        "home_prob": 0.5952,
-        "away_prob": 0.1957,
-        "home_odds": 1.68,
-        "away_odds": 5.11,
+        "home_prob": 0.5988,
+        "away_prob": 0.1919,
+        "home_odds": 1.67,
+        "away_odds": 5.21,
         "draw_odds": 3.54,
         "draw_prob": 0.2825,
-        "home_move": 0.0701,
-        "away_move": -0.1691,
-        "odds_snaps": 3
+        "home_move": 0.0637,
+        "away_move": -0.1528,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -727,15 +727,15 @@
         "start_utc": "2026-07-16T15:00:00+00:00",
         "home": "Inter Turku",
         "away": "Sarajevo",
-        "home_prob": 0.5076,
-        "away_prob": 0.2821,
-        "home_odds": 1.97,
-        "away_odds": 3.545,
+        "home_prob": 0.5128,
+        "away_prob": 0.2759,
+        "home_odds": 1.95,
+        "away_odds": 3.625,
         "draw_odds": 3.52,
         "draw_prob": 0.2841,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "home_move": -0.0102,
+        "away_move": 0.0226,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -745,15 +745,15 @@
         "start_utc": "2026-07-16T16:00:00+00:00",
         "home": "Ilves",
         "away": "Differdange 03",
-        "home_prob": 0.6135,
+        "home_prob": 0.6116,
         "away_prob": 0.1961,
-        "home_odds": 1.63,
+        "home_odds": 1.635,
         "away_odds": 5.1,
-        "draw_odds": 3.78,
-        "draw_prob": 0.2646,
-        "home_move": 0.0867,
+        "draw_odds": 3.76,
+        "draw_prob": 0.266,
+        "home_move": 0.09,
         "away_move": -0.2031,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -771,7 +771,7 @@
         "draw_prob": 0.2959,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -789,7 +789,7 @@
         "draw_prob": 0.1709,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -807,7 +807,7 @@
         "draw_prob": 0.2646,
         "home_move": -0.1556,
         "away_move": 0.0867,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -825,7 +825,7 @@
         "draw_prob": 0.2941,
         "home_move": -0.0125,
         "away_move": -0.0137,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -835,15 +835,15 @@
         "start_utc": "2026-07-16T16:30:00+00:00",
         "home": "Levadia",
         "away": "Caernarfon Town",
-        "home_prob": 0.8741,
-        "away_prob": 0.0606,
-        "home_odds": 1.144,
-        "away_odds": 16.5,
-        "draw_odds": 7.0,
-        "draw_prob": 0.1429,
-        "home_move": -0.0419,
-        "away_move": 0.2222,
-        "odds_snaps": 3
+        "home_prob": 0.8562,
+        "away_prob": 0.0694,
+        "home_odds": 1.168,
+        "away_odds": 14.4,
+        "draw_odds": 6.75,
+        "draw_prob": 0.1481,
+        "home_move": -0.0218,
+        "away_move": 0.0667,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -853,15 +853,15 @@
         "start_utc": "2026-07-16T16:30:00+00:00",
         "home": "Rigas Futbola skola",
         "away": "Glentoran",
-        "home_prob": 0.6849,
+        "home_prob": 0.6878,
         "away_prob": 0.1686,
-        "home_odds": 1.46,
+        "home_odds": 1.454,
         "away_odds": 5.93,
-        "draw_odds": 4.55,
-        "draw_prob": 0.2198,
-        "home_move": -0.0331,
+        "draw_odds": 4.6,
+        "draw_prob": 0.2174,
+        "home_move": -0.0371,
         "away_move": 0.0901,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -879,7 +879,7 @@
         "draw_prob": 0.3012,
         "home_move": 0.0073,
         "away_move": 0.0098,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -890,14 +890,14 @@
         "home": "Dinamo Tbilisi",
         "away": "Mondorf-les-Bains",
         "home_prob": 0.6993,
-        "away_prob": 0.1441,
+        "away_prob": 0.1473,
         "home_odds": 1.43,
-        "away_odds": 6.94,
-        "draw_odds": 4.35,
-        "draw_prob": 0.2299,
+        "away_odds": 6.79,
+        "draw_odds": 4.4,
+        "draw_prob": 0.2273,
         "home_move": 0.0142,
-        "away_move": -0.0532,
-        "odds_snaps": 3
+        "away_move": -0.0737,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -915,7 +915,7 @@
         "draw_prob": 0.2994,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -933,7 +933,7 @@
         "draw_prob": 0.274,
         "home_move": 0.0182,
         "away_move": -0.0317,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -943,15 +943,15 @@
         "start_utc": "2026-07-16T17:00:00+00:00",
         "home": "Vikingur Gota",
         "away": "Stjarnan",
-        "home_prob": 0.353,
+        "home_prob": 0.3542,
         "away_prob": 0.4545,
-        "home_odds": 2.833,
+        "home_odds": 2.823,
         "away_odds": 2.2,
-        "draw_odds": 3.76,
-        "draw_prob": 0.266,
-        "home_move": 0.0035,
+        "draw_odds": 3.78,
+        "draw_prob": 0.2646,
+        "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -961,15 +961,15 @@
         "start_utc": "2026-07-16T17:00:00+00:00",
         "home": "VMFD Zalgiris Vilnius",
         "away": "Petrovac",
-        "home_prob": 0.7246,
-        "away_prob": 0.125,
-        "home_odds": 1.38,
-        "away_odds": 8.0,
-        "draw_odds": 4.45,
-        "draw_prob": 0.2247,
-        "home_move": 0.0455,
-        "away_move": -0.1209,
-        "odds_snaps": 3
+        "home_prob": 0.7143,
+        "away_prob": 0.1282,
+        "home_odds": 1.4,
+        "away_odds": 7.8,
+        "draw_odds": 4.33,
+        "draw_prob": 0.2309,
+        "home_move": 0.0606,
+        "away_move": -0.1429,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -979,15 +979,15 @@
         "start_utc": "2026-07-16T17:30:00+00:00",
         "home": "Hamrun Spartans",
         "away": "NSI Runavik",
-        "home_prob": 0.6173,
-        "away_prob": 0.189,
-        "home_odds": 1.62,
-        "away_odds": 5.29,
-        "draw_odds": 3.74,
-        "draw_prob": 0.2674,
-        "home_move": 0.0,
-        "away_move": -0.0094,
-        "odds_snaps": 3
+        "home_prob": 0.5714,
+        "away_prob": 0.2028,
+        "home_odds": 1.75,
+        "away_odds": 4.93,
+        "draw_odds": 3.34,
+        "draw_prob": 0.2994,
+        "home_move": 0.0802,
+        "away_move": -0.0768,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -998,14 +998,14 @@
         "home": "Ballkani",
         "away": "Connah's Quay Nomads",
         "home_prob": 0.7353,
-        "away_prob": 0.1385,
+        "away_prob": 0.1366,
         "home_odds": 1.36,
-        "away_odds": 7.22,
-        "draw_odds": 5.0,
-        "draw_prob": 0.2,
+        "away_odds": 7.32,
+        "draw_odds": 4.95,
+        "draw_prob": 0.202,
         "home_move": 0.0709,
-        "away_move": -0.2595,
-        "odds_snaps": 3
+        "away_move": -0.2492,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1015,15 +1015,15 @@
         "start_utc": "2026-07-16T18:00:00+00:00",
         "home": "Sileks",
         "away": "Dinamo Minsk",
-        "home_prob": 0.2433,
-        "away_prob": 0.4926,
-        "home_odds": 4.11,
-        "away_odds": 2.03,
-        "draw_odds": 2.97,
-        "draw_prob": 0.3367,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "home_prob": 0.2347,
+        "away_prob": 0.5025,
+        "home_odds": 4.26,
+        "away_odds": 1.99,
+        "draw_odds": 2.98,
+        "draw_prob": 0.3356,
+        "home_move": 0.0365,
+        "away_move": -0.0197,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1033,15 +1033,15 @@
         "start_utc": "2026-07-16T18:00:00+00:00",
         "home": "Skendija",
         "away": "Europa FC",
-        "home_prob": 0.8285,
-        "away_prob": 0.0769,
-        "home_odds": 1.207,
-        "away_odds": 13.0,
-        "draw_odds": 5.95,
-        "draw_prob": 0.1681,
-        "home_move": -0.0107,
-        "away_move": 0.04,
-        "odds_snaps": 3
+        "home_prob": 0.8264,
+        "away_prob": 0.0758,
+        "home_odds": 1.21,
+        "away_odds": 13.2,
+        "draw_odds": 5.85,
+        "draw_prob": 0.1709,
+        "home_move": -0.0082,
+        "away_move": 0.056,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1059,7 +1059,7 @@
         "draw_prob": 0.25,
         "home_move": -0.0581,
         "away_move": 0.1165,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1077,7 +1077,7 @@
         "draw_prob": 0.2532,
         "home_move": -0.0067,
         "away_move": 0.0152,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1087,15 +1087,15 @@
         "start_utc": "2026-07-16T19:00:00+00:00",
         "home": "Virtus",
         "away": "Dila Gori",
-        "home_prob": 0.1812,
-        "away_prob": 0.641,
-        "home_odds": 5.52,
-        "away_odds": 1.56,
-        "draw_odds": 3.98,
-        "draw_prob": 0.2513,
-        "home_move": 0.0376,
-        "away_move": 0.0065,
-        "odds_snaps": 3
+        "home_prob": 0.1799,
+        "away_prob": 0.6494,
+        "home_odds": 5.56,
+        "away_odds": 1.54,
+        "draw_odds": 4.1,
+        "draw_prob": 0.2439,
+        "home_move": 0.0451,
+        "away_move": -0.0065,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1105,15 +1105,15 @@
         "start_utc": "2026-07-16T16:00:00+00:00",
         "home": "Home (Special bets)",
         "away": "Away (Special bets)",
-        "home_prob": 0.6821,
-        "away_prob": 0.2729,
-        "home_odds": 1.466,
-        "away_odds": 3.665,
-        "draw_odds": 9.25,
-        "draw_prob": 0.1081,
-        "home_move": 0.14,
-        "away_move": -0.2952,
-        "odds_snaps": 6
+        "home_prob": 0.6798,
+        "away_prob": 0.2755,
+        "home_odds": 1.471,
+        "away_odds": 3.63,
+        "draw_odds": 9.2,
+        "draw_prob": 0.1087,
+        "home_move": 0.1439,
+        "away_move": -0.3019,
+        "odds_snaps": 8
       },
       {
         "source": "xbet_linefeed",
@@ -1123,15 +1123,15 @@
         "start_utc": "2026-07-16T17:00:00+00:00",
         "home": "Home (Special bets)",
         "away": "Away (Special bets)",
-        "home_prob": 0.7576,
-        "away_prob": 0.2099,
-        "home_odds": 1.32,
-        "away_odds": 4.765,
-        "draw_odds": 11.3,
-        "draw_prob": 0.0885,
-        "home_move": 0.0264,
-        "away_move": -0.0837,
-        "odds_snaps": 6
+        "home_prob": 0.7541,
+        "away_prob": 0.2137,
+        "home_odds": 1.326,
+        "away_odds": 4.68,
+        "draw_odds": 11.2,
+        "draw_prob": 0.0893,
+        "home_move": 0.0311,
+        "away_move": -0.1,
+        "odds_snaps": 8
       },
       {
         "source": "xbet_linefeed",
@@ -1149,7 +1149,7 @@
         "draw_prob": 0.2273,
         "home_move": -0.0336,
         "away_move": 0.092,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1159,15 +1159,15 @@
         "start_utc": "2026-07-16T08:30:00+00:00",
         "home": "Kustosja",
         "away": "NK Varazdin",
-        "home_prob": 0.1124,
-        "away_prob": 0.8278,
-        "home_odds": 8.9,
-        "away_odds": 1.208,
-        "draw_odds": 6.2,
-        "draw_prob": 0.1613,
-        "home_move": 0.0056,
-        "away_move": -0.0195,
-        "odds_snaps": 3
+        "home_prob": 0.1163,
+        "away_prob": 0.8197,
+        "home_odds": 8.6,
+        "away_odds": 1.22,
+        "draw_odds": 6.05,
+        "draw_prob": 0.1653,
+        "home_move": -0.0282,
+        "away_move": -0.0097,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1177,15 +1177,15 @@
         "start_utc": "2026-07-16T09:00:00+00:00",
         "home": "Dynamo Saint Petersburg",
         "away": "Dynamo Makhachkala",
-        "home_prob": 0.0943,
-        "away_prob": 0.7752,
-        "home_odds": 10.6,
-        "away_odds": 1.29,
-        "draw_odds": 5.05,
-        "draw_prob": 0.198,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "home_prob": 0.087,
+        "away_prob": 0.7634,
+        "home_odds": 11.5,
+        "away_odds": 1.31,
+        "draw_odds": 4.65,
+        "draw_prob": 0.2151,
+        "home_move": 0.0849,
+        "away_move": 0.0155,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1203,7 +1203,7 @@
         "draw_prob": 0.2924,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1221,7 +1221,7 @@
         "draw_prob": 0.2439,
         "home_move": 0.052,
         "away_move": -0.0641,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1239,7 +1239,7 @@
         "draw_prob": 0.2717,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1257,7 +1257,7 @@
         "draw_prob": 0.165,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1275,7 +1275,7 @@
         "draw_prob": 0.2717,
         "home_move": -0.0138,
         "away_move": 0.0221,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1285,12 +1285,15 @@
         "start_utc": "2026-07-16T14:00:00+00:00",
         "home": "1. Nurnberg II",
         "away": "Austria Lustenau",
-        "home_prob": 0.4444,
-        "away_prob": 0.4032,
-        "home_odds": 2.25,
-        "away_odds": 2.48,
-        "draw_odds": 3.78,
-        "draw_prob": 0.2646
+        "home_prob": 0.4098,
+        "away_prob": 0.4082,
+        "home_odds": 2.44,
+        "away_odds": 2.45,
+        "draw_odds": 3.4,
+        "draw_prob": 0.2941,
+        "home_move": 0.0844,
+        "away_move": -0.0121,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -1300,135 +1303,120 @@
         "start_utc": "2026-07-16T14:00:00+00:00",
         "home": "Aarhus Fremad",
         "away": "Brabrand",
-        "home_prob": 0.5952,
-        "away_prob": 0.2268,
-        "home_odds": 1.68,
-        "away_odds": 4.41,
-        "draw_odds": 3.58,
-        "draw_prob": 0.2793
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "football",
-        "league": "Vietnam Championship U21",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T08:30:00+00:00",
-        "home": "Hoang Anh Gia Lai U21",
-        "away": "Song Lam Nghe An U21",
-        "home_prob": 0.3477,
-        "away_prob": 0.4673,
-        "home_odds": 2.876,
-        "away_odds": 2.14,
+        "home_prob": 0.5848,
+        "away_prob": 0.2309,
+        "home_odds": 1.71,
+        "away_odds": 4.33,
         "draw_odds": 3.5,
         "draw_prob": 0.2857,
-        "home_move": 0.0,
-        "away_move": 0.0,
+        "home_move": 0.0179,
+        "away_move": -0.0181,
         "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
         "sport": "football",
-        "league": "Vietnam Championship U21",
+        "league": "Club Friendlies",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T08:30:00+00:00",
-        "home": "Tay Ninh U21",
-        "away": "Viettel U21",
-        "home_prob": 0.0294,
-        "away_prob": 0.9615,
-        "home_odds": 34.0,
-        "away_odds": 1.04,
-        "draw_odds": 8.0,
-        "draw_prob": 0.125,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
+        "start_utc": "2026-07-16T15:00:00+00:00",
+        "home": "CS Gloria 2018 Bistrita-Nasaud",
+        "away": "ACS Bacau",
+        "home_prob": 0.3953,
+        "away_prob": 0.4484,
+        "home_odds": 2.53,
+        "away_odds": 2.23,
+        "draw_odds": 3.57,
+        "draw_prob": 0.2801
       },
       {
         "source": "xbet_linefeed",
         "sport": "football",
-        "league": "ASEAN Cup. Women",
+        "league": "Club Friendlies",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T08:45:00+00:00",
-        "home": "Indonesia (Women)",
-        "away": "Cambodia (Women)",
-        "home_prob": 0.4762,
-        "away_prob": 0.3247,
-        "home_odds": 2.1,
-        "away_odds": 3.08,
-        "draw_odds": 3.32,
-        "draw_prob": 0.3012,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
+        "start_utc": "2026-07-16T15:00:00+00:00",
+        "home": "LNZ",
+        "away": "Goztepe",
+        "home_prob": 0.3411,
+        "away_prob": 0.4219,
+        "home_odds": 2.932,
+        "away_odds": 2.37,
+        "draw_odds": 3.28,
+        "draw_prob": 0.3049
       },
       {
         "source": "xbet_linefeed",
         "sport": "football",
-        "league": "ASEAN Cup. Women",
+        "league": "Club Friendlies",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T08:45:00+00:00",
-        "home": "Malaysia (Women)",
-        "away": "Singapore (Women)",
-        "home_prob": 0.625,
-        "away_prob": 0.2139,
-        "home_odds": 1.6,
-        "away_odds": 4.675,
-        "draw_odds": 3.8,
-        "draw_prob": 0.2632,
-        "home_move": -0.0303,
-        "away_move": 0.0601,
-        "odds_snaps": 2
+        "start_utc": "2026-07-16T15:30:00+00:00",
+        "home": "Kharkiv",
+        "away": "Hradec Kralove",
+        "home_prob": 0.7576,
+        "away_prob": 0.156,
+        "home_odds": 1.32,
+        "away_odds": 6.41,
+        "draw_odds": 5.11,
+        "draw_prob": 0.1957
       },
       {
         "source": "xbet_linefeed",
         "sport": "football",
-        "league": "Malaysian President's Cup",
+        "league": "Club Friendlies",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T08:45:00+00:00",
-        "home": "Penang (Youth)",
-        "away": "MISC Touchtronics (Youth)",
-        "home_prob": 0.289,
-        "away_prob": 0.5155,
-        "home_odds": 3.46,
-        "away_odds": 1.94,
-        "draw_odds": 3.4,
-        "draw_prob": 0.2941,
-        "home_move": -0.0086,
-        "away_move": 0.0,
-        "odds_snaps": 2
+        "start_utc": "2026-07-16T15:30:00+00:00",
+        "home": "Metalul Buzau",
+        "away": "CSM Slatina",
+        "home_prob": 0.5236,
+        "away_prob": 0.3263,
+        "home_odds": 1.91,
+        "away_odds": 3.065,
+        "draw_odds": 3.84,
+        "draw_prob": 0.2604
       },
       {
         "source": "xbet_linefeed",
         "sport": "football",
-        "league": "Myanmar Championship U20",
+        "league": "Club Friendlies",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T09:00:00+00:00",
-        "home": "Dagon Star United U20",
-        "away": "Ayeyawady United U20",
-        "home_prob": 0.7519,
-        "away_prob": 0.1506,
-        "home_odds": 1.33,
-        "away_odds": 6.64,
-        "draw_odds": 5.3,
-        "draw_prob": 0.1887,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
+        "start_utc": "2026-07-16T15:30:00+00:00",
+        "home": "Slaven Belupo",
+        "away": "Paksi",
+        "home_prob": 0.4274,
+        "away_prob": 0.3953,
+        "home_odds": 2.34,
+        "away_odds": 2.53,
+        "draw_odds": 3.44,
+        "draw_prob": 0.2907
       },
       {
         "source": "xbet_linefeed",
         "sport": "football",
-        "league": "Myanmar Championship U20",
+        "league": "Club Friendlies",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T09:00:00+00:00",
-        "home": "Sagaing United U20",
-        "away": "Yadanarbon U20",
-        "home_prob": 0.2484,
-        "away_prob": 0.5988,
-        "home_odds": 4.025,
-        "away_odds": 1.67,
-        "draw_odds": 4.1,
-        "draw_prob": 0.2439
+        "start_utc": "2026-07-16T16:00:00+00:00",
+        "home": "Akhmat",
+        "away": "Ajman Club",
+        "home_prob": 0.7634,
+        "away_prob": 0.1282,
+        "home_odds": 1.31,
+        "away_odds": 7.8,
+        "draw_odds": 5.65,
+        "draw_prob": 0.177
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "football",
+        "league": "Club Friendlies",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T16:00:00+00:00",
+        "home": "Jagiellonia Bialystok",
+        "away": "AC Sparta Prague",
+        "home_prob": 0.3175,
+        "away_prob": 0.4831,
+        "home_odds": 3.15,
+        "away_odds": 2.07,
+        "draw_odds": 3.74,
+        "draw_prob": 0.2674
       },
       {
         "source": "xbet_linefeed",
@@ -1438,13 +1426,13 @@
         "start_utc": "2026-07-16T09:00:00+00:00",
         "home": "Nikoloz Basilashvili",
         "away": "Thiago Agustin Tirante",
-        "home_prob": 0.3482,
-        "away_prob": 0.7042,
-        "home_odds": 2.872,
-        "away_odds": 1.42,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "home_prob": 0.3423,
+        "away_prob": 0.7092,
+        "home_odds": 2.921,
+        "away_odds": 1.41,
+        "home_move": 0.0171,
+        "away_move": -0.007,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1454,13 +1442,13 @@
         "start_utc": "2026-07-16T10:30:00+00:00",
         "home": "Andrey Rublev",
         "away": "Andrea Pellegrino",
-        "home_prob": 0.7446,
-        "away_prob": 0.3077,
-        "home_odds": 1.343,
-        "away_odds": 3.25,
-        "home_move": 0.0098,
-        "away_move": -0.0284,
-        "odds_snaps": 2
+        "home_prob": 0.7463,
+        "away_prob": 0.3049,
+        "home_odds": 1.34,
+        "away_odds": 3.28,
+        "home_move": 0.0075,
+        "away_move": -0.0194,
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1476,7 +1464,7 @@
         "away_odds": 3.7,
         "home_move": -0.0078,
         "away_move": 0.0264,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1489,7 +1477,10 @@
         "home_prob": 0.5618,
         "away_prob": 0.4926,
         "home_odds": 1.78,
-        "away_odds": 2.03
+        "away_odds": 2.03,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -1499,13 +1490,13 @@
         "start_utc": "2026-07-16T08:30:00+00:00",
         "home": "Juan Manuel Cerundolo",
         "away": "Miomir Kecmanovic",
-        "home_prob": 0.5556,
-        "away_prob": 0.4975,
-        "home_odds": 1.8,
-        "away_odds": 2.01,
-        "home_move": -0.0055,
-        "away_move": 0.0101,
-        "odds_snaps": 3
+        "home_prob": 0.5587,
+        "away_prob": 0.495,
+        "home_odds": 1.79,
+        "away_odds": 2.02,
+        "home_move": -0.011,
+        "away_move": 0.0151,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1521,7 +1512,7 @@
         "away_odds": 1.27,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1534,7 +1525,10 @@
         "home_prob": 0.449,
         "away_prob": 0.6024,
         "home_odds": 2.227,
-        "away_odds": 1.66
+        "away_odds": 1.66,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -1547,7 +1541,23 @@
         "home_prob": 0.6897,
         "away_prob": 0.3618,
         "home_odds": 1.45,
-        "away_odds": 2.764
+        "away_odds": 2.764,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tennis",
+        "league": "ATP. Gstaad",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T15:30:00+00:00",
+        "home": "Alexander Shevchenko",
+        "away": "Dominic Stephan Stricker",
+        "home_prob": 0.5319,
+        "away_prob": 0.5208,
+        "home_odds": 1.88,
+        "away_odds": 1.92
       },
       {
         "source": "xbet_linefeed",
@@ -1557,10 +1567,52 @@
         "start_utc": "2026-07-16T14:00:00+00:00",
         "home": "Daniel Merida Aguilar",
         "away": "Titouan Droguet",
-        "home_prob": 0.5882,
-        "away_prob": 0.463,
-        "home_odds": 1.7,
-        "away_odds": 2.16
+        "home_prob": 0.5988,
+        "away_prob": 0.4529,
+        "home_odds": 1.67,
+        "away_odds": 2.208,
+        "home_move": -0.0176,
+        "away_move": 0.0222,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tennis",
+        "league": "ATP. Umag",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T16:00:00+00:00",
+        "home": "Damir Dzumhur",
+        "away": "Matteo Arnaldi",
+        "home_prob": 0.363,
+        "away_prob": 0.6878,
+        "home_odds": 2.755,
+        "away_odds": 1.454
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tennis",
+        "league": "WTA. Athens",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T14:30:00+00:00",
+        "home": "Alina Korneeva",
+        "away": "Ann Li",
+        "home_prob": 0.5263,
+        "away_prob": 0.5263,
+        "home_odds": 1.9,
+        "away_odds": 1.9
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tennis",
+        "league": "WTA. Athens",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T14:30:00+00:00",
+        "home": "Tereza Valentova",
+        "away": "Aliaksandra Sasnovich",
+        "home_prob": 0.6993,
+        "away_prob": 0.353,
+        "home_odds": 1.43,
+        "away_odds": 2.833
       },
       {
         "source": "xbet_linefeed",
@@ -1570,13 +1622,13 @@
         "start_utc": "2026-07-16T09:00:00+00:00",
         "home": "Eva Bennemann",
         "away": "Sinja Kraus",
-        "home_prob": 0.2538,
-        "away_prob": 0.8264,
-        "home_odds": 3.94,
-        "away_odds": 1.21,
-        "home_move": -0.0051,
-        "away_move": 0.0025,
-        "odds_snaps": 3
+        "home_prob": 0.2604,
+        "away_prob": 0.8197,
+        "home_odds": 3.84,
+        "away_odds": 1.22,
+        "home_move": -0.0303,
+        "away_move": 0.0108,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1592,7 +1644,7 @@
         "away_odds": 1.43,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1608,7 +1660,7 @@
         "away_odds": 1.36,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1621,7 +1673,36 @@
         "home_prob": 0.6623,
         "away_prob": 0.4184,
         "home_odds": 1.51,
-        "away_odds": 2.39
+        "away_odds": 2.39,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tennis",
+        "league": "WTA. Rome",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T15:30:00+00:00",
+        "home": "Danka Kovinic",
+        "away": "Julia Riera",
+        "home_prob": 0.2436,
+        "away_prob": 0.7981,
+        "home_odds": 4.105,
+        "away_odds": 1.253
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tennis",
+        "league": "WTA. Rome",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T15:30:00+00:00",
+        "home": "Aurora Zantedeschi",
+        "away": "Martina Trevisan",
+        "home_prob": 0.4568,
+        "away_prob": 0.5848,
+        "home_odds": 2.189,
+        "away_odds": 1.71
       },
       {
         "source": "xbet_linefeed",
@@ -1637,7 +1718,7 @@
         "away_odds": 1.143,
         "home_move": 0.0,
         "away_move": -0.0009,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1653,7 +1734,7 @@
         "away_odds": 2.127,
         "home_move": -0.0061,
         "away_move": 0.009,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1666,7 +1747,10 @@
         "home_prob": 0.5618,
         "away_prob": 0.5263,
         "home_odds": 1.78,
-        "away_odds": 1.9
+        "away_odds": 1.9,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -1676,10 +1760,13 @@
         "start_utc": "2026-07-16T14:00:00+00:00",
         "home": "Anastasia Zakharova",
         "away": "Alexandra Shubladze",
-        "home_prob": 0.5988,
-        "away_prob": 0.481,
-        "home_odds": 1.67,
-        "away_odds": 2.079
+        "home_prob": 0.6061,
+        "away_prob": 0.4744,
+        "home_odds": 1.65,
+        "away_odds": 2.108,
+        "home_move": -0.012,
+        "away_move": 0.0139,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -1689,13 +1776,13 @@
         "start_utc": "2026-07-16T10:00:00+00:00",
         "home": "Mayar Sherif",
         "away": "Kaitlin Quevedo",
-        "home_prob": 0.6452,
-        "away_prob": 0.4072,
-        "home_odds": 1.55,
-        "away_odds": 2.456,
-        "home_move": -0.019,
-        "away_move": 0.028,
-        "odds_snaps": 3
+        "home_prob": 0.6439,
+        "away_prob": 0.4073,
+        "home_odds": 1.553,
+        "away_odds": 2.455,
+        "home_move": -0.0171,
+        "away_move": 0.0276,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1705,13 +1792,39 @@
         "start_utc": "2026-07-16T11:30:00+00:00",
         "home": "Oleksandra Oliynykova",
         "away": "Elena Pridankina",
-        "home_prob": 0.5618,
-        "away_prob": 0.4926,
-        "home_odds": 1.78,
-        "away_odds": 2.03,
-        "home_move": -0.0056,
-        "away_move": 0.005,
-        "odds_snaps": 2
+        "home_prob": 0.565,
+        "away_prob": 0.4902,
+        "home_odds": 1.77,
+        "away_odds": 2.04,
+        "home_move": -0.0112,
+        "away_move": 0.0099,
+        "odds_snaps": 3
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tennis",
+        "league": "WTA. Iasi",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T14:30:00+00:00",
+        "home": "Alevtina Ibragimova",
+        "away": "Paula Badosa Gibert",
+        "home_prob": 0.1681,
+        "away_prob": 0.8873,
+        "home_odds": 5.95,
+        "away_odds": 1.127
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tennis",
+        "league": "WTA. Iasi",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T16:00:00+00:00",
+        "home": "Panna Udvardy",
+        "away": "Katarzyna Kawa",
+        "home_prob": 0.5525,
+        "away_prob": 0.5025,
+        "home_odds": 1.81,
+        "away_odds": 1.99
       },
       {
         "source": "xbet_linefeed",
@@ -1724,7 +1837,10 @@
         "home_prob": 0.3807,
         "away_prob": 0.6878,
         "home_odds": 2.627,
-        "away_odds": 1.454
+        "away_odds": 1.454,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -1737,183 +1853,26 @@
         "home_prob": 0.579,
         "away_prob": 0.5,
         "home_odds": 1.727,
-        "away_odds": 2.0
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "UTR Pro Tennis Series. Saitama",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:05:00+00:00",
-        "home": "Jonathan Irwanto",
-        "away": "Nuutti Jokinen",
-        "home_prob": 0.7758,
-        "away_prob": 0.3175,
-        "home_odds": 1.289,
-        "away_odds": 3.15,
+        "away_odds": 2.0,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "UTR Pro Tennis Series. Saitama",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:05:00+00:00",
-        "home": "Shion Itsusaki",
-        "away": "Naoto Tomizawa",
-        "home_prob": 0.5875,
-        "away_prob": 0.5053,
-        "home_odds": 1.702,
-        "away_odds": 1.979,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "UTR Pro Tennis Series. Saitama",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:05:00+00:00",
-        "home": "Toshiki Karigyo",
-        "away": "Kotaro Mochizuki",
-        "home_prob": 0.5701,
-        "away_prob": 0.5227,
-        "home_odds": 1.754,
-        "away_odds": 1.913,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "UTR Pro Tennis Series. Saitama. Women",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:05:00+00:00",
-        "home": "Michiru Furuya",
-        "away": "Nana Kawagishi",
-        "home_prob": 0.3906,
-        "away_prob": 0.7022,
-        "home_odds": 2.56,
-        "away_odds": 1.424,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "UTR Pro Tennis Series. Saitama. Women",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:05:00+00:00",
-        "home": "Yui Ohwaki",
-        "away": "Mua Shigeta",
-        "home_prob": 0.672,
-        "away_prob": 0.4209,
-        "home_odds": 1.488,
-        "away_odds": 2.376,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
         "sport": "tennis",
         "league": "World Tennis. Brisbane. Doubles",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:00:00+00:00",
-        "home": "Camus/Shearer",
-        "away": "Matsuda/Ogura",
-        "home_prob": 0.5456,
-        "away_prob": 0.5456,
-        "home_odds": 1.833,
-        "away_odds": 1.833,
+        "start_utc": "2026-07-16T04:10:00+00:00",
+        "home": "Ferguson/Hazawa",
+        "away": "Volonski/Padgham",
+        "home_prob": 0.6944,
+        "away_prob": 0.3855,
+        "home_odds": 1.44,
+        "away_odds": 2.594,
         "home_move": 0.0,
         "away_move": 0.0,
         "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "World Tennis. Brisbane. Women. Doubles",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:05:00+00:00",
-        "home": "Kawamura/Sato",
-        "away": "Lopez/Uemura",
-        "home_prob": 0.6623,
-        "away_prob": 0.4184,
-        "home_odds": 1.51,
-        "away_odds": 2.39,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "UTR Pro Tennis Series. Saitama",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:35:00+00:00",
-        "home": "Christopher Rodi",
-        "away": "Taiyo Uenoyama",
-        "home_prob": 0.4448,
-        "away_prob": 0.6481,
-        "home_odds": 2.248,
-        "away_odds": 1.543,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "UTR Pro Tennis Series. Saitama",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:35:00+00:00",
-        "home": "Min Jae Kim",
-        "away": "Penn Charusorn",
-        "home_prob": 0.4369,
-        "away_prob": 0.6562,
-        "home_odds": 2.289,
-        "away_odds": 1.524,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "UTR Pro Tennis Series. Saitama. Women",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:35:00+00:00",
-        "home": "Hinata Furutani",
-        "away": "Ran Inaba",
-        "home_prob": 0.4112,
-        "away_prob": 0.6817,
-        "home_odds": 2.432,
-        "away_odds": 1.467,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tennis",
-        "league": "UTR Pro Tennis Series. Saitama. Women",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:35:00+00:00",
-        "home": "Kaili Demi Teso",
-        "away": "Rio Maeda",
-        "home_prob": 0.8897,
-        "away_prob": 0.203,
-        "home_odds": 1.124,
-        "away_odds": 4.925,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -1923,13 +1882,13 @@
         "start_utc": "2026-07-16T04:30:00+00:00",
         "home": "Hulme/Charlton",
         "away": "Bobichon/Sach",
-        "home_prob": 0.6623,
-        "away_prob": 0.4003,
-        "home_odds": 1.51,
-        "away_odds": 2.498,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
+        "home_prob": 0.6711,
+        "away_prob": 0.409,
+        "home_odds": 1.49,
+        "away_odds": 2.445,
+        "home_move": -0.0132,
+        "away_move": -0.0212,
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1939,13 +1898,13 @@
         "start_utc": "2026-07-16T04:30:00+00:00",
         "home": "Lin/Yang",
         "away": "Thompson/Taylor",
-        "home_prob": 0.7446,
-        "away_prob": 0.3101,
-        "home_odds": 1.343,
-        "away_odds": 3.225,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
+        "home_prob": 0.7576,
+        "away_prob": 0.3236,
+        "home_odds": 1.32,
+        "away_odds": 3.09,
+        "home_move": -0.0171,
+        "away_move": -0.0419,
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1953,15 +1912,15 @@
         "league": "World Tennis. Brisbane. Doubles",
         "date": "2026-07-16",
         "start_utc": "2026-07-16T04:35:00+00:00",
-        "home": "Ferguson/Hazawa",
-        "away": "Volonski/Padgham",
-        "home_prob": 0.6944,
-        "away_prob": 0.3855,
-        "home_odds": 1.44,
-        "away_odds": 2.594,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
+        "home": "Camus/Shearer",
+        "away": "Matsuda/Ogura",
+        "home_prob": 0.5435,
+        "away_prob": 0.5435,
+        "home_odds": 1.84,
+        "away_odds": 1.84,
+        "home_move": 0.0038,
+        "away_move": 0.0038,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -1971,13 +1930,29 @@
         "start_utc": "2026-07-16T05:00:00+00:00",
         "home": "Gilheany/Fairclough",
         "away": "Arakawa/Katsumi",
-        "home_prob": 0.6878,
-        "away_prob": 0.3807,
-        "home_odds": 1.454,
-        "away_odds": 2.627,
+        "home_prob": 0.6897,
+        "away_prob": 0.39,
+        "home_odds": 1.45,
+        "away_odds": 2.564,
+        "home_move": -0.0028,
+        "away_move": -0.024,
+        "odds_snaps": 3
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tennis",
+        "league": "World Tennis. Brisbane. Women. Doubles",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:00:00+00:00",
+        "home": "Kawamura/Sato",
+        "away": "Lopez/Uemura",
+        "home_prob": 0.6623,
+        "away_prob": 0.4184,
+        "home_odds": 1.51,
+        "away_odds": 2.39,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -1987,13 +1962,13 @@
         "start_utc": "2026-07-16T05:20:00+00:00",
         "home": "Aruzhan Sagandikova",
         "away": "Gaeul Jang",
-        "home_prob": 0.396,
-        "away_prob": 0.6849,
-        "home_odds": 2.525,
-        "away_odds": 1.46,
-        "home_move": -0.0079,
-        "away_move": 0.0041,
-        "odds_snaps": 2
+        "home_prob": 0.3929,
+        "away_prob": 0.6878,
+        "home_odds": 2.545,
+        "away_odds": 1.454,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -2009,7 +1984,7 @@
         "away_odds": 1.12,
         "home_move": -0.0283,
         "away_move": 0.0072,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -2025,7 +2000,7 @@
         "away_odds": 9.4,
         "home_move": 0.001,
         "away_move": -0.0105,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -2035,13 +2010,13 @@
         "start_utc": "2026-07-16T05:20:00+00:00",
         "home": "Sandugash Kenzhibayeva",
         "away": "Ekaterina Tupitsyna",
-        "home_prob": 0.1149,
-        "away_prob": 0.9728,
-        "home_odds": 8.7,
-        "away_odds": 1.028,
-        "home_move": -0.0225,
-        "away_move": 0.0019,
-        "odds_snaps": 2
+        "home_prob": 0.119,
+        "away_prob": 0.969,
+        "home_odds": 8.4,
+        "away_odds": 1.032,
+        "home_move": -0.0562,
+        "away_move": 0.0058,
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -2051,13 +2026,13 @@
         "start_utc": "2026-07-16T05:20:00+00:00",
         "home": "Zeel Desai",
         "away": "Kamonwan Yodpetch",
-        "home_prob": 0.3606,
-        "away_prob": 0.7194,
-        "home_odds": 2.773,
-        "away_odds": 1.39,
-        "home_move": 0.0815,
-        "away_move": -0.0414,
-        "odds_snaps": 2
+        "home_prob": 0.3455,
+        "away_prob": 0.7353,
+        "home_odds": 2.894,
+        "away_odds": 1.36,
+        "home_move": 0.1287,
+        "away_move": -0.0621,
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -2073,7 +2048,7 @@
         "away_odds": 1.24,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -2089,7 +2064,7 @@
         "away_odds": 8.4,
         "home_move": -0.0029,
         "away_move": 0.0244,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -2099,10 +2074,13 @@
         "start_utc": "2026-07-16T07:00:00+00:00",
         "home": "Pedro Vives Marcos",
         "away": "Guglielmo Verdese",
-        "home_prob": 0.9294,
+        "home_prob": 0.9285,
         "away_prob": 0.1587,
-        "home_odds": 1.076,
-        "away_odds": 6.3
+        "home_odds": 1.077,
+        "away_odds": 6.3,
+        "home_move": 0.0009,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -2115,7 +2093,10 @@
         "home_prob": 0.3058,
         "away_prob": 0.7752,
         "home_odds": 3.27,
-        "away_odds": 1.29
+        "away_odds": 1.29,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -2128,7 +2109,10 @@
         "home_prob": 0.8065,
         "away_prob": 0.2743,
         "home_odds": 1.24,
-        "away_odds": 3.645
+        "away_odds": 3.645,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -2138,10 +2122,13 @@
         "start_utc": "2026-07-16T07:00:00+00:00",
         "home": "Oleksandr Ovcharenko",
         "away": "Stefan Ilie Bogdan Petre",
-        "home_prob": 0.9033,
-        "away_prob": 0.1835,
-        "home_odds": 1.107,
-        "away_odds": 5.45
+        "home_prob": 0.9017,
+        "away_prob": 0.1852,
+        "home_odds": 1.109,
+        "away_odds": 5.4,
+        "home_move": 0.0018,
+        "away_move": -0.0092,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -2154,7 +2141,10 @@
         "home_prob": 0.813,
         "away_prob": 0.2674,
         "home_odds": 1.23,
-        "away_odds": 3.74
+        "away_odds": 3.74,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -2164,28 +2154,26 @@
         "start_utc": "2026-07-16T07:00:00+00:00",
         "home": "William Mirarchi",
         "away": "Cezar Gabriel Papoe",
-        "home_prob": 0.299,
-        "away_prob": 0.7812,
-        "home_odds": 3.345,
-        "away_odds": 1.28
+        "home_prob": 0.2933,
+        "away_prob": 0.7874,
+        "home_odds": 3.41,
+        "away_odds": 1.27,
+        "home_move": 0.0194,
+        "away_move": -0.0078,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
-        "sport": "handball",
-        "league": "Asian Championships U21",
+        "sport": "tennis",
+        "league": "UTR Pro Tennis Series. Skopje",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:00:00+00:00",
-        "home": "South Korea U21",
-        "away": "Iran U21",
-        "home_prob": 0.6494,
-        "away_prob": 0.321,
-        "home_odds": 1.54,
-        "away_odds": 3.115,
-        "draw_odds": 8.0,
-        "draw_prob": 0.125,
-        "home_move": -0.1149,
-        "away_move": 0.1953,
-        "odds_snaps": 3
+        "start_utc": "2026-07-16T07:05:00+00:00",
+        "home": "Cian Mcdonnell",
+        "away": "Noah Folkesson Doudy",
+        "home_prob": 0.8489,
+        "away_prob": 0.2439,
+        "home_odds": 1.178,
+        "away_odds": 4.1
       },
       {
         "source": "xbet_linefeed",
@@ -2203,7 +2191,7 @@
         "draw_prob": 0.125,
         "home_move": 0.2341,
         "away_move": -0.1211,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2221,7 +2209,7 @@
         "draw_prob": 0.1111,
         "home_move": -0.1046,
         "away_move": 0.0391,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2239,7 +2227,7 @@
         "draw_prob": 0.0909,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2257,7 +2245,7 @@
         "draw_prob": 0.1149,
         "home_move": 0.0,
         "away_move": 0.0195,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2267,15 +2255,15 @@
         "start_utc": "2026-07-16T09:00:00+00:00",
         "home": "Poland U20",
         "away": "Bosnia and Herzegovina U20",
-        "home_prob": 0.8969,
-        "away_prob": 0.1266,
-        "home_odds": 1.115,
-        "away_odds": 7.9,
+        "home_prob": 0.8945,
+        "away_prob": 0.1282,
+        "home_odds": 1.118,
+        "away_odds": 7.8,
         "draw_odds": 14.2,
         "draw_prob": 0.0704,
-        "home_move": -0.0045,
-        "away_move": 0.0533,
-        "odds_snaps": 3
+        "home_move": -0.0018,
+        "away_move": 0.04,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2293,7 +2281,7 @@
         "draw_prob": 0.098,
         "home_move": 0.015,
         "away_move": -0.0122,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2311,7 +2299,7 @@
         "draw_prob": 0.0286,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2329,7 +2317,7 @@
         "draw_prob": 0.025,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2347,7 +2335,7 @@
         "draw_prob": 0.1176,
         "home_move": 0.02,
         "away_move": -0.019,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2357,15 +2345,15 @@
         "start_utc": "2026-07-16T14:00:00+00:00",
         "home": "Sweden U20",
         "away": "France U20",
-        "home_prob": 0.6849,
-        "away_prob": 0.2981,
-        "home_odds": 1.46,
-        "away_odds": 3.355,
-        "draw_odds": 9.0,
-        "draw_prob": 0.1111,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "home_prob": 0.6897,
+        "away_prob": 0.2928,
+        "home_odds": 1.45,
+        "away_odds": 3.415,
+        "draw_odds": 9.7,
+        "draw_prob": 0.1031,
+        "home_move": -0.0068,
+        "away_move": 0.0179,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2375,15 +2363,15 @@
         "start_utc": "2026-07-16T14:00:00+00:00",
         "home": "Switzerland U20",
         "away": "Denmark U20",
-        "home_prob": 0.3554,
-        "away_prob": 0.6289,
-        "home_odds": 2.814,
-        "away_odds": 1.59,
-        "draw_odds": 8.75,
-        "draw_prob": 0.1143,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "home_prob": 0.311,
+        "away_prob": 0.6667,
+        "home_odds": 3.215,
+        "away_odds": 1.5,
+        "draw_odds": 9.3,
+        "draw_prob": 0.1075,
+        "home_move": 0.1425,
+        "away_move": -0.0566,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2401,7 +2389,7 @@
         "draw_prob": 0.0833,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2419,7 +2407,7 @@
         "draw_prob": 0.1053,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2437,133 +2425,7 @@
         "draw_prob": 0.1053,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "hockey",
-        "league": "Tournament Magnitka Open",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:00:00+00:00",
-        "home": "Stalnye Topory",
-        "away": "Ledovye Spartantcy",
-        "home_prob": 0.4425,
-        "away_prob": 0.431,
-        "home_odds": 2.26,
-        "away_odds": 2.32,
-        "draw_odds": 4.25,
-        "draw_prob": 0.2353,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "hockey",
-        "league": "Tournament Magnitka Open",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T05:00:00+00:00",
-        "home": "Svirepye Eji",
-        "away": "Hitrye Lisy",
-        "home_prob": 0.4348,
-        "away_prob": 0.4444,
-        "home_odds": 2.3,
-        "away_odds": 2.25,
-        "draw_odds": 4.35,
-        "draw_prob": 0.2299,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "hockey",
-        "league": "Tournament Magnitka Open",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T06:00:00+00:00",
-        "home": "Ledovye Spartantcy",
-        "away": "Svirepye Eji",
-        "home_prob": 0.4082,
-        "away_prob": 0.4739,
-        "home_odds": 2.45,
-        "away_odds": 2.11,
-        "draw_odds": 4.45,
-        "draw_prob": 0.2247,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "hockey",
-        "league": "Tournament Magnitka Open",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T07:00:00+00:00",
-        "home": "Hitrye Lisy",
-        "away": "Stalnye Topory",
-        "home_prob": 0.4425,
-        "away_prob": 0.4425,
-        "home_odds": 2.26,
-        "away_odds": 2.26,
-        "draw_odds": 4.5,
-        "draw_prob": 0.2222,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "hockey",
-        "league": "Tournament Magnitka Open",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T08:00:00+00:00",
-        "home": "Stalnye Topory",
-        "away": "Svirepye Eji",
-        "home_prob": 0.4739,
-        "away_prob": 0.4,
-        "home_odds": 2.11,
-        "away_odds": 2.5,
-        "draw_odds": 4.25,
-        "draw_prob": 0.2353,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "hockey",
-        "league": "Tournament Magnitka Open",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T09:00:00+00:00",
-        "home": "Ledovye Spartantcy",
-        "away": "Hitrye Lisy",
-        "home_prob": 0.4386,
-        "away_prob": 0.4386,
-        "home_odds": 2.28,
-        "away_odds": 2.28,
-        "draw_odds": 4.33,
-        "draw_prob": 0.2309,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "hockey",
-        "league": "Tournament Magnitka Open",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:00:00+00:00",
-        "home": "1st teams",
-        "away": "2nd teams",
-        "home_prob": 0.5495,
-        "away_prob": 0.4545,
-        "home_odds": 1.82,
-        "away_odds": 2.2,
-        "draw_odds": 14.0,
-        "draw_prob": 0.0714,
-        "home_move": -0.0761,
-        "away_move": 0.0732,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -2581,22 +2443,146 @@
         "draw_prob": 0.2577,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "hockey",
+        "league": "Tournament Magnitka Open",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:00:00+00:00",
+        "home": "Svirepye Eji",
+        "away": "Hitrye Lisy",
+        "home_prob": 0.4348,
+        "away_prob": 0.4444,
+        "home_odds": 2.3,
+        "away_odds": 2.25,
+        "draw_odds": 4.35,
+        "draw_prob": 0.2299,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 4
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "hockey",
+        "league": "Tournament Magnitka Open",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T06:00:00+00:00",
+        "home": "Ledovye Spartantcy",
+        "away": "Svirepye Eji",
+        "home_prob": 0.4082,
+        "away_prob": 0.4739,
+        "home_odds": 2.45,
+        "away_odds": 2.11,
+        "draw_odds": 4.45,
+        "draw_prob": 0.2247,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 4
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "hockey",
+        "league": "Tournament Magnitka Open",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T07:00:00+00:00",
+        "home": "Hitrye Lisy",
+        "away": "Stalnye Topory",
+        "home_prob": 0.4425,
+        "away_prob": 0.4425,
+        "home_odds": 2.26,
+        "away_odds": 2.26,
+        "draw_odds": 4.5,
+        "draw_prob": 0.2222,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 4
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "hockey",
+        "league": "Tournament Magnitka Open",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T08:00:00+00:00",
+        "home": "Stalnye Topory",
+        "away": "Svirepye Eji",
+        "home_prob": 0.4739,
+        "away_prob": 0.4,
+        "home_odds": 2.11,
+        "away_odds": 2.5,
+        "draw_odds": 4.25,
+        "draw_prob": 0.2353,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 4
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "hockey",
+        "league": "Tournament Magnitka Open",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T09:00:00+00:00",
+        "home": "Ledovye Spartantcy",
+        "away": "Hitrye Lisy",
+        "home_prob": 0.4386,
+        "away_prob": 0.4386,
+        "home_odds": 2.28,
+        "away_odds": 2.28,
+        "draw_odds": 4.33,
+        "draw_prob": 0.2309,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 4
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "hockey",
+        "league": "Tournament Magnitka Open",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T04:00:00+00:00",
+        "home": "1st teams",
+        "away": "2nd teams",
+        "home_prob": 0.5556,
+        "away_prob": 0.4537,
+        "home_odds": 1.8,
+        "away_odds": 2.204,
+        "draw_odds": 14.0,
+        "draw_prob": 0.0714,
+        "home_move": -0.0863,
+        "away_move": 0.0751,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
         "sport": "tabletennis",
         "league": "Setka Cup",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:05:00+00:00",
-        "home": "Vitaliy Kobets",
-        "away": "Dmitriy Kim",
-        "home_prob": 0.5464,
-        "away_prob": 0.5348,
-        "home_odds": 1.83,
-        "away_odds": 1.87,
-        "home_move": 0.0223,
-        "away_move": -0.026,
+        "start_utc": "2026-07-16T04:05:00+00:00",
+        "home": "Dmitriy Kim",
+        "away": "Grigorii Kulishov",
+        "home_prob": 0.5128,
+        "away_prob": 0.5682,
+        "home_odds": 1.95,
+        "away_odds": 1.76,
+        "home_move": 0.0428,
+        "away_move": -0.0383,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Masters. Belarus",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T04:10:00+00:00",
+        "home": "Herbert Pyantkovsky",
+        "away": "Dmitry Panasenko",
+        "home_prob": 0.5102,
+        "away_prob": 0.5556,
+        "home_odds": 1.96,
+        "away_odds": 1.8,
+        "home_move": 0.0,
+        "away_move": 0.0,
         "odds_snaps": 2
       },
       {
@@ -2604,9 +2590,89 @@
         "sport": "tabletennis",
         "league": "Setka Cup",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:15:00+00:00",
-        "home": "Sergey Kalenik",
-        "away": "Valeriy Vlasenko",
+        "start_utc": "2026-07-16T04:25:00+00:00",
+        "home": "Alexander Mishchenko",
+        "away": "Vyacheslav Kovalenko",
+        "home_prob": 0.6285,
+        "away_prob": 0.4464,
+        "home_odds": 1.591,
+        "away_odds": 2.24,
+        "home_move": -0.0473,
+        "away_move": 0.0646,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T04:25:00+00:00",
+        "home": "Illia Fokin",
+        "away": "Yuri Shcherbak",
+        "home_prob": 0.6897,
+        "away_prob": 0.3862,
+        "home_odds": 1.45,
+        "away_odds": 2.589,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Masters. Belarus",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T04:30:00+00:00",
+        "home": "Kirill Goncharov",
+        "away": "Nikita Tarasov",
+        "home_prob": 0.7092,
+        "away_prob": 0.3498,
+        "home_odds": 1.41,
+        "away_odds": 2.859,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T04:30:00+00:00",
+        "home": "Igor Sergeevich",
+        "away": "Gennady Karpovkin",
+        "home_prob": 0.5051,
+        "away_prob": 0.5747,
+        "home_odds": 1.98,
+        "away_odds": 1.74,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T04:30:00+00:00",
+        "home": "Dmitry Ponomarenko",
+        "away": "Aleksandr Syksa",
+        "home_prob": 0.3226,
+        "away_prob": 0.7519,
+        "home_odds": 3.1,
+        "away_odds": 1.33,
+        "home_move": -0.0127,
+        "away_move": 0.0076,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup. Women",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T04:30:00+00:00",
+        "home": "Anna Rzhevska",
+        "away": "Alina Kurtenko",
         "home_prob": 0.5405,
         "away_prob": 0.5405,
         "home_odds": 1.85,
@@ -2620,375 +2686,16 @@
         "sport": "tabletennis",
         "league": "Setka Cup",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:25:00+00:00",
-        "home": "Serhii Chelpanov",
-        "away": "Alexander Mishchenko",
-        "home_prob": 0.5376,
-        "away_prob": 0.5435,
-        "home_odds": 1.86,
-        "away_odds": 1.84,
-        "home_move": -0.0159,
-        "away_move": 0.0166,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Pro League. Czech Republic",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:30:00+00:00",
-        "home": "Jan Cernik",
-        "away": "Filip Wolf",
-        "home_prob": 0.579,
-        "away_prob": 0.5025,
-        "home_odds": 1.727,
-        "away_odds": 1.99,
-        "home_move": -0.0131,
-        "away_move": 0.0153,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Pro League. Czech Republic",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:30:00+00:00",
-        "home": "Martin Huk",
-        "away": "Libor Prikasky",
-        "home_prob": 0.4,
-        "away_prob": 0.6757,
-        "home_odds": 2.5,
-        "away_odds": 1.48,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Pro League. Czech Republic",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:30:00+00:00",
-        "home": "Martin Sychra",
-        "away": "Michal Regner",
-        "home_prob": 0.5464,
-        "away_prob": 0.5348,
-        "home_odds": 1.83,
-        "away_odds": 1.87,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:30:00+00:00",
-        "home": "Bogdan Chaikovskyi",
-        "away": "Gregory Kuzmenko",
-        "home_prob": 0.6757,
-        "away_prob": 0.4,
-        "home_odds": 1.48,
-        "away_odds": 2.5,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup. Moldova",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:30:00+00:00",
-        "home": "Petru Capbatut",
-        "away": "Fiodor Ghimp",
-        "home_prob": 0.3226,
-        "away_prob": 0.7519,
-        "home_odds": 3.1,
-        "away_odds": 1.33,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:35:00+00:00",
-        "home": "Grigorii Kulishov",
-        "away": "Yevgeniy Sokoltsov",
-        "home_prob": 0.6329,
-        "away_prob": 0.4425,
-        "home_odds": 1.58,
-        "away_odds": 2.26,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:45:00+00:00",
-        "home": "Anton Shipilov",
-        "away": "Oleh Napirko",
-        "home_prob": 0.4926,
-        "away_prob": 0.5882,
-        "home_odds": 2.03,
-        "away_odds": 1.7,
-        "home_move": 0.005,
-        "away_move": -0.0058,
-        "odds_snaps": 2
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:55:00+00:00",
-        "home": "Vyacheslav Kovalenko",
-        "away": "Aleksandr Kovalchuk V.",
-        "home_prob": 0.5464,
-        "away_prob": 0.5348,
-        "home_odds": 1.83,
-        "away_odds": 1.87
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:00:00+00:00",
-        "home": "Viktor Slyozka",
-        "away": "Vitaly Krohmal",
-        "home_prob": 0.5348,
-        "away_prob": 0.5464,
-        "home_odds": 1.87,
-        "away_odds": 1.83
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:05:00+00:00",
-        "home": "Mykola Polysynskyi",
-        "away": "Vitaliy Kobets",
-        "home_prob": 0.5464,
-        "away_prob": 0.5348,
-        "home_odds": 1.83,
-        "away_odds": 1.87
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Masters. Belarus",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:10:00+00:00",
-        "home": "Dmitry Panasenko",
-        "away": "Kirill Goncharov",
-        "home_prob": 0.5495,
-        "away_prob": 0.5128,
-        "home_odds": 1.82,
-        "away_odds": 1.95
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:15:00+00:00",
-        "home": "Oleksii Mitla",
-        "away": "Ruslan Lazebny",
-        "home_prob": 0.3761,
-        "away_prob": 0.6993,
-        "home_odds": 2.659,
-        "away_odds": 1.43
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:25:00+00:00",
-        "home": "Eduard Rubtcov",
-        "away": "Serhii Chelpanov",
-        "home_prob": 0.3185,
-        "away_prob": 0.7576,
-        "home_odds": 3.14,
-        "away_odds": 1.32
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Masters. Belarus",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:30:00+00:00",
-        "home": "Herbert Pyantkovsky",
-        "away": "Kirill Goncharov",
-        "home_prob": 0.5464,
-        "away_prob": 0.5181,
-        "home_odds": 1.83,
-        "away_odds": 1.93
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:35:00+00:00",
-        "home": "Serhii Chuliukov",
-        "away": "Yevgeniy Sokoltsov",
-        "home_prob": 0.5814,
-        "away_prob": 0.5,
-        "home_odds": 1.72,
-        "away_odds": 2.0
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Masters. Belarus",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:50:00+00:00",
-        "home": "Dmitry Panasenko",
-        "away": "Nikita Tarasov",
-        "home_prob": 0.5319,
-        "away_prob": 0.5319,
-        "home_odds": 1.88,
-        "away_odds": 1.88
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:55:00+00:00",
-        "home": "Oleg Gavryshko",
-        "away": "Aleksandr Kovalchuk V.",
-        "home_prob": 0.7246,
-        "away_prob": 0.3512,
-        "home_odds": 1.38,
-        "away_odds": 2.847
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:05:00+00:00",
-        "home": "Dmitriy Kim",
-        "away": "Grigorii Kulishov",
-        "home_prob": 0.5348,
-        "away_prob": 0.5464,
-        "home_odds": 1.87,
-        "away_odds": 1.83
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Masters. Belarus",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:10:00+00:00",
-        "home": "Herbert Pyantkovsky",
-        "away": "Dmitry Panasenko",
-        "home_prob": 0.5102,
-        "away_prob": 0.5556,
-        "home_odds": 1.96,
-        "away_odds": 1.8
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:25:00+00:00",
-        "home": "Alexander Mishchenko",
-        "away": "Vyacheslav Kovalenko",
-        "home_prob": 0.5988,
-        "away_prob": 0.4753,
-        "home_odds": 1.67,
-        "away_odds": 2.104
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:25:00+00:00",
-        "home": "Illia Fokin",
-        "away": "Yuri Shcherbak",
-        "home_prob": 0.6897,
-        "away_prob": 0.3862,
-        "home_odds": 1.45,
-        "away_odds": 2.589
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Masters. Belarus",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:30:00+00:00",
-        "home": "Kirill Goncharov",
-        "away": "Nikita Tarasov",
-        "home_prob": 0.7092,
-        "away_prob": 0.3498,
-        "home_odds": 1.41,
-        "away_odds": 2.859
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Pro League",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:30:00+00:00",
-        "home": "Igor Sergeevich",
-        "away": "Gennady Karpovkin",
-        "home_prob": 0.5051,
-        "away_prob": 0.5747,
-        "home_odds": 1.98,
-        "away_odds": 1.74
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:30:00+00:00",
-        "home": "Dmitry Ponomarenko",
-        "away": "Aleksandr Syksa",
-        "home_prob": 0.3185,
-        "away_prob": 0.7576,
-        "home_odds": 3.14,
-        "away_odds": 1.32
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup. Women",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:30:00+00:00",
-        "home": "Anna Rzhevska",
-        "away": "Alina Kurtenko",
-        "home_prob": 0.5405,
-        "away_prob": 0.5405,
-        "home_odds": 1.85,
-        "away_odds": 1.85
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "tabletennis",
-        "league": "Setka Cup",
-        "date": "2026-07-16",
         "start_utc": "2026-07-16T04:35:00+00:00",
         "home": "Vitaliy Zharskiy",
         "away": "Alexander Pogonov",
         "home_prob": 0.6061,
         "away_prob": 0.4686,
         "home_odds": 1.65,
-        "away_odds": 2.134
+        "away_odds": 2.134,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3001,7 +2708,10 @@
         "home_prob": 0.4686,
         "away_prob": 0.6061,
         "home_odds": 2.134,
-        "away_odds": 1.65
+        "away_odds": 1.65,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3014,7 +2724,10 @@
         "home_prob": 0.5348,
         "away_prob": 0.5587,
         "home_odds": 1.87,
-        "away_odds": 1.79
+        "away_odds": 1.79,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3024,10 +2737,13 @@
         "start_utc": "2026-07-16T04:55:00+00:00",
         "home": "Viktor Ivanytskyi",
         "away": "Oleh Martynenko",
-        "home_prob": 0.6329,
-        "away_prob": 0.4425,
-        "home_odds": 1.58,
-        "away_odds": 2.26
+        "home_prob": 0.6135,
+        "away_prob": 0.4623,
+        "home_odds": 1.63,
+        "away_odds": 2.163,
+        "home_move": 0.0316,
+        "away_move": -0.0429,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3040,7 +2756,10 @@
         "home_prob": 0.6711,
         "away_prob": 0.4049,
         "home_odds": 1.49,
-        "away_odds": 2.47
+        "away_odds": 2.47,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3053,7 +2772,10 @@
         "home_prob": 0.5952,
         "away_prob": 0.4854,
         "home_odds": 1.68,
-        "away_odds": 2.06
+        "away_odds": 2.06,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3066,7 +2788,10 @@
         "home_prob": 0.5682,
         "away_prob": 0.5128,
         "home_odds": 1.76,
-        "away_odds": 1.95
+        "away_odds": 1.95,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3079,7 +2804,10 @@
         "home_prob": 0.3236,
         "away_prob": 0.7698,
         "home_odds": 3.09,
-        "away_odds": 1.299
+        "away_odds": 1.299,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3092,7 +2820,10 @@
         "home_prob": 0.7407,
         "away_prob": 0.3349,
         "home_odds": 1.35,
-        "away_odds": 2.986
+        "away_odds": 2.986,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3105,7 +2836,10 @@
         "home_prob": 0.6289,
         "away_prob": 0.4464,
         "home_odds": 1.59,
-        "away_odds": 2.24
+        "away_odds": 2.24,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3118,7 +2852,10 @@
         "home_prob": 0.8897,
         "away_prob": 0.2532,
         "home_odds": 1.124,
-        "away_odds": 3.95
+        "away_odds": 3.95,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3131,7 +2868,10 @@
         "home_prob": 0.3125,
         "away_prob": 0.7634,
         "home_odds": 3.2,
-        "away_odds": 1.31
+        "away_odds": 1.31,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3144,7 +2884,10 @@
         "home_prob": 0.5848,
         "away_prob": 0.495,
         "home_odds": 1.71,
-        "away_odds": 2.02
+        "away_odds": 2.02,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3157,7 +2900,10 @@
         "home_prob": 0.3461,
         "away_prob": 0.7143,
         "home_odds": 2.889,
-        "away_odds": 1.4
+        "away_odds": 1.4,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3170,7 +2916,10 @@
         "home_prob": 0.5405,
         "away_prob": 0.5405,
         "home_odds": 1.85,
-        "away_odds": 1.85
+        "away_odds": 1.85,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3183,7 +2932,10 @@
         "home_prob": 0.7153,
         "away_prob": 0.3778,
         "home_odds": 1.398,
-        "away_odds": 2.647
+        "away_odds": 2.647,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3196,7 +2948,10 @@
         "home_prob": 0.5714,
         "away_prob": 0.5214,
         "home_odds": 1.75,
-        "away_odds": 1.918
+        "away_odds": 1.918,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3209,7 +2964,10 @@
         "home_prob": 0.5051,
         "away_prob": 0.5747,
         "home_odds": 1.98,
-        "away_odds": 1.74
+        "away_odds": 1.74,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3222,7 +2980,10 @@
         "home_prob": 0.5405,
         "away_prob": 0.5405,
         "home_odds": 1.85,
-        "away_odds": 1.85
+        "away_odds": 1.85,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3232,10 +2993,13 @@
         "start_utc": "2026-07-16T05:30:00+00:00",
         "home": "Gennady Karpovkin",
         "away": "Vladimir Zhigalov",
-        "home_prob": 0.5128,
-        "away_prob": 0.5682,
-        "home_odds": 1.95,
-        "away_odds": 1.76
+        "home_prob": 0.5,
+        "away_prob": 0.5814,
+        "home_odds": 2.0,
+        "away_odds": 1.72,
+        "home_move": 0.0256,
+        "away_move": -0.0227,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3248,7 +3012,10 @@
         "home_prob": 0.5405,
         "away_prob": 0.5405,
         "home_odds": 1.85,
-        "away_odds": 1.85
+        "away_odds": 1.85,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
       },
       {
         "source": "xbet_linefeed",
@@ -3261,23 +3028,309 @@
         "home_prob": 0.7698,
         "away_prob": 0.3236,
         "home_odds": 1.299,
-        "away_odds": 3.09
+        "away_odds": 3.09,
+        "home_move": 0.0,
+        "away_move": 0.0,
+        "odds_snaps": 2
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:30:00+00:00",
+        "home": "Petr Kolesnik",
+        "away": "Oleg Torianyk",
+        "home_prob": 0.4854,
+        "away_prob": 0.5952,
+        "home_odds": 2.06,
+        "away_odds": 1.68
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:30:00+00:00",
+        "home": "Sergey Maluk",
+        "away": "Oleg Kurilenko",
+        "home_prob": 0.4902,
+        "away_prob": 0.5917,
+        "home_odds": 2.04,
+        "away_odds": 1.69
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup. Czech Republic",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:30:00+00:00",
+        "home": "Artur Akopyan",
+        "away": "Martin Holub",
+        "home_prob": 0.5464,
+        "away_prob": 0.5464,
+        "home_odds": 1.83,
+        "away_odds": 1.83
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup. Women",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:30:00+00:00",
+        "home": "Uliana Dronova",
+        "away": "Svetlana Ureneva",
+        "home_prob": 0.7092,
+        "away_prob": 0.3666,
+        "home_odds": 1.41,
+        "away_odds": 2.728
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:35:00+00:00",
+        "home": "Roman Konkulovskyi",
+        "away": "Andrey Romanenko",
+        "home_prob": 0.3349,
+        "away_prob": 0.7407,
+        "home_odds": 2.986,
+        "away_odds": 1.35
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:35:00+00:00",
+        "home": "Sergei Kovalenko",
+        "away": "Daniil Novakov",
+        "home_prob": 0.5405,
+        "away_prob": 0.5405,
+        "home_odds": 1.85,
+        "away_odds": 1.85
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "TT-Cup. Czech Republic",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:40:00+00:00",
+        "home": "Radek Benes",
+        "away": "Lukas Slavik",
+        "home_prob": 0.5525,
+        "away_prob": 0.5291,
+        "home_odds": 1.81,
+        "away_odds": 1.89
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:45:00+00:00",
+        "home": "Nikolay Krygin",
+        "away": "Vasily Rudenko",
+        "home_prob": 0.5139,
+        "away_prob": 0.579,
+        "home_odds": 1.946,
+        "away_odds": 1.727
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:45:00+00:00",
+        "home": "Oleg Kharlakin",
+        "away": "Sergey Muslikov",
+        "home_prob": 0.5102,
+        "away_prob": 0.5714,
+        "home_odds": 1.96,
+        "away_odds": 1.75
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup. Czech Republic",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:45:00+00:00",
+        "home": "Tomas Stejskal",
+        "away": "Oleh Plyska",
+        "home_prob": 0.6274,
+        "away_prob": 0.4655,
+        "home_odds": 1.594,
+        "away_odds": 2.148
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:50:00+00:00",
+        "home": "Oleksandr Osadchyi",
+        "away": "Andrey Kurtenko",
+        "home_prob": 0.5405,
+        "away_prob": 0.5405,
+        "home_odds": 1.85,
+        "away_odds": 1.85
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Setka Cup",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T05:55:00+00:00",
+        "home": "Illia Fokin",
+        "away": "Oleh Martynenko",
+        "home_prob": 0.6173,
+        "away_prob": 0.4583,
+        "home_odds": 1.62,
+        "away_odds": 2.182
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T06:00:00+00:00",
+        "home": "Oleg Manuylov",
+        "away": "Aleksey Stroyev",
+        "home_prob": 0.347,
+        "away_prob": 0.7283,
+        "home_odds": 2.882,
+        "away_odds": 1.373
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T06:00:00+00:00",
+        "home": "Sergey Konstantinov",
+        "away": "Igor Sergeevich",
+        "home_prob": 0.3805,
+        "away_prob": 0.6944,
+        "home_odds": 2.628,
+        "away_odds": 1.44
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League. Czech Republic",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T06:00:00+00:00",
+        "home": "Lukas Martinak",
+        "away": "Tomas Petrek",
+        "home_prob": 0.579,
+        "away_prob": 0.5025,
+        "home_odds": 1.727,
+        "away_odds": 1.99
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League. Czech Republic",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T06:00:00+00:00",
+        "home": "Michal Vedmoch",
+        "away": "Dmitry Parkhomenko",
+        "home_prob": 0.5851,
+        "away_prob": 0.5079,
+        "home_odds": 1.709,
+        "away_odds": 1.969
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League. Czech Republic",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T06:00:00+00:00",
+        "home": "Tomas Vinter",
+        "away": "Vladimir Cermak",
+        "home_prob": 0.5051,
+        "away_prob": 0.5747,
+        "home_odds": 1.98,
+        "away_odds": 1.74
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League. Czech Republic",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T06:00:00+00:00",
+        "home": "Vaclav Nohejl 1975",
+        "away": "Mihail Trinta",
+        "home_prob": 0.5456,
+        "away_prob": 0.5456,
+        "home_odds": 1.833,
+        "away_odds": 1.833
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League. Czech Republic",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T06:00:00+00:00",
+        "home": "Josef Cabak",
+        "away": "Dominik Oborny",
+        "home_prob": 0.6711,
+        "away_prob": 0.4049,
+        "home_odds": 1.49,
+        "away_odds": 2.47
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "tabletennis",
+        "league": "Pro League. Minsk",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T06:00:00+00:00",
+        "home": "Denis Vezhnovets",
+        "away": "Igor Zhelobkovich",
+        "home_prob": 0.2878,
+        "away_prob": 0.7874,
+        "home_odds": 3.475,
+        "away_odds": 1.27
       },
       {
         "source": "xbet_linefeed",
         "sport": "volleyball",
-        "league": "UPVL. Nations League. Women",
+        "league": "FIVB Nations League",
         "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:10:00+00:00",
-        "home": "Brazil Pro (Women)",
-        "away": "Canada Pro (Women)",
-        "home_prob": 0.5128,
-        "away_prob": 0.5556,
-        "home_odds": 1.95,
-        "away_odds": 1.8,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "start_utc": "2026-07-16T06:30:00+00:00",
+        "home": "Belgium",
+        "away": "Italy",
+        "home_prob": 0.1653,
+        "away_prob": 0.8658,
+        "home_odds": 6.05,
+        "away_odds": 1.155
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "volleyball",
+        "league": "FIVB Nations League",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T10:20:00+00:00",
+        "home": "Japan",
+        "away": "Canada",
+        "home_prob": 0.8889,
+        "away_prob": 0.1425,
+        "home_odds": 1.125,
+        "away_odds": 7.02
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "volleyball",
+        "league": "FIVB Nations League",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T14:30:00+00:00",
+        "home": "Iran",
+        "away": "Germany",
+        "home_prob": 0.4598,
+        "away_prob": 0.5711,
+        "home_odds": 2.175,
+        "away_odds": 1.751
       },
       {
         "source": "xbet_linefeed",
@@ -3293,7 +3346,7 @@
         "away_odds": 1.7,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3309,7 +3362,7 @@
         "away_odds": 1.96,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3325,7 +3378,7 @@
         "away_odds": 1.96,
         "home_move": 0.0012,
         "away_move": -0.019,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3341,7 +3394,7 @@
         "away_odds": 1.83,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3357,7 +3410,7 @@
         "away_odds": 1.93,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3373,7 +3426,7 @@
         "away_odds": 1.82,
         "home_move": 0.0,
         "away_move": -0.0109,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3389,7 +3442,7 @@
         "away_odds": 1.7,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3399,13 +3452,13 @@
         "start_utc": "2026-07-16T06:00:00+00:00",
         "home": "Thailand",
         "away": "Myanmar",
-        "home_prob": 0.9515,
-        "away_prob": 0.1333,
-        "home_odds": 1.051,
-        "away_odds": 7.5,
-        "home_move": -0.0085,
-        "away_move": 0.1211,
-        "odds_snaps": 3
+        "home_prob": 0.9852,
+        "away_prob": 0.101,
+        "home_odds": 1.015,
+        "away_odds": 9.9,
+        "home_move": -0.0425,
+        "away_move": 0.4798,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3421,7 +3474,7 @@
         "away_odds": 1.83,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3437,7 +3490,7 @@
         "away_odds": 2.062,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3453,7 +3506,7 @@
         "away_odds": 2.08,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3469,7 +3522,7 @@
         "away_odds": 2.079,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3485,7 +3538,7 @@
         "away_odds": 7.65,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3501,7 +3554,7 @@
         "away_odds": 1.7,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3517,7 +3570,7 @@
         "away_odds": 1.78,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3533,7 +3586,7 @@
         "away_odds": 1.85,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3549,7 +3602,7 @@
         "away_odds": 1.98,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3565,7 +3618,7 @@
         "away_odds": 2.08,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3581,7 +3634,7 @@
         "away_odds": 1.76,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3597,7 +3650,7 @@
         "away_odds": 7.65,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3613,7 +3666,7 @@
         "away_odds": 2.02,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3629,7 +3682,7 @@
         "away_odds": 2.08,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3645,7 +3698,7 @@
         "away_odds": 1.299,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3661,7 +3714,7 @@
         "away_odds": 1.7,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3677,7 +3730,7 @@
         "away_odds": 1.83,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3693,7 +3746,7 @@
         "away_odds": 1.96,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3709,7 +3762,20 @@
         "away_odds": 2.02,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "volleyball",
+        "league": "FIVB Nations League",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T18:00:00+00:00",
+        "home": "Serbia",
+        "away": "Ukraine",
+        "home_prob": 0.2976,
+        "away_prob": 0.7337,
+        "home_odds": 3.36,
+        "away_odds": 1.363
       },
       {
         "source": "xbet_linefeed",
@@ -3725,7 +3791,7 @@
         "away_odds": 1.7,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3741,7 +3807,7 @@
         "away_odds": 1.09,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3757,7 +3823,7 @@
         "away_odds": 1.73,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3773,7 +3839,7 @@
         "away_odds": 1.98,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3789,7 +3855,7 @@
         "away_odds": 1.83,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3805,7 +3871,7 @@
         "away_odds": 1.77,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -3821,7 +3887,7 @@
         "away_odds": 2.08,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -3837,7 +3903,20 @@
         "away_odds": 1.83,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
+      },
+      {
+        "source": "xbet_linefeed",
+        "sport": "volleyball",
+        "league": "FIVB Nations League",
+        "date": "2026-07-16",
+        "start_utc": "2026-07-16T21:00:00+00:00",
+        "home": "China",
+        "away": "France",
+        "home_prob": 0.1316,
+        "away_prob": 0.9001,
+        "home_odds": 7.6,
+        "away_odds": 1.111
       },
       {
         "source": "xbet_linefeed",
@@ -3853,7 +3932,7 @@
         "away_odds": 2.541,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3863,13 +3942,13 @@
         "start_utc": "2026-07-16T09:30:00+00:00",
         "home": "LG Twins",
         "away": "KT Wiz",
-        "home_prob": 0.5967,
-        "away_prob": 0.4292,
-        "home_odds": 1.676,
-        "away_odds": 2.33,
-        "home_move": -0.0065,
-        "away_move": 0.0091,
-        "odds_snaps": 3
+        "home_prob": 0.6042,
+        "away_prob": 0.4216,
+        "home_odds": 1.655,
+        "away_odds": 2.372,
+        "home_move": -0.019,
+        "away_move": 0.0273,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3885,7 +3964,7 @@
         "away_odds": 1.95,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3901,7 +3980,7 @@
         "away_odds": 2.152,
         "home_move": -0.0094,
         "away_move": 0.0118,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3917,7 +3996,7 @@
         "away_odds": 1.612,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3935,23 +4014,7 @@
         "draw_prob": 0.0769,
         "home_move": 0.0695,
         "away_move": -0.064,
-        "odds_snaps": 6
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "baseball",
-        "league": "Japan. NPB",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:00:00+00:00",
-        "home": "Hokkaido Nippon Ham Fighters",
-        "away": "Fukuoka SoftBank Hawks",
-        "home_prob": 0.6064,
-        "away_prob": 0.4297,
-        "home_odds": 1.649,
-        "away_odds": 2.327,
-        "home_move": 0.0129,
-        "away_move": -0.0177,
-        "odds_snaps": 3
+        "odds_snaps": 7
       },
       {
         "source": "xbet_linefeed",
@@ -3967,7 +4030,7 @@
         "away_odds": 1.855,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3983,7 +4046,7 @@
         "away_odds": 2.18,
         "home_move": -0.004,
         "away_move": 0.0046,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -3993,13 +4056,13 @@
         "start_utc": "2026-07-16T09:00:00+00:00",
         "home": "Tohoku Rakuten Golden Eagles",
         "away": "Orix Buffaloes",
-        "home_prob": 0.5949,
-        "away_prob": 0.4413,
-        "home_odds": 1.681,
-        "away_odds": 2.266,
-        "home_move": 0.0066,
-        "away_move": -0.0087,
-        "odds_snaps": 3
+        "home_prob": 0.5931,
+        "away_prob": 0.4433,
+        "home_odds": 1.686,
+        "away_odds": 2.256,
+        "home_move": 0.0096,
+        "away_move": -0.0131,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4015,41 +4078,7 @@
         "away_odds": 1.865,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "baseball",
-        "league": "Japan. NPB",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T04:00:00+00:00",
-        "home": "Home (Runs)",
-        "away": "Away (Runs)",
-        "home_prob": 0.5348,
-        "away_prob": 0.4926,
-        "home_odds": 1.87,
-        "away_odds": 2.03,
-        "draw_odds": 13.0,
-        "draw_prob": 0.0769,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 6
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "baseball",
-        "league": "Mexico. LMB",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T02:35:00+00:00",
-        "home": "Toros de Tijuana",
-        "away": "Tecolotes de los Dos Laredos",
-        "home_prob": 0.7194,
-        "away_prob": 0.3561,
-        "home_odds": 1.39,
-        "away_odds": 2.808,
-        "home_move": -0.0211,
-        "away_move": 0.0408,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4065,7 +4094,7 @@
         "away_odds": 1.59,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4081,7 +4110,7 @@
         "away_odds": 1.909,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4097,7 +4126,7 @@
         "away_odds": 1.53,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4113,7 +4142,7 @@
         "away_odds": 1.64,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4129,7 +4158,7 @@
         "away_odds": 2.782,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4145,7 +4174,7 @@
         "away_odds": 1.77,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4161,7 +4190,7 @@
         "away_odds": 1.62,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4171,13 +4200,13 @@
         "start_utc": "2026-07-16T10:35:00+00:00",
         "home": "Rakuten Monkeys",
         "away": "Uni-President 7-Eleven Lions",
-        "home_prob": 0.4808,
-        "away_prob": 0.5609,
-        "home_odds": 2.08,
-        "away_odds": 1.783,
-        "home_move": 0.0656,
-        "away_move": -0.0561,
-        "odds_snaps": 3
+        "home_prob": 0.4836,
+        "away_prob": 0.558,
+        "home_odds": 2.068,
+        "away_odds": 1.792,
+        "home_move": 0.0594,
+        "away_move": -0.0513,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4193,25 +4222,7 @@
         "away_odds": 2.145,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
-      },
-      {
-        "source": "xbet_linefeed",
-        "sport": "cricket",
-        "league": "India. Pulwama Premier League",
-        "date": "2026-07-16",
-        "start_utc": "2026-07-16T03:30:00+00:00",
-        "home": "RRCC Rahmoo",
-        "away": "JCC Malikpora",
-        "home_prob": 0.5872,
-        "away_prob": 0.499,
-        "home_odds": 1.703,
-        "away_odds": 2.004,
-        "draw_odds": 25.0,
-        "draw_prob": 0.04,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4229,7 +4240,7 @@
         "draw_prob": 0.04,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4247,7 +4258,7 @@
         "draw_prob": 0.04,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4265,7 +4276,7 @@
         "draw_prob": 0.04,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4283,7 +4294,7 @@
         "draw_prob": 0.04,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4301,7 +4312,7 @@
         "draw_prob": 0.02,
         "home_move": -0.0328,
         "away_move": 0.0665,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4319,7 +4330,7 @@
         "draw_prob": 0.02,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4337,7 +4348,7 @@
         "draw_prob": 0.02,
         "home_move": 0.0325,
         "away_move": -0.0312,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4355,7 +4366,7 @@
         "draw_prob": 0.02,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4373,7 +4384,7 @@
         "draw_prob": 0.02,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4391,7 +4402,7 @@
         "draw_prob": 0.02,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4409,7 +4420,7 @@
         "draw_prob": 0.04,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4419,15 +4430,15 @@
         "start_utc": "2026-07-16T12:00:00+00:00",
         "home": "England",
         "away": "India",
-        "home_prob": 0.5238,
-        "away_prob": 0.5211,
-        "home_odds": 1.909,
-        "away_odds": 1.919,
+        "home_prob": 0.5362,
+        "away_prob": 0.5089,
+        "home_odds": 1.865,
+        "away_odds": 1.965,
         "draw_odds": 50.0,
         "draw_prob": 0.02,
-        "home_move": 0.0,
-        "away_move": 0.0,
-        "odds_snaps": 3
+        "home_move": -0.023,
+        "away_move": 0.024,
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4445,7 +4456,7 @@
         "draw_prob": 0.04,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4463,7 +4474,7 @@
         "draw_prob": 0.04,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4481,7 +4492,7 @@
         "draw_prob": 0.04,
         "home_move": -0.0345,
         "away_move": 0.1299,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4499,7 +4510,7 @@
         "draw_prob": 0.04,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4517,7 +4528,7 @@
         "draw_prob": 0.04,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 2
+        "odds_snaps": 3
       },
       {
         "source": "xbet_linefeed",
@@ -4535,7 +4546,7 @@
         "draw_prob": 0.02,
         "home_move": 0.0416,
         "away_move": -0.0181,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4553,7 +4564,7 @@
         "draw_prob": 0.04,
         "home_move": -0.3359,
         "away_move": 0.1414,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4569,7 +4580,7 @@
         "away_odds": 5.2,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4585,7 +4596,7 @@
         "away_odds": 2.474,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4601,7 +4612,7 @@
         "away_odds": 1.51,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4617,7 +4628,7 @@
         "away_odds": 1.22,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4633,7 +4644,7 @@
         "away_odds": 1.51,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4649,7 +4660,7 @@
         "away_odds": 2.734,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4665,7 +4676,7 @@
         "away_odds": 1.41,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4681,7 +4692,7 @@
         "away_odds": 3.645,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4697,7 +4708,7 @@
         "away_odds": 2.525,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4713,7 +4724,7 @@
         "away_odds": 1.61,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4729,7 +4740,7 @@
         "away_odds": 3.345,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4745,7 +4756,7 @@
         "away_odds": 1.27,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4761,7 +4772,7 @@
         "away_odds": 2.079,
         "home_move": 0.0,
         "away_move": 0.0141,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4777,7 +4788,7 @@
         "away_odds": 2.06,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4793,7 +4804,7 @@
         "away_odds": 1.7,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4809,7 +4820,7 @@
         "away_odds": 2.02,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4825,7 +4836,7 @@
         "away_odds": 2.03,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4841,7 +4852,7 @@
         "away_odds": 2.01,
         "home_move": 0.0119,
         "away_move": -0.0243,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4857,7 +4868,7 @@
         "away_odds": 1.63,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4873,7 +4884,7 @@
         "away_odds": 2.234,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4889,7 +4900,7 @@
         "away_odds": 1.6,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4905,7 +4916,7 @@
         "away_odds": 1.68,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4921,7 +4932,7 @@
         "away_odds": 2.215,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4937,7 +4948,7 @@
         "away_odds": 2.474,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       },
       {
         "source": "xbet_linefeed",
@@ -4953,7 +4964,7 @@
         "away_odds": 2.06,
         "home_move": 0.0,
         "away_move": 0.0,
-        "odds_snaps": 3
+        "odds_snaps": 4
       }
     ],
     "betexplorer_multi": [
