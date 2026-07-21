@@ -1,152 +1,152 @@
 # 1xBet linefeed snapshot
 - Date: 2026-07-21
-- Rows: 183
+- Rows: 148
 
 ## Sports
-- tennis: 50
 - tabletennis: 50
-- football: 36
-- baseball: 26
-- volleyball: 10
-- darts: 4
-- snooker: 3
-- cricket: 2
+- tennis: 47
+- baseball: 24
+- football: 15
+- volleyball: 7
 - futsal: 2
+- cricket: 1
+- darts: 1
+- snooker: 1
 
 ## Fetch Notes
-- football: fetched=50 target_rows=36.
-- basketball: fetched=33 target_rows=0.
-- tennis: fetched=50 target_rows=50.
+- football: fetched=50 target_rows=15.
+- basketball: fetched=30 target_rows=0.
+- tennis: fetched=50 target_rows=47.
 - handball: fetched=4 target_rows=0.
 - hockey: fetched=50 target_rows=0.
 - tabletennis: fetched=50 target_rows=50.
-- volleyball: fetched=50 target_rows=10.
-- baseball: fetched=50 target_rows=26.
-- cricket: fetched=33 target_rows=2.
+- volleyball: fetched=50 target_rows=7.
+- baseball: fetched=50 target_rows=24.
+- cricket: fetched=37 target_rows=1.
 - americanfootball: fetched=50 target_rows=0.
 - futsal: fetched=12 target_rows=2.
-- darts: fetched=27 target_rows=4.
-- snooker: fetched=3 target_rows=3.
+- darts: fetched=24 target_rows=1.
+- snooker: fetched=1 target_rows=1.
 
 | Sport | League | Match | Start UTC | Home | Draw | Away | EventId |
 | --- | --- | --- | --- | ---: | ---: | ---: | --- |
-| football | Brazil. Campeonato Brasileiro. Serie A | Clube Atletico Mineiro vs Bahia | 2026-07-21T22:30:00+00:00 | 2.008 | 3.5 | 3.87 | 731231658 |
-| football | UEFA Champions League | Fenerbahce vs Gornik Zabrze | 2026-07-21T18:00:00+00:00 | 1.2 | 7.53 | 11.6 | 737093917 |
-| football | UEFA Champions League | Thun vs Dinamo Zagreb | 2026-07-21T18:00:00+00:00 | 4.08 | 3.57 | 1.896 | 737082833 |
-| football | UEFA Champions League | Sturm Graz vs Heart of Midlothian | 2026-07-21T18:30:00+00:00 | 1.924 | 3.91 | 3.91 | 737087512 |
-| football | UEFA Champions League | KI Klaksvik vs Zalgiris Kaunas | 2026-07-21T18:45:00+00:00 | 2.246 | 3.2 | 3.26 | 737131883 |
-| football | UEFA Champions League | Larne vs Crvena Zvezda | 2026-07-21T19:00:00+00:00 | 16.5 | 7.75 | 1.142 | 737131886 |
-| football | UEFA Champions League | Vikingur Reykjavik vs Hapoel Be'er Sheva | 2026-07-21T19:00:00+00:00 | 2.448 | 3.545 | 2.679 | 737081121 |
-| football | UEFA Champions League | Home (Special bets) vs Away (Special bets) | 2026-07-21T18:00:00+00:00 | 1.481 | 6.38 | 4.3 | 737335443 |
-| football | UEFA Conference League | Atert Bissen vs Gyori ETO | 2026-07-21T18:15:00+00:00 | 5.58 | 4.395 | 1.522 | 737599879 |
-| football | Copa Sudamericana | Club Nacional Montevideo vs Club Atletico Tigre | 2026-07-21T22:00:00+00:00 | 2.402 | 2.835 | 3.975 | 728082896 |
-| football | Copa Sudamericana | Home vs Away | 2026-07-21T22:00:00+00:00 | 2.673 | 4.48 | 2.033 | 728560355 |
-| football | Brazil. Campeonato Brasileiro. Serie B | Avai vs America Minas Gerais | 2026-07-21T22:30:00+00:00 | 2.18 | 3.05 | 3.48 | 737222324 |
+| football | Brazil. Campeonato Brasileiro. Serie A | Clube Atletico Mineiro vs Bahia | 2026-07-21T22:30:00+00:00 | 1.903 | 3.62 | 4.165 | 731231658 |
+| football | Copa Sudamericana | Club Nacional Montevideo vs Club Atletico Tigre | 2026-07-21T22:00:00+00:00 | 2.402 | 2.868 | 3.915 | 728082896 |
+| football | Copa Sudamericana | Home vs Away | 2026-07-21T22:00:00+00:00 | 2.656 | 4.455 | 2.047 | 728560355 |
+| football | Brazil. Campeonato Brasileiro. Serie B | Avai vs America Minas Gerais | 2026-07-21T22:30:00+00:00 | 2.17 | 3.06 | 3.495 | 737222324 |
 | football | Brazil. Campeonato Brasileiro. Serie B | Novorizontino vs Criciuma | 2026-07-21T22:30:00+00:00 | 2.14 | 3.0 | 3.66 | 737439793 |
-| football | Scotland. League Cup | Alloa Athletic vs Falkirk | 2026-07-21T18:45:00+00:00 | 12.2 | 5.9 | 1.18 | 737780888 |
-| football | Scotland. League Cup | Arbroath vs Montrose | 2026-07-21T18:45:00+00:00 | 1.53 | 4.25 | 4.75 | 737780894 |
-| football | Scotland. League Cup | Clyde vs Annan Athletic | 2026-07-21T18:45:00+00:00 | 1.459 | 4.305 | 5.5 | 737780885 |
-| football | Scotland. League Cup | Dundee United vs Spartans | 2026-07-21T18:45:00+00:00 | 1.041 | 9.9 | 20.0 | 737780891 |
-| football | Scotland. League Cup | Dunfermline Athletic vs Cove Rangers | 2026-07-21T18:45:00+00:00 | 1.184 | 5.7 | 12.5 | 737780903 |
-| football | Scotland. League Cup | East Fife vs Linlithgow Rose | 2026-07-21T18:45:00+00:00 | 1.58 | 4.2 | 4.385 | 737780897 |
-| football | Scotland. League Cup | Inverness vs St. Johnstone | 2026-07-21T18:45:00+00:00 | 3.815 | 3.62 | 1.78 | 737780900 |
-| football | Scotland. League Cup | Kelty Hearts vs Brora Rangers | 2026-07-21T18:45:00+00:00 | 1.53 | 4.1 | 4.955 | 737773180 |
-| football | Scotland. League Cup | Kilmarnock vs Hamilton Academical | 2026-07-21T18:45:00+00:00 | 1.22 | 5.6 | 9.85 | 737773177 |
-| football | Scotland. League Cup | Livingston vs Forfar Athletic | 2026-07-21T18:45:00+00:00 | 1.019 | 12.0 | 22.0 | 737773189 |
-| football | Scotland. League Cup | Partick Thistle vs Stenhousemuir | 2026-07-21T18:45:00+00:00 | 1.27 | 5.1 | 8.6 | 737773186 |
-| football | Scotland. League Cup | Raith Rovers vs Peterhead | 2026-07-21T18:45:00+00:00 | 1.22 | 5.35 | 10.7 | 737773183 |
-| football | Scotland. League Cup | Ross County vs Dundee | 2026-07-21T18:45:00+00:00 | 3.155 | 3.5 | 2.01 | 737773602 |
-| football | Scotland. League Cup | St. Mirren vs East Kilbride | 2026-07-21T18:45:00+00:00 | 1.129 | 6.75 | 13.0 | 737773599 |
-| football | Scotland. League Cup | Stranraer vs Edinburgh FC | 2026-07-21T18:45:00+00:00 | 1.56 | 3.82 | 5.11 | 737773596 |
-| football | Club Friendlies | Albacete Balompie vs Al Kholood | 2026-07-21T18:00:00+00:00 | 1.832 | 3.67 | 3.98 | 738066315 |
-| football | Club Friendlies | Gillingham vs Millwall | 2026-07-21T18:00:00+00:00 | 4.69 | 4.07 | 1.64 | 737820122 |
-| football | Club Friendlies | Oldham Athletic vs Bolton Wanderers | 2026-07-21T18:00:00+00:00 | 3.91 | 3.55 | 1.88 | 737829264 |
-| football | Club Friendlies | Ebbsfleet United vs West Ham United U21 | 2026-07-21T18:00:00+00:00 | 2.14 | 3.86 | 2.92 | 737829267 |
-| football | Club Friendlies | Forest Green Rovers vs Bristol Rovers | 2026-07-21T18:00:00+00:00 | 2.805 | 3.63 | 2.285 | 737815270 |
-| football | Club Friendlies | Hebburn Town vs Hartlepool United | 2026-07-21T18:00:00+00:00 | 4.03 | 3.82 | 1.784 | 737830044 |
-| football | Club Friendlies | South Shields vs Harrogate Town | 2026-07-21T18:30:00+00:00 | 2.25 | 3.52 | 2.6 | 737919533 |
-| football | Club Friendlies | Walsall vs Aston Villa | 2026-07-21T18:30:00+00:00 | 4.545 | 3.98 | 1.68 | 737829261 |
-| tennis | WTA. Palermo | Ilary Pistola vs Lucia Bronzetti | 2026-07-21T18:30:00+00:00 | 9.7 |  | 1.01 | 737813921 |
-| tennis | WTA. Palermo | Alice Rame vs Anastasia Tikhonova | 2026-07-21T18:35:00+00:00 | 1.55 |  | 2.302 | 737669006 |
-| tennis | WTA. Palermo | Tamara Zidansek vs Alevtina Ibragimova | 2026-07-21T18:35:00+00:00 | 1.5 |  | 2.415 | 737669013 |
-| tennis | WTA. Palermo | Anastasia Abbagnato vs Clara Burel | 2026-07-21T20:00:00+00:00 | 9.5 |  | 1.018 | 737669011 |
-| tennis | WTA. Palermo | Miriam Bianca Bulgaru vs Caijsa Wilda Hennemann | 2026-07-21T20:05:00+00:00 | 2.594 |  | 1.44 | 737677790 |
-| tennis | WTA. Hamburg | Tessa Johanna Brockmann vs Elsa Jacquemot | 2026-07-21T18:30:00+00:00 | 2.484 |  | 1.54 | 737647533 |
-| tennis | Challenger. Bloomfield Hills | Sebastian Gorzny vs Borna Gojo | 2026-07-21T18:00:00+00:00 | 2.973 |  | 1.343 | 737953777 |
-| tennis | Challenger. Bloomfield Hills | Spencer Johnson vs Chak Lam Coleman Wong | 2026-07-21T18:00:00+00:00 | 2.157 |  | 1.62 | 737706128 |
-| tennis | Challenger. Zug | Roberto Carballes Baena vs Marc-Andrea Huesler | 2026-07-21T18:00:00+00:00 | 1.75 |  | 1.94 | 737637107 |
-| tennis | World Tennis. Champaign | Ronit Karki vs Lev Seidman | 2026-07-21T18:00:00+00:00 | 1.22 |  | 3.84 | 737987228 |
-| tennis | World Tennis. Evansville. Women. Doubles | Kalieva/Stoiana vs Osuigwe/Osuigwe | 2026-07-21T18:00:00+00:00 | 1.454 |  | 2.627 | 738041003 |
-| tennis | World Tennis. Evansville. Women. Doubles | Naito/Sakatsume vs Jones/Pareja | 2026-07-21T18:00:00+00:00 | 2.092 |  | 1.687 | 738041005 |
-| tennis | World Tennis. Rognac. Doubles | Boutleux/Maric vs Alimli/Walch | 2026-07-21T18:00:00+00:00 | 2.754 |  | 1.41 | 737645774 |
-| tennis | World Tennis. Sao Paulo. Doubles | Bini/Scramin do Lago vs Dos Santos/C Pignaton | 2026-07-21T18:00:00+00:00 | 2.627 |  | 1.454 | 737955818 |
-| tennis | World Tennis. Sao Paulo. Doubles | Vergara Del Puerto/Escurra Isnardi vs Mifano Pinto/Ogando Monteiro Machado | 2026-07-21T18:00:00+00:00 | 1.01 |  | 15.0 | 737956454 |
-| tennis | World Tennis. São Paulo | Henrique Ortenblad Nogueira vs Jose Pereira | 2026-07-21T18:02:00+00:00 | 7.5 |  | 1.048 | 737985422 |
-| tennis | UTR Pro Tennis Series. Tallahassee | Carter Craig vs Zavier Augustin | 2026-07-21T18:05:00+00:00 | 1.437 |  | 2.519 | 738055966 |
-| tennis | UTR Pro Tennis Series. Waco | Elliot Wasserman vs Ritesh Patil | 2026-07-21T18:05:00+00:00 | 1.83 |  | 1.83 | 738023217 |
-| tennis | Challenger. Bloomfield Hills | Evan Zhu vs Thanasi Kokkinakis | 2026-07-21T18:10:00+00:00 | 6.15 |  | 1.082 | 737958418 |
-| tennis | World Tennis. Vacaria. Women. Doubles | Gomez Pezuela Cano/Reasco Gonzalez vs Bonardi/Urrutia | 2026-07-21T18:28:00+00:00 | 2.894 |  | 1.36 | 738099678 |
-| tennis | World Tennis. Huamantla. Women. Doubles | Gutierrez Perez/Kanumuri vs Sanchez Uribe/Hrda | 2026-07-21T18:30:00+00:00 | 6.65 |  | 1.067 | 738103362 |
-| tennis | World Tennis. Vacaria. Women. Doubles | Guerra/Eidelvein vs Moyano/Romero | 2026-07-21T18:35:00+00:00 | 10.5 |  | 1.008 | 738103877 |
-| tennis | World Tennis. Champaign | Oliver Bonding vs Evan Bynoe | 2026-07-21T18:37:00+00:00 | 1.28 |  | 3.345 | 737987232 |
-| tennis | World Tennis. Evansville. Women. Qualification | Hanna Chang vs Sofia Johnson | 2026-07-21T18:37:00+00:00 | 1.46 |  | 2.525 | 738009816 |
-| tennis | World Tennis. Saskatoon. Women | Kaya Moe vs Dasha Plekhanova | 2026-07-21T18:43:00+00:00 | 3.74 |  | 1.23 | 737991074 |
-| tennis | World Tennis. Saskatoon. Women | Ariana Arseneault vs Clemence Mercier | 2026-07-21T18:44:00+00:00 | 1.078 |  | 6.25 | 737991071 |
-| tennis | World Tennis. Vacaria. Women. Doubles | Ccuno/Herazo Gonzalez vs Barrera Aguirre/Bohrer Martins | 2026-07-21T18:45:00+00:00 | 1.84 |  | 1.84 | 738099679 |
-| tennis | World Tennis. Champaign | Tighe Brunetti vs Nikita Filin | 2026-07-21T18:47:00+00:00 | 6.75 |  | 1.064 | 737987230 |
-| tennis | World Tennis. Evansville. Women. Qualification | Mei Yamaguchi vs Reina Goto | 2026-07-21T18:47:00+00:00 | 1.32 |  | 3.09 | 738009818 |
-| tennis | World Tennis. Evansville. Women. Qualification | Sakura Hosogi vs Ena Koike | 2026-07-21T18:47:00+00:00 | 2.196 |  | 1.6 | 738009815 |
-| tennis | World Tennis. Sao Paulo. Doubles | Braga/Braga vs Del Pino/Zeitune | 2026-07-21T18:50:00+00:00 | 2.754 |  | 1.41 | 737955820 |
-| tennis | World Tennis. Huamantla | Emiliano Aguilera Guerrero vs Niels Peter Van Noord | 2026-07-21T18:52:00+00:00 | 2.474 |  | 1.48 | 737987222 |
-| tennis | World Tennis. Huamantla | Joaquin Guilleme vs Andres Urrea | 2026-07-21T18:52:00+00:00 | 1.032 |  | 8.4 | 737991069 |
-| tennis | World Tennis. Saskatoon. Women | Anna Frey vs Jia-Jing Lu | 2026-07-21T18:52:00+00:00 | 3.345 |  | 1.28 | 737991073 |
-| tennis | Challenger. Winnipeg | Fajing Sun vs Mees Rottgering | 2026-07-21T19:00:00+00:00 | 2.098 |  | 1.66 | 737719125 |
-| tennis | Challenger. Winnipeg | Mikael Arseneault vs Toby Samuel | 2026-07-21T19:00:00+00:00 | 8.0 |  | 1.039 | 737988013 |
-| tennis | Challenger. Winnipeg | Tyler Zink vs Zhizhen Zhang | 2026-07-21T19:00:00+00:00 | 2.853 |  | 1.37 | 738001291 |
-| tennis | UTR Pro Tennis Series. Tallahassee | Aryan Badlani vs Filip Apltauer | 2026-07-21T19:00:00+00:00 | 4.275 |  | 1.21 | 737368184 |
-| tennis | UTR Pro Tennis Series. Tallahassee | Graeme Angus vs Cody Benton | 2026-07-21T19:00:00+00:00 | 1.66 |  | 2.038 | 738032616 |
-| tennis | UTR Pro Tennis Series. Tallahassee. Women | Lexie Weir vs Amara Brahmbhatt | 2026-07-21T19:00:00+00:00 | 1.833 |  | 1.833 | 737378121 |
-| tennis | UTR Pro Tennis Series. Waco | August Brostroem Poulsen vs Junghee You | 2026-07-21T19:00:00+00:00 | 2.0 |  | 1.727 | 737368200 |
-| tennis | UTR Pro Tennis Series. Waco | Brendan Boland vs Lathan Skrobarcek | 2026-07-21T19:00:00+00:00 | 3.47 |  | 1.296 | 737368202 |
-| tennis | UTR Pro Tennis Series. Waco. Women | Ella Brownback vs Letizia Corsini | 2026-07-21T19:00:00+00:00 | 2.989 |  | 1.374 | 737368216 |
-| tennis | UTR Pro Tennis Series. Waco. Women | Gloriana Goreti Nahum vs Kenna Erickson | 2026-07-21T19:00:00+00:00 | 1.374 |  | 2.989 | 737368218 |
-| tennis | World Tennis. Huamantla. Women | Agustina Soto Neira vs Arantxa Sanchez Bahamon | 2026-07-21T19:03:00+00:00 | 1.02 |  | 9.3 | 738023380 |
-| tennis | UTR Pro Tennis Series. Tallahassee. Women | Natalie Oliver vs Isabella Camacho | 2026-07-21T19:10:00+00:00 | 1.41 |  | 2.668 | 738121653 |
-| tennis | Challenger. Bloomfield Hills | Mark Lajal vs Darwin Blanch | 2026-07-21T19:15:00+00:00 | 1.85 |  | 1.833 | 737706121 |
-| tennis | World Tennis. Santa Fe. USA. Women. Doubles | Reed/Schaefbauer vs Jauffret/Llewellyn | 2026-07-21T19:19:00+00:00 | 2.627 |  | 1.454 | 738065304 |
-| tennis | World Tennis. Evansville. Women. Doubles | Johnson/Carnicella vs Goto/Jeong | 2026-07-21T19:25:00+00:00 | 2.627 |  | 1.454 | 738041001 |
-| tennis | World Tennis. Evansville. Women. Doubles | Kulevich/Myers vs Kuwata/Raina | 2026-07-21T19:30:00+00:00 | 10.0 |  | 1.03 | 738042319 |
-| tabletennis | Setka Cup | Ivan Elfemov vs Victor Sharpay | 2026-07-21T18:05:00+00:00 | 3.14 |  | 1.32 | 737916307 |
-| tabletennis | TT-Cup. Czech Republic | Martin Chmelicek vs Jan Kabelka | 2026-07-21T18:05:00+00:00 | 1.83 |  | 1.87 | 738023897 |
-| tabletennis | TT-Cup. Czech Republic | David Sarganek vs Rostislav Niezgoda | 2026-07-21T18:10:00+00:00 | 1.87 |  | 1.83 | 738022607 |
-| tabletennis | Pro League | Mikhail Petrov vs Alexey Bogachev | 2026-07-21T18:15:00+00:00 | 1.93 |  | 1.78 | 737860962 |
-| tabletennis | Pro League | Oleg Kubar vs Artem Troshkin | 2026-07-21T18:15:00+00:00 | 2.35 |  | 1.498 | 737857614 |
-| tabletennis | Setka Cup. Czech Republic | Ales Svoboda vs Roman Durovic | 2026-07-21T18:15:00+00:00 | 1.515 |  | 2.309 | 738115001 |
-| tabletennis | TT-Cup. Czech Republic | Adam Kanak vs Daniel Branny | 2026-07-21T18:15:00+00:00 | 1.75 |  | 1.96 | 738023894 |
-| tabletennis | TT-Cup. Czech Republic | Martin Stusek vs Tomas Vorisek | 2026-07-21T18:20:00+00:00 | 1.95 |  | 1.76 | 738017933 |
-| tabletennis | Setka Cup | Kyrylo Tkachenko vs Valerii Hel | 2026-07-21T18:25:00+00:00 | 1.68 |  | 2.085 | 737905823 |
-| tabletennis | Setka Cup | Pavlo Ishchyk vs Oleksiy Shindel | 2026-07-21T18:25:00+00:00 | 3.34 |  | 1.29 | 737916755 |
-| tabletennis | Pro League | Igor Blinov vs Gennady Kondratyev | 2026-07-21T18:30:00+00:00 | 1.62 |  | 2.182 | 737809379 |
-| tabletennis | Pro League | Sergey Lopatin vs Vladimir Eremin | 2026-07-21T18:30:00+00:00 | 1.99 |  | 1.727 | 737866237 |
-| tabletennis | Pro League | Taras Kononenko vs Igor Meteleshko | 2026-07-21T18:30:00+00:00 | 1.45 |  | 2.589 | 738017318 |
-| tabletennis | Pro League. Czech Republic | Ales Bayer vs Martin Sobisek | 2026-07-21T18:30:00+00:00 | 2.06 |  | 1.68 | 737845268 |
-| tabletennis | Pro League. Czech Republic | Denis Hofman vs Karel Schopf | 2026-07-21T18:30:00+00:00 | 1.85 |  | 1.85 | 737843663 |
-| tabletennis | Pro League. Czech Republic | Josef Medek vs Jan Zajicek | 2026-07-21T18:30:00+00:00 | 1.727 |  | 1.99 | 737844247 |
-| tabletennis | Pro League. Czech Republic | Milan Jasek vs Roman Guliak | 2026-07-21T18:30:00+00:00 | 1.59 |  | 2.24 | 737844239 |
-| tabletennis | Pro League. Czech Republic | Dominik Oborny vs Tomas Milota | 2026-07-21T18:30:00+00:00 | 1.85 |  | 1.85 | 737843672 |
-| tabletennis | Pro League. Minsk | Vitaly Lyalkov vs Artem Bobekh | 2026-07-21T18:30:00+00:00 | 1.95 |  | 1.76 | 737795478 |
-| tabletennis | Setka Cup | Aleksandr Ivchuk vs Vitaly Maruschak S. | 2026-07-21T18:30:00+00:00 | 1.22 |  | 3.91 | 737916788 |
-| tabletennis | Setka Cup. Czech Republic | Ladislav Tuma vs Vojtech Toman | 2026-07-21T18:30:00+00:00 | 2.034 |  | 1.663 | 737916852 |
-| tabletennis | TT-Cup. Czech Republic | Milan Flesar vs Patrik Klusacek | 2026-07-21T18:35:00+00:00 | 1.727 |  | 1.99 | 738024917 |
-| tabletennis | TT-Cup. Czech Republic | Rene Kowal vs Rostislav Niezgoda | 2026-07-21T18:40:00+00:00 | 2.163 |  | 1.63 | 738007764 |
-| tabletennis | Pro League | Alexey Bogachev vs Pavel Pinkovsky | 2026-07-21T18:45:00+00:00 | 2.659 |  | 1.43 | 737860970 |
-| tabletennis | Pro League | Artem Troshkin vs Evgeniy Ilyukhin | 2026-07-21T18:45:00+00:00 | 2.279 |  | 1.529 | 737857620 |
-| tabletennis | Setka Cup. Czech Republic | Jan Krames Sr vs Stepan Rejent | 2026-07-21T18:45:00+00:00 | 1.612 |  | 2.116 | 737916866 |
-| tabletennis | TT-Cup. Czech Republic | Tomas Molin vs Daniel Branny | 2026-07-21T18:45:00+00:00 | 1.63 |  | 2.163 | 738022143 |
-| tabletennis | TT-Cup. Czech Republic | Petr Silhan vs David Jicha | 2026-07-21T18:50:00+00:00 | 1.727 |  | 1.99 | 738023377 |
-| tabletennis | Setka Cup | Orest Melnik vs Vsevolod Heresko | 2026-07-21T18:53:00+00:00 | 1.277 |  | 2.779 | 737920625 |
-| tabletennis | Setka Cup | Aleksandr Melashenko vs Konstantin Grinenko | 2026-07-21T18:55:00+00:00 | 1.85 |  | 1.85 | 737916806 |
-| tabletennis | TT-Cup. Czech Republic | Martin Zajicek vs Martin Boltik | 2026-07-21T18:55:00+00:00 | 1.9 |  | 1.8 | 738007753 |
-| tabletennis | Pro League | Gennady Kondratyev vs Alexander Kuzmin | 2026-07-21T19:00:00+00:00 | 1.26 |  | 3.545 | 737809375 |
-| tabletennis | Pro League | Igor Meteleshko vs Alexey Zubov | 2026-07-21T19:00:00+00:00 | 1.32 |  | 3.14 | 738017929 |
-| tabletennis | Pro League | Vladimir Safonov vs Vitaly Bazilevsky | 2026-07-21T19:00:00+00:00 | 2.579 |  | 1.454 | 737866241 |
+| football | Copa Colombia | Club Atletico Nacional SA vs Tigres Futbol Club | 2026-07-21T21:00:00+00:00 | 1.185 | 5.9 | 11.7 | 737924001 |
+| football | Copa Colombia | Internacional de Bogota vs Internacional Palmira | 2026-07-21T22:00:00+00:00 | 1.81 | 3.14 | 4.385 | 737923225 |
+| football | Copa Colombia | Deportes Tolima vs Deportes Quindío | 2026-07-21T23:00:00+00:00 | 1.42 | 3.94 | 7.08 | 737923570 |
+| football | International Tournament U20 | Levante UD U20 vs Morocco U20 | 2026-07-21T20:45:00+00:00 | 3.605 | 3.55 | 1.85 | 738124005 |
+| football | Ecuador. Serie A | Libertad Loja vs Delfin | 2026-07-21T21:30:00+00:00 | 2.264 | 2.929 | 3.49 | 737489042 |
+| football | Ecuador. Serie A | Home vs Away | 2026-07-21T21:30:00+00:00 | 1.749 | 4.895 | 3.3 | 737485731 |
+| football | Ecuador. Serie A. Statistics Round | Home vs Away | 2026-07-21T21:30:00+00:00 | 1.279 | 12.9 | 5.1 | 737725516 |
+| football | Copa Sudamericana. Statistics Round | Home vs Away | 2026-07-21T22:00:00+00:00 | 1.11 | 12.0 | 7.9 | 736614122 |
+| football | Bolivia. Primera Division | Independiente Petrolero vs Club Bamin Real Potosi | 2026-07-21T23:00:00+00:00 | 2.01 | 3.4 | 3.24 | 737876351 |
+| football | Brazilian Cup. Women | Itabirito (Women) vs Bahia (Women) | 2026-07-21T23:00:00+00:00 | 4.3 | 4.4 | 1.56 | 737757592 |
+| tennis | WTA. Palermo | Anastasia Abbagnato vs Clara Burel | 2026-07-21T20:30:00+00:00 | 9.1 |  | 1.023 | 737669011 |
+| tennis | Challenger. Bloomfield Hills | Mark Lajal vs Darwin Blanch | 2026-07-21T20:00:00+00:00 | 1.85 |  | 1.83 | 737706121 |
+| tennis | Challenger. Winnipeg | Hayato Matsuoka vs Daniel Milavsky | 2026-07-21T20:00:00+00:00 | 2.137 |  | 1.635 | 737991063 |
+| tennis | Challenger. Winnipeg | Justin Boulais vs Johannus Monday | 2026-07-21T20:00:00+00:00 | 2.137 |  | 1.635 | 737719132 |
+| tennis | Challenger. Winnipeg | Yuta Shimizu vs Liam Broady | 2026-07-21T20:00:00+00:00 | 2.993 |  | 1.34 | 737719135 |
+| tennis | WTA. Palermo. Doubles | Mcadoo/Nagy vs Kabbaj/Spiteri | 2026-07-21T20:00:00+00:00 | 1.4 |  | 2.734 | 738077805 |
+| tennis | World Tennis. Champaign. Doubles | Gamble/Wells vs Bennani/Honda | 2026-07-21T20:00:00+00:00 | 3.345 |  | 1.28 | 738125730 |
+| tennis | World Tennis. Champaign. Doubles | Okonkwo/Okonkwo vs Mcnally/Tettamble | 2026-07-21T20:00:00+00:00 | 1.42 |  | 2.655 | 738125729 |
+| tennis | World Tennis. Huamantla. Doubles | Gonzalez Fitzmaurice/Strode vs De Alba/Matta | 2026-07-21T20:00:00+00:00 | 2.01 |  | 1.7 | 738126753 |
+| tennis | World Tennis. Santa Fe. USA. Women. Doubles | Guzman/Rowinska vs Goetz/Gruber | 2026-07-21T20:00:00+00:00 | 1.26 |  | 3.485 | 738126755 |
+| tennis | World Tennis. Saskatoon. Women | Kayo Nishimura vs Isabella Marton | 2026-07-21T20:00:00+00:00 | 1.144 |  | 4.7 | 737991072 |
+| tennis | World Tennis. Saskatoon. Women. Doubles | Vagramov/Kupres vs Cabio/Taylor | 2026-07-21T20:00:00+00:00 | 1.069 |  | 6.55 | 738126758 |
+| tennis | World Tennis. Saskatoon. Women. Doubles | Xu/Xu vs Poling/Sohns | 2026-07-21T20:00:00+00:00 | 1.5 |  | 2.415 | 738126757 |
+| tennis | World Tennis. Vacaria. Women. Doubles | Konishi Camargo Silva/Pereira vs Leme Da Silva/Pigossi | 2026-07-21T20:00:00+00:00 | 4.7 |  | 1.144 | 738123076 |
+| tennis | World Tennis. Vacaria. Women. Doubles | Souza/Fullana vs Dourado/Kawano Cho | 2026-07-21T20:00:00+00:00 | 1.11 |  | 5.35 | 738123077 |
+| tennis | World Tennis. Santa Fe. USA. Women. Doubles | Gomez/Simunyu vs Grigoreva/Rose | 2026-07-21T20:05:00+00:00 | 1.121 |  | 5.15 | 738126756 |
+| tennis | UTR Pro Tennis Series. Waco. Women | Ella Brownback vs Letizia Corsini | 2026-07-21T20:10:00+00:00 | 2.519 |  | 1.437 | 737896723 |
+| tennis | World Tennis. Vacaria. Women. Doubles | Melleiro/Schincariol Delatorre Barbosa vs Ayala/Mattioli | 2026-07-21T20:15:00+00:00 | 4.325 |  | 1.178 | 738126313 |
+| tennis | World Tennis. Evansville. Women. Doubles | Kalieva/Stoiana vs Osuigwe/Osuigwe | 2026-07-21T20:17:00+00:00 | 1.47 |  | 2.504 | 738126746 |
+| tennis | World Tennis. Huamantla. Women. Doubles | Marron Baruqui/Foshee vs Vosloo/Harvey | 2026-07-21T20:22:00+00:00 | 2.445 |  | 1.49 | 738127494 |
+| tennis | UTR Pro Tennis Series. Waco | Brendan Boland vs Lathan Skrobarcek | 2026-07-21T20:25:00+00:00 | 3.235 |  | 1.276 | 737896722 |
+| tennis | UTR Pro Tennis Series. Tallahassee | Marshall Landry vs Kase Schinnerer | 2026-07-21T20:30:00+00:00 | 6.5 |  | 1.1 | 737368188 |
+| tennis | UTR Pro Tennis Series. Tallahassee | Nicholas Mangiapane vs Cooper Han | 2026-07-21T20:30:00+00:00 | 1.41 |  | 2.754 | 737368190 |
+| tennis | UTR Pro Tennis Series. Tallahassee. Women | Riley Crowder vs My-Anh Holmes | 2026-07-21T20:30:00+00:00 | 1.071 |  | 7.5 | 737378125 |
+| tennis | UTR Pro Tennis Series. Waco. Women | Kira Matushkina vs Alian Zack | 2026-07-21T20:30:00+00:00 | 1.296 |  | 3.47 | 737368220 |
+| tennis | UTR Pro Tennis Series. Waco. Women | Lani Brotman vs Zoie Epps | 2026-07-21T20:30:00+00:00 | 4.47 |  | 1.177 | 737368222 |
+| tennis | UTR Pro Tennis Series. Tallahassee. Women | Alana Boyce vs Gabriella Goyins | 2026-07-21T20:35:00+00:00 | 1.233 |  | 3.55 | 738018896 |
+| tennis | Challenger. Bloomfield Hills | Alex Michelsen vs Arthur Gea | 2026-07-21T21:00:00+00:00 | 1.32 |  | 3.09 | 737706124 |
+| tennis | Challenger. Bloomfield Hills | Bernard Tomic vs Tristan Boyer | 2026-07-21T21:00:00+00:00 | 2.594 |  | 1.44 | 737706135 |
+| tennis | Challenger. Bloomfield Hills | Dhakshineswar Suresh vs Billy Harris | 2026-07-21T21:00:00+00:00 | 2.108 |  | 1.65 | 737933976 |
+| tennis | UTR Pro Tennis Series. Waco | August Brostroem Poulsen vs Junghee You | 2026-07-21T21:05:00+00:00 | 2.152 |  | 1.591 | 737995968 |
+| tennis | Challenger. Winnipeg | August Holmgren vs Garrett Johns | 2026-07-21T21:10:00+00:00 | 1.26 |  | 3.485 | 737991062 |
+| tennis | World Tennis. Champaign. Doubles | Bowers/Filin vs Mercer/Stephenson | 2026-07-21T21:22:00+00:00 | 2.445 |  | 1.49 | 738139926 |
+| tennis | World Tennis. Huamantla. Doubles | Gurenko/Urrea vs Lieberman/Thomson | 2026-07-21T21:30:00+00:00 | 2.215 |  | 1.591 | 738136835 |
+| tennis | World Tennis. São Paulo | Francisco Fontes D'Amorim vs Carlos Maria Zarate | 2026-07-21T21:30:00+00:00 | 10.0 |  | 1.013 | 738022147 |
+| tennis | UTR Pro Tennis Series. Waco | James Quattro vs Drew Hedgecoe | 2026-07-21T21:35:00+00:00 | 1.343 |  | 3.225 | 737368204 |
+| tennis | World Tennis. Saskatoon. Women. Doubles | Alexander/Mercier vs Ahn/Moe | 2026-07-21T21:43:00+00:00 | 1.92 |  | 1.77 | 738137962 |
+| tennis | World Tennis. Evansville. Women. Doubles | Johnson/Carnicella vs Goto/Jeong | 2026-07-21T21:47:00+00:00 | 2.525 |  | 1.46 | 738143045 |
+| tennis | Challenger. Winnipeg | James McCabe vs Duncan Chan | 2026-07-21T22:00:00+00:00 | 1.49 |  | 2.445 | 737991061 |
+| tennis | Challenger. Winnipeg | Millen Hurrion vs Liam Draxl | 2026-07-21T22:00:00+00:00 | 3.96 |  | 1.207 | 737991064 |
+| tennis | UTR Pro Tennis Series. Waco | Noey Do vs Radek Chodora | 2026-07-21T22:15:00+00:00 | 1.83 |  | 1.83 | 738035052 |
+| tennis | World Tennis. Evansville. Women | Taylah Preston vs Savannah Broadus | 2026-07-21T22:30:00+00:00 | 1.553 |  | 2.292 | 737985412 |
+| tennis | World Tennis. Santa Fe. USA. Women. Doubles | Crossley/Fakih vs Voloshchuk/Kulikova | 2026-07-21T22:35:00+00:00 | 3.09 |  | 1.32 | 738136836 |
+| tennis | World Tennis. Santa Fe. USA. Women | Ekaterina Khairutdinova vs Brandelyn Fulgenzi | 2026-07-21T23:00:00+00:00 | 1.22 |  | 3.84 | 738039162 |
+| tennis | World Tennis. Santa Fe. USA. Women. Doubles | Lutkemeyer Obregon/Rapolu vs Penickova/Penickova | 2026-07-21T23:00:00+00:00 | 2.624 |  | 1.43 | 738143074 |
+| tennis | Challenger. Winnipeg | Shintaro Mochizuki vs Philip Sekulic | 2026-07-21T23:30:00+00:00 | 1.3 |  | 3.21 | 737719139 |
+| tennis | World Tennis. Saskatoon. Women. Doubles | Dong/Lagaev vs Nicholson/Chavez | 2026-07-21T23:35:00+00:00 | 1.68 |  | 2.06 | 738137961 |
+| tabletennis | TT-Cup. Czech Republic | Martin Chmelicek vs Milan Flesar | 2026-07-21T20:05:00+00:00 | 2.26 |  | 1.58 | 738024918 |
+| tabletennis | TT-Cup. Czech Republic | Rostislav Niezgoda vs Antonin Baros | 2026-07-21T20:10:00+00:00 | 1.41 |  | 2.728 | 738007770 |
+| tabletennis | Setka Cup | Oleh Napirko vs Oleksii Mitla | 2026-07-21T20:15:00+00:00 | 1.49 |  | 2.47 | 737916785 |
+| tabletennis | Setka Cup. Moldova | Dumitru Butnaru vs David Mocan | 2026-07-21T20:15:00+00:00 | 1.71 |  | 2.02 | 738028492 |
+| tabletennis | TT-Cup. Czech Republic | Daniel Branny vs Peter Chvojka | 2026-07-21T20:15:00+00:00 | 1.81 |  | 1.89 | 738022134 |
+| tabletennis | TT-Cup. Czech Republic | Martin Stusek vs Petr Silhan | 2026-07-21T20:20:00+00:00 | 1.55 |  | 2.327 | 738022613 |
+| tabletennis | Setka Cup | Oleksiy Shindel vs Aleksandr Melashenko | 2026-07-21T20:25:00+00:00 | 1.95 |  | 1.76 | 737916779 |
+| tabletennis | TT-Cup. Czech Republic | Martin Boltik vs Zdenek Dusek | 2026-07-21T20:25:00+00:00 | 1.45 |  | 2.589 | 738023374 |
+| tabletennis | Pro League | Denis Lebedev vs Mikhail Reznikov | 2026-07-21T20:30:00+00:00 | 1.32 |  | 3.14 | 737885434 |
+| tabletennis | Pro League. Czech Republic | Karel Kapras vs Karel Schopf | 2026-07-21T20:30:00+00:00 | 2.104 |  | 1.67 | 737844256 |
+| tabletennis | Pro League. Czech Republic | Marcel Heczko vs Tomas Milota | 2026-07-21T20:30:00+00:00 | 1.68 |  | 2.085 | 737845262 |
+| tabletennis | Pro League. Czech Republic | Martin Parizek vs Jan Zajicek | 2026-07-21T20:30:00+00:00 | 1.73 |  | 1.99 | 737844733 |
+| tabletennis | Pro League. Czech Republic | Matej Volf vs Martin Sobisek | 2026-07-21T20:30:00+00:00 | 2.808 |  | 1.39 | 737845265 |
+| tabletennis | Pro League. Czech Republic | Pavel Varecha vs Roman Guliak | 2026-07-21T20:30:00+00:00 | 2.085 |  | 1.68 | 737847671 |
+| tabletennis | Setka Cup | Roman Konkulovskyi vs Alexander Pogonov | 2026-07-21T20:30:00+00:00 | 2.449 |  | 1.5 | 737916797 |
+| tabletennis | Setka Cup. Moldova | Aleksandr Yavorskiy vs Andrei Otgon | 2026-07-21T20:30:00+00:00 | 1.59 |  | 2.24 | 738081621 |
+| tabletennis | TT-Cup. Czech Republic | Patrik Klusacek vs Jan Kabelka | 2026-07-21T20:35:00+00:00 | 1.727 |  | 1.99 | 738024376 |
+| tabletennis | Pro League | Nikita Mareev vs Alexander Ivanov | 2026-07-21T20:45:00+00:00 | 2.42 |  | 1.51 | 737889577 |
+| tabletennis | Pro League | Victor Kalachev vs Pavel Egorov | 2026-07-21T20:45:00+00:00 | 1.83 |  | 1.83 | 737869307 |
+| tabletennis | Setka Cup | Andrey Kotik vs Sergey Kalenik | 2026-07-21T20:45:00+00:00 | 1.8 |  | 1.9 | 737916836 |
+| tabletennis | Setka Cup. Moldova | Maksim Turcanu vs Veaceslav Sirbu | 2026-07-21T20:45:00+00:00 | 2.163 |  | 1.63 | 738028480 |
+| tabletennis | TT-Cup. Czech Republic | David Jicha vs Tomas Vorisek | 2026-07-21T20:50:00+00:00 | 1.727 |  | 1.99 | 738016117 |
+| tabletennis | TT-Cup. Czech Republic | Martin Zajicek vs Zdenek Dusek | 2026-07-21T20:55:00+00:00 | 1.62 |  | 2.182 | 738007767 |
+| tabletennis | Pro League | Anton Vashkov vs Ivan Soldatov | 2026-07-21T21:00:00+00:00 | 1.85 |  | 1.85 | 737885438 |
+| tabletennis | Setka Cup | Bogdan Chaikovskyi vs Andrey Romanenko | 2026-07-21T21:00:00+00:00 | 1.69 |  | 2.04 | 737916821 |
+| tabletennis | Setka Cup. Moldova | Paniivan Hennadii vs Andrei Otgon | 2026-07-21T21:00:00+00:00 | 1.45 |  | 2.589 | 738081631 |
+| tabletennis | Setka Cup | Sergiy Skachenko vs Valentin Lobas | 2026-07-21T21:05:00+00:00 | 2.03 |  | 1.7 | 738012852 |
+| tabletennis | Pro League | Ivan Kuznetsov vs Vladimir Slesarev | 2026-07-21T21:15:00+00:00 | 1.85 |  | 1.81 | 737869309 |
+| tabletennis | Pro League | Oleg Kutuzov vs Vladimir Gulnitsky | 2026-07-21T21:15:00+00:00 | 1.85 |  | 1.85 | 737890036 |
+| tabletennis | Setka Cup | Mykyta Smyrnov vs Oleksii Mitla | 2026-07-21T21:15:00+00:00 | 1.78 |  | 1.93 | 737916827 |
+| tabletennis | Setka Cup | Eduard Rubtcov vs Serhii Chelpanov | 2026-07-21T21:25:00+00:00 | 3.2 |  | 1.31 | 737916767 |
+| tabletennis | TT-Cup. Czech Republic | Ales Brandtl Jr. vs Martin Boltik | 2026-07-21T21:25:00+00:00 | 2.24 |  | 1.59 | 738007776 |
+| tabletennis | Pro League | Mikhail Reznikov vs Nikita Lyfenko | 2026-07-21T21:30:00+00:00 | 2.24 |  | 1.59 | 737885450 |
+| tabletennis | Setka Cup | Sergey Maximiv vs Alexander Pogonov | 2026-07-21T21:30:00+00:00 | 1.49 |  | 2.47 | 737916809 |
+| tabletennis | Setka Cup. Moldova | Aleksandr Yavorskiy vs Stefan Petrea | 2026-07-21T21:30:00+00:00 | 1.37 |  | 2.896 | 738081618 |
+| tabletennis | Setka Cup | Vladimir Panasenko vs Roman Gnoyevoy | 2026-07-21T21:33:00+00:00 | 1.277 |  | 2.779 | 737928202 |
+| tabletennis | Pro League | Alexander Ivanov vs Anatoly Ilin | 2026-07-21T21:45:00+00:00 | 2.986 |  | 1.35 | 737890040 |
+| tabletennis | Pro League | Pavel Egorov vs Oleg Popov | 2026-07-21T21:45:00+00:00 | 2.214 |  | 1.559 | 737869311 |
+| tabletennis | Setka Cup | Oleh Napirko vs Andrey Kotik | 2026-07-21T21:45:00+00:00 | 2.47 |  | 1.49 | 737916773 |
+| tabletennis | Setka Cup. Moldova | David Mocan vs Veaceslav Sirbu | 2026-07-21T21:45:00+00:00 | 1.76 |  | 1.95 | 738028487 |
+| tabletennis | Masters. Russia | Salavat Abulaev vs Evgeny Toropov | 2026-07-21T21:50:00+00:00 | 2.507 |  | 1.51 | 738018329 |
+| tabletennis | Pro League | Denis Lebedev vs Anton Vashkov | 2026-07-21T22:00:00+00:00 | 1.96 |  | 1.75 | 737885442 |
+| tabletennis | Pro League. Czech Republic | Jakub Hradecky vs Daniel Tuma | 2026-07-21T22:00:00+00:00 | 1.68 |  | 2.06 | 738026155 |
+| tabletennis | Pro League. Czech Republic | Ladislav Havel 1956 vs Jan Potensky | 2026-07-21T22:00:00+00:00 | 1.57 |  | 2.279 | 737844724 |
+| tabletennis | Pro League. Czech Republic | Michal Regner vs Jiri Louda | 2026-07-21T22:00:00+00:00 | 1.85 |  | 1.85 | 737847011 |
+| tabletennis | Setka Cup | Andrey Romanenko vs Igor Sukovaty | 2026-07-21T22:00:00+00:00 | 1.85 |  | 1.85 | 738080499 |
+| tabletennis | Setka Cup. Moldova | Paniivan Hennadii vs Aleksandr Yavorskiy | 2026-07-21T22:00:00+00:00 | 1.85 |  | 1.85 | 738081624 |
+| tabletennis | Setka Cup | Alexander Naida vs Spartak Abalmaz | 2026-07-21T22:05:00+00:00 | 2.221 |  | 1.6 | 737917176 |
+| tabletennis | Pro League | Nikita Mareev vs Oleg Kutuzov | 2026-07-21T22:15:00+00:00 | 2.134 |  | 1.65 | 737890016 |
+| tabletennis | Pro League | Victor Kalachev vs Ivan Kuznetsov | 2026-07-21T22:15:00+00:00 | 1.411 |  | 2.604 | 737869313 |
+| volleyball | Orange Cup | Travers (4x4) vs Vostok (4x4) | 2026-07-21T20:00:00+00:00 | 1.7 |  | 2.08 | 737802212 |
+| volleyball | Brazil. Championship Carioca. U19. Women | Fluminense U19 (Women) vs Flamengo U19 (Women) | 2026-07-21T20:30:00+00:00 | 1.649 |  | 2.056 | 738128851 |
+| volleyball | Brazil. Championship Carioca. U19. Women | Marica Cidade Olimpica U19 (Women) vs Vasco da Gama U19 (Women) | 2026-07-21T20:30:00+00:00 | 4.19 |  | 1.17 | 738128850 |
+| volleyball | Brazil. Championship Carioca. U19 | Fluminense U19 vs Grajau U19 | 2026-07-21T21:30:00+00:00 | 1.69 |  | 1.96 | 738141026 |
+| volleyball | Brazil. Championship Carioca. U19. Women | Tijuca U19 (Women) vs Carioca Tigers U19 (Women) | 2026-07-21T22:00:00+00:00 | 1.01 |  | 9.7 | 737787565 |
+| volleyball | Argentina Championship U21 | Ciudad de Buenos Aires U21 vs Lomas de Zamora U21 | 2026-07-21T23:00:00+00:00 | 1.086 |  | 5.5 | 738143075 |
+| volleyball | Argentina. Alcidez Marquez Cup. Women | Velez Sarsfield (Women) vs Boca Juniors (Women) | 2026-07-21T23:55:00+00:00 | 4.8 |  | 1.13 | 738025422 |
+| baseball | USA. MLB | Cleveland Guardians vs Minnesota Twins | 2026-07-21T22:40:00+00:00 | 1.713 |  | 2.291 | 737931363 |
