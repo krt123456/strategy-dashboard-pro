@@ -1,92 +1,92 @@
 # Strategy Evolution Report — 2026-07-28
-_Generated 2026-07-28T02:09:26 | live window: last 30 days | backtest: 12,942 matches_
+_Generated 2026-07-28T04:09:56 | live window: last 30 days | backtest: 12,942 matches_
 
 | Strategy | Backtest ROI | Live bets | Live acc | Live ROI | Live profit | Verdict |
 |----------|-------------:|----------:|---------:|---------:|------------:|---------|
 | foot_fade_fav__xbet_linefeed | — | 916 | 15.2% | +64.4% | +590.07 | KEEP ★ |
-| pro_sport_router__xbet_linefeed | — | 828 | 24.9% | +57.2% | +474.03 | KEEP ★ |
+| pro_sport_router__xbet_linefeed | — | 830 | 24.8% | +56.9% | +472.03 | KEEP ★ |
 | hand_underdog__xbet_linefeed | — | 93 | 43.0% | +50.6% | +47.08 | KEEP ★ |
 | hand_away_dog__xbet_linefeed | — | 61 | 45.9% | +43.6% | +26.62 | KEEP ★ |
 | apex_tt_night_cz__xbet_linefeed | — | 28 | 53.6% | +37.5% | +10.50 | KEEP ★ |
-| foot_big_dog__xbet_linefeed | — | 1607 | 24.6% | +31.8% | +510.60 | KEEP ★ |
-| pro_multi_signal__xbet_linefeed | — | 3607 | 29.2% | +28.3% | +1019.70 | KEEP ★ |
-| tennis_extreme_fav_fade__xbet_linefeed | — | 1281 | 25.9% | +28.2% | +360.61 | KEEP ★ |
-| tennis_big_dog__xbet_linefeed | — | 927 | 24.1% | +22.5% | +208.69 | KEEP ★ |
+| foot_big_dog__xbet_linefeed | — | 1608 | 24.6% | +31.7% | +509.37 | KEEP ★ |
+| tennis_extreme_fav_fade__xbet_linefeed | — | 1282 | 26.0% | +28.4% | +363.45 | KEEP ★ |
+| pro_multi_signal__xbet_linefeed | — | 3614 | 29.2% | +28.1% | +1017.15 | KEEP ★ |
+| tennis_big_dog__xbet_linefeed | — | 928 | 24.0% | +22.4% | +207.69 | KEEP ★ |
 | apex_tt_czech_home__xbet_linefeed | — | 40 | 47.5% | +21.4% | +8.55 | KEEP ★ |
-| tennis_itf_dog__xbet_linefeed | — | 732 | 33.2% | +20.9% | +152.80 | KEEP ★ |
-| nova_fade_favorite__xbet_linefeed | — | 3731 | 35.9% | +20.6% | +767.61 | KEEP ★ |
-| nova_fade_favorite_v1__xbet_linefeed | — | 3257 | 36.7% | +18.9% | +615.59 | KEEP ★ |
-| pro_calibrated__xbet_linefeed | — | 7336 | 35.0% | +17.8% | +1302.42 | KEEP ★ |
-| tennis_fade_fav_stable__xbet_linefeed | — | 1776 | 28.4% | +17.6% | +312.14 | KEEP ★ |
-| nova_fade_fav_v2__xbet_linefeed | — | 3329 | 37.7% | +16.6% | +551.51 | KEEP ★ |
-| nova_underdog_v1__xbet_linefeed | — | 1334 | 41.2% | +16.6% | +220.88 | KEEP ★ |
-| nova_fade_fav_v2_v1__xbet_linefeed | — | 2621 | 39.9% | +16.0% | +419.69 | KEEP ★ |
-| tennis_fade_fav__xbet_linefeed | — | 1976 | 30.8% | +13.4% | +264.63 | KEEP ★ |
-| nova_underdog__xbet_linefeed | — | 2583 | 39.8% | +12.5% | +322.90 | KEEP ★ |
-| apex_steam_dog__xbet_linefeed | — | 199 | 28.6% | +11.8% | +23.53 | KEEP ★ |
-| apex_drift_fade_foot__xbet_linefeed | — | 293 | 30.0% | +11.7% | +34.15 | KEEP ★ |
-| apex_cricket_away__xbet_linefeed | — | 42 | 54.8% | +10.7% | +4.49 | KEEP ★ |
-| tennis_mid_dog__xbet_linefeed | — | 1406 | 34.3% | +10.1% | +141.45 | KEEP ★ |
+| nova_fade_favorite__xbet_linefeed | — | 3725 | 35.9% | +20.7% | +772.30 | KEEP ★ |
+| tennis_itf_dog__xbet_linefeed | — | 732 | 33.1% | +20.5% | +150.21 | KEEP ★ |
+| nova_fade_favorite_v1__xbet_linefeed | — | 3253 | 36.7% | +19.0% | +618.28 | KEEP ★ |
+| tennis_fade_fav_stable__xbet_linefeed | — | 1778 | 28.5% | +17.7% | +313.98 | KEEP ★ |
+| pro_calibrated__xbet_linefeed | — | 7352 | 35.0% | +17.6% | +1296.95 | KEEP ★ |
+| nova_underdog_v1__xbet_linefeed | — | 1329 | 41.2% | +16.8% | +223.32 | KEEP ★ |
+| nova_fade_fav_v2__xbet_linefeed | — | 3324 | 37.7% | +16.7% | +555.20 | KEEP ★ |
+| nova_fade_fav_v2_v1__xbet_linefeed | — | 2616 | 39.9% | +16.0% | +419.54 | KEEP ★ |
+| tennis_fade_fav__xbet_linefeed | — | 1978 | 30.8% | +13.5% | +266.47 | KEEP ★ |
+| nova_underdog__xbet_linefeed | — | 2577 | 39.8% | +12.6% | +323.75 | KEEP ★ |
+| apex_steam_dog__xbet_linefeed | — | 200 | 28.5% | +11.3% | +22.53 | KEEP ★ |
+| apex_drift_fade_foot__xbet_linefeed | — | 295 | 29.8% | +10.9% | +32.15 | KEEP ★ |
+| tennis_mid_dog__xbet_linefeed | — | 1407 | 34.3% | +10.3% | +144.29 | KEEP ★ |
+| tennis_home_dog__xbet_linefeed | — | 1079 | 31.4% | +10.1% | +108.54 | KEEP ★ |
 | apex_tennis_calm_dog__xbet_linefeed | — | 163 | 37.4% | +9.9% | +16.14 | KEEP ★ |
-| tennis_home_dog__xbet_linefeed | — | 1078 | 31.4% | +9.8% | +105.70 | KEEP ★ |
-| foot_home__xbet_linefeed | — | 3776 | 43.9% | +9.7% | +365.37 | KEEP ★ |
+| foot_home__xbet_linefeed | — | 3780 | 43.9% | +9.7% | +367.60 | KEEP ★ |
+| apex_cricket_away__xbet_linefeed | — | 43 | 53.5% | +8.1% | +3.49 | KEEP ★ |
 | apex_tennis_dog_away__xbet_linefeed | — | 187 | 36.9% | +8.0% | +14.96 | KEEP ★ |
-| nova_steam_away__xbet_linefeed | — | 1380 | 40.0% | +5.5% | +76.22 | KEEP ★ |
-| apex_alpha_basket__xbet_linefeed | — | 669 | 46.9% | +2.7% | +17.94 | KEEP ★ |
-| apex_multi_conviction__xbet_linefeed | — | 350 | 33.4% | +2.6% | +9.16 | KEEP ★ |
-| omega_tt_dog_late__xbet_linefeed | — | 188 | 45.2% | +1.0% | +1.84 | WATCH |
-| apex_steam_foot__xbet_linefeed | — | 310 | 31.6% | +0.2% | +0.61 | WATCH |
-| nova_volley_home__xbet_linefeed | — | 75 | 61.3% | -0.2% | -0.13 | WATCH |
-| apex_bsb_road_pro__xbet_linefeed | — | 386 | 50.3% | -1.2% | -4.64 | WATCH |
-| nova_steam_home__xbet_linefeed | — | 1402 | 45.3% | -1.8% | -25.57 | WATCH |
-| nova_sweet_spot__xbet_linefeed | — | 6166 | 44.5% | -2.0% | -124.93 | WATCH |
-| nova_sweet_spot_v1__xbet_linefeed | — | 5389 | 44.6% | -3.3% | -177.99 | WATCH |
+| nova_steam_away__xbet_linefeed | — | 1375 | 40.1% | +5.8% | +79.26 | KEEP ★ |
+| apex_multi_conviction__xbet_linefeed | — | 351 | 33.3% | +2.3% | +8.16 | KEEP ★ |
+| apex_alpha_basket__xbet_linefeed | — | 676 | 46.7% | +2.3% | +15.46 | KEEP ★ |
+| omega_tt_dog_late__xbet_linefeed | — | 189 | 45.5% | +1.6% | +3.02 | WATCH |
+| nova_volley_home__xbet_linefeed | — | 76 | 61.8% | +0.6% | +0.48 | WATCH |
+| apex_steam_foot__xbet_linefeed | — | 311 | 31.5% | -0.1% | -0.39 | WATCH |
+| apex_bsb_road_pro__xbet_linefeed | — | 392 | 50.0% | -1.6% | -6.12 | WATCH |
+| nova_steam_home__xbet_linefeed | — | 1395 | 45.2% | -1.9% | -26.45 | WATCH |
+| nova_sweet_spot__xbet_linefeed | — | 6173 | 44.5% | -2.1% | -127.38 | WATCH |
+| nova_sweet_spot_v1__xbet_linefeed | — | 5395 | 44.6% | -3.3% | -179.32 | WATCH |
 | apex_volley_home_dog__xbet_linefeed | — | 25 | 40.0% | -3.8% | -0.95 | WATCH |
-| foot_home_dog__xbet_linefeed | — | 967 | 28.5% | -4.0% | -38.80 | WATCH |
-| nova_baseball_away__xbet_linefeed | — | 1002 | 49.4% | -4.1% | -41.01 | WATCH |
-| deep_seek_7__xbet_linefeed | — | 993 | 53.4% | -4.3% | -42.27 | WATCH |
-| bsb_away__xbet_linefeed | — | 1093 | 48.0% | -4.7% | -51.54 | WATCH |
-| nova_baseball_away_v2__xbet_linefeed | — | 1017 | 48.8% | -5.0% | -51.20 | CUT |
-| contrarian_home_coinflip_v4__xbet_linefeed | — | 4139 | 48.6% | -5.5% | -228.92 | CUT |
-| coinflip_home_v2_20260620__xbet_linefeed | — | 4139 | 48.6% | -5.5% | -229.24 | CUT |
-| deep_seek_5_v1__xbet_linefeed | — | 1683 | 45.4% | -5.6% | -93.41 | CUT |
-| nova_baseball_away_v1__xbet_linefeed | — | 930 | 47.4% | -5.7% | -52.56 | CUT |
-| bsb_away_mid__xbet_linefeed | — | 950 | 47.1% | -6.0% | -57.12 | CUT |
-| nova_pickem__xbet_linefeed | — | 4456 | 46.5% | -6.1% | -272.36 | CUT |
-| deep_seek_2__xbet_linefeed | — | 1615 | 44.5% | -6.2% | -100.86 | CUT |
-| bsb_away_dog__xbet_linefeed | — | 702 | 43.9% | -6.4% | -44.86 | CUT |
-| contrarian_home_coinflip_v5__xbet_linefeed | — | 4243 | 49.6% | -6.8% | -286.62 | CUT |
-| deep_seek_3_v1__xbet_linefeed | — | 2342 | 46.5% | -6.8% | -158.72 | CUT |
-| bsb_underdog__xbet_linefeed | — | 811 | 42.3% | -7.0% | -56.94 | CUT |
-| coinflip_home_v1_20260620__xbet_linefeed | — | 4450 | 50.7% | -7.6% | -338.94 | CUT |
-| foot_home_fav__xbet_linefeed | — | 1331 | 50.6% | -8.1% | -108.07 | CUT |
-| deep_seek_6_inverse_v1__xbet_linefeed | — | 4378 | 51.8% | -8.3% | -365.49 | CUT |
-| apex_away_convergence__xbet_linefeed | — | 657 | 44.7% | -8.4% | -54.94 | CUT |
-| coinflip_home_premium__xbet_linefeed | — | 5039 | 49.2% | -8.4% | -422.58 | CUT |
-| deep_seek_1__xbet_linefeed | — | 1042 | 45.7% | -8.5% | -88.62 | CUT |
-| deep_seek_9__xbet_linefeed | — | 1277 | 48.8% | -9.1% | -116.83 | CUT |
-| vol_home__xbet_linefeed | — | 99 | 55.6% | -9.2% | -9.07 | CUT |
-| omega_clean_basket__xbet_linefeed | — | 276 | 42.0% | -9.6% | -26.52 | CUT |
-| deep_seek_8__xbet_linefeed | — | 3091 | 58.5% | -10.0% | -309.64 | CUT |
-| moderate_home_favorite_v1__xbet_linefeed | — | 3757 | 54.7% | -10.4% | -389.31 | CUT |
-| deep_seek_9_v1__xbet_linefeed | — | 834 | 45.9% | -10.4% | -86.88 | CUT |
-| deep_seek_10__xbet_linefeed | — | 12037 | 51.9% | -10.5% | -1266.60 | CUT |
+| foot_home_dog__xbet_linefeed | — | 966 | 28.6% | -3.9% | -37.80 | WATCH |
+| deep_seek_7__xbet_linefeed | — | 995 | 53.4% | -4.3% | -42.61 | WATCH |
+| nova_baseball_away__xbet_linefeed | — | 1005 | 49.3% | -4.3% | -43.28 | WATCH |
+| bsb_away__xbet_linefeed | — | 1096 | 47.9% | -4.9% | -53.81 | WATCH |
+| deep_seek_5_v1__xbet_linefeed | — | 1688 | 45.6% | -5.2% | -87.98 | CUT |
+| nova_baseball_away_v2__xbet_linefeed | — | 1020 | 48.6% | -5.2% | -53.47 | CUT |
+| contrarian_home_coinflip_v4__xbet_linefeed | — | 4136 | 48.7% | -5.4% | -222.22 | CUT |
+| coinflip_home_v2_20260620__xbet_linefeed | — | 4136 | 48.7% | -5.4% | -222.53 | CUT |
+| nova_baseball_away_v1__xbet_linefeed | — | 932 | 47.3% | -5.8% | -53.83 | CUT |
+| nova_pickem__xbet_linefeed | — | 4457 | 46.5% | -6.1% | -271.80 | CUT |
+| bsb_away_mid__xbet_linefeed | — | 952 | 47.0% | -6.1% | -58.39 | CUT |
+| deep_seek_2__xbet_linefeed | — | 1622 | 44.5% | -6.1% | -99.58 | CUT |
+| bsb_away_dog__xbet_linefeed | — | 705 | 43.8% | -6.4% | -45.40 | CUT |
+| contrarian_home_coinflip_v5__xbet_linefeed | — | 4247 | 49.7% | -6.6% | -279.48 | CUT |
+| deep_seek_3_v1__xbet_linefeed | — | 2345 | 46.6% | -6.7% | -157.60 | CUT |
+| bsb_underdog__xbet_linefeed | — | 812 | 42.4% | -6.8% | -55.21 | CUT |
+| coinflip_home_v1_20260620__xbet_linefeed | — | 4455 | 50.8% | -7.4% | -329.27 | CUT |
+| foot_home_fav__xbet_linefeed | — | 1335 | 50.6% | -8.1% | -108.10 | CUT |
+| deep_seek_6_inverse_v1__xbet_linefeed | — | 4371 | 51.9% | -8.2% | -357.41 | CUT |
+| coinflip_home_premium__xbet_linefeed | — | 5040 | 49.2% | -8.3% | -416.08 | CUT |
+| deep_seek_1__xbet_linefeed | — | 1049 | 45.8% | -8.3% | -87.55 | CUT |
+| vol_home__xbet_linefeed | — | 100 | 56.0% | -8.5% | -8.46 | CUT |
+| apex_away_convergence__xbet_linefeed | — | 660 | 44.5% | -8.8% | -57.94 | CUT |
+| omega_clean_basket__xbet_linefeed | — | 277 | 42.2% | -9.1% | -25.34 | CUT |
+| deep_seek_9__xbet_linefeed | — | 1276 | 48.7% | -9.4% | -119.67 | CUT |
+| deep_seek_8__xbet_linefeed | — | 3092 | 58.5% | -10.0% | -309.39 | CUT |
+| moderate_home_favorite_v1__xbet_linefeed | — | 3759 | 54.7% | -10.3% | -388.96 | CUT |
+| deep_seek_10__xbet_linefeed | — | 12036 | 51.8% | -10.6% | -1275.27 | CUT |
+| deep_seek_9_v1__xbet_linefeed | — | 834 | 45.8% | -10.7% | -89.01 | CUT |
 | omega_tt_cz_night__xbet_linefeed | — | 88 | 43.2% | -11.3% | -9.93 | CUT |
-| moderate_home_favorite_v7__xbet_linefeed | — | 4592 | 55.0% | -12.1% | -555.75 | CUT |
+| moderate_home_favorite_v7__xbet_linefeed | — | 4592 | 55.0% | -12.1% | -553.40 | CUT |
 | apex_foot_away_value__xbet_linefeed | — | 416 | 44.2% | -12.1% | -50.51 | CUT |
-| deep_seek_6__xbet_linefeed | — | 4332 | 48.8% | -13.5% | -585.41 | CUT |
-| home_market_favorite_v1__xbet_linefeed | — | 6923 | 60.0% | -13.7% | -951.85 | CUT |
-| clear_favorite_v8__xbet_linefeed | — | 4988 | 68.0% | -15.7% | -781.07 | CUT |
-| market_extreme_v8__xbet_linefeed | — | 1402 | 79.0% | -15.7% | -219.82 | CUT |
-| thick_edge_favorite__xbet_linefeed | — | 1927 | 76.1% | -15.9% | -305.46 | CUT |
-| clear_favorite_v6__xbet_linefeed | — | 6778 | 64.7% | -16.0% | -1081.15 | CUT |
-| market_strong_plus_v4__xbet_linefeed | — | 3244 | 72.6% | -16.1% | -521.57 | CUT |
-| market_extreme_v7__xbet_linefeed | — | 1575 | 77.7% | -16.3% | -257.41 | CUT |
-| away_dominant_v5__xbet_linefeed | — | 2259 | 68.2% | -16.4% | -370.06 | CUT |
-| market_strong_plus_v3__xbet_linefeed | — | 3750 | 71.1% | -16.4% | -616.32 | CUT |
-| trapfree_favorite_v1_20260620__xbet_linefeed | — | 6923 | 63.8% | -17.3% | -1199.59 | CUT |
-| home_market_favorite_v7__xbet_linefeed | — | 3332 | 66.0% | -17.3% | -577.96 | CUT |
-| away_dominant_v4__xbet_linefeed | — | 2628 | 66.0% | -17.4% | -456.35 | CUT |
+| deep_seek_6__xbet_linefeed | — | 4324 | 48.7% | -13.7% | -592.51 | CUT |
+| home_market_favorite_v1__xbet_linefeed | — | 6925 | 60.0% | -13.7% | -950.41 | CUT |
+| clear_favorite_v8__xbet_linefeed | — | 4987 | 68.0% | -15.7% | -782.97 | CUT |
+| market_extreme_v8__xbet_linefeed | — | 1401 | 78.9% | -15.7% | -219.97 | CUT |
+| thick_edge_favorite__xbet_linefeed | — | 1928 | 76.1% | -15.8% | -305.21 | CUT |
+| clear_favorite_v6__xbet_linefeed | — | 6774 | 64.7% | -16.0% | -1081.22 | CUT |
+| market_strong_plus_v4__xbet_linefeed | — | 3245 | 72.6% | -16.1% | -522.52 | CUT |
+| market_extreme_v7__xbet_linefeed | — | 1575 | 77.7% | -16.3% | -257.44 | CUT |
+| away_dominant_v5__xbet_linefeed | — | 2257 | 68.1% | -16.4% | -370.49 | CUT |
+| market_strong_plus_v3__xbet_linefeed | — | 3751 | 71.1% | -16.5% | -617.27 | CUT |
+| home_market_favorite_v7__xbet_linefeed | — | 3331 | 66.1% | -17.3% | -575.87 | CUT |
+| trapfree_favorite_v1_20260620__xbet_linefeed | — | 6917 | 63.8% | -17.4% | -1200.80 | CUT |
+| away_dominant_v4__xbet_linefeed | — | 2624 | 65.9% | -17.4% | -457.69 | CUT |
 | omega_kbo_dawn__xbet_linefeed | — | 29 | 27.6% | -50.6% | -14.67 | CUT |
 | away_dominant | +3.7% | 0 | 0.0% | +0.0% | +0.00 | WATCH (live sample too small) |
 | clear_favorite | +3.1% | 0 | 0.0% | +0.0% | +0.00 | WATCH (live sample too small) |
@@ -104,8 +104,8 @@ _Generated 2026-07-28T02:09:26 | live window: last 30 days | backtest: 12,942 ma
 | underdog_value | — | 0 | 0.0% | +0.0% | +0.00 | NEW |
 
 ## Action
-- **Keep (31)**: foot_fade_fav__xbet_linefeed, pro_sport_router__xbet_linefeed, hand_underdog__xbet_linefeed, hand_away_dog__xbet_linefeed, apex_tt_night_cz__xbet_linefeed, foot_big_dog__xbet_linefeed, pro_multi_signal__xbet_linefeed, tennis_extreme_fav_fade__xbet_linefeed, tennis_big_dog__xbet_linefeed, apex_tt_czech_home__xbet_linefeed, tennis_itf_dog__xbet_linefeed, nova_fade_favorite__xbet_linefeed, nova_fade_favorite_v1__xbet_linefeed, pro_calibrated__xbet_linefeed, tennis_fade_fav_stable__xbet_linefeed, nova_fade_fav_v2__xbet_linefeed, nova_underdog_v1__xbet_linefeed, nova_fade_fav_v2_v1__xbet_linefeed, tennis_fade_fav__xbet_linefeed, nova_underdog__xbet_linefeed, apex_steam_dog__xbet_linefeed, apex_drift_fade_foot__xbet_linefeed, apex_cricket_away__xbet_linefeed, tennis_mid_dog__xbet_linefeed, apex_tennis_calm_dog__xbet_linefeed, tennis_home_dog__xbet_linefeed, foot_home__xbet_linefeed, apex_tennis_dog_away__xbet_linefeed, nova_steam_away__xbet_linefeed, apex_alpha_basket__xbet_linefeed, apex_multi_conviction__xbet_linefeed
-- **Cut (42)**: nova_baseball_away_v2__xbet_linefeed, contrarian_home_coinflip_v4__xbet_linefeed, coinflip_home_v2_20260620__xbet_linefeed, deep_seek_5_v1__xbet_linefeed, nova_baseball_away_v1__xbet_linefeed, bsb_away_mid__xbet_linefeed, nova_pickem__xbet_linefeed, deep_seek_2__xbet_linefeed, bsb_away_dog__xbet_linefeed, contrarian_home_coinflip_v5__xbet_linefeed, deep_seek_3_v1__xbet_linefeed, bsb_underdog__xbet_linefeed, coinflip_home_v1_20260620__xbet_linefeed, foot_home_fav__xbet_linefeed, deep_seek_6_inverse_v1__xbet_linefeed, apex_away_convergence__xbet_linefeed, coinflip_home_premium__xbet_linefeed, deep_seek_1__xbet_linefeed, deep_seek_9__xbet_linefeed, vol_home__xbet_linefeed, omega_clean_basket__xbet_linefeed, deep_seek_8__xbet_linefeed, moderate_home_favorite_v1__xbet_linefeed, deep_seek_9_v1__xbet_linefeed, deep_seek_10__xbet_linefeed, omega_tt_cz_night__xbet_linefeed, moderate_home_favorite_v7__xbet_linefeed, apex_foot_away_value__xbet_linefeed, deep_seek_6__xbet_linefeed, home_market_favorite_v1__xbet_linefeed, clear_favorite_v8__xbet_linefeed, market_extreme_v8__xbet_linefeed, thick_edge_favorite__xbet_linefeed, clear_favorite_v6__xbet_linefeed, market_strong_plus_v4__xbet_linefeed, market_extreme_v7__xbet_linefeed, away_dominant_v5__xbet_linefeed, market_strong_plus_v3__xbet_linefeed, trapfree_favorite_v1_20260620__xbet_linefeed, home_market_favorite_v7__xbet_linefeed, away_dominant_v4__xbet_linefeed, omega_kbo_dawn__xbet_linefeed
+- **Keep (31)**: foot_fade_fav__xbet_linefeed, pro_sport_router__xbet_linefeed, hand_underdog__xbet_linefeed, hand_away_dog__xbet_linefeed, apex_tt_night_cz__xbet_linefeed, foot_big_dog__xbet_linefeed, tennis_extreme_fav_fade__xbet_linefeed, pro_multi_signal__xbet_linefeed, tennis_big_dog__xbet_linefeed, apex_tt_czech_home__xbet_linefeed, nova_fade_favorite__xbet_linefeed, tennis_itf_dog__xbet_linefeed, nova_fade_favorite_v1__xbet_linefeed, tennis_fade_fav_stable__xbet_linefeed, pro_calibrated__xbet_linefeed, nova_underdog_v1__xbet_linefeed, nova_fade_fav_v2__xbet_linefeed, nova_fade_fav_v2_v1__xbet_linefeed, tennis_fade_fav__xbet_linefeed, nova_underdog__xbet_linefeed, apex_steam_dog__xbet_linefeed, apex_drift_fade_foot__xbet_linefeed, tennis_mid_dog__xbet_linefeed, tennis_home_dog__xbet_linefeed, apex_tennis_calm_dog__xbet_linefeed, foot_home__xbet_linefeed, apex_cricket_away__xbet_linefeed, apex_tennis_dog_away__xbet_linefeed, nova_steam_away__xbet_linefeed, apex_multi_conviction__xbet_linefeed, apex_alpha_basket__xbet_linefeed
+- **Cut (42)**: deep_seek_5_v1__xbet_linefeed, nova_baseball_away_v2__xbet_linefeed, contrarian_home_coinflip_v4__xbet_linefeed, coinflip_home_v2_20260620__xbet_linefeed, nova_baseball_away_v1__xbet_linefeed, nova_pickem__xbet_linefeed, bsb_away_mid__xbet_linefeed, deep_seek_2__xbet_linefeed, bsb_away_dog__xbet_linefeed, contrarian_home_coinflip_v5__xbet_linefeed, deep_seek_3_v1__xbet_linefeed, bsb_underdog__xbet_linefeed, coinflip_home_v1_20260620__xbet_linefeed, foot_home_fav__xbet_linefeed, deep_seek_6_inverse_v1__xbet_linefeed, coinflip_home_premium__xbet_linefeed, deep_seek_1__xbet_linefeed, vol_home__xbet_linefeed, apex_away_convergence__xbet_linefeed, omega_clean_basket__xbet_linefeed, deep_seek_9__xbet_linefeed, deep_seek_8__xbet_linefeed, moderate_home_favorite_v1__xbet_linefeed, deep_seek_10__xbet_linefeed, deep_seek_9_v1__xbet_linefeed, omega_tt_cz_night__xbet_linefeed, moderate_home_favorite_v7__xbet_linefeed, apex_foot_away_value__xbet_linefeed, deep_seek_6__xbet_linefeed, home_market_favorite_v1__xbet_linefeed, clear_favorite_v8__xbet_linefeed, market_extreme_v8__xbet_linefeed, thick_edge_favorite__xbet_linefeed, clear_favorite_v6__xbet_linefeed, market_strong_plus_v4__xbet_linefeed, market_extreme_v7__xbet_linefeed, away_dominant_v5__xbet_linefeed, market_strong_plus_v3__xbet_linefeed, home_market_favorite_v7__xbet_linefeed, trapfree_favorite_v1_20260620__xbet_linefeed, away_dominant_v4__xbet_linefeed, omega_kbo_dawn__xbet_linefeed
 
 ## How to read this
 - **Backtest ROI** = historical edge at fair odds. Anything below ~+5% likely breaks even or loses after the bookmaker margin.
