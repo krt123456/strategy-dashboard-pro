@@ -1,0 +1,14 @@
+[Unit]
+Description=Run the Strategy-Pred trusted cycle every two hours
+
+[Timer]
+# Refresh odds/predictions and retry result resolution throughout the day.
+OnCalendar=*-*-* 00/2:15:00 UTC
+OnBootSec=10min
+Persistent=yes
+RandomizedDelaySec=5min
+AccuracySec=1min
+Unit=strategy-pred-cycle.service
+
+[Install]
+WantedBy=timers.target

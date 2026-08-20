@@ -6,16 +6,19 @@ import argparse
 import csv
 import shutil
 from collections import Counter
-from datetime import date, datetime, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any, Dict, Iterable, List, Tuple
-from zoneinfo import ZoneInfo
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 BASE_DIR = Path(__file__).resolve().parents[1]
 REPORTS_DIR = BASE_DIR / "reports"
 LOCK_DIR = REPORTS_DIR / "locked_forecasts"
 HISTORY_CSV = BASE_DIR / "data" / "locked_forecast_history.csv"
-LOCAL_TZ = ZoneInfo("Africa/Algiers")
+try:
+    LOCAL_TZ = ZoneInfo("Africa/Algiers")
+except ZoneInfoNotFoundError:
+    LOCAL_TZ = timezone(timedelta(hours=1), name="Africa/Algiers")
 
 
 def _target_date(value: str) -> date:
@@ -99,7 +102,10 @@ def _learning_priority(row: Dict[str, Any]) -> int:
 
 def _build(target: date) -> List[Dict[str, Any]]:
     day = target.isoformat()
-    locked_at = datetime.now(LOCAL_TZ).isoformat(timespec="seconds")
+    # Persist an offset-aware UTC timestamp. Do not reuse the server's local
+    # timezone: older Europe/Berlin naive timestamps caused false post-start
+    # classifications during summer time.
+    locked_at = datetime.now(timezone.utc).isoformat(timespec="seconds")
     evaluation_date = (target + timedelta(days=1)).isoformat()
     advisor = _read_csv(REPORTS_DIR / f"daily_1xbet_value_advisor_{day}.csv")
     guard = _map_rows(_read_csv(REPORTS_DIR / f"final_decision_guard_{day}.csv"))
@@ -114,6 +120,14 @@ def _build(target: date) -> List[Dict[str, Any]]:
         decision = str(guard_row.get("FinalDecision") or "")
         official = "yes" if decision == "APPROVED_FOR_HUMAN_REVIEW" else "no"
         current_odds = guard_row.get("CurrentOdds") or row.get("PickOdds") or ""
+        start_utc = row.get("OneXBetStartUtc") or row.get("OneXBetManualStartUtc") or ""
+        event_id = (
+            row.get("OneXBetEventId")
+            or row.get("OneXBetManualEventId")
+            or row.get("OneXBetCanonicalId")
+            or row.get("OneXBetManualCanonicalId")
+            or ""
+        )
         out = {
             "ForecastDate": day,
             "LockedAt": locked_at,
@@ -126,6 +140,11 @@ def _build(target: date) -> List[Dict[str, Any]]:
             "Pick": row.get("Pick") or "",
             "Prob": row.get("Prob") or "",
             "CurrentOdds": current_odds,
+            # Immutable publication/accounting fields. Telegram must never use
+            # a later result-time price for its hypothetical P/L.
+            "OddsAtPrediction": current_odds,
+            "OddsCapturedAt": row.get("OneXBetManualCheckedAt") or locked_at,
+            "EventId": event_id,
             "TargetOdds": guard_row.get("TargetOdds") or row.get("MinEntryOdds") or "",
             "EVPercent": guard_row.get("EVPercent") or row.get("EVPercent") or "",
             "ValueVerdict": row.get("ValueVerdict") or "",
@@ -141,6 +160,7 @@ def _build(target: date) -> List[Dict[str, Any]]:
             "OneXBetStatus": guard_row.get("OneXBetStatus") or row.get("OneXBetStatus") or "",
             "OneXBetFreshness": guard_row.get("OneXBetFreshness") or row.get("OneXBetOddsFreshness") or "",
             "EventTimingStatus": guard_row.get("EventTimingStatus") or row.get("EventTimingStatus") or "",
+            "StartUtc": start_utc,
             "StartTimeLocal": result_row.get("StartTimeLocal") or recheck_row.get("StartTimeLocal") or "",
             "ResultStatusAtLock": result_row.get("ResultStatus") or "",
             "RecheckAction": recheck_row.get("RecheckAction") or "",
@@ -177,6 +197,9 @@ FIELDS = [
     "Pick",
     "Prob",
     "CurrentOdds",
+    "OddsAtPrediction",
+    "OddsCapturedAt",
+    "EventId",
     "TargetOdds",
     "EVPercent",
     "ValueVerdict",
@@ -192,6 +215,7 @@ FIELDS = [
     "OneXBetStatus",
     "OneXBetFreshness",
     "EventTimingStatus",
+    "StartUtc",
     "StartTimeLocal",
     "ResultStatusAtLock",
     "RecheckAction",

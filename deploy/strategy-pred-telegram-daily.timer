@@ -1,0 +1,15 @@
+[Unit]
+Description=Publish today's Strategy-Pred Telegram portfolio after the morning data cycle
+
+[Timer]
+# 07:40 UTC is after the resource-bounded 06:15 UTC data cycle in both CET and
+# CEST (08:40/09:40 local). A single attempt also avoids re-evaluating the
+# 60-minute publication gate later against an already published manifest.
+OnCalendar=*-*-* 07:40:00 UTC
+Persistent=yes
+RandomizedDelaySec=2min
+AccuracySec=30s
+Unit=strategy-pred-telegram-daily.service
+
+[Install]
+WantedBy=timers.target

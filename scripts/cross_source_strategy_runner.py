@@ -17,7 +17,7 @@ import argparse
 import csv
 import json
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List, Optional
 
@@ -103,8 +103,50 @@ def dedupe_key(p: dict) -> tuple:
     return (p["match_date"], p["home"], p["away"], p["pick"], p["source"], p["strategy"])
 
 
-def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
+def _parse_start_utc(value: object) -> Optional[datetime]:
+    """Parse a fixture start timestamp and normalize it to aware UTC.
+
+    The feed normally emits an ISO-8601 ``Z`` timestamp.  Missing or malformed
+    starts are deliberately rejected: without a trusted start time we cannot
+    prove that a prediction was created pre-match.
+    """
+    raw = str(value or "").strip()
+    if not raw:
+        return None
+    try:
+        parsed = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        parsed = parsed.replace(tzinfo=timezone.utc)
+    return parsed.astimezone(timezone.utc)
+
+
+def _is_actionable_fixture(fixture: dict, now_utc: datetime, min_lead_minutes: int) -> bool:
+    """Only allow fixtures that are safely in the future.
+
+    This closes the historical look-ahead leak where some live/already-started
+    line-feed events were recorded as if they were pre-match predictions.
+    """
+    start = _parse_start_utc(fixture.get("start_utc"))
+    if start is None:
+        return False
+    return start >= now_utc + timedelta(minutes=max(0, min_lead_minutes))
+
+
+def run(
+    target_date: Optional[str] = None,
+    limit_per_combo: int = 0,
+    min_lead_minutes: int = 15,
+    include_started: bool = False,
+    now_utc: Optional[datetime] = None,
+) -> dict:
     target = target_date or datetime.utcnow().strftime("%Y-%m-%d")
+    now_utc = now_utc or datetime.now(timezone.utc)
+    if now_utc.tzinfo is None:
+        now_utc = now_utc.replace(tzinfo=timezone.utc)
+    else:
+        now_utc = now_utc.astimezone(timezone.utc)
     if not WINNERS_PATH.exists():
         print("No winning_variants.json — run strategy_variant_generator.py first.")
         return {"picks": 0}
@@ -213,7 +255,11 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
     picks: List[dict] = []
     seen = set()
     skipped_unsourced = 0
+    skipped_not_actionable = 0
     for f in fixtures:
+        if not include_started and not _is_actionable_fixture(f, now_utc, min_lead_minutes):
+            skipped_not_actionable += 1
+            continue
         if _is_unsourced(f.get("sport", ""), f.get("league", "")):
             skipped_unsourced += 1
             continue
@@ -326,7 +372,8 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
                     picks.append(r)
 
     # persist to betting_journal.db
-    batch = datetime.utcnow().strftime("%Y-%m-%d_%H")  # جولة التحديث (لتحليل توقيت التوقع)
+    created_at_utc = datetime.now(timezone.utc)
+    batch = created_at_utc.strftime("%Y-%m-%d_%H")  # جولة التحديث (UTC)
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     recorded = 0
@@ -342,7 +389,7 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
             "INSERT INTO predictions (created_at, match_date, sport, league, home, away, "
             "pick, source, model_prob, odds_at_prediction, stake, kelly_stake, strategy, "
             "confidence, notes, batch, start_utc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)",
-            (datetime.now().isoformat(), p["match_date"], p["sport"], p["league"], p["home"],
+            (created_at_utc.isoformat(), p["match_date"], p["sport"], p["league"], p["home"],
              p["away"], p["pick"], p["source"], p["model_prob"], p["odds_at_prediction"],
              0.0, 0.0, p["strategy"], p["confidence"], p["notes"], batch, p.get("start_utc", "")),
         )
@@ -356,17 +403,38 @@ def run(target_date: Optional[str] = None, limit_per_combo: int = 0) -> dict:
     for p in picks:
         by_src[p["source"]] = by_src.get(p["source"], 0) + 1
         by_sport[p["sport"]] = by_sport.get(p["sport"], 0) + 1
-    print(f"\nGenerated {len(picks)} picks ({recorded} new)." + (f" [skipped {skipped_unsourced} unsourced fixtures]" if skipped_unsourced else ""))
+    skip_parts = []
+    if skipped_not_actionable:
+        skip_parts.append(f"{skipped_not_actionable} not safely pre-match")
+    if skipped_unsourced:
+        skip_parts.append(f"{skipped_unsourced} unsourced")
+    skipped_note = f" [skipped {', '.join(skip_parts)}]" if skip_parts else ""
+    print(f"\nGenerated {len(picks)} picks ({recorded} new).{skipped_note}")
     print("By source: " + ", ".join(f"{k}={v}" for k, v in sorted(by_src.items(), key=lambda x: -x[1])))
     print("By sport:  " + ", ".join(f"{k}={v}" for k, v in sorted(by_sport.items(), key=lambda x: -x[1])))
-    return {"picks": len(picks), "recorded": recorded, "by_source": by_src, "by_sport": by_sport}
+    return {
+        "picks": len(picks),
+        "recorded": recorded,
+        "by_source": by_src,
+        "by_sport": by_sport,
+        "skipped_not_actionable": skipped_not_actionable,
+        "skipped_unsourced": skipped_unsourced,
+    }
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description="Run winning variants across all cached data sources.")
     ap.add_argument("--date", default=None)
+    ap.add_argument("--min-lead-minutes", type=int, default=15,
+                    help="minimum time before kickoff required for a prediction (default: 15)")
+    ap.add_argument("--include-started", action="store_true",
+                    help="research/backfill only: allow fixtures without a future start")
     args = ap.parse_args()
-    run(target_date=args.date)
+    run(
+        target_date=args.date,
+        min_lead_minutes=args.min_lead_minutes,
+        include_started=args.include_started,
+    )
     return 0
 
 

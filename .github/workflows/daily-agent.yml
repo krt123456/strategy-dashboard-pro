@@ -1,40 +1,98 @@
-name: Daily Prediction Agent
+name: Deploy prebuilt strategy dashboard
+
 on:
+  # The VPS cycle starts at :15 on even UTC hours and is capped at 45 minutes.
+  # Its isolated publisher runs at :08 on the following odd hour, so :15 gives
+  # that push a small buffer without making GitHub rebuild from the SQLite DB.
   schedule:
-    - cron: "15 */2 * * *"   # ربع ساعة بعد دورة VPS (التي تدفع في :00) لتلتقط أحدث بيانات
+    - cron: "15 1-23/2 * * *"
   workflow_dispatch:
+
+concurrency:
+  group: strategy-dashboard-pages
+  cancel-in-progress: true
+
 permissions:
   contents: read
-# ============================================================
-#  العمارة: VPS هو المصدر الوحيد للبيانات/التطوّر/التنبؤات/النتائج
-#  (انظر /etc/cron.d/strategy-pred على VPS). هذا الـworkflow مجرد
-#  ناشر رفيع: يأخذ أحدث بيانات VPS → يبني dashboard → ينشر للـPages.
-#  كاتب واحد = لا تعارض DB ثنائي ولا push-rejection.
-# ============================================================
+
 jobs:
-  build-and-deploy:
+  validate-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     permissions:
+      contents: read
       pages: write
       id-token: write
     steps:
-      - name: Checkout (أحدث بيانات VPS)
+      - name: Checkout the prebuilt dashboard branch
         uses: actions/checkout@v4
-      - name: Setup Python
-        uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - name: Build dashboard PWA من قاعدة بيانات VPS
-        run: python scripts/build_dashboard.py
-      - name: Configure Pages
+          ref: pages-prebuilt
+          fetch-depth: 1
+          persist-credentials: false
+
+      - name: Validate the publication payload
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+
+          test -s dashboard/index.html
+          test -s dashboard/manifest.json
+          test -s dashboard/sw.js
+          test -s dashboard/icon.png
+          test -s dashboard/SHA256SUMS
+          test -f dashboard/.nojekyll
+
+          if find dashboard -type l -print -quit | grep -q .; then
+            echo "Refusing to deploy symbolic links." >&2
+            exit 1
+          fi
+
+          actual_files="$(find . -path './.git' -prune -o -type f -printf '%P\n' | LC_ALL=C sort)"
+          expected_files="$(printf '%s\n' \
+            .gitattributes \
+            dashboard/.nojekyll \
+            dashboard/SHA256SUMS \
+            dashboard/icon.png \
+            dashboard/index.html \
+            dashboard/manifest.json \
+            dashboard/sw.js | LC_ALL=C sort)"
+          if [[ "$actual_files" != "$expected_files" ]]; then
+            echo "Refusing an unexpected dashboard payload." >&2
+            exit 1
+          fi
+
+          total_bytes=0
+          while IFS= read -r -d '' file; do
+            file_bytes="$(stat -c '%s' "$file")"
+            if (( file_bytes > 10485760 )); then
+              echo "Refusing a dashboard file larger than 10 MiB." >&2
+              exit 1
+            fi
+            total_bytes=$((total_bytes + file_bytes))
+          done < <(find dashboard -type f -print0)
+          if (( total_bytes > 26214400 )); then
+            echo "Refusing a dashboard payload larger than 25 MiB." >&2
+            exit 1
+          fi
+
+          python3 -m json.tool dashboard/manifest.json >/dev/null
+          (
+            cd dashboard
+            sha256sum --check SHA256SUMS
+          )
+
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-      - name: Upload dashboard artifact
+
+      - name: Upload the verified dashboard
         uses: actions/upload-pages-artifact@v3
         with:
           path: dashboard/
+
       - name: Deploy to GitHub Pages
         uses: actions/deploy-pages@v4
         id: deployment

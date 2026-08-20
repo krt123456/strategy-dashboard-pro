@@ -8,14 +8,25 @@ Auto-rebuilt daily so it tracks every GitHub update and new strategy.
 """
 from __future__ import annotations
 
+import csv
 import json
+import math
 import sqlite3
-from datetime import date, datetime
+import unicodedata
+from datetime import date, datetime, timezone
+from decimal import Decimal, InvalidOperation
 from pathlib import Path
+from typing import Any, Mapping, Optional
+
+import build_telegram_portfolio as portfolio
 
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 DB_PATH = PROJECT_DIR / "data" / "betting_journal.db"
 OUT_DIR = PROJECT_DIR / "dashboard"
+LINEFEED_PATH = PROJECT_DIR / "data" / "one_xbet_linefeed_snapshot.csv"
+LOCK_DIR = PROJECT_DIR / "reports" / "locked_forecasts"
+BACKTEST_PATH = PROJECT_DIR / "reports" / "publication_backtest_2026-08-20.json"
+BACKTEST_FALLBACK_PATH = PROJECT_DIR / "reports" / "publication_backtest.json"
 FLAT_STAKE = 4.0  # 4% of $100 bankroll per bet
 
 # استراتيجيات معطّلة (تشخيص خبير: anti-edges / نموذج بميزات وهمية) — تُعرض كـ"مُقصاة" للشفافية
@@ -81,178 +92,375 @@ def _rationale(strategy: str, odds: float, prob: float) -> dict:
     return {"ar": r[0], "en": r[1]}
 
 
-def gather(today: str) -> dict:
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
+def _normalise(value: Any) -> str:
+    text = unicodedata.normalize("NFKC", str(value or "")).casefold()
+    return "".join(character for character in text if character.isalnum())
 
-    # all graded results with everything needed for capital sim + display
-    res_rows = c.execute(
-        """SELECT p.id, p.strategy, p.source, p.match_date, p.sport, p.home, p.away,
-                  p.pick, p.odds_at_prediction, r.home_score, r.away_score,
-                  r.pick_won, r.checked_at
-           FROM predictions p JOIN results r ON p.id = r.prediction_id
-           ORDER BY r.checked_at"""
-    ).fetchall()
 
-    # group by strategy
-    by_strat: dict = {}
-    for row in res_rows:
-        pid, strat, src, mdate, sport, home, away, pick, odds, hs, aso, won, chk = row
-        odds = _f(odds)
-        by_strat.setdefault(strat, []).append({
-            "date": mdate, "sport": sport, "home": home, "away": away, "pick": pick,
-            "odds": round(odds, 2), "won": bool(won), "hs": hs, "as": aso,
-            "fp": 0.0,  # يُحسب أدناه حسب قاعدة 40% يومياً
-        })
+def _finite_decimal(value: Any) -> Optional[Decimal]:
+    try:
+        number = Decimal(str(value).strip().replace(",", "."))
+    except (InvalidOperation, ValueError):
+        return None
+    return number if number.is_finite() else None
 
-    DAILY_RISK = 0.40  # كل استراتيجية تراهن 40% من رأس مالها موزّعة على صفقات اليوم
 
-    strategies = []
-    strat_matches = {}
-    for strat, items in by_strat.items():
-        bets = len(items)
-        wins = sum(1 for x in items if x["won"])
-        # محاكاة رأس المال: 40% من الرصيد الحالي يومياً، موزّعة بالتساوي على صفقات اليوم
-        # مهما كان عددها (compounding ديناميكي). مثال: $100 × 40% ÷ 4 صفقات = $10 لكل صفقة.
-        bal = 100.0
-        spark = [100.0]
-        # رتّب حسب التاريخ ثم زمن التسجيل لمعالجة الأيام بالترتيب
-        ordered = sorted(items, key=lambda x: (x["date"] or "",))
-        i = 0
-        while i < len(ordered):
-            day = ordered[i]["date"]
-            day_bets = [ordered[j] for j in range(i, len(ordered)) if ordered[j]["date"] == day]
-            per_stake = (bal * DAILY_RISK) / len(day_bets)  # حصة كل صفقة من 40% اليومية
-            for x in day_bets:
-                fp = per_stake * (x["odds"] - 1) if x["won"] else -per_stake
-                x["fp"] = round(fp, 2)
-                bal += fp
-            spark.append(round(bal, 1))
-            i += len(day_bets)
-        bankroll = round(bal, 2)
-        profit = round(bal - 100, 2)
-        total_staked = round(sum(abs(x["fp"]) for x in ordered), 2)
-        roi = round(profit / total_staked * 100, 1) if total_staked else 0
-        days = len({x["date"] for x in items})
-        avg_odds = round(sum(x["odds"] for x in items) / bets, 2) if bets else 0
-        # streak (most recent consecutive same-outcome)
-        streak = 0
-        streak_kind = "w" if (items and items[-1]["won"]) else "l"
-        for x in reversed(items):
-            if (x["won"] and streak_kind == "w") or (not x["won"] and streak_kind == "l"):
-                streak += 1
-            else:
-                break
-        # tier: proven winner (positive profit + enough sample) / neutral / loser.
-        # lets the UI surface what actually works instead of drowning it in 85 cards.
-        if bets >= 15 and profit > 1:
-            tier = "winner"
-        elif profit < -5:
-            tier = "loser"
-        else:
-            tier = "neutral"
-        strategies.append({
-            "name": strat, "source": items[0].get("source", src) if items else src,
-            "bets": bets, "wins": wins, "losses": bets - wins, "bankroll": bankroll,
-            "profit": profit, "roi": roi, "days": days, "avg_odds": avg_odds,
-            "trust": _trust(wins, bets, roi, days), "streak": streak,
-            "streak_kind": streak_kind, "risk": _risk(avg_odds), "tier": tier,
-            "spark": spark[-20:],
-            "disabled": strat in DISABLED_BASES or any(strat.startswith(b + "__") for b in DISABLED_BASES)
-            or strat in DISABLED_BASES,
-        })
-        strat_matches[strat] = [{"d": x["date"], "s": x["sport"], "h": x["home"],
-                                 "a": x["away"], "p": x["pick"], "o": x["odds"],
-                                 "w": x["won"], "hs": x["hs"], "as": x["as"], "f": x["fp"]}
-                                for x in items[-10:]]  # آخر 10 مباريات لكل استراتيجية (يكفي للعرض)
+def _parse_aware_timestamp(value: Any) -> Optional[datetime]:
+    raw = str(value or "").strip()
+    if not raw or ("T" not in raw and " " not in raw):
+        return None
+    if raw.endswith(("Z", "z")):
+        raw = raw[:-1] + "+00:00"
+    try:
+        parsed = datetime.fromisoformat(raw)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return None
+    try:
+        return parsed.astimezone(timezone.utc)
+    except (OverflowError, ValueError):
+        return None
 
-    # today's picks (actionable). Only UPCOMING matches are truly bettable; matches whose
-    # start time already passed but have no result yet are "awaiting result" (shown muted,
-    # not as actionable bets) — this is what looked like "stuck pending from yesterday".
-    now_utc = datetime.utcnow()
-    today_picks = []
-    awaiting = 0
-    for r in c.execute(
-        """SELECT sport, league, home, away, pick, odds_at_prediction, strategy, source, model_prob, start_utc
-           FROM predictions WHERE match_date=? ORDER BY
-           CASE source WHEN 'expert_vig' THEN 0 WHEN 'version_library' THEN 1
-                       WHEN 'xbet_linefeed' THEN 2 ELSE 3 END, odds_at_prediction DESC""",
-        (today,),
-    ):
-        odds = _f(r[5])
-        prob = _f(r[8])
-        rat = _rationale(r[6], odds, prob)
-        su = (r[9] or "").strip()
-        status = "upcoming"
-        if su:
-            try:
-                st = datetime.fromisoformat(su.replace("Z", "+00:00")).replace(tzinfo=None)
-                if st <= now_utc:
-                    status = "awaiting"  # started/finished, result not in yet
-                    awaiting += 1
-            except Exception:
-                pass
-        today_picks.append({
-            "sport": r[0], "league": r[1] or "", "home": r[2], "away": r[3],
-            "pick": r[4], "odds": round(odds, 2), "strategy": r[6], "source": r[7],
-            "real": r[7] in ("expert_vig", "xbet_linefeed", "version_library"),
-            "pay10": round(10 * odds, 2), "rat_ar": rat["ar"], "rat_en": rat["en"],
-            "status": status, "start_utc": su,
-        })
 
-    # best bet today = a confirmed-edge strategy pick with odds in the profitable zone (1.6-2.8)
-    best = None
-    for p in today_picks:
-        if p["real"] and 1.6 <= p["odds"] <= 2.8:
-            tr = next((s["trust"] for s in strategies if s["name"].startswith(p["strategy"].split("__")[0])), 0)
-            if tr >= 40:
-                best = p
-                best["trust"] = tr
-                break
-    if best is None and today_picks:
-        best = today_picks[0]
-        best["trust"] = 0
-
-    # headline
-    tot_bets = sum(s["bets"] for s in strategies)
-    tot_wins = sum(s["wins"] for s in strategies)
-    tot_profit = round(sum(s["profit"] for s in strategies), 2)
-
-    # عدّاد رهانات اليوم + رهانات لكل أساس استراتيجية (مرة واحدة لتفادي التكرار)
-    # رهانات قابلة للمراهنة = القادمة فقط (لم تبدأ بعد). المباريات التي بدأت بانتظار النتيجة
-    # لا تُعرض كرهانات نشطة (هذا هو سبب ظهور "مباريات معلّقة من الأمس").
-    upcoming_picks = [p for p in today_picks if p.get("status") != "awaiting"]
-    today_counts: dict = {}
-    today_by_base: dict = {}
-    for p in upcoming_picks:
-        st = p["strategy"]
-        today_counts[st] = today_counts.get(st, 0) + 1
-        base = st.split("__")[0]
-        today_by_base.setdefault(base, []).append({
-            "h": p["home"], "a": p["away"], "p": p["pick"], "o": p["odds"],
-            "s": p["sport"], "lg": (p["league"] or "")[:18], "pay": p["pay10"],
-        })
-    # لكل أساس: خزّن أفضل 8 رهانات مرّة واحدة
-    today_by_base_slim = {b: sorted(lst, key=lambda x: -x["o"])[:8]
-                          for b, lst in today_by_base.items()}
-    for s in strategies:
-        base = s["name"].split("__")[0]
-        s["today_bets"] = len(today_by_base.get(base, []))
-    today_by_base.clear()
-
-    conn.close()
+def _ui_pick(
+    *,
+    sport: str,
+    league: str,
+    home: str,
+    away: str,
+    pick: str,
+    odds: Decimal,
+    probability: Optional[Decimal],
+    start_utc: datetime,
+    event_id: str = "",
+    official_lock: bool,
+) -> dict:
+    price = float(odds)
+    prob = float(probability) if probability is not None else 0.0
+    rationale = _rationale(portfolio.LEGACY_STRATEGY, price, prob)
     return {
-        "today": today,
-        "generated": datetime.now().isoformat(timespec="seconds"),
-        "headline": {"strategies": len(strategies), "bets": tot_bets, "wins": tot_wins,
-                     "profit": tot_profit, "winrate": round(tot_wins / tot_bets * 100, 1) if tot_bets else 0},
+        "sport": sport,
+        "league": league,
+        "home": home,
+        "away": away,
+        "pick": pick,
+        "odds": round(price, 3),
+        "strategy": portfolio.LEGACY_STRATEGY,
+        "source": portfolio.XBET_SOURCE,
+        "real": True,
+        "approved": True,
+        "official_lock": official_lock,
+        "event_id": event_id,
+        "pay10": round(10 * price, 2),
+        "rat_ar": rationale["ar"],
+        "rat_en": rationale["en"],
+        "status": "upcoming",
+        "start_utc": start_utc.isoformat(timespec="seconds").replace("+00:00", "Z"),
+    }
+
+
+def _official_lock_picks(path: Path, target: date, now_utc: datetime) -> tuple[str, list[dict]]:
+    """Return ``(state, picks)`` where state is missing, valid, or invalid.
+
+    A present but malformed lock never falls back to a mutable database query.
+    That distinction is intentional: an invalid official artifact is a reason
+    to publish nothing until an operator fixes it.
+    """
+
+    try:
+        if not path.exists():
+            return "missing", []
+        if not path.is_file() or path.stat().st_size == 0:
+            return "invalid", []
+    except OSError:
+        return "invalid", []
+    required = set(portfolio.LOCK_FIELDS)
+    try:
+        with path.open("r", encoding="utf-8-sig", newline="") as handle:
+            reader = csv.DictReader(handle)
+            headers = {str(item or "").strip() for item in (reader.fieldnames or [])}
+            if not required.issubset(headers):
+                return "invalid", []
+            rows = list(reader)
+    except (OSError, csv.Error, UnicodeError):
+        return "invalid", []
+    if len(rows) > portfolio.MAX_ALLOWED_PICKS:
+        return "invalid", []
+
+    ranked: list[tuple[int, dict]] = []
+    ranks: set[int] = set()
+    prediction_ids: set[int] = set()
+    identities: set[tuple[str, ...]] = set()
+    lock_instants: set[datetime] = set()
+    for row in rows:
+        try:
+            rank = int(str(row.get("Rank") or "").strip())
+            prediction_id = int(str(row.get("PredictionId") or "").strip())
+        except ValueError:
+            return "invalid", []
+        if not 1 <= rank <= portfolio.MAX_ALLOWED_PICKS or rank in ranks:
+            return "invalid", []
+        if prediction_id <= 0 or prediction_id in prediction_ids:
+            return "invalid", []
+
+        sport = str(row.get("Sport") or "").strip()
+        league = str(row.get("League") or "").strip()
+        home = str(row.get("Home") or "").strip()
+        away = str(row.get("Away") or "").strip()
+        pick = str(row.get("Pick") or "").strip()
+        event_id = str(row.get("EventId") or "").strip()
+        odds = _finite_decimal(row.get("OddsAtPrediction"))
+        probability = _finite_decimal(row.get("Prob"))
+        start = _parse_aware_timestamp(row.get("StartUtc"))
+        locked_at = _parse_aware_timestamp(row.get("LockedAt"))
+        captured_at = _parse_aware_timestamp(row.get("OddsCapturedAt"))
+        if not all((sport, home, away, pick)) or start is None or odds is None:
+            return "invalid", []
+        if locked_at is None or captured_at is None:
+            return "invalid", []
+        if (start - locked_at).total_seconds() < 3600 or (start - captured_at).total_seconds() < 3600:
+            return "invalid", []
+        if probability is not None and not Decimal("0") <= probability <= Decimal("1"):
+            return "invalid", []
+        if not portfolio.MIN_ODDS <= odds <= portfolio.MAX_ODDS:
+            return "invalid", []
+        if _normalise(pick) not in {_normalise(home), _normalise(away)}:
+            return "invalid", []
+        if start.astimezone(portfolio.BERLIN_TZ).date() != target:
+            return "invalid", []
+        if str(row.get("ForecastDate") or "").strip() != target.isoformat():
+            return "invalid", []
+        if str(row.get("StrategyGate") or "").strip() != portfolio.LEGACY_STRATEGY:
+            return "invalid", []
+        if str(row.get("Source") or "").strip() != portfolio.XBET_SOURCE:
+            return "invalid", []
+        if str(row.get("OfficialEntry") or "").strip().casefold() != "yes":
+            return "invalid", []
+        if str(row.get("FinalDecision") or "").strip() != "APPROVED_FOR_PUBLICATION":
+            return "invalid", []
+        if str(row.get("ForecastPurpose") or "").strip() != "HYPOTHETICAL_PAPER_SIMULATION":
+            return "invalid", []
+
+        identity = (
+            _normalise(sport),
+            f"event:{_normalise(event_id)}" if event_id else _normalise(home),
+            "" if event_id else _normalise(away),
+            "" if event_id else start.isoformat(),
+            _normalise(pick),
+        )
+        if identity in identities:
+            return "invalid", []
+        identities.add(identity)
+        ranks.add(rank)
+        prediction_ids.add(prediction_id)
+        lock_instants.add(locked_at)
+
+        # The lock stays immutable, but a fixture that has started is no
+        # longer actionable and must disappear from the public dashboard.
+        if start <= now_utc:
+            continue
+        ranked.append(
+            (
+                rank,
+                _ui_pick(
+                    sport=sport,
+                    league=league,
+                    home=home,
+                    away=away,
+                    pick=pick,
+                    odds=odds,
+                    probability=probability,
+                    start_utc=start,
+                    event_id=event_id,
+                    official_lock=True,
+                ),
+            )
+        )
+    if ranks != set(range(1, len(rows) + 1)) or len(lock_instants) > 1:
+        return "invalid", []
+    return "valid", [pick for _, pick in sorted(ranked, key=lambda item: item[0])]
+
+
+def _dynamic_picks(db_path: Path, linefeed_path: Path, target: date, now_utc: datetime) -> list[dict]:
+    try:
+        candidates, _, _ = portfolio.select_daily_candidates(
+            db_path,
+            target,
+            linefeed_csv=linefeed_path,
+            min_lead_minutes=60,
+            max_picks=portfolio.MAX_ALLOWED_PICKS,
+            now_utc=now_utc,
+        )
+    except (portfolio.PortfolioBuildError, sqlite3.Error, OSError, UnicodeError, csv.Error, ValueError):
+        return []
+    return [
+        _ui_pick(
+            sport=item.sport,
+            league=item.league,
+            home=item.home,
+            away=item.away,
+            pick=item.pick,
+            odds=item.odds or Decimal("0"),
+            probability=item.probability,
+            start_utc=item.start_utc,
+            event_id=item.event_id,
+            official_lock=False,
+        )
+        for item in candidates
+    ]
+
+
+def _backtest_candidates(explicit: Optional[Path]) -> list[Path]:
+    if explicit is not None:
+        return [explicit]
+    candidates = [BACKTEST_PATH, BACKTEST_FALLBACK_PATH]
+    candidates.extend(sorted((PROJECT_DIR / "reports").glob("publication_backtest_*.json"), reverse=True))
+    return list(dict.fromkeys(candidates))
+
+
+def _audited_strategy(explicit_path: Optional[Path] = None) -> Optional[dict]:
+    payload: Optional[Mapping[str, Any]] = None
+    for path in _backtest_candidates(explicit_path):
+        if not path.exists() or not path.is_file():
+            continue
+        try:
+            candidate = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, json.JSONDecodeError):
+            continue
+        if isinstance(candidate, Mapping):
+            payload = candidate
+            break
+    if payload is None:
+        return None
+    decision = payload.get("decision")
+    legacy = payload.get("legacy_strategy")
+    if not isinstance(decision, Mapping) or not isinstance(legacy, Mapping):
+        return None
+    if payload.get("report_type") != "publication_backtest_audited_summary":
+        return None
+    if decision.get("strategy") != portfolio.LEGACY_STRATEGY or decision.get("strategy_status") != "legacy_active":
+        return None
+    metrics = legacy.get("complete_cutoff_metrics")
+    if not isinstance(metrics, Mapping):
+        return None
+    try:
+        bets = int(metrics["bets"])
+        wins = int(metrics["wins"])
+        losses = int(metrics["losses"])
+        avg_odds = float(metrics["average_odds"])
+        pnl = float(metrics["pnl_units"])
+        roi = float(metrics["roi_pct"])
+    except (KeyError, TypeError, ValueError):
+        return None
+    if bets < 0 or wins < 0 or losses < 0 or wins + losses != bets:
+        return None
+    if not all(math.isfinite(value) for value in (avg_odds, pnl, roi)) or avg_odds <= 0:
+        return None
+
+    days = 0
+    methodology = payload.get("methodology")
+    snapshot = payload.get("snapshot")
+    if isinstance(methodology, Mapping) and isinstance(snapshot, Mapping):
+        try:
+            first_day = date.fromisoformat(str(snapshot["match_date_min"]))
+            last_day = date.fromisoformat(str(methodology["automatic_cutoff"]))
+            days = max(0, (last_day - first_day).days + 1)
+        except (KeyError, TypeError, ValueError):
+            days = 0
+    return {
+        "name": portfolio.LEGACY_STRATEGY,
+        "source": portfolio.XBET_SOURCE,
+        "bets": bets,
+        "wins": wins,
+        "losses": losses,
+        "bankroll": round(100.0 + pnl, 2),
+        "profit": round(pnl, 2),
+        "roi": round(roi, 2),
+        "days": days,
+        "avg_odds": round(avg_odds, 2),
+        "trust": _trust(wins, bets, roi, days),
+        "streak": 0,
+        "streak_kind": "w",
+        "risk": _risk(avg_odds),
+        "tier": "winner" if bets >= 15 and pnl > 0 else "neutral",
+        "spark": [],
+        "disabled": False,
+        "backtest": True,
+        "backtest_no_guarantee": True,
+    }
+
+
+def gather(
+    today: str,
+    *,
+    now_utc: Optional[datetime] = None,
+    db_path: Optional[Path] = None,
+    linefeed_path: Optional[Path] = None,
+    lock_path: Optional[Path] = None,
+    backtest_path: Optional[Path] = None,
+) -> dict:
+    target = date.fromisoformat(today)
+    now = now_utc or datetime.now(timezone.utc)
+    if now.tzinfo is None:
+        raise ValueError("now_utc must be timezone-aware")
+    now = now.astimezone(timezone.utc)
+    database = db_path or DB_PATH
+    linefeed = linefeed_path or LINEFEED_PATH
+    official_lock = lock_path or LOCK_DIR / f"forecast_lock_{target.isoformat()}.csv"
+
+    lock_state, today_picks = _official_lock_picks(official_lock, target, now)
+    if lock_state == "missing":
+        today_picks = _dynamic_picks(database, linefeed, target, now)
+        selection_source = "dynamic_legacy_policy" if today_picks else "none"
+    elif lock_state == "valid":
+        selection_source = "official_lock"
+    else:
+        # A corrupt/unauthorised lock is never bypassed by dynamic picks.
+        today_picks = []
+        selection_source = "invalid_lock_fail_closed"
+
+    strategy = _audited_strategy(backtest_path)
+    strategies = [strategy] if strategy is not None else []
+    best = dict(today_picks[0]) if today_picks and today_picks[0].get("approved") else None
+    if best is not None:
+        best["trust"] = strategy["trust"] if strategy is not None else 0
+
+    base = portfolio.LEGACY_STRATEGY.split("__")[0]
+    compact = [
+        {
+            "h": pick["home"], "a": pick["away"], "p": pick["pick"], "o": pick["odds"],
+            "s": pick["sport"], "lg": (pick["league"] or "")[:18], "pay": pick["pay10"],
+        }
+        for pick in today_picks
+    ]
+    today_by_base = {base: compact} if compact else {}
+    if strategy is not None:
+        strategy["today_bets"] = len(today_picks)
+
+    total_bets = strategy["bets"] if strategy is not None else 0
+    total_wins = strategy["wins"] if strategy is not None else 0
+    total_profit = strategy["profit"] if strategy is not None else 0.0
+    winrate = round(total_wins / total_bets * 100, 1) if total_bets else 0.0
+    return {
+        "today": target.isoformat(),
+        "generated": now.isoformat(timespec="seconds"),
+        "selection_source": selection_source,
+        "performance_basis": "audited_backtest_no_guarantee" if strategy is not None else "unavailable",
+        "headline": {
+            "strategies": len(strategies),
+            "bets": total_bets,
+            "wins": total_wins,
+            "profit": total_profit,
+            "winrate": winrate,
+        },
         "best": best,
-        "strategies": sorted(strategies, key=lambda s: s["trust"], reverse=True),
-        "strat_map": {s["name"]: s for s in strategies},
-        "today_by_base": today_by_base_slim,
-        "matches": strat_matches,
-        "picks": upcoming_picks[:60],
-        "awaiting_result": awaiting,
+        "strategies": strategies,
+        "strat_map": {item["name"]: item for item in strategies},
+        "today_by_base": today_by_base,
+        "matches": {portfolio.LEGACY_STRATEGY: []} if strategy is not None else {},
+        "picks": today_picks,
+        "awaiting_result": 0,
     }
 
 
@@ -403,7 +611,8 @@ const I={
    mProfitD:"رتّب الاستراتيجيات حسب صافي الربح",mWinD:"رتّب حسب نسبة الفوز",mTrustD:"رتّب حسب درجة الثقة",
    mSafeD:"أظهر الاستراتيجيات الآمنة فقط",sortMenu:"ترتيب وفلترة",streakW:"فوز متتالي",streakL:"خسارة متتالية",
    tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج",cut:"مُقصاة",next24:"24 ساعة القادمة",todayB:"رهان اليوم",
-   winner:"رابح",loser:"خاسر",topStrats:"الاستراتيجيات الرابحة",otherStrats:"باقي الاستراتيجيات",matches:"مباراة"},
+   winner:"رابح",loser:"خاسر",topStrats:"الاستراتيجيات الرابحة",otherStrats:"باقي الاستراتيجيات",matches:"مباراة",
+   backtestNoGuarantee:"Backtest تاريخي · لا ضمان للنتائج المستقبلية"},
  en:{title:"⚡ Strategy Pro",home:"Home",picks:"Today",history:"History",
    bestBet:"⭐ Best Bet Today",monitor:"Strategy Monitor",todayPicks:"Today's Picks",
    historyLog:"Results Log",profit:"Profit",bankroll:"Bankroll",record:"Record",days:"days",
@@ -414,7 +623,8 @@ const I={
    mProfitD:"Sort strategies by net profit",mWinD:"Sort by win rate",mTrustD:"Sort by trust score",
    mSafeD:"Show only safe strategies",sortMenu:"Sort & Filter",streakW:"win streak",streakL:"loss streak",
    tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results",cut:"CUT",next24:"Next 24h",todayB:"today",
-   winner:"WIN",loser:"LOSS",topStrats:"Winning Strategies",otherStrats:"Other Strategies",matches:"matches"}
+   winner:"WIN",loser:"LOSS",topStrats:"Winning Strategies",otherStrats:"Other Strategies",matches:"matches",
+   backtestNoGuarantee:"Historical backtest · no guarantee of future results"}
 };
 let lang='ar',view='home',sortKey='profit',filterRisk=null,openName=null,showAll=false;
 const $=s=>document.querySelector(s),t=k=>I[lang][k];
@@ -449,6 +659,7 @@ function stratCard(s){const up=s.bankroll>=100;const cls=s.disabled?'lose':(s.ti
  <div class="top"><div class="nm">${s.name.split('__')[0]}</div>${tierBadge(s)}</div>
  <div class="mid"><div class="bank ${up?'up':'dn'}">${money(s.bankroll)}</div>
  <div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%) · <b>${s.wins}</b>–${s.losses} · ${wr}%</div></div>
+ ${s.backtest?`<div class="why">${t('backtestNoGuarantee')}</div>`:''}
  ${sparkline(s.spark,240,30)}
  <div class="foot"><span><b>${s.bets}</b> ${t('bets')} · avg ${s.avg_odds}</span>
  ${s.today_bets?`<span class="today">🎯 ${s.today_bets} ${t('todayB')}</span>`:`<span>${s.days} ${t('days')}</span>`}</div></div>`}
@@ -574,7 +785,7 @@ def build_icon(path: Path):
 
 
 def main():
-    today = date.today().isoformat()
+    today = datetime.now(portfolio.BERLIN_TZ).date().isoformat()
     data = gather(today)
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     (OUT_DIR / "index.html").write_text(HTML.replace("__DATA__", json.dumps(data, ensure_ascii=False)), encoding="utf-8")

@@ -1,0 +1,25 @@
+[Unit]
+Description=Retry yesterday's Strategy-Pred Telegram summary after result-resolution cycles
+
+[Timer]
+# Odd-hour UTC attempts land well after each even-hour trusted resolver cycle
+# in both CET and CEST. Retrying allows delayed official results; the wrapper
+# refuses PENDING/conflicts, while the publisher audit prevents duplicates.
+OnCalendar=*-*-* 01:50:00 UTC
+OnCalendar=*-*-* 03:50:00 UTC
+OnCalendar=*-*-* 05:50:00 UTC
+OnCalendar=*-*-* 07:50:00 UTC
+OnCalendar=*-*-* 09:50:00 UTC
+OnCalendar=*-*-* 11:50:00 UTC
+OnCalendar=*-*-* 13:50:00 UTC
+OnCalendar=*-*-* 15:50:00 UTC
+OnCalendar=*-*-* 17:50:00 UTC
+OnCalendar=*-*-* 19:50:00 UTC
+OnCalendar=*-*-* 21:50:00 UTC
+Persistent=yes
+RandomizedDelaySec=2min
+AccuracySec=30s
+Unit=strategy-pred-telegram-summary.service
+
+[Install]
+WantedBy=timers.target

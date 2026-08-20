@@ -1,0 +1,66 @@
+[Unit]
+Description=Publish the immutable Strategy-Pred daily portfolio to Telegram
+Documentation=file:/root/strategy-pred/deploy/run_telegram_daily.sh
+Wants=network-online.target
+After=network-online.target strategy-pred-cycle.service
+ConditionPathIsDirectory=/root/strategy-pred
+ConditionPathExists=/root/strategy-pred/data/betting_journal.db
+ConditionPathExists=/etc/strategy-pred/telegram_bot_token
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+WorkingDirectory=/root/strategy-pred
+LoadCredential=telegram_bot_token:/etc/strategy-pred/telegram_bot_token
+Environment=PYTHONUNBUFFERED=1
+Environment=PYTHONDONTWRITEBYTECODE=1
+Environment=TZ=Europe/Berlin
+ExecStart=/usr/bin/bash /root/strategy-pred/deploy/run_telegram_daily.sh
+
+TimeoutStartSec=5min
+TimeoutStopSec=30s
+KillMode=control-group
+KillSignal=SIGTERM
+MemoryMax=384M
+CPUQuota=50%
+Nice=10
+TasksMax=64
+OOMPolicy=stop
+LimitCORE=0
+
+RuntimeDirectory=strategy-pred strategy-pred-telegram
+RuntimeDirectoryMode=0750
+UMask=0077
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=read-only
+ProtectKernelTunables=yes
+ProtectKernelModules=yes
+ProtectKernelLogs=yes
+ProtectControlGroups=yes
+ProtectClock=yes
+ProtectHostname=yes
+ProtectProc=invisible
+ProcSubset=pid
+LockPersonality=yes
+RestrictRealtime=yes
+RestrictSUIDSGID=yes
+RestrictNamespaces=yes
+CapabilityBoundingSet=
+AmbientCapabilities=
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+SystemCallArchitectures=native
+RemoveIPC=yes
+KeyringMode=private
+
+ReadWritePaths=/root/strategy-pred/data
+ReadWritePaths=/root/strategy-pred/reports
+ReadWritePaths=/run/strategy-pred
+ReadWritePaths=/run/strategy-pred-telegram
+
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=strategy-pred-telegram-daily

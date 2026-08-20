@@ -1,0 +1,13 @@
+[Unit]
+Description=Publish the Strategy-Pred dashboard after each trusted data cycle
+
+[Timer]
+# The trusted cycle starts at :15 on even UTC hours and is capped at 45 minutes.
+OnCalendar=*-*-* 01/2:08:00 UTC
+Persistent=false
+RandomizedDelaySec=2min
+AccuracySec=1min
+Unit=strategy-pred-pages.service
+
+[Install]
+WantedBy=timers.target
