@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#0b1220"><meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>استراتيجي برو</title><link rel="manifest" href="manifest.json">
+<style>
+/* ── Clean modern design system (2026-06-27): calmer palette, more whitespace,
+      simpler cards, clear hierarchy. Winners surfaced, losers tucked away. ── */
+:root{--bg:#0b1120;--surface:#151c2e;--surface2:#1c2640;--line:#243049;
+--txt:#f1f5fb;--mut:#94a3bd;--faint:#5e6b85;
+--green:#34d399;--green-dim:#10894f;--red:#f87171;--gold:#fbbf24;--accent:#60a5fa}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--txt);
+line-height:1.55;padding-bottom:72px;font-size:15px}
+.wrap{max-width:640px;margin:0 auto;padding:14px 14px 0}
+/* header */
+.hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;
+background:rgba(11,17,32,.85);backdrop-filter:blur(10px);position:sticky;top:0;z-index:30;border-bottom:1px solid var(--line)}
+.hd h1{font-size:18px;font-weight:800;letter-spacing:-.3px}
+.hd h1 b{color:var(--accent)}
+.hd .r{display:flex;gap:8px;align-items:center}
+.iconbtn{background:transparent;border:1px solid var(--line);color:var(--mut);width:36px;height:36px;
+border-radius:11px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;font-weight:700;transition:.15s}
+.iconbtn:active{background:var(--surface2);color:var(--txt)}
+/* summary strip */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 8px}
+.stat{background:var(--surface);border-radius:14px;padding:14px 8px;text-align:center}
+.stat .v{font-size:21px;font-weight:800;letter-spacing:-.5px}.stat .l{font-size:11px;color:var(--mut);margin-top:3px}
+/* section heading */
+.sec{font-size:13px;font-weight:700;color:var(--mut);margin:26px 4px 12px;text-transform:none;
+display:flex;align-items:center;justify-content:space-between;letter-spacing:.2px}
+.sec .cnt{font-size:12px;color:var(--faint);font-weight:600}
+/* hero best bet */
+.hero{background:linear-gradient(150deg,#10271d,#0f1a2c);border:1px solid var(--green-dim);border-radius:20px;
+padding:18px;margin:6px 0 4px;box-shadow:0 6px 24px rgba(16,137,79,.12)}
+.hero .lbl{font-size:12px;color:var(--green);font-weight:700;display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.hero .mtch{font-size:15px;font-weight:600;color:var(--mut);margin-bottom:14px;line-height:1.4}
+.hero .row{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.hero .pk{font-size:18px;font-weight:800;color:var(--txt)}
+.hero .od{background:var(--green);color:#06281a;padding:8px 18px;border-radius:12px;font-weight:800;font-size:20px;min-width:74px;text-align:center}
+.hero .why{font-size:12px;color:var(--mut);margin-top:14px;padding-top:13px;border-top:1px solid rgba(255,255,255,.06);line-height:1.5}
+/* pick card — minimal */
+.pick{background:var(--surface);border-radius:16px;padding:15px 16px;margin:10px 0;transition:.15s}
+.pick:active{background:var(--surface2)}
+.pick .teams{display:flex;align-items:center;gap:8px;font-size:15px;flex-wrap:wrap}
+.pick .me{font-weight:800;color:var(--green)}
+.pick .vs{color:var(--faint);font-size:13px}.pick .ot{color:var(--mut);font-weight:500}
+.pick .od{margin-inline-start:auto;background:var(--surface2);color:var(--gold);padding:5px 12px;border-radius:10px;font-weight:800;font-size:15px}
+.pick .meta{display:flex;justify-content:space-between;align-items:center;margin-top:11px;font-size:12px;color:var(--mut)}
+.pick .tag{font-size:11px;color:var(--faint)}
+.pick .pay b{color:var(--green)}
+.pick .why{font-size:12px;color:var(--accent);margin-top:9px}
+/* strategy card — clean */
+.scard{background:var(--surface);border-radius:16px;padding:15px 16px;margin:10px 0;cursor:pointer;transition:.15s;border-inline-start:3px solid transparent}
+.scard:active{background:var(--surface2)}
+.scard.win{border-inline-start-color:var(--green)}
+.scard.lose{opacity:.62}
+.scard .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.scard .nm{font-weight:700;font-size:14.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.scard .tier{font-size:10px;padding:2px 8px;border-radius:20px;font-weight:700;white-space:nowrap}
+.tier.win{background:rgba(52,211,153,.14);color:var(--green)}
+.tier.lose{background:rgba(248,113,113,.12);color:var(--red)}
+.tier.cut{background:rgba(248,113,113,.12);color:var(--red)}
+.scard .mid{display:flex;align-items:baseline;gap:10px;margin-top:12px}
+.bank{font-size:24px;font-weight:800;letter-spacing:-.5px}
+.bank.up{color:var(--green)}.bank.dn{color:var(--red)}
+.scard .rec{font-size:13px;color:var(--mut)}.scard .rec b{color:var(--txt);font-weight:700}
+.spark{height:30px;width:100%;margin-top:12px;display:block}
+.scard .foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:11.5px;color:var(--faint)}
+.scard .today{color:var(--gold);font-weight:600}
+/* match history row */
+.mrow{display:flex;align-items:center;gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
+.mrow:last-child{border:none}
+.mrow .res{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.mrow .res.w{background:var(--green)}.mrow .res.l{background:var(--red)}
+.mrow .info{flex:1;min-width:0}
+.mrow .tm{font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mrow .me{font-weight:700;color:var(--txt)}.mrow .ot{color:var(--mut)}
+.mrow .sub{font-size:11px;color:var(--faint);margin-top:2px}
+.mrow .sc{font-weight:800;font-size:14px;white-space:nowrap}
+.mrow .od2{font-size:12px;color:var(--mut);min-width:38px;text-align:end}
+/* detail header */
+.back{display:inline-flex;align-items:center;gap:6px;cursor:pointer;color:var(--accent);font-weight:600;font-size:14px;padding:10px 0}
+.dhead{background:var(--surface);border-radius:18px;padding:18px;margin-bottom:6px}
+.dhead .nm{font-size:18px;font-weight:800;margin-bottom:4px}
+.dhead .big{font-size:30px;font-weight:800;letter-spacing:-1px;margin:8px 0 2px}
+.dgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px}
+.dgrid .c{background:var(--surface2);border-radius:11px;padding:10px 6px;text-align:center}
+.dgrid .c .v{font-size:16px;font-weight:800}.dgrid .c .l{font-size:10px;color:var(--mut);margin-top:2px}
+/* menu sheet */
+.menu-modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:none;align-items:flex-end}
+.menu-modal.open{display:flex}
+.menu-panel{background:var(--surface);width:100%;max-width:640px;margin:0 auto;padding:20px 18px calc(20px + env(safe-area-inset-bottom));
+border-radius:22px 22px 0 0}
+.menu-panel h3{font-size:15px;margin-bottom:14px;font-weight:700}
+.menu-opt{padding:14px 15px;border-radius:13px;cursor:pointer;margin-bottom:8px;background:var(--surface2);transition:.15s}
+.menu-opt:active{background:var(--line)}
+.menu-opt .t{font-weight:700;font-size:14px}.menu-opt .d{font-size:12px;color:var(--mut);margin-top:2px}
+.empty{text-align:center;color:var(--faint);padding:48px 20px;font-size:14px}
+/* bottom nav */
+.bottombar{position:fixed;bottom:0;left:0;right:0;background:rgba(21,28,46,.92);backdrop-filter:blur(12px);
+border-top:1px solid var(--line);display:flex;z-index:40;max-width:640px;margin:0 auto;padding-bottom:env(safe-area-inset-bottom)}
+.bb{flex:1;text-align:center;padding:11px 0 13px;color:var(--faint);cursor:pointer;font-size:11px;font-weight:600;transition:.15s}
+.bb svg{width:22px;height:22px;fill:currentColor;margin-bottom:3px;display:block;margin-inline:auto}.bb.active{color:var(--accent)}
+.foot{text-align:center;font-size:11px;color:var(--faint);padding:20px}
+.hide{display:none!important}
+/* lock */
+.lock{position:fixed;inset:0;background:var(--bg);z-index:100;display:flex;
+flex-direction:column;align-items:center;justify-content:center;padding:30px}
+.lock .logo{font-size:46px;margin-bottom:10px}.lock h2{font-size:22px;font-weight:800;margin-bottom:6px}
+.lock h2 b{color:var(--accent)}
+.lock .sub{font-size:13px;color:var(--mut);margin-bottom:26px}
+.lock input{width:210px;text-align:center;background:var(--surface);border:1px solid var(--line);color:var(--txt);
+font-size:24px;letter-spacing:10px;padding:15px;border-radius:14px;outline:none;font-weight:800;transition:.15s}
+.lock input:focus{border-color:var(--accent)}
+.lock button{margin-top:16px;background:var(--accent);color:#06203f;border:none;
+padding:14px 40px;border-radius:14px;font-weight:800;font-size:15px;cursor:pointer}
+.lock .err{color:var(--red);font-size:13px;margin-top:12px;min-height:18px}
+</style></head><body>
+<div class="lock" id="lock"><div class="logo">⚡</div><h2>استراتيجي <b>برو</b></h2>
+<div class="sub" id="lkSub">أدخل الرقم السري</div>
+<input type="password" id="pin" inputmode="numeric" maxlength="8" autofocus>
+<button id="pinBtn" onclick="checkPin()">دخول</button>
+<div class="err" id="pinErr"></div></div>
+<div class="hd"><h1 id="title">⚡ استراتيجي <b>برو</b></h1>
+<div class="r"><div class="iconbtn" id="refreshBtn" title="تحديث">⟳</div><div class="iconbtn" id="langBtn">EN</div><div class="iconbtn" id="menuBtn">⋮</div></div></div>
+<div class="wrap" id="app"></div>
+<div class="bottombar">
+<div class="bb active" data-v="home"><svg viewBox="0 0 24 24"><path d="M12 3l9 8h-3v9h-4v-6H10v6H6v-9H3z"/></svg><span data-i="home"></span></div>
+<div class="bb" data-v="picks"><svg viewBox="0 0 24 24"><path d="M12 2l3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg><span data-i="picks"></span></div>
+<div class="bb" data-v="history"><svg viewBox="0 0 24 24"><path d="M13 3a9 9 0 00-9 9H1l3.9 3.9L5 16l4-4H6a7 7 0 117 7 7 7 0 01-5-2l-1.4 1.4A9 9 0 1013 3zm-1 5v5l4.3 2.5.7-1.2-3.5-2V8z"/></svg><span data-i="history"></span></div>
+</div>
+<div class="menu-modal" id="menuModal"><div class="menu-panel" id="menuPanel"></div></div>
+<script>
+const D={"today": "2026-08-20", "generated": "2026-08-20T06:28:38+00:00", "selection_source": "dynamic_legacy_policy", "performance_basis": "audited_backtest_no_guarantee", "headline": {"strategies": 1, "bets": 4281, "wins": 1559, "profit": 939.57, "winrate": 36.4}, "best": {"sport": "darts", "league": "Modus Super Series. 2026", "home": "Killian Heffernan", "away": "Dylan Slevin", "pick": "Killian Heffernan", "odds": 2.65, "strategy": "nova_fade_favorite__xbet_linefeed", "source": "xbet_linefeed", "real": true, "approved": true, "official_lock": false, "event_id": "745608037", "pay10": 26.5, "rat_ar": "مكافحة المفضّل المُبالغ تسعيره", "rat_en": "Fading the overpriced favorite", "status": "upcoming", "start_utc": "2026-08-20T15:40:00Z", "trust": 68}, "strategies": [{"name": "nova_fade_favorite__xbet_linefeed", "source": "xbet_linefeed", "bets": 4281, "wins": 1559, "losses": 2722, "bankroll": 1039.57, "profit": 939.57, "roi": 21.95, "days": 47, "avg_odds": 3.49, "trust": 68, "streak": 0, "streak_kind": "w", "risk": "bold", "tier": "winner", "spark": [], "disabled": false, "backtest": true, "backtest_no_guarantee": true, "today_bets": 5}], "strat_map": {"nova_fade_favorite__xbet_linefeed": {"name": "nova_fade_favorite__xbet_linefeed", "source": "xbet_linefeed", "bets": 4281, "wins": 1559, "losses": 2722, "bankroll": 1039.57, "profit": 939.57, "roi": 21.95, "days": 47, "avg_odds": 3.49, "trust": 68, "streak": 0, "streak_kind": "w", "risk": "bold", "tier": "winner", "spark": [], "disabled": false, "backtest": true, "backtest_no_guarantee": true, "today_bets": 5}}, "today_by_base": {"nova_fade_favorite": [{"h": "Killian Heffernan", "a": "Dylan Slevin", "p": "Killian Heffernan", "o": 2.65, "s": "darts", "lg": "Modus Super Series", "pay": 26.5}, {"h": "Volzhanin", "a": "Yugra-Samotlor", "p": "Volzhanin", "o": 2.66, "s": "volleyball", "lg": "Platonov Memorial ", "pay": 26.6}, {"h": "An Giang (Youth)", "a": "Vinh Long (Youth)", "p": "An Giang (Youth)", "o": 2.69, "s": "volleyball", "lg": "Vietnam Championsh", "pay": 26.9}, {"h": "Lewis Gurney", "a": "Jose de Sousa", "p": "Lewis Gurney", "o": 2.77, "s": "darts", "lg": "Modus Super Series", "pay": 27.7}, {"h": "Sandgate-Redcliffe (Women)", "a": "Wynnum-Manly (Women)", "p": "Sandgate-Redcliffe (Women)", "o": 2.79, "s": "cricket", "lg": "KFC T20 MAX. Women", "pay": 27.9}]}, "matches": {"nova_fade_favorite__xbet_linefeed": []}, "picks": [{"sport": "darts", "league": "Modus Super Series. 2026", "home": "Killian Heffernan", "away": "Dylan Slevin", "pick": "Killian Heffernan", "odds": 2.65, "strategy": "nova_fade_favorite__xbet_linefeed", "source": "xbet_linefeed", "real": true, "approved": true, "official_lock": false, "event_id": "745608037", "pay10": 26.5, "rat_ar": "مكافحة المفضّل المُبالغ تسعيره", "rat_en": "Fading the overpriced favorite", "status": "upcoming", "start_utc": "2026-08-20T15:40:00Z"}, {"sport": "volleyball", "league": "Platonov Memorial Tournament", "home": "Volzhanin", "away": "Yugra-Samotlor", "pick": "Volzhanin", "odds": 2.66, "strategy": "nova_fade_favorite__xbet_linefeed", "source": "xbet_linefeed", "real": true, "approved": true, "official_lock": false, "event_id": "745604933", "pay10": 26.6, "rat_ar": "مكافحة المفضّل المُبالغ تسعيره", "rat_en": "Fading the overpriced favorite", "status": "upcoming", "start_utc": "2026-08-20T10:00:00Z"}, {"sport": "volleyball", "league": "Vietnam Championship. Youth League", "home": "An Giang (Youth)", "away": "Vinh Long (Youth)", "pick": "An Giang (Youth)", "odds": 2.69, "strategy": "nova_fade_favorite__xbet_linefeed", "source": "xbet_linefeed", "real": true, "approved": true, "official_lock": false, "event_id": "745550543", "pay10": 26.9, "rat_ar": "مكافحة المفضّل المُبالغ تسعيره", "rat_en": "Fading the overpriced favorite", "status": "upcoming", "start_utc": "2026-08-20T13:00:00Z"}, {"sport": "darts", "league": "Modus Super Series. 2026", "home": "Lewis Gurney", "away": "Jose de Sousa", "pick": "Lewis Gurney", "odds": 2.77, "strategy": "nova_fade_favorite__xbet_linefeed", "source": "xbet_linefeed", "real": true, "approved": true, "official_lock": false, "event_id": "745654106", "pay10": 27.7, "rat_ar": "مكافحة المفضّل المُبالغ تسعيره", "rat_en": "Fading the overpriced favorite", "status": "upcoming", "start_utc": "2026-08-20T21:30:00Z"}, {"sport": "cricket", "league": "KFC T20 MAX. Women", "home": "Sandgate-Redcliffe (Women)", "away": "Wynnum-Manly (Women)", "pick": "Sandgate-Redcliffe (Women)", "odds": 2.79, "strategy": "nova_fade_favorite__xbet_linefeed", "source": "xbet_linefeed", "real": true, "approved": true, "official_lock": false, "event_id": "745629507", "pay10": 27.9, "rat_ar": "مكافحة المفضّل المُبالغ تسعيره", "rat_en": "Fading the overpriced favorite", "status": "upcoming", "start_utc": "2026-08-20T08:15:00Z"}], "awaiting_result": 0},FLAT=4;
+const I={
+ ar:{title:"⚡ استراتيجي برو",home:"الرئيسية",picks:"توقعات اليوم",history:"السجل",
+   bestBet:"⭐ أفضل رهان اليوم",monitor:"مراقبة الاستراتيجيات",todayPicks:"توقعات اليوم",
+   historyLog:"سجلّ النتائج",profit:"ربح",bankroll:"رأس المال",record:"السجل",days:"أيام",
+   trust:"ثقة",roi:"العائد",bets:"رهانات",strategies:"استراتيجيات",winrate:"نسبة الفوز",
+   odds:"السعر",noData:"لا توجد بيانات بعد",myPick:"رهاني",score:"النتيجة",won:"فاز",lost:"خسر",
+   bet10:"اراهن ١٠",win10:"تكسب",why:"لماذا؟",real:"odds حقيقية",safe:"آمن",balanced:"متوازن",bold:"جريء",
+   mProfit:"أعلى ربحاً",mWin:"أعلى نسبة فوز",mTrust:"الأكثر ثقة",mSafe:"الآمنة فقط",
+   mProfitD:"رتّب الاستراتيجيات حسب صافي الربح",mWinD:"رتّب حسب نسبة الفوز",mTrustD:"رتّب حسب درجة الثقة",
+   mSafeD:"أظهر الاستراتيجيات الآمنة فقط",sortMenu:"ترتيب وفلترة",streakW:"فوز متتالي",streakL:"خسارة متتالية",
+   tapHint:"اضغط لرؤية المباريات",netPro:"صافي الربح",allRes:"كل النتائج",cut:"مُقصاة",next24:"24 ساعة القادمة",todayB:"رهان اليوم",
+   winner:"رابح",loser:"خاسر",topStrats:"الاستراتيجيات الرابحة",otherStrats:"باقي الاستراتيجيات",matches:"مباراة",
+   backtestNoGuarantee:"Backtest تاريخي · لا ضمان للنتائج المستقبلية"},
+ en:{title:"⚡ Strategy Pro",home:"Home",picks:"Today",history:"History",
+   bestBet:"⭐ Best Bet Today",monitor:"Strategy Monitor",todayPicks:"Today's Picks",
+   historyLog:"Results Log",profit:"Profit",bankroll:"Bankroll",record:"Record",days:"days",
+   trust:"Trust",roi:"ROI",bets:"bets",strategies:"strategies",winrate:"Win rate",
+   odds:"Odds",noData:"No data yet",myPick:"my pick",score:"Score",won:"WON",lost:"LOST",
+   bet10:"Bet 10",win10:"win",why:"Why?",real:"real odds",safe:"Safe",balanced:"Balanced",bold:"Bold",
+   mProfit:"Top Profit",mWin:"Top Win Rate",mTrust:"Most Trusted",mSafe:"Safe only",
+   mProfitD:"Sort strategies by net profit",mWinD:"Sort by win rate",mTrustD:"Sort by trust score",
+   mSafeD:"Show only safe strategies",sortMenu:"Sort & Filter",streakW:"win streak",streakL:"loss streak",
+   tapHint:"Tap to view matches",netPro:"Net profit",allRes:"All results",cut:"CUT",next24:"Next 24h",todayB:"today",
+   winner:"WIN",loser:"LOSS",topStrats:"Winning Strategies",otherStrats:"Other Strategies",matches:"matches",
+   backtestNoGuarantee:"Historical backtest · no guarantee of future results"}
+};
+let lang='ar',view='home',sortKey='profit',filterRisk=null,openName=null,showAll=false;
+const $=s=>document.querySelector(s),t=k=>I[lang][k];
+function setLang(l){lang=l;document.documentElement.lang=l;document.documentElement.dir=l=='ar'?'rtl':'ltr';
+ $('#langBtn').textContent=l=='ar'?'EN':'ع';$('#title').textContent=t('title');
+ document.querySelectorAll('[data-i]').forEach(e=>e.textContent=t(e.dataset.i));render()}
+function money(n){return'$'+Math.round(Math.abs(n))+(n<0?'-':'')}
+function sign(n){return(n>=0?'+':'')+Math.round(n)}
+function esc(s){return String(s).replace(/'/g,"\\'")}
+function tierBadge(s){if(s.disabled)return`<span class="tier cut">${t('cut')}</span>`;
+ if(s.tier==='winner')return`<span class="tier win">✓ ${t('winner')}</span>`;
+ if(s.tier==='loser')return`<span class="tier lose">${t('loser')}</span>`;return''}
+function sparkline(arr,w,h){if(!arr||arr.length<2)return'';const mn=Math.min(...arr),mx=Math.max(...arr),rg=(mx-mn)||1;
+ const pts=arr.map((v,i)=>`${(i/(arr.length-1)*w).toFixed(1)},${(h-(v-mn)/rg*h).toFixed(1)}`).join(' ');
+ const up=arr[arr.length-1]>=arr[0];return`<svg class="spark" viewBox="0 0 ${w} ${h}" preserveAspectRatio="none">
+ <polyline points="${pts}" fill="none" stroke="${up?'var(--green)':'var(--red)'}" stroke-width="2" stroke-linejoin="round"/></svg>`}
+function heroCard(){const b=D.best;if(!b)return'';
+ return`<div class="hero"><div class="lbl">⭐ ${t('bestBet')}</div>
+ <div class="mtch">${b.home} <span class="vs">—</span> ${b.away} · ${b.sport}</div>
+ <div class="row"><div class="pk">${b.pick}</div><div class="od">${b.odds}</div></div>
+ ${b.rat_ar?`<div class="why">${lang=='ar'?b.rat_ar:b.rat_en}</div>`:''}</div>`}
+function pickCard(p){const isH=p.pick===p.home;
+ return`<div class="pick"><div class="teams">
+ <span class="${isH?'me':'ot'}">${p.home}</span><span class="vs">vs</span><span class="${!isH?'me':'ot'}">${p.away}</span>
+ <span class="od">${p.odds}</span></div>
+ <div class="meta"><span class="tag">${p.sport}${p.league?' · '+p.league.slice(0,20):''}</span>
+ <span class="pay">${t('bet10')} → <b>${money(p.pay10)}</b></span></div>
+ ${p.rat_ar?`<div class="why">${lang=='ar'?p.rat_ar:p.rat_en}</div>`:''}</div>`}
+function stratCard(s){const up=s.bankroll>=100;const cls=s.disabled?'lose':(s.tier==='winner'?'win':(s.tier==='loser'?'lose':''));
+ const wr=s.bets?Math.round(s.wins/s.bets*100):0;
+ return`<div class="scard ${cls}" onclick="showStrat('${esc(s.name)}')">
+ <div class="top"><div class="nm">${s.name.split('__')[0]}</div>${tierBadge(s)}</div>
+ <div class="mid"><div class="bank ${up?'up':'dn'}">${money(s.bankroll)}</div>
+ <div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%) · <b>${s.wins}</b>–${s.losses} · ${wr}%</div></div>
+ ${s.backtest?`<div class="why">${t('backtestNoGuarantee')}</div>`:''}
+ ${sparkline(s.spark,240,30)}
+ <div class="foot"><span><b>${s.bets}</b> ${t('bets')} · avg ${s.avg_odds}</span>
+ ${s.today_bets?`<span class="today">🎯 ${s.today_bets} ${t('todayB')}</span>`:`<span>${s.days} ${t('days')}</span>`}</div></div>`}
+function matchRow(m){const isHome=m.p===m.h;
+ return`<div class="mrow"><div class="res ${m.w?'w':'l'}"></div>
+ <div class="info"><div class="tm"><span class="${isHome?'me':'ot'}">${m.h}</span> <span style="color:var(--faint)">vs</span> <span class="${!isHome?'me':'ot'}">${m.a}</span></div>
+ <div class="sub">${m.d||''} · ${m.s||''}</div></div>
+ <div class="sc">${m.hs}–${m.as}</div><div class="od2">${m.o}</div></div>`}
+function render(){
+ const h=D.headline,a=$('#app');let x='';
+ if(view==='home'){
+  x+=`<div class="stats"><div class="stat"><div class="v">${h.winrate}%</div><div class="l">${t('winrate')}</div></div>
+  <div class="stat"><div class="v ${h.profit>=0?'up':'dn'}" style="color:${h.profit>=0?'var(--green)':'var(--red)'}">${sign(h.profit)}</div><div class="l">${t('netPro')}</div></div>
+  <div class="stat"><div class="v">${h.bets}</div><div class="l">${t('bets')}</div></div></div>`;
+  x+=heroCard();
+  x+=`<div class="sec">${t('todayPicks')}<span class="cnt">${D.picks.length}</span></div>`;
+  x+=D.picks.length?D.picks.slice(0,18).map(pickCard).join(''):`<div class="empty">${t('noData')}</div>`;
+  // strategy monitor — winners first, losers collapsed
+  let strs=[...D.strategies];
+  if(sortKey==='profit')strs.sort((a,b)=>b.profit-a.profit);
+  else if(sortKey==='win')strs.sort((a,b)=>(b.wins/b.bets)-(a.wins/a.bets));
+  else strs.sort((a,b)=>b.profit-a.profit);
+  const wins=strs.filter(s=>s.tier==='winner'&&!s.disabled);
+  const rest=strs.filter(s=>!(s.tier==='winner'&&!s.disabled));
+  x+=`<div class="sec">${t('topStrats')}<span class="cnt">${wins.length}</span></div>`;
+  x+=wins.length?wins.map(stratCard).join(''):`<div class="empty">${t('noData')}</div>`;
+  if(rest.length){x+=`<div class="sec" onclick="showAll=!showAll;render()" style="cursor:pointer">${t('otherStrats')}<span class="cnt">${rest.length} ${showAll?'▲':'▼'}</span></div>`;
+   if(showAll)x+=rest.map(stratCard).join('');}
+ }else if(view==='picks'){
+  x+=`<div class="sec">${t('todayPicks')}<span class="cnt">${D.today}</span></div>`;
+  x+=D.picks.length?D.picks.map(pickCard).join(''):`<div class="empty">${t('noData')}</div>`;
+ }else if(view==='history'){
+  x+=`<div class="sec">${t('historyLog')}</div>`;
+  const all=Object.entries(D.matches).flatMap(([n,ms])=>ms.map(m=>({...m,s:n}))).sort((a,b)=>(b.d||'').localeCompare(a.d||''));
+  x+=all.length?all.slice(0,80).map(matchRow).join(''):`<div class="empty">${t('noData')}</div>`;}
+ a.innerHTML=x+`<div class="foot">${t('allRes')} · ${D.generated.slice(0,10)}</div>`;
+ document.querySelectorAll('.bb').forEach(b=>b.classList.toggle('active',b.dataset.v===view));}
+function openMenu(){$('#menuPanel').innerHTML=`<h3>${t('sortMenu')}</h3>
+ <div class="menu-opt" onclick="setSort('profit')"><div class="t">💰 ${t('mProfit')}</div></div>
+ <div class="menu-opt" onclick="setSort('win')"><div class="t">🎯 ${t('mWin')}</div></div>`;
+ $('#menuModal').classList.add('open');}
+function setSort(k){sortKey=k;closeMenu();render()}
+function closeMenu(){$('#menuModal').classList.remove('open')}
+window.showStrat=function(n){openName=n;const s=D.strategies.find(x=>x.name===n);if(!s)return;
+ const ms=D.matches[n]||[];const up=s.bankroll>=100;const wr=s.bets?Math.round(s.wins/s.bets*100):0;
+ const tp=D.today_by_base[n.split('__')[0]]||[];
+ $('#app').innerHTML=`<div class="back" onclick="openName=null;render()">← ${t('topStrats')}</div>
+ <div class="dhead"><div class="nm">${s.name.split('__')[0]} ${tierBadge(s)}</div>
+ <div class="big ${up?'bank up':'bank dn'}">${money(s.bankroll)}</div>
+ <div class="rec">${sign(s.profit)} (${s.roi>=0?'+':''}${s.roi}%) · ${t('netPro')}</div>
+ ${sparkline(s.spark,280,36)}
+ <div class="dgrid"><div class="c"><div class="v">${wr}%</div><div class="l">${t('winrate')}</div></div>
+ <div class="c"><div class="v">${s.wins}–${s.losses}</div><div class="l">${t('record')}</div></div>
+ <div class="c"><div class="v">${s.avg_odds}</div><div class="l">${t('odds')}</div></div></div></div>
+ ${tp.length?`<div class="sec">${t('todayPicks')}<span class="cnt">${tp.length}</span></div>`+tp.map(p=>{const isH=p.p===p.h;
+  return`<div class="pick"><div class="teams"><span class="${isH?'me':'ot'}">${p.h}</span><span class="vs">vs</span><span class="${!isH?'me':'ot'}">${p.a}</span><span class="od">${p.o}</span></div>
+  <div class="meta"><span class="tag">${p.s}${p.lg?' · '+p.lg:''}</span><span class="pay">${t('bet10')} → <b>${money(p.pay)}</b></span></div></div>`}).join(''):''}
+ <div class="sec">${t('historyLog')}<span class="cnt">${ms.length}</span></div>
+ ${ms.length?ms.slice().reverse().map(matchRow).join(''):`<div class="empty">${t('noData')}</div>`}`;
+ document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));window.scrollTo(0,0);}
+document.querySelectorAll('.bb').forEach(b=>b.addEventListener('click',()=>{view=b.dataset.v;openName=null;render()}));
+$('#langBtn').addEventListener('click',()=>setLang(lang==='ar'?'en':'ar'));
+$('#refreshBtn').addEventListener('click',()=>{const b=document.getElementById('refreshBtn');b.textContent='⏳';
+  // أعد تحميل أحدث بيانات من الخادم (تتجدد كل ساعتين تلقائياً)
+  location.reload(true);});
+$('#menuBtn').addEventListener('click',openMenu);
+$('#menuModal').addEventListener('click',e=>{if(e.target.id==='menuModal')closeMenu()});
+// لا service worker — التطبيق يُحمّل نسخة طازجة دائماً (أبسط وأضمن، لا مشاكل cache)
+// للتثبيت كأيقونة على الهاتف: Chrome ← قائمة ← "تثبيت التطبيق" / "Add to Home screen"
+const PIN='08031998';
+function checkPin(){const v=document.getElementById('pin').value;
+ if(v===PIN){sessionStorage.setItem('sp_auth','1');document.getElementById('lock').classList.add('hide');
+  setLang('ar');render();}else{document.getElementById('pinErr').textContent=
+   lang=='ar'?'رقم سري خاطئ، حاول مجدداً':'Wrong PIN, try again';
+   document.getElementById('pin').value='';}}
+document.getElementById('pin').addEventListener('keydown',e=>{if(e.key==='Enter')checkPin()});
+document.getElementById('pin').addEventListener('input',()=>document.getElementById('pinErr').textContent='');
+if(sessionStorage.getItem('sp_auth')==='1'){document.getElementById('lock').classList.add('hide');setLang('ar');render();}
+</script></body></html>
