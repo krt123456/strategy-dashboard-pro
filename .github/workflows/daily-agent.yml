@@ -1,6 +1,11 @@
 name: Deploy prebuilt strategy dashboard
 
 on:
+  # Validate immediately when this deployment contract itself changes.
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/daily-agent.yml"
   # The VPS cycle starts at :15 on even UTC hours and is capped at 45 minutes.
   # Its isolated publisher runs at :08 on the following odd hour, so :15 gives
   # that push a small buffer without making GitHub rebuild from the SQLite DB.
